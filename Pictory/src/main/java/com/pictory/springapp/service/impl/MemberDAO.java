@@ -9,6 +9,7 @@ import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -30,34 +31,31 @@ public class MemberDAO {
 	@Autowired
 	private SqlSessionFactory sqlMapper;
 	
+	@Autowired
+	private SqlSessionTemplate template;
+
+	public String isLogin(Map map) {
+		System.out.println("@@@@@@@isLogin@@@@@@MAP:"+map);
+		return template.selectOne("memberIsLogin", map);
+	}
 	
+	
+	public boolean isExist(Map map) {
+		System.out.println("@@@@@@isExist:"+map);
+		int count = template.selectOne("memberCheck", map);
+		return count == 1;
+	}
+	/*
 	public boolean isLogin(Map map) {
 		System.out.println("@@MemberDAO_isLogin@@");
 		SqlSession session= sqlMapper.openSession();
 		int count= session.selectOne("memberIsLogin", map);
 		System.out.println("map:"+map);
+		System.out.println("count:"+count);
+		System.out.println("session:"+session);
 		session.close();
 		return count==1 ? true:false;
-	}
+	}*/
 
-
-	public MemberDTO readMember(String id) {
-		// TODO Auto-generated method stub
-		SqlSession session= sqlMapper.openSession();
-		MemberDTO memberDTO = session.selectOne("readMember", id);
-		return memberDTO;
-	}
-
-
-	public void updateMember(MemberDTO dto) {
-		SqlSession session= sqlMapper.openSession();
-		session.update("updateMember", dto);
-	}
-	
-	public void updateMemberPassword(MemberDTO dto) {
-
-		SqlSession session= sqlMapper.openSession();
-		session.update("updateMemberPassword", dto);
-	}
 		
 }

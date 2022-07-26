@@ -4,7 +4,6 @@ const chks = document.querySelectorAll('.chk');
 const chkBoxLength = chks.length;
 var accept = document.querySelector(".fpmgBt2");
 var agreeMsg = document.querySelector("#agreeMsg");
-var nonagree = document.querySelector("fpmgBt1");
 
 
 checkAll.addEventListener('click', function(event) {
@@ -19,11 +18,6 @@ checkAll.addEventListener('click', function(event) {
     })
     }
   });
-
-  nonagree.addEventListener('click',function(e){
-    return 
-  });
-
 
 
     for (chk of chks){

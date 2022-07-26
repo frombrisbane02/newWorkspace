@@ -1,91 +1,102 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
-<div class="container">
-	<div class="jumbotron bg-light">
-		<h1>
-			회원가입<small>회원가입 하세요</small> ${requestScope.errMsg}
-		</h1>
-	</div>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+    
 
-	<div class="container">
-	 	<form action="javascript:" method="post" id="joinForm">
-	 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-	 		
-			<div class="form-inline my-2">
-				<span class="col-2 mr-2 text-right" style="font-size:16px">아이디</span>
-				<input type="text" class="form-control col-4 mr-2" name="id" placeholder="아이디를 입력하세요">
-				<a onclick=checkId(true) class="col-1 btn btn-primary">중복확인</a>
-			</div>
-			<div class="form-inline my-2">
-				<span class="col-2 mr-2 text-right" style="font-size:16px">비밀번호</span>
-				<input type="password" class="form-control col-4" name="pwd" placeholder="비밀번호를 입력하세요">
-			</div>
-			<div class="form-inline my-2">
-				<span class="col-2 mr-2 text-right" style="font-size:16px">비밀번호확인</span>
-				<input type="password" class="form-control col-4" name="pwd2" placeholder="비밀번호를 입력하세요">
-			</div>
-			<div class="form-inline my-2">
-				<span class="col-2 mr-2 text-right" style="font-size:16px">이름</span>
-				<input type="text" class="form-control col-4" name="name" placeholder="이름을 입력하세요">
-			</div>
-			<div class="form-inline my-2">
-				<span class="col-2 mr-2 text-right" style="font-size:16px">성별</span>
-				<div class="d-flex">
-					<div class="custom-control custom-radio mr-2">
-						<input type="radio" class="custom-control-input" name="gender" value="male" id="male"> 
-						<label for="male" class="custom-control-label">남자</label>
-					</div>
-					<div class="custom-control custom-radio">
-						<input type="radio" class="custom-control-input" name="gender" value="female" id="female"> 
-						<label for="female"	class="custom-control-label">여자</label>
-					</div>
-				</div>
-			</div>
-			<div class="form-inline my-2">
-				<span class="col-2 mr-2 text-right" style="font-size:16px">관심사항</span>
-				<div>
-					<div class="form-check">
-						<input class="form-check-input" type="checkbox" name="inter" id="POL" value="POL">
-						<label class="form-check-label" for="POL">정치</label>
-					</div>
-					<div class="form-check">
-						<input class="form-check-input" type="checkbox" name="inter" id="ECO" value="ECO">
-						<label class="form-check-label" for="ECO">경제</label>
-					</div>
-					<div class="form-check">
-						<input class="form-check-input" type="checkbox" name="inter" id="ENT" value="ENT">
-						<label class="form-check-label" for="ENT">연예</label>
-					</div>
-				</div>
-			</div>
-			
-			
+    <title>Sign up</title>
+</head>
+<style>
+.gradient-custom-3 {
+/* fallback for old browsers 
+background: #84fab0;
+background: -webkit-linear-gradient(to right, rgba(132, 250, 176, 0.5), rgba(143, 211, 244, 0.5));
+background: linear-gradient(to right, rgba(132, 250, 176, 0.5), rgba(143, 211, 244, 0.5))*/
+}
+.gradient-custom-4 {
 
+    border: none;
+    color: white;
+/* fallback for old browsers 
+background: #84fab0;
+background: -webkit-linear-gradient(to right, rgba(132, 250, 176, 1), rgba(143, 211, 244, 1));
+background: linear-gradient(to right, rgba(132, 250, 176, 1), rgba(143, 211, 244, 1))*/
+}
 
-			<div class="form-inline my-2">
-				<span class="col-2 mr-2 text-right" style="font-size:16px">학력</span>
-				<select name="grade" class="custom-select mt-3 custom-select-lg col-8">
-					<option value="">학력을 선택하세요</option>
-					<option value="ELE">초등학교</option>
-					<option value="MID">중학교</option>
-					<option value="HIG">고등학교</option>
-					<option value="UNI">대학교</option>
-				</select>
-			</div>
-			<div class="form-inline my-2">
-				<span class="col-2 mr-2 text-right" style="font-size:16px">자기소개</span>
-				<textarea class="form-control col-8" rows="5" name="self"></textarea>
-			</div>
-			<button type="submit" class="btn btn-primary">회원가입</button>
-		</form>
-	</div>
-	<!-- container -->
+</style>
+<body>
+    <div class="content">
+
+    <section class="vh-100 bg-image" style="background-image: url(img/login/signin-image.jpg);">
+    <div class="mask d-flex align-items-center h-100 gradient-custom-3">
+      <div class="container h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+          <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+            <div class="card" style="border-radius: 15px;">
+              <div class="card-body p-5">
+                <h2 class="text-uppercase text-center mb-5">Create an account</h2>
+  
+                <form action="javascript:" method="POST"  id="joinForm">
+  				
+  				<div class="form-outline mb-4">
+                    <input type="text" class="form-control form-control-lg" name="userId" placeholder="ID"/>
+                    <c:if test="${not empty idError}">${idError}</c:if>
+                  </div>
+                  <div class="form-outline mb-4">
+                    <input type="text" class="form-control form-control-lg" name="userName" placeholder="Name"/>
+                  </div>
+  
+                  <div class="form-outline mb-4">
+                    <input type="email" class="form-control form-control-lg" name="userEmail" placeholder="Email"/>
+                    <c:if test="${not empty emailError}">${emailError}</c:if>
+                  </div>
+  
+                  <div class="form-outline mb-4">
+                    <input type="password" class="form-control form-control-lg" name="userPassword" placeholder="Password"/>
+                    <c:if test="${not empty passwordError}">${passwordError}</c:if>
+                  </div>
+  
+                  <div class="form-outline mb-4">
+                    <input type="password" class="form-control form-control-lg" name="pwd2" placeholder="Repeat your password"/>
+                    
+                  </div>
+  
+                  <div class="d-flex justify-content-center">
+                    <button type="submit" class="btn btn-dark btn-block btn-lg gradient-custom-4">Register</button>
+                  </div>
+  
+                  <p class="text-center text-muted mt-5 mb-0">Have already an account? 
+                    <a href="Login.html" class="fw-bold text-body"><u>Login here</u></a></p>
+                </form>
+  
+              </div>
+              <c:if test="${not empty param.userName }">
+              <hr/>
+              <h3>입력한 값들 출력</h3>
+              <ul class="list-group list-group-flush">
+              	<li class = "list-group-item">이름 : ${param.userName }</li>
+              </ul>
+              </c:if>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section> 
+</body>
+</html>
 
 <script>
+
 
 	/*
 	function submitForm() {
@@ -103,13 +114,13 @@
 	*/
 	
 	async function checkId(doAlarm) {
-		const inputId = document.querySelector("input[name='id']").value;
+		const inputId = document.querySelector("input[name='userId']").value;
 	    let isValid = 0;
 	    // 유효한 경우
-		if (validityChecker("id", inputId)) {
+		if (validityChecker("userId", inputuserId)) {
 			await $.ajax({
 				type: "GET",
-				url: "<c:url value='/member/IdCheck.do'/>" + "?id=" + inputId,
+				url: "<c:url value='/member/IdCheck.do'/>" + "?userId=" + inputuserId,
 				dataType: "json",
 		        // 중복체크
 		        success : (data) => {
@@ -119,9 +130,9 @@
 					}
 					else {
 						isValid = true;
-						if (doAlarm) {
+					
 			        		Swal.fire('가능', '해당 아이디는 사용 가능합니다', 'success');							
-						}
+						
 					}
 				}
 			});
@@ -136,44 +147,37 @@
 		}
 		// 비유효
 		else {
-			createInvalidAlarm("id");
+			createInvalidAlarm("userId");
 			return false;
 	    }
 	}
 	
 	function validityChecker(type, data) {
 		switch (type) {
-			case 'id':
-				const idValid1 = data.length >= 4;
-				const idValid2 = data.match(/[0-9]/) !== null ? true : false; // Number
+			case 'userId':
+				const idValid1 = data.length >= 2;
+				//const idValid2 = data.match(/[0-9]/) !== null ? true : false; // Number
 				const idValid3 = data.match(/[a-zA-Z]/) !== null ? true : false; // English
-		    	return idValid1 && idValid2 && idValid3;
-		  	case 'interest':
-				var ctInterest = 0;
-				data.forEach(function(item){
-					if (item.checked) {
-						ctInterest = ctInterest + 1;
-					}
-				});
-				return ctInterest >=1;
+		    	return idValid1  && idValid3;
+		  
 		  	default:
 		  		return false;
 		}
 	}
  
 	const checkees = {
-			id : "아이디는 영문자와 숫자가 포함되어야 하고 4자 이상이어야한다.",
-			pwd : "비밀번호가 일치하지 않습니다.",
+			userId : "아이디는 2자 이상이어야한다.",
+			userName : "이름이 작성되지 않았습니다.",
+			userEmail : "이메일이 작성되지 않았습니다",
+			userPassword : "비밀번호가 일치하지 않습니다.",
 			pwd2 : "비밀번호가 일치하지 않습니다.",
-			name : "이름이 작성되지 않았습니다.",	
-			gender : "성별이 선택되지 않았습니다.",
-			interest : "관심사항이 선택되지 않았습니다.",
-			grade : "학력사항이 선택되지 않았습니다.",
-			self : "자기소개가 작성되지 않았습니다."
+			
 	}
 	
 	function createInvalidAlarm(type) {
+		console.log(type);
 		Swal.fire(
+				
 				  '유효성 확인',
 				  checkees[type],
 				  'error'
@@ -182,32 +186,19 @@
 
 	function isValid(type) {
 		const form = document.querySelector("#joinForm");
-		console.log(type);
+		console.log(type+"ddddddd");
 		switch (type) {
-			case 'id':
-				const id = form.id.value;
-		    	return validityChecker(type, id);
-			case 'pwd':
+			case 'userId':
+				const userId = form.userId.value;
+		    	return validityChecker(type, userId);
+			case 'userPassword':
 			case 'pwd2':
-				const pwd = form.pwd.value;
+				const userPassword = form.userPassword.value;
 				const pwd2 = form.pwd2.value;
-				return pwd == pwd2 && pwd.length > 0;
-			case 'name':
-				const name = form.name.value;
+				return userPassword == pwd2 && userPassword.length > 0;
+			default:
+				const name = form.userName.value;
 		  		return name.length > 0;
-		  	case 'gender':
-		  		const genderMan = document.querySelector("#male");
-				var genderWoman = document.querySelector("#female");
-				return genderMan.checked || genderWoman.checked;
-		  	case 'interest':
-				var interests = form.querySelectorAll("[name=inter]");
-				return validityChecker(type, interests);
-		  	case 'grade':
-				var grade = form.grade.value;
-				return grade.length > 0;
-		  	default: // self
-		  		var self = form.self.value;
-		  		return self.length > 0;
 		}
 	}
 	
@@ -217,13 +208,14 @@
 		for(key in checkees) {
 			if (!isValid(key)) {
 				createInvalidAlarm(key);
+				console.log("sadfsdfasdfa");
 				e.preventDefault();
 				return false;
 			}
 		}
-
+		
 		// 중복 체크
-		fetch("<c:url value='/member/IdCheck.do'/>" + "?id=" + form.id.value, {
+		fetch("<c:url value='/member/IdCheck.do'/>" + "?userId=" + form.userId.value, {
     		method: 'GET',
 			})
 				.then((response) => {
@@ -237,7 +229,7 @@
 	    			}
 	    		})
 	    		.then((actionURL) => {
-	    			var inter = document.querySelectorAll("input[name='inter']:checked");
+	    			var inter = document.querySelectorAll("input[name='userId']");
 	    			const interList = [];
 	    			inter.forEach((inter) => {
 	    				interList.push(inter.value);
@@ -251,14 +243,12 @@
 				        contentType: "application/x-www-form-urlencoded; charset=UTF-8",
 				        dataType: "json",
 				        data:{
-				        	${_csrf.parameterName}: "${_csrf.token}",
-	    		            id: form.id.value,
-	    		            pwd: form.pwd.value,
-	    		            name: form.name.value,
-//	    		            gender: form.gender.value,
-//	    		            interest : interList.join('+'),
-//	    		            grade: form.grade.value,
-	    		            self: form.self.value,
+				        	userName: form.userName.value,
+	    		            userId: form.userId.value,
+	    		            userPassword: form.userPassword.value,
+	    		            pwd2: form.pwd2.value
+	    		            
+//	    		         
 				        },
 				        success : (resp) => {
 				        	location.href = "<c:url value='/index.do'/>";
@@ -278,4 +268,5 @@
 	
 	
 </script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
    

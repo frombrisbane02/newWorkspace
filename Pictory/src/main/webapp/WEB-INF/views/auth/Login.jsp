@@ -86,7 +86,7 @@
 		<c:if test="${not isLogin }">
 		<a class="nav-link" href="<c:url value="/auth/Logout.do"/>">로그아웃</a></li>
 		</c:if>
-		<form action="<c:url value="/member/JoinAgree.do"/>">
+		<form action="<c:url value="/auth/JoinAgree.do"/>">
 		<input type="submit" value="Sign Up" id="signup" class="btn btn-block btn-primary">
 		</form>
 			<span class="d-block text-center my-4 text-muted">

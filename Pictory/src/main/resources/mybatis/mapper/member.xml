@@ -4,65 +4,13 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="mybatis.mapper.member">	
-
-<!-- 
-	private String userId;
-	private String userPassword;
-	private String userEmail;
-	private String userName;
-	private String userNickname;
-	private String userFing;
-	private String userFwer;
-	private String userProfile;
-	private String userSelf;
-
- -->
-
-	<resultMap type="com.pictory.springapp.dto.MemberDTO" id="member">
-		<result property="userId" column="USERID"/>
-		<result property="userPassword" column="USERPASSWORD"/>
-		<result property="userEmail" column="USEREMAIL"/>
-		<result property="userName" column="USERNAME"/>
-		<result property="userNickname" column="USERNICKNAME"/>
-		<result property="userFing" column="USERFING"/>
-		<result property="userFwer" column="USERFWER"/>
-		<result property="userProfile" column="USERPROFILE"/>
-		<result property="userSelf" column="USERSELF"/>
-	</resultMap>
-
-	<select id="memberIsLogin" parameterType="Map" resultType="int">
-		SELECT COUNT(*) FROM USERS WHERE userId=#{userId} AND userPassword=#{userPassword}
+	<select id="memberIsLogin" parameterType="Map" resultType="String">
+		<!-- SELECT * FROM USERS WHERE userId=#{userId} AND userPassword=#{userPassword} -->
+		SELECT a.authorities,b.* FROM authorities a JOIN users b ON a.userno=b.userno WHERE userId=#{userId} AND userPassword=#{userPassword}
 	</select>
 	
-	<select id="readMember" parameterType="String" resultMap="member">
-		select *
-		from users
-		where userId = #{userId}
+	<select id="memberCheck" parameterType="Map" resultType="int">
+		SELECT count(*) from USERS where userId='${userId}'
 	</select>
-	<!-- 
-	<select id="readMemberWithIDPW">
-		select *
-		from users
-		where userId=#{userId} and userPassword=#{userPassword}
-	</select>	
-	 -->
-	 
-	<update id="updateMember" parameterType="com.pictory.springapp.dto.MemberDTO">
-		UPDATE users 
-		SET USERNAME = #{userName}
-		, USERNICKNAME = #{userNickname}
-		, USEREMAIL = #{userEmail}
-		, USERSELF = #{userSelf}
-		<if test="userProfile != null">
-		, USERPROFILE = #{userProfile}
-		</if>
-		where USERID = #{userId}
-	</update>
-	
-	<update id="updateMemberPassword" parameterType="com.pictory.springapp.dto.MemberDTO">
-		UPDATE users 
-		SET USERPASSWORD = #{userPassword}
-		where USERID = #{userId}
-	</update>
 	
 </mapper>
