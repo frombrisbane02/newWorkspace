@@ -5,4 +5,11 @@
   
 <mapper namespace="mybatis.mapper.story">	
 
+	<select id="virtuallist" parameterType="String" resultMap="map">
+		SELECT u.userNo, s.sNo, ph.photoUrl
+		FROM USERS u, PHOTO ph, STORY s
+		WHERE u.userNo = s.userNo
+		AND s.sNo = ph.sNo;
+	</select>
+
 </mapper>

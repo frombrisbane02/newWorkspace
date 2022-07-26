@@ -61,7 +61,7 @@
 				<div class="tab_cont tab_ac" id="tab1">
 					<ul class="story_list">
 						<li>
-							<a href="http://192.168.0.27:9966/" target="_blank">
+							<a href="<c:url value="/story/virtualprocess.do"/>" target="_blank">
 								<div class="img_area" style="background-image: url(<c:url value="/resources/img/story/test_img04.jpg"/>);">
 									<img src="<c:url value="/resources/img/story/fake03.png"/>" alt="">
 								</div>
