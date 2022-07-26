@@ -1,0 +1,136 @@
+@charset "utf-8"; 
+
+.list_wrap {
+	margin-top: 70px;
+}
+
+.list_line {
+	margin-bottom: 80px;
+	display: flex;
+}
+
+/* 프로필 영역 */
+.list_line .pro_area {
+	margin-left: 80px;
+	width: 430px;
+}
+
+.list_line .pro_area .top_area {
+	display: flex;
+	padding: 15px 0;
+}
+
+.list_line .pro_area .top_area .pro_img {
+	width: 125px;
+	margin-right: 20px;
+	border-radius: 50%;
+}
+
+.list_line .pro_area .top_area .txt_area {
+	padding-top: 20px;
+}
+
+.list_line .pro_area .top_area .txt_area h3 {
+	font-size: 17px;
+	font-weight: bold;
+	line-height: 1.2;
+	margin-bottom: 15px;
+}
+
+.list_line .pro_area .top_area .txt_area p {
+	font-size: 12px;
+	line-height: 1.2;
+	color: #777777;
+}
+
+.list_line .pro_area .top_area .txt_area .sub_txt {
+	margin-bottom: 20px
+}
+
+.list_line .pro_area .top_area .txt_area p img {
+	width: 13px;
+	height: 13px;
+	margin-right: 3px;
+	margin-top: -2px;
+}
+
+.list_line .pro_area .count {
+	border-top: 1px solid #eee;
+	padding: 20px 0;
+	display: flex;
+}
+
+.list_line .pro_area .count a {
+	padding: 0 15px;
+	background: #000000;
+	border-radius: 5px;
+	height: 40px;
+	line-height: 40px;
+	color: #ffffff;
+	transition: 0.4s;
+	margin-right: 30px;
+}
+
+.list_line .pro_area .count a:hover {
+	text-decoration: none;
+	background: #6e65d5;
+	color: #ffffff;
+}
+
+.list_line .pro_area .count ul {
+	display: flex;
+}
+
+.list_line .pro_area .count li:first-child {
+	margin-right: 40px;
+}
+
+.list_line .pro_area .count li h3 {
+	margin-bottom: 7px;
+	font-size: 17px;
+	font-weight: bold;
+	line-height: 1.2;
+	letter-spacing: -1px;
+}
+
+.list_line .pro_area .count li p {
+	margin-bottom: 0;
+	font-size: 12px;
+	color: #777777;
+	line-height: 1.2;
+}
+
+/* 이미지 배너 영역 */
+.photo_area {
+	padding-left: 150px;
+	width: calc(100% - 510px);
+}
+
+.photo_area .swiper {
+	width: 100%;
+}
+
+
+.photo_area .swiper-slide {
+	background: #fff;
+	border-radius: 5px;
+	background-size: cover;
+	background-position: center center;
+	width: 22%;
+}
+
+.photo_area .swiper-slide img {
+	width: 100%;
+}
+
+.swiper-button-next, .swiper-button-prev {
+    --swiper-theme-color: white;
+}
+
+.swiper-button-next:after, .swiper-button-prev:after {
+    font-size: 20px;
+}
+
+.swiper-button-next.swiper-button-disabled, .swiper-button-prev.swiper-button-disabled {
+	opacity: 0;
+}

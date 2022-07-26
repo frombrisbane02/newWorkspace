@@ -1,0 +1,252 @@
+@charset "utf-8"; 
+
+.gray_box {
+	background-color: #f6f6f6;
+}
+
+.top_bg {
+	width: 100%;
+	height: 220px;
+	background-size: cover;
+	background-position: center center;
+}
+
+
+
+.left_pro .best_project .img_box {
+	background-size: cover;
+	background-position: center center;
+	border-radius: 5px;
+}
+
+.left_pro .best_project .img_box img {
+	width: 100%;
+}
+
+
+/* 오른쪽 영역 */
+.right_list {
+	padding-top: 40px;
+	padding-left: 40px;
+	width: calc(100%);
+}
+
+/* 탭 영역 */
+.right_list .top_tab {
+	display: flex;
+	margin-bottom: 40px;
+}
+
+.right_list .top_tab li {
+	font-size: 14px;
+	color: #666666;
+	margin-right: 60px;
+	padding-bottom: 15px;
+	letter-spacing: -0.5px;
+}
+
+.right_list .top_tab li.tab_ac {
+	color: #000000;
+	border-bottom: 2px solid #000000;
+	font-weight: bold;
+}
+
+.right_list .top_tab li a:hover {
+	text-decoration: none;
+	color: unset;
+}
+
+.tab_cont {
+	display: none;
+}
+
+.tab_cont.tab_ac {
+	display: block;
+}
+
+/* 이미지 리스트 영역 */
+.right_list .cont_list {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.right_list .cont_list .photo_area {
+	width: 28.5%;
+	margin-bottom: 1.5%;
+	margin-right: 1.25%;
+}
+
+.right_list .cont_list .photo_area:nth-child(4n) {
+	margin-right: 0;
+}
+
+.right_list .cont_list .photo_area .photo_link {
+	display: block;
+	position: relative;
+	border-radius: 5px;
+	overflow: hidden;
+}
+
+.right_list .cont_list .img_area {
+	background-size: cover;
+	background-position: center center;
+	width: 100%;
+	height: 100%;
+	transition: 0.4s;
+}
+
+.right_list .cont_list .photo_area:hover .img_area {
+	transform: scale(1.1);
+}
+
+.right_list .cont_list .photo_area img {
+	width: 100%;
+}
+
+/* 이미지 호버 블랙박스 */
+.right_list .cont_list .photo_area .photo_link:after {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	content: '';
+	background: #000;
+	opacity: 0;
+	transition: 0.4s;
+}
+
+.right_list .cont_list .photo_area:hover .photo_link:after {
+	opacity: 0.4;
+}
+
+/* 이미지 호버 텍스트 */
+.right_list .cont_list .txt_area {
+	position: absolute;
+	bottom: 0px;
+	left: 0px;
+	color: #ffffff;
+	width: 100%;
+	padding: 25px;
+	opacity: 0;
+	z-index: 1;
+	transition: 0.4s;
+	display: flex;
+	justify-content: space-between;
+}
+
+.right_list .cont_list .photo_area:hover .txt_area {
+	opacity: 1;
+}
+
+.right_list .cont_list .txt_area p {
+	margin-bottom: 0;
+	line-height: 20px;
+	font-size: 12px;
+}
+
+.right_list .cont_list .txt_area p .pro_p {
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+	margin-right: 7px;
+	margin-top: -2px;
+}
+
+.right_list .cont_list .txt_area p .pro_icon {
+	width: 13px;
+	height: 13px;
+	margin-right: 5px;
+	margin-top: -2px;
+	margin-left: 15px;
+}
+
+/* 스토리 페이지 */
+.story_list {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.story_list li {
+	width: 23.5%;
+	margin-bottom: 1.5%;
+	margin-right: 1.25%;
+}
+
+.story_list li:nth-child(4n) {
+	margin-right: 0;
+}
+
+.story_list li a {
+	display: block;
+	position: relative;	
+}
+
+.story_list li a:hover {
+	text-decoration: none;
+	color: unset;
+}
+
+.story_list li .img_area {
+	background-size: cover;
+	background-position: center center;
+	width: 100%;
+	height: 100%;
+	border-radius: 5px;
+	overflow: hidden;
+	margin-bottom: 15px;
+}
+
+.story_list li .img_area img {
+	width: 100%;
+}
+
+.story_list li .txt_area .small {
+	margin-bottom: 15px;
+	font-size: 11px;
+}
+
+.story_list li .txt_area .small .cate {
+	color: #6e65d5;
+	margin-right: 15px;
+}
+
+.story_list li .txt_area .small .gray {
+	color: #777777;
+}
+
+.story_list li .txt_area .main_txt {
+	font-size: 14px;
+	margin-bottom: 25px;
+	word-break: keep-all;
+}
+
+.story_list li .txt_area .pro_line {
+	display: flex;
+}
+
+.story_list li .txt_area .pro_line p {
+	margin-bottom: 0;
+	line-height: 20px;
+	font-size: 11px;
+}
+
+.story_list li .txt_area .pro_line p .pro_p {
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+	margin-right: 7px;
+	margin-top: -2px;
+}
+
+.story_list li .txt_area .pro_line .gray {
+	color: #777777;
+}
+
+.story_list li .txt_area .pro_line p .pro_icon {
+	width: 12px;
+	height: 12px;
+	margin-right: 5px;
+	margin-top: -2px;
+	margin-left: 15px;
+}

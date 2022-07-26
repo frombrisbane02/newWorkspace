@@ -1,0 +1,27 @@
+* {
+    user-select: none;
+    scroll-behavior: smooth;
+  }
+  
+  .list > div {
+    margin-bottom: 2rem;
+    margin-left: 1rem;
+    font-size: 2rem;
+  }
+  
+  .topBtn {
+    position: fixed;
+    bottom: 5rem;
+    right: 0.5rem;
+    display: flex;
+    transition: .2s;
+  }
+
+  .bottomBtn {
+    position: fixed;
+    bottom: 1rem;
+    right: 0.5rem;
+    display: flex;
+    transition: .2s;
+  }
+  

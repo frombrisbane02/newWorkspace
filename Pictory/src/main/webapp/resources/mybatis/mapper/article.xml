@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="mybatis.mapper.post">	
+
+	<resultMap type="postDto" id="postResultMap">
+		<result property="postNo" column="postNo"/>
+		<result property="userNo" column="userNo"/>
+		<result property="postTitle" column="postTitle"/>
+		<result property="postHits" column="postHits"/>
+		<result property="postSellorNot" column="postSellorNot"/>
+		<result property="postCorNot" column="postCorNot"/>
+		<result property="postLikes" column="postLikes"/>
+		<result property="postDate" column="postDate"/>
+		
+		<result property="userId" column="userId"/>
+		<result property="commentCount" column="commentCount"/>
+		<result property="markerName" column="markerName"/>
+		<result property="markerLocation" column="markerLocation"/>
+		
+		<collection property="textContentList" column="postNo" select="textSelectList" javaType="List" ofType="String"/>
+		<collection property="hashtagList" column="postNo" select="hashtagSelectList" javaType="List" ofType="String"/>
+		<collection property="photoList" column="postNo" select="mybatis.mapper.photo.photoSelectList" javaType="List" ofType="CommentDTO"/>
+		<collection property="commentList" column="postNo" select="mybatis.mapper.comment.commentSelectList" javaType="List" ofType="CommentDTO"/>
+	</resultMap>
+
+	<select id="postSelectOne" parameterType="Map" resultMap="postResultMap">
+		select PU.*, M.markerName, M.markerLocation, 
+			(select COUNT(*) from COMMENT_TBL where postNo=1) as commentCount
+		    from (select P.*, U.userId
+		        from POST P
+		            INNER JOIN USERS U ON U.userNo = P.userNo
+		        where postNo=#{postNo}) PU
+		    INNER JOIN MAP M ON M.postNo = PU.postNo
+	</select>
+
+
+	<select id="textContentList" parameterType="Map" resultType="String">
+		SELECT * from TEXT
+			WHERE postNo=#{postNo}
+			ORDER BY textNo
+	</select>
+
+	<select id="hashtagList" parameterType="Map" resultType="String">
+		SELECT * from HASHTAG
+			WHERE postNo=#{postNo}
+	</select>
+
+
+</mapper>

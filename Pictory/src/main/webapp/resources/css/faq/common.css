@@ -1,0 +1,19 @@
+@charset "utf-8"; 
+
+/************************************************
+
+					setting
+
+*************************************************/
+* {margin: 0; padding: 0; border: 0; outline: 0; box-sizing: border-box;}
+html, body {-webkit-text-size-adjust: 100%;}
+ul, ol, dl, li {list-style: none;}
+a {text-decoration: none; color: inherit;}
+blockquote, q {quotes: none;}
+blockquote:before, blockquote:after, q:before, q:after {content: ''; content: none;}
+table, table tr, table td {border: 0; border-collapse: collapse; border-spacing: 0;}
+.blind, legend, caption {display: block; overflow: hidden; position: absolute; top: 0; left: -1000em;}
+.cf:after {clear: both; display: block; content: "";}
+input[type="submit"], input[type="button"], input[type="text"], input[type="password"], textarea {-webkit-appearance: none !important; -moz-appearance: none !important; appearance: none !important; border-radius: 0 !important;}
+input[type="submit"], input[type="checkbox"], input[type="radio"], button {cursor: pointer}
+.ellipsis {white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+ <!-- 글한번올라갈때 테이블 채울거 필수: post, photo 선택: hashtag,map,text,product,museum 등 -->
+ <!-- postNo, userNo, sNo, postTitle, postHits, postSellorNot, postCategory, postText, postLikes, postDate -->
+<mapper namespace="mybatis.mapper.post">
+	<insert id="postUpload" parameterType="map" >
+		<selectKey keyProperty="postNo" resultType="int" order="BEFORE">
+			SELECT SEQ_POST.NEXTVAL FROM DUAL
+		</selectKey>
+			INSERT INTO POST VALUES(SEQ_POST.CURRVAL, (SELECT userNo FROM USERS WHERE userId=#{userId}), #{sNo, jdbcType=VARCHAR}, #{postTitle}, 0, #{postSellorNot}, #{postCategory}, #{postText}, 0, SYSDATE)
+	</insert>
+	
+	<!-- photoNo, postNo, photoSize, photoName, photoUrl -->
+	<insert id="photoUpload" parameterType="map">
+		<selectKey keyProperty="photoNo" resultType="int" order="BEFORE">
+			SELECT SEQ_PHOTO.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO PHOTO VALUES (SEQ_PHOTO.CURRVAL, #{postNo}, #{photoSize}, #{photoName}, #{photoUrl})
+	</insert>
+	
+	<select id="getPostNo" parameterType="int" resultType="int">
+		SELECT SEQ_POST.CURRVAL FROM DUAL
+	</select>
+	
+	
+	<insert id="storyInsert" parameterType="map">
+		<selectKey keyProperty="storyNo" resultType="int" order="BEFORE">
+			SELECT SEQ_STORY.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO STORY VALUES (SEQ_STORY.CURRVAL, #{storyThumbnail}, #{storyTitle}, #{storyDescription})
+	</insert>
+	
+	<select id="getSNo" parameterType="map" resultType="int">
+		SELECT sNo FROM STORY WHERE storyThumbnail=#{storyThumbnail}
+	</select>
+
+
+</mapper>
