@@ -32,12 +32,12 @@ public class StoryController {
 	public String index() {
 		System.out.println("스토리 컨트롤러");
 		
-		//List<StoryDTO> storyList = new ArrayList<StoryDTO>();
+		List<StoryDTO> storyList = new ArrayList<StoryDTO>();
 		//Map<StoryDTO> storyList = new Map<StoryDTO>();
 		
 		//selectList 쿼리가 들어있는 서비스 호출하기
 		//storyService.virtualList(storyList);
-		
+		storyService.virtualList();
 		
 	
 		return "story/StoryIndex.tiles";

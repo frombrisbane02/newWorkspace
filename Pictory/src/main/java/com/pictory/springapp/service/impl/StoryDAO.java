@@ -19,11 +19,13 @@ public class StoryDAO<T> {
 	@Autowired
 	private SqlSessionTemplate template;
 	
-	public List<T> virtualList(StoryDTO storyDTO) {
+	public List<T> virtualList() {
 		
-		template.selectOne("virtuallist", storyDTO);
+		System.out.println("dao까지는...왔니?");
+		
+		
 		//return template.selectOne("virtuallist", map);
-		return null;
+		return template.selectList("virtuallist");
 		
 	}
 }
