@@ -26,7 +26,7 @@ public class MypageProfileController {
 	@Autowired
 	private MemberService service;
 	
-	@RequestMapping("Index.do")
+	@RequestMapping("Profile.do")
 	public String index(HttpSession session, Model model) {
 		System.out.println("마이페이지 컨트롤러");
 		
@@ -96,11 +96,11 @@ public class MypageProfileController {
 	}
 	
 	//페이지 이동 
-	@RequestMapping("Profile.do")
+	@RequestMapping("Index.do")
 	public String profile() {
 		System.out.println("마이페이지 컨트롤러");
 		
-		return "mypage/MypageProfile.tiles";
+		return "mypage/MypageIndex.tiles";
 	}
 	
 	//회원 정보 조회 

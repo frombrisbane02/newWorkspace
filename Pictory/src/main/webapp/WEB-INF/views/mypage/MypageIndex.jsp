@@ -50,7 +50,7 @@
  <script>
 	$(document).ready(function(){
 		//처음 시작할 땐 MypageProfile이 나와야한다.
-		$(".tab-content").load("<c:url value='/mypage/Index.do'/>");
+		$(".tab-content").load("<c:url value='/mypage/Profile.do'/>");
 		
 		//탭 클릭시마다 
 		$("#myTab2 li a").on("click", function(e){
