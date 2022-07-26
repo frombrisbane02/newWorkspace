@@ -56,25 +56,25 @@
                       <th class="col-6">제목</th>
                       <th class="col-1">아이디</th>
                       <th class="col-1">작성일</th>
-                      
                     </tr>
                 </thead>
                 <tbody class="table-sm">
-					<c:if test="${empty records }" var="isEmpty">
+					<c:if test="${empty listPagingData.lists }" var="isEmpty">
 						<tr>
-							<td class="text-center" colspan="6">등록된 글이 없습니다.</td>
-						</tr>	
+							<td colspan="4">등록된 글이 없습니다.</td>
+						</tr>
 					</c:if>
-					<c:if test="${not isEmpty }">
-						<c:forEach var="record" items="${records}">
-							<tr>
-								<td>${record.noticeNo}</td>				
-								<td class="text-left"><a href="${pageContext.request.contextPath}/admin/notice/AdminNoticeDetail.do?no=${record.noticeNo}"/>${record.noticeTitle}</a></td>
-								<td>${record.userId}</td>	
-								<td>${record.noticeDate}</td>	
-							</tr>
-						</c:forEach>
-					</c:if>
+						<c:if test="${not isEmpty }">
+							<c:forEach var="record" items="${listPagingData.lists}" varStatus="loop">
+								<tr>
+									<td>${listPagingData.map.totalCount - (((listPagingData.map.nowPage - 1) * listPagingData.map.pageSize) + loop.index)}</td>				
+									<td class="text-left"><a href="<c:url value="/notice/noticeView.do?no=${record.noticeNo}&nowPage="/><c:out value="${param.nowPage}" default="1"/>">${record.noticeTitle}</a></td>
+									<td>${record.userId}</td>	
+									<td>${record.noticeDate}</td>	
+								</tr>
+							</c:forEach>
+						</c:if>
+					
 					
 			<!-- 예시 게시물 표현 시작-->
 			                 <tr>

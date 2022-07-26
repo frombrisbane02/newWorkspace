@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pictory.springapp.dto.AdminGalleryDTO">
+
+	<select id="selectList" parameterType="AdminGalleryDTO" resultType="AdminGalleryDTO">
+	<![CDATA[ SELECT
+        TO_CHAR(POSTDATE, 'YYYYMMDD') AS dateDay
+    ,   COUNT(h.photono) AS photo
+    ,   COUNT(o.mno) AS photomuseum
+    FROM POST p
+    JOIN PHOTO h
+        ON p.POSTNO = h.POSTNO
+    LEFT JOIN PHOTOMUSEUM  o
+        ON h.PHOTONO = o.PHOTONO
+	WHERE
+	     POSTDATE >='${dateDay}' AND POSTDATE < LAST_DAY(TO_DATE('${dateDay}', 'YYYYMMDD')) 
+	GROUP BY
+	    TO_CHAR(POSTDATE, 'YYYYMMDD') ]]>
+	</select>
+</mapper>

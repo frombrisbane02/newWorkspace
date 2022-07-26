@@ -6,9 +6,8 @@
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <title>Picktory-매출 통계 페이지 </title>
+    <title>관리자-통계 및 회원관리</title>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
@@ -101,10 +100,11 @@
 <body>
 	<div class="container-s position-relative bg-white d-flex p-0">
 
-		<!-- Sidebar Start -->
+<!--================================================= Sidebar 시작 ============================================================-->
+		
 		<div class="sidebar pe-4 pb-3">
 			<nav class="navbar bg-light navbar-light">
-				<a href="Index.do" class="navbar-brand mx-4 mb-3">
+				<a href="${pageContext.request.contextPath}/Index.do" class="navbar-brand mx-4 mb-3">
 					<h3 class="text-primary">
 						<i class="fa fa-hashtag me-2"></i>PICKTORY
 					</h3>
@@ -135,15 +135,21 @@
 						<a href="${pageContext.request.contextPath}/admin/manager/Index.do" class="nav-item nav-link">
               <i class="far fa-file-alt me-2"></i>수익 및 정산</a>
 					</div>
+					
+					<div>
+						<a href="${pageContext.request.contextPath}/admin/notice/Index.do" class="nav-item nav-link">
+              			<i class="far fa-file-alt me-2"></i>공지사항 및 Q & A</a>
+					</div>
         </div>
 			</nav>
 		</div>
-		<!-- Sidebar End -->
-
+		
+<!--================================================= Sidebar 끝 ============================================================-->
 
 		<div class="content">
 
-			<!-- Navbar Start -->
+<!--=================================================  Navbar 시작 =================================================  -->
+			
 			<nav
 				class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0 justify-content-end">
 				<a href="Index.do" class="navbar-brand d-flex d-lg-none me-4">
@@ -194,7 +200,9 @@
 					</div>
 				</div>
 			</nav>
-			<!-- Navbar End -->
+			
+<!--=================================================  Navbar 끝 =================================================  -->
+            
             <div class="container-fluid pt-4 px-4">
 				<div class="row g-4">
 					<div class="col-sm-6 col-xl-3">
@@ -247,7 +255,11 @@
 					</div>
 				</div>
 			</div>
-<!-- TAB CONTROLLERS -->
+			
+<!--=================================================  Navbar 끝 =================================================  -->
+			
+<!--================================================= 탭 컨트롤러 시작 =================================================-->
+
 <input id="panel-1-ctrl"
 class="panel-radios" type="radio" name="tab-radios" checked>
 <input id="panel-2-ctrl"
@@ -262,34 +274,37 @@ class="panel-radios" type="radio" name="tab-radios">
 class="panel-radios" type="checkbox" name="nav-checkbox">
 <br>
 
+<!--================================================= 탭 컨트롤러 끝 =================================================-->
 
+<!--================================================= 탭 리스트 시작 =================================================-->
 
-<!-- TABS LIST -->
 <ul id="tabs-list" class="bg-light">
 <!-- MENU TOGGLE -->
 <label id="open-nav-label" for="nav-ctrl"></label>
-<li id="li-for-panel-1" class="memberClass">
+<li id="li-for-panel-1" class="memberClass" data-test="1">
 <label class="panel-label"
       for="panel-1-ctrl">회원과 방문객 현황</label>
 </li><!--INLINE-BLOCK FIX
---><li id="li-for-panel-2" class="salesClass">
+--> <!--   <li id="li-for-panel-2" class="salesClass" data-test="2">
 <label class="panel-label"
-      for="panel-2-ctrl">매출 현황</label>
+      for="panel-2-ctrl">매출 현황</label>	-->
 </li><!--INLINE-BLOCK FIX
---><li id="li-for-panel-3" class="galleryClass">
+--><li id="li-for-panel-3" class="galleryClass" data-test="3">
 <label class="panel-label"
       for="panel-3-ctrl">게시물 현황</label>
 </li><!--INLINE-BLOCK FIX
---><li id="li-for-panel-4">
+--><li id="li-for-panel-4" class="userClass" data-test="4">
 <label class="panel-label"
       for="panel-4-ctrl">회원 리스트 및 정보</label>
 </li><!--INLINE-BLOCK FIX
 --><!--INLINE-BLOCK FIX
 -->
-
 </ul>
 
-<!--일일매출 시작-->
+<!--================================================= 탭 리스트 끝 =================================================-->
+
+<!--================================================= 회원과 방문객 현황 시작 =================================================-->
+
 <article id="panels">
     <article class="container">
     <section id="panel-1" >
@@ -298,7 +313,9 @@ class="panel-radios" type="checkbox" name="nav-checkbox">
             <div class="bg-light rounded p-4" >
                 <div class="table-responsive">
                     <div class="bg-light rounded p-4">
-                        <!--달력 시작-->
+                    
+                        <!--======================== 달력 시작 ==========================-->
+                        
                         <div class="sec_cal">
                             <div class="cal_nav">
                               <a href="javascript:;" class="nav-btn go-prev">prev</a>
@@ -309,8 +326,11 @@ class="panel-radios" type="checkbox" name="nav-checkbox">
                               <div class="dates"></div>
                             </div>
                          </div>
-                        <!--달력 끝-->
-                        <!--일일매출차트 시작-->
+                         
+                        <!--=============================달력 끝 ============================-->
+                       
+                        <!--======================== 회원과 방문객 현황 차트 시작=============================-->
+                        
                         <div class="d-flex align-items-center justify-content-between mb-4">
                             <h3 class="mb-0">회원과 방문객 차트</h3>
                         </div>
@@ -318,9 +338,12 @@ class="panel-radios" type="checkbox" name="nav-checkbox">
                     		<!-- <canvas id="earningDayChart" style="width: 100%; max: width 1104px;"></canvas> -->
                         </div>
                     
-                <!--일일매출차트 끝-->   
+                 <!--======================== 회원과 방문객 현황 차트 끝=============================-->
+                 
                     </div>
-                        <!--일일매출표 시작-->
+                    
+                        <!--==================== 회원과 방문객 현황 표 시작 =========================-->
+                        
                     <div class="col-sm-3 col-xl-12">
                         <div class="bg-light rounded h-100 p-4">
                             <h3 class="mb-4">회원과 방문객 표</h3>
@@ -464,8 +487,11 @@ class="panel-radios" type="checkbox" name="nav-checkbox">
                             </table>
                         </div>
                     </div>
-                    <!--일일매출표 끝-->
-                    <!--총 매출 합계 시작-->
+                    
+                    <!--==================== 회원과 방문객 현황 표 시작 =========================-->
+                    
+                    <!--====================== 총 회원과 방문객 현황 합계 시작 =========================-->
+                    
                     <div class="col-sm-12 col-xl-5">
                         <div class="bg-light rounded h-100 p-4">
                             <h3 class="mb-4">현재 총 회원과 방문객 합계</h3>
@@ -488,7 +514,9 @@ class="panel-radios" type="checkbox" name="nav-checkbox">
                                 </tbody>
                             </table>
                     </div>
-                     <!--총 매출 합계 끝-->
+                    
+                     <!--====================== 총 회원과 방문객 현황 합계 끝 =========================-->
+                     
                 </div>
 
                 </div>
@@ -496,15 +524,20 @@ class="panel-radios" type="checkbox" name="nav-checkbox">
         </div>
     </main>
     </section>
-<!--일일매출 끝-->
-<!--주매출 시작-->
+    
+<!--================================================= 회원과 방문객 현황 끝 =================================================-->
+
+<!--================================================= 매출 현황 시작 =================================================-->
+
 <section id="panel-2">
     <main>
 <div class="container-fluid pt-4 px-4">
     <div class="bg-light  rounded p-4">
         <div class="table-responsive">
             <div class="bg-light text-center rounded p-4">
-                <!--달력 시작-->
+            
+                <!--======================== 달력 시작 ==========================-->
+                
                 <div class="sec_cal">
                     <div class="cal_nav">
                       <a href="javascript:;" class="nav-btn go-prev">prev</a>
@@ -512,17 +545,24 @@ class="panel-radios" type="checkbox" name="nav-checkbox">
                       <a href="javascript:;" class="nav-btn go-next">next</a>
                     </div>
                 </div>
-                <!--달력 끝-->
-                <!--주차별 매출 차트 시작-->
+                
+                <!--=============================달력 끝 ============================-->
+                
+                <!--=========================== 매출현황 차트 시작 ========================-->
+                
                 <div class="d-flex align-items-center justify-content-between mb-4">
                             <h3 class="mb-0">매출 차트</h3>
                 </div>
                 <div class="div_chart2">
                     <!-- <canvas id="memberDayChart" style="width: 100%; max: width 1104px;"></canvas> -->
                 </div>
-                <!--주차별 매출 차트 끝-->
+                
+                <!--========================== 매출현황 차트 끝 =================================-->
+           
             </div>
-            <!--주차별 매출 표 시작-->
+            
+            <!-- =============================매출현황 표 시작 ================================-->
+            
              <div class="col-sm-10 col-xl-10">
                         <div class="bg-light rounded h-100 p-4">
                             <h3 class="mb-4">총 매출 표</h3>
@@ -620,8 +660,11 @@ class="panel-radios" type="checkbox" name="nav-checkbox">
                             </table>
                         </div>
                     </div>
-                    <!--일일매출표 끝-->
-                    <!--총 매출 합계 시작-->
+                    
+                    <!-- =============================매출현황 표 끝 ================================-->
+                    
+                    <!--=========================== 총 매출현황 합계 시작 =============================-->
+                    
                     <div class="col-sm-12 col-xl-5">
                         <div class="bg-light rounded h-100 p-4">
                             <h3 class="mb-4">현재 총 매출합계</h3>
@@ -641,14 +684,19 @@ class="panel-radios" type="checkbox" name="nav-checkbox">
                                 </tbody>
                             </table>
                     </div>
-                     <!--총 매출 합계 끝-->
+                    
+                     <!--=========================== 총 매출현황 합계 끝 ========================-->
+                     
         </div>
     </div>
 </div>
 </main>
 </section>
-<!--주매출 끝-->
-<!--달매출 시작-->
+
+<!--================================================= 매출 현황 끝 =================================================-->
+
+<!--================================================= 갤러리와 스토리 현황 시작 =================================================-->
+
 <section id="panel-3">
     <main>
 <div class="container-fluid pt-4 px-4">
@@ -656,7 +704,8 @@ class="panel-radios" type="checkbox" name="nav-checkbox">
         <div class="table-responsive">
             <div class="bg-light text-center rounded p-4">
                 
-                <!--달력 시작-->
+                <!--============================ 달력 시작 ======================-->
+                
                 <div class="sec_cal">
                   <div class="cal_nav">
                     <a href="javascript:;" class="nav-btn go-prev">prev</a>
@@ -664,9 +713,11 @@ class="panel-radios" type="checkbox" name="nav-checkbox">
                     <a href="javascript:;" class="nav-btn go-next">next</a>
                   </div>
               </div>
-              <!--달력 끝-->
+              
+              <!--========================= 달력 끝 ============================-->
+              
+              <!--========================== 갤러리와 스토리 현황 차트 시작 ========================-->
 
-                <!--월별 매출 차트 시작-->
                 <div class="d-flex align-items-center justify-content-between mb-4">
                     <h3 class="mb-0">갤러리와 스토리 현황 차트</h3>
                 </div>
@@ -674,12 +725,159 @@ class="panel-radios" type="checkbox" name="nav-checkbox">
                   <!-- <canvas id="earningMonthChart" style="width:100%; max: width 1104px;"></canvas> -->
                 </div>
 
+                <!--========================== 갤러리와 스토리 현황 차트 끝 ========================-->
                 
-                 <!--월별 매출 차트 끝-->
             </div>
-            <!--월별 매출 표 시작-->
-            <div class="col-sm-12 col-xl-10">
-                <div class="bg-light rounded h-100 p-4">
+            
+            <!--========================== 갤러리와 스토리 현황 표 시작 ============================-->
+            
+            <div class="col-sm-12 col-xl-12">
+				<div class="col-sm-10 col-xl-10">
+                        <div class="bg-light rounded h-100 p-4">
+                            <h3 class="mb-4">일별 스토리/갤러리 수 표</h3>
+                            <table class="table table-hover">
+                                <thead>
+                                      <tr id="galleryDateTr1">
+                                 <!--       <th scope="col">일자</th>
+                                        <th scope="col">1일</th>
+                                        <th scope="col">2일</th>
+                                        <th scope="col">3일</th>
+                                        <th scope="col">4일</th>
+                                        <th scope="col">5일</th>
+                                        <th scope="col">6일</th>
+                                        <th scope="col">7일</th>
+                                        <th scope="col">8일</th>
+                                        <th scope="col">9일</th>
+                                        <th scope="col">10일</th>	-->
+                                    </tr>	
+                                </thead>
+                                <tbody>
+                                    <tr id="galleryCount1">
+                                    <!--    <th scope="row">갤러리 수</th>
+                                    <td>1</td>
+                                        <td>2</td>
+                                        <td>3</td>
+                                        <td>1</td>
+                                        <td>2</td>
+                                        <td>3</td>
+                                        <td>1</td>
+                                        <td>2</td>
+                                        <td>3</td>
+                                        <td>3</td>	-->
+                                    </tr>
+                                </tbody>
+                                <tbody>
+                                    <tr id="storyCount1">
+                                   <!--     <th scope="row">스토리 수</th>
+                                          <td>1</td>
+                                        <td>2</td>
+                                        <td>3</td>
+                                        <td>1</td>
+                                        <td>2</td>
+                                        <td>3</td>
+                                        <td>1</td>
+                                        <td>2</td>
+                                        <td>3</td>
+                                        <td>3</td>	-->
+                                    </tr>
+                                </tbody>
+                                <thead>
+                                      <tr id="galleryDateTr2">
+                                 <!--       <th scope="col">일자</th>
+                                        <th scope="col">11일</th>
+                                        <th scope="col">12일</th>
+                                        <th scope="col">13일</th>
+                                        <th scope="col">14일</th>
+                                        <th scope="col">15일</th>
+                                        <th scope="col">16일</th>
+                                        <th scope="col">17일</th>
+                                        <th scope="col">18일</th>
+                                        <th scope="col">19일</th>
+                                        <th scope="col">20일</th>	-->
+                                    </tr>	
+                                </thead>
+                                <tbody>
+                                    <tr id="galleryCount2">
+                                    <!--    <th scope="row">갤러리 수</th>
+                                          <td>1</td>
+                                        <td>2</td>
+                                        <td>3</td>
+                                        <td>1</td>
+                                        <td>2</td>
+                                        <td>3</td>
+                                        <td>1</td>
+                                        <td>2</td>
+                                        <td>3</td>
+                                        <td>3</td>	-->
+                                    </tr>
+                                </tbody>
+                                <tbody>
+                                    <tr id="storyCount2">
+                                    <!--    <th scope="row">스토리 수</th>
+                                          <td>1</td>
+                                        <td>2</td>
+                                        <td>3</td>
+                                        <td>1</td>
+                                        <td>2</td>
+                                        <td>3</td>
+                                        <td>1</td>
+                                        <td>2</td>
+                                        <td>3</td>
+                                        <td>3</td>	-->
+                                    </tr>
+                                </tbody>
+                                <thead>
+                                      <tr id="galleryDateTr3">
+                                 <!--     <th scope="col">일자</th>
+                                        <th scope="col">21일</th>
+                                        <th scope="col">22일</th>
+                                        <th scope="col">23일</th>
+                                        <th scope="col">24일</th>
+                                        <th scope="col">25일</th>
+                                        <th scope="col">26일</th>
+                                        <th scope="col">27일</th>
+                                        <th scope="col">28일</th>
+                                        <th scope="col">29일</th>
+                                        <th scope="col">30일</th> -->
+                                    </tr>	
+                                </thead>
+                                <tbody>
+                                    <tr id="galleryCount3">
+                                   <!--     <th scope="row">갤러리 수</th>
+                                          <td>1</td>
+                                        <td>2</td>
+                                        <td>3</td>
+                                        <td>1</td>
+                                        <td>2</td>
+                                        <td>3</td>
+                                        <td>1</td>
+                                        <td>2</td>
+                                        <td>3</td>
+                                        <td>3</td>	-->
+                                    </tr>
+                                </tbody>
+                                <tbody>
+                                    <tr id="storyCount3">
+                                  <!--      <th scope="row">스토리 수</th>
+                                          <td>1</td>
+                                        <td>2</td>
+                                        <td>3</td>
+                                        <td>1</td>
+                                        <td>2</td>
+                                        <td>3</td>
+                                        <td>1</td>
+                                        <td>2</td>
+                                        <td>3</td>
+                                        <td>3</td>	-->
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div> <!-- 표 END -->
+            
+            
+            
+             <!--     <div class="bg-light rounded h-100 p-4">
                     <h3 class="mb-4">갤러리와 스토리 현황 표</h3>
                     <table class="table table-hover">
                         <thead>
@@ -701,7 +899,23 @@ class="panel-radios" type="checkbox" name="nav-checkbox">
                         </thead>
                         <tbody>
                             <tr>
-                                <th scope="row">매출</th>
+                                <th scope="row">갤러리</th>
+                                <td>150</td>
+                                <td>300</td>
+                                <td>200</td>
+                                <td>200</td>
+                                <td>200</td>
+                                <td>150</td>
+                                <td>300</td>
+                                <td>200</td>
+                                <td>200</td>
+                                <td>200</td>
+                                <td>200</td>
+                                <td>200</td>
+                            </tr>
+                            
+                            <tr>
+                                <th scope="row">스토리</th>
                                 <td>150</td>
                                 <td>300</td>
                                 <td>200</td>
@@ -717,40 +931,47 @@ class="panel-radios" type="checkbox" name="nav-checkbox">
                             </tr>
                         </tbody>
                     </table>
-            </div>
-             <!--월별 매출 표 끝-->
-             <!--총 매출 합계 시작-->
-<div class="col-sm-12 col-xl-7">
-    <div class="bg-light rounded h-100 p-4">
-        <h3 class="mb-4">현재 총 갤러리와 스토리 현황 합계</h3>
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th scope="col"></th>
-                    <th scope="col">현재 갤러리와 스토리 현황 합계</th>
-                </tr>
-            </thead>
-            <tbody>
-              <tr>
-                  <th scope="row">갤러리</th>
-                  <td id="total_all"></td>
-              </tr>
-               <tr>
-                  <th scope="row">스토리</th>
-                  <td id="total_all1"></td>
-              </tr>
-          </tbody>
-        </table>
-</div>
- <!--총 매출 합계 끝-->
-        </div>
+            </div>	-->
+            
+            <!--========================== 갤러리와 스토리 현황 표 시작 ============================-->
+            
+             <!--========================== 총 갤러리와 스토리 현황 합계 시작 =========================-->
+             
+						<div class="col-sm-12 col-xl-7">
+						    <div class="bg-light rounded h-100 p-4">
+						        <h3 class="mb-4">현재 총 갤러리와 스토리 현황 합계</h3>
+						        <table class="table table-hover">
+						            <thead>
+						                <tr>
+						                    <th scope="col"></th>
+						                    <th scope="col">현재 갤러리와 스토리 현황 합계</th>
+						                </tr>
+						            </thead>
+						            <tbody>
+						              <tr>
+						                  <th scope="row">갤러리</th>
+						                  <td id="galleryTotal"></td>
+						              </tr>
+						               <tr>
+						                  <th scope="row">스토리</th>
+						                  <td id="storyTotal"></td>
+						              </tr>
+						          </tbody>
+						        </table>
+						</div>
+						
+					<!--========================== 총 갤러리와 스토리 현황 합계 끝 =========================-->
         
+        	</div>
         </div>
     </div>
 </div>
 </main>
 </section>
-<!--달 매출 끝-->
+
+<!--================================================= 갤러리와 스토리 현황 끝 =================================================-->
+
+<!--================================================= 회원 리스트 현황 시작 =================================================-->
 
 <section id="panel-4">
   <main>
@@ -758,14 +979,18 @@ class="panel-radios" type="checkbox" name="nav-checkbox">
   <div class="bg-light  rounded p-4" >
       <div class="table-responsive">
           <div class="bg-light text-center rounded p-4">
-              <!--월별 매출 차트 시작-->
+          
+              
+              
               <div class="d-flex align-items-center justify-content-between mb-4">
                   <h3 class="mb-0">회원 리스트</h3>
               </div>
               <div class="container-fluid pt-4 px-4">
                 <div class="bg-light  rounded p-4">
-                    <div class="searchbox" style="margin-top:10px; margin-bottom:10px; ">
-                        <!--정렬 (가입일순 / 생년월일 / 주소(시) / )-->
+                    <div class="searchbox" style="margin-top:10px; margin-bottom:10px;">
+                    
+                        <!--============== 정렬 (가입일순 / 생년월일 / 주소(시) / ) 시작 ==================-->
+                        
                         <div class="dropdown" style="margin-left: 20px;">
                             <button type="button" class="btn btn-primary dropdown-toggle btn-sm" data-toggle="dropdown">
                                 정렬
@@ -777,136 +1002,138 @@ class="panel-radios" type="checkbox" name="nav-checkbox">
                                 <a class="dropdown-item-text" href="#">구매/판매 목록</a>
                             </div>
                         </div>
+                        
+                        <!--============== 정렬 (가입일순 / 생년월일 / 주소(시) / ) 끝 ==================-->
             
-                           <!--search-->
+                           <!--================= 검색 시작 =====================-->
+                           
                            <div>
-                            <input type="text" placeholder="검색">
-                            <button>검색</button>
+                            <input type="text" id="keyword" placeholder="검색">
+                            <button type="button" id="searchClick">검색</button>
                             </div>
-                        <!--search-->
+                            
+                      <!--================= 검색 끝 =====================-->
+                      
                     </div> 
           
-
-            <!-- Sales Chart Start -->
+          <!--=========================== 회원 리스트 표 시작 =======================-->
             <table class="table table-hover text-center">
                 <thead>
-                    <tr class="table-secondary text-center">
-                        <th>회원번호</th>
-                        <th>아이디</th>
-                        <th>이름</th>
-                        <th>생년월일</th>
-                        <th>성별</th>
-                        <th>주소</th>
-                        <th>가입일</th>
-                        <th>활동정지</th>
-                    </tr>
+                    <tr class="table-secondary">
+						<th class="col-1 text-center">회원 번호</th>
+			            <th class="col-2 text-center">아이디</th>
+			            <th class="col-2 text-center">비밀번호</th>
+			            <th class="col-2 text-center">이메일</th>
+			            <th class="col-1 text-center">이름</th>
+			            <th class="col-2 text-center">닉네임</th>
+			            <th class="col-3 text-center">활동 정지</th>
+					</tr>
                 </thead>
-                <tbody class="table-sm">
-                
+                <tbody class="table-sm" id="userListAppend">
+               <!--   <c:if test="${empty records }" var="isEmpty">
+						<tr>
+							<td class="text-center" colspan="6">등록된 글이 없습니다.</td>
+						</tr>	
+				</c:if>
                 <c:if test="${not isEmpty }">
                     <c:forEach var="record" items="${records}">
                         <tr>
-                            <td>2</td>
-                        <td><a href="memberOne.html">lee</a></td>
-                        <td>이놈</td>
-                        <td class="text-center">88-06-22</td>
-                        <td class="text-center">여</td>
-                        <td>(47545) 부산광역시 연제구 중앙대로 1001 부산광역시청 1층 민원실 </td>
-                        <td class="text-center">21-12-29</td>
-                        <td> <button type="button" class="btn btn-secondary  btn-sm">활동정지</button></td>	
-                        </tr>
+		                  <td class="text-center">${records.userNo }</td>
+		                  <td class="text-center"><a class="primary" data-toggle="modal" data-target="#exampleModalCenter">${records.userId }</a></td>
+		                  <td class="text-center">${records.userPassword }</a></td>
+		                  <td class="text-center">${records.userEmail }</a></td>
+		                  <td class="text-center">${records.userName }</td>
+		                  <td class="text-center">${records.userNickname }</td>
+		                  <td class="text-center">${records.enabled }</td>
+		                </tr>
                     </c:forEach>
-                </c:if>
+                </c:if>	-->
     
-    <!-- 회원리스트 예시 시작 -->
+    				<!--========================= 회원리스트 예시 시작 ====================-->
+    				
+            <!--          	<tr>
+		                  <td class="text-center">1</td>
+		                  <td class="text-center"><a class="primary" data-toggle="modal" data-target="#exampleModalCenter">ADMIN</a></td>
+		                  <td class="text-center">1234</a></td>
+		                  <td class="text-center">abcd@efgh.com</a></td>
+		                  <td class="text-center">안모</td>
+		                  <td class="text-center">pictory</td>
+		                  <td class="text-center"> <button type="button" class="btn btn-secondary  btn-sm ">복원</button></td>
+		                </tr>
                     <tr>
-                        <td>2</td>
-                        <td><a class="primary" data-toggle="modal" data-target="#exampleModalCenter">lee</a></td>
-                        <td>이놈</td>
-                        <td class="text-center">88-06-22</td>
-                        <td class="text-center">여</td>
-                        <td>(47545) 부산광역시 연제구 중앙대로 1001 부산광역시청 1층 민원실 </td>
-                        <td class="text-center">21-12-29</td>
-                        <td> <button type="button" class="btn btn-secondary  btn-sm">활동정지</button></td>
-                    </tr>
+		                  <td class="text-center">1</td>
+		                  <td class="text-center"><a class="primary" data-toggle="modal" data-target="#exampleModalCenter">ADMIN</a></td>
+		                  <td class="text-center">1234</a></td>
+		                  <td class="text-center">abcd@efgh.com</a></td>
+		                  <td class="text-center">안모</td>
+		                  <td class="text-center">pictory</td>
+		                  <td class="text-center"> <button type="button" class="btn btn-secondary  btn-sm ">활동정지</button></td>
+		                </tr>
                     <tr>
-                       <td>3</td>
-                        <td><a href="memberOne.html">jenom</a></td>
-                        <td>저놈</td>
-                        <td class="text-center"> 02-05-08 </td>
-                        <td class="text-center">비공개</td>
-                        <td>(03048) 서울특별시 종로구 청와대로 1 </td>
-                        <td class="text-center">22-02-08 </td>
-                        <td class="text-center"> <button type="button" class="btn btn-secondary  btn-sm ">복원</button></td>
-                    </tr>
+		                  <td class="text-center">1</td>
+		                  <td class="text-center"><a class="primary" data-toggle="modal" data-target="#exampleModalCenter">ADMIN</a></td>
+		                  <td class="text-center">1234</a></td>
+		                  <td class="text-center">abcd@efgh.com</a></td>
+		                  <td class="text-center">안모</td>
+		                  <td class="text-center">pictory</td>
+		                  <td class="text-center"> <button type="button" class="btn btn-secondary  btn-sm ">복원</button></td>
+		                </tr>
                     <tr>
-                        <td>2</td>
-                        <td><a href="memberOne.html">lee</a></td>
-                        <td>이놈</td>
-                        <td class="text-center">88-06-22</td>
-                        <td class="text-center">여</td>
-                        <td>(47545) 부산광역시 연제구 중앙대로 1001 부산광역시청 1층 민원실 </td>
-                        <td class="text-center">21-12-29</td>
-                        <td> <button type="button" class="btn btn-secondary  btn-sm">활동정지</button></td>
-                    </tr>
+		                  <td class="text-center">1</td>
+		                  <td class="text-center"><a class="primary" data-toggle="modal" data-target="#exampleModalCenter">ADMIN</a></td>
+		                  <td class="text-center">1234</a></td>
+		                  <td class="text-center">abcd@efgh.com</a></td>
+		                  <td class="text-center">안모</td>
+		                  <td class="text-center">pictory</td>
+		                  <td class="text-center"> <button type="button" class="btn btn-secondary  btn-sm ">복원</button></td>
+		                </tr>
                     <tr>
-                       <td>3</td>
-                        <td><a href="memberOne.html">jenom</a></td>
-                        <td>저놈</td>
-                        <td class="text-center"> 02-05-08 </td>
-                        <td class="text-center">비공개</td>
-                        <td>(03048) 서울특별시 종로구 청와대로 1 </td>
-                        <td class="text-center">22-02-08 </td>
-                        <td class="text-center"> <button type="button" class="btn btn-secondary  btn-sm ">복원</button></td>
-                    </tr>
+		                  <td class="text-center">1</td>
+		                  <td class="text-center"><a class="primary" data-toggle="modal" data-target="#exampleModalCenter">ADMIN</a></td>
+		                  <td class="text-center">1234</a></td>
+		                  <td class="text-center">abcd@efgh.com</a></td>
+		                  <td class="text-center">안모</td>
+		                  <td class="text-center">pictory</td>
+		                  <td class="text-center"> <button type="button" class="btn btn-secondary  btn-sm ">복원</button></td>
+		                </tr>
                     <tr>
-                        <td>2</td>
-                        <td><a href="memberOne.html">lee</a></td>
-                        <td>이놈</td>
-                        <td class="text-center">88-06-22</td>
-                        <td class="text-center">여</td>
-                        <td>(47545) 부산광역시 연제구 중앙대로 1001 부산광역시청 1층 민원실 </td>
-                        <td class="text-center">21-12-29</td>
-                        <td> <button type="button" class="btn btn-secondary  btn-sm">활동정지</button></td>
-                    </tr>
+		                  <td class="text-center">1</td>
+		                  <td class="text-center"><a class="primary" data-toggle="modal" data-target="#exampleModalCenter">ADMIN</a></td>
+		                  <td class="text-center">1234</a></td>
+		                  <td class="text-center">abcd@efgh.com</a></td>
+		                  <td class="text-center">안모</td>
+		                  <td class="text-center">pictory</td>
+		                  <td class="text-center"> <button type="button" class="btn btn-secondary  btn-sm ">복원</button></td>
+		                </tr>
                     <tr>
-                       <td>3</td>
-                        <td><a href="memberOne.html">jenom</a></td>
-                        <td>저놈</td>
-                        <td class="text-center"> 02-05-08 </td>
-                        <td class="text-center">비공개</td>
-                        <td>(03048) 서울특별시 종로구 청와대로 1 </td>
-                        <td class="text-center">22-02-08 </td>
-                        <td class="text-center"> <button type="button" class="btn btn-secondary  btn-sm ">복원</button></td>
-                    </tr>
+		                  <td class="text-center">1</td>
+		                  <td class="text-center"><a class="primary" data-toggle="modal" data-target="#exampleModalCenter">ADMIN</a></td>
+		                  <td class="text-center">1234</a></td>
+		                  <td class="text-center">abcd@efgh.com</a></td>
+		                  <td class="text-center">안모</td>
+		                  <td class="text-center">pictory</td>
+		                  <td class="text-center"> <button type="button" class="btn btn-secondary  btn-sm ">복원</button></td>
+		                </tr>
                     <tr>
-                        <td>2</td>
-                        <td><a href="memberOne.html">lee</a></td>
-                        <td>이놈</td>
-                        <td class="text-center">88-06-22</td>
-                        <td class="text-center">여</td>
-                        <td>(47545) 부산광역시 연제구 중앙대로 1001 부산광역시청 1층 민원실 </td>
-                        <td class="text-center">21-12-29</td>
-                        <td> <button type="button" class="btn btn-secondary  btn-sm">활동정지</button></td>
-                    </tr>
-                    <tr>
-                       <td>3</td>
-                        <td><a href="memberOne.html">jenom</a></td>
-                        <td>저놈</td>
-                        <td class="text-center"> 02-05-08 </td>
-                        <td class="text-center">비공개</td>
-                        <td>(03048) 서울특별시 종로구 청와대로 1 </td>
-                        <td class="text-center">22-02-08 </td>
-                        <td class="text-center"> <button type="button" class="btn btn-secondary  btn-sm ">복원</button></td>
-                    </tr>
-                    <!-- 회원리스트 예시 끝 -->
+		                  <td class="text-center">1</td>
+		                  <td class="text-center"><a class="primary" data-toggle="modal" data-target="#exampleModalCenter">ADMIN</a></td>
+		                  <td class="text-center">1234</a></td>
+		                  <td class="text-center">abcd@efgh.com</a></td>
+		                  <td class="text-center">안모</td>
+		                  <td class="text-center">pictory</td>
+		                  <td class="text-center"> <button type="button" class="btn btn-secondary  btn-sm ">복원</button></td>
+		                </tr>	-->
+		                
+                    <!--========================= 회원리스트 예시 끝 =========================-->
+                    
                 </tbody>
             </table>
-            <!-- Widgets End -->
+            
+             <!--=========================== 회원 리스트 표 끝 =======================-->
             
         </div>
         
-        <!-- 모달 -->
+        <!--================================== 모달 회원 리스트 시작 =========================-->
         <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
@@ -917,11 +1144,11 @@ class="panel-radios" type="checkbox" name="nav-checkbox">
           </button>
         </div>
         <div class="modal-body">
-            <div>
+            <div id="modalUserInfo">
                 
                 
                 <td class="col-1 align-top border-spacing; 30px;">
-                    <img class="rounded-3 flex-shrink-0 " value="${param.userProfile }" alt="userProfile" style="width: 170px; height: 170px;">
+                    <img class="rounded-3 flex-shrink-0 modal0" value="${records.userProfile }" alt="userProfile" style="width: 170px; height: 170px;">
                 </td>
                 	
               
@@ -929,7 +1156,7 @@ class="panel-radios" type="checkbox" name="nav-checkbox">
                    <div class="row mb-3">
                        <label for="userNo" class="col-3 col-form-label text-left">회원번호</label>
                        <div class="col-5">
-                           <input value="${param.userNo }" readonly  type="text" class="form-control" name="userNO">
+                           <input value="${records.userNo }" readonly  type="text" class="form-control modal1" name="userNO">
                        </div>
                    </div>
 				</td>
@@ -939,7 +1166,7 @@ class="panel-radios" type="checkbox" name="nav-checkbox">
                    <div class="row mb-3">
                        <label for="userId" class="col-3 col-form-label text-left">ID</label>
                        <div class="col-7">
-                           <input value="${param.userId }" readonly  type="text" class="form-control" name="userId">
+                           <input value="${records.userId }" readonly  type="text" class="form-control modal2" name="userId">
                        </div>
                    </div>
 				</td>
@@ -948,7 +1175,7 @@ class="panel-radios" type="checkbox" name="nav-checkbox">
                    <div class="row mb-3">
                        <label for="userPassword" class="col-3 col-form-label text-left">비밀번호</label>
                        <div class="col-7">
-                           <input value="${param.userPassword }" readonly type="text" class="form-control" name="userPassword">
+                           <input value="${records.userPassword }" readonly type="text" class="form-control modal3" name="userPassword">
                        </div>
                    </div>
 				</td>
@@ -957,7 +1184,7 @@ class="panel-radios" type="checkbox" name="nav-checkbox">
                    <div class="row mb-3">
                        <label for="userEmail" class="col-3 col-form-label text-left">이메일</label>
                        <div class="col-7">
-                           <input value="${param.userEmail }" readonly type="text" class="form-control" name="userEmail">
+                           <input value="${records.userEmail }" readonly type="text" class="form-control modal4" name="userEmail">
                        </div>
                    </div>
 				</td>
@@ -966,7 +1193,7 @@ class="panel-radios" type="checkbox" name="nav-checkbox">
                    <div class="row mb-3">
                        <label for="userName" class="col-3 col-form-label text-left">이름</label>
                        <div class="col-7">
-                           <input value="${param.userName }" readonly type="text" class="form-control" name="userName">
+                           <input value="${records.userName }" readonly type="text" class="form-control modal5" name="userName">
                        </div>
                    </div>
                 </td>
@@ -975,7 +1202,7 @@ class="panel-radios" type="checkbox" name="nav-checkbox">
                    <div class="row mb-3">
                        <label for="userNickname" class="col-3 col-form-label text-left">닉네임</label>
                        <div class="col-7">
-                           <input value="${param.userNickname }" readonly type="text" class="form-control" name="userNickname">
+                           <input value="${records.userNickname }" readonly type="text" class="form-control modal6" name="userNickname">
                        </div>
                    </div>
                 </td>
@@ -984,7 +1211,7 @@ class="panel-radios" type="checkbox" name="nav-checkbox">
                    <div class="row mb-3">
                        <label for="userSelf" class="col-3 col-form-label text-left">자기소개</label>
                        <div class="col-7">
-                           <input value="${param.userFwer }" readonly type="text" class="form-control" name="userFwer">
+                           <input value="${records.userFwer }" readonly type="text" class="form-control modal7" name="userFwer">
                        </div>
                    </div>
                 </td>
@@ -993,7 +1220,7 @@ class="panel-radios" type="checkbox" name="nav-checkbox">
                    <div class="row mb-3">
                        <label for="userFing" class="col-3 col-form-label text-left">팔로잉 수</label>
                        <div class="col-7">
-                           <input value="${param.userFing }" readonly type="text" class="form-control" name="userFing">
+                           <input value="${records.userFing }" readonly type="text" class="form-control modal8" name="userFing">
                        </div>
                    </div>
                 </td>
@@ -1002,7 +1229,7 @@ class="panel-radios" type="checkbox" name="nav-checkbox">
                    <div class="row mb-3">
                        <label for="userFwer" class="col-3 col-form-label text-left">팔로워 수</label>
                        <div class="col-7">
-                           <input value="${param.userFwer }" readonly type="text" class="form-control" name="userFwer">
+                           <input value="${records.userFwer }" readonly type="text" class="form-control modal9" name="userFwer">
                        </div>
                    </div>
                 </td>
@@ -1017,26 +1244,17 @@ class="panel-radios" type="checkbox" name="nav-checkbox">
     </div>
   </div>
   
+  <!--================================== 모달 회원 리스트 끝 =========================-->
+
 </main>
 </section>
+
+<!--================================================= 회원 리스트 현황 끝 =================================================-->
+
 </article>
 <!-- Chart End -->
 
-<!-- Footer Start -->
-<div class="container-fluid pt-4 px-4">
-    <div class="bg-light rounded-top p-4">
-        <div class="row">
-            <div class="col-12 col-sm-6 text-center text-sm-start">
-                &copy; <a href="#">Your Site Name</a>, All Right Reserved. 
-            </div>
-            <div class="col-12 col-sm-6 text-center text-sm-end">
-                <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
-                Designed By <a href="https://htmlcodex.com">HTML Codex</a>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Footer End -->
+
 </div>
 <!-- Content End -->
 
@@ -1046,9 +1264,11 @@ class="panel-radios" type="checkbox" name="nav-checkbox">
 </div>
 </body>
 
+<!--===================================== 스크립트 시작 =============================-->
 
 <script>
 
+const localhost = 'http://localhost:4040/springapp/admin';
 var monthDay = '';
 var dataText = "";
 var bbcc = "";
@@ -1058,6 +1278,14 @@ var thisMonth = "";
 var monthText = "";
 
 var tabText = "회원";
+
+var monthArr = [];
+var galleryArr = [];
+
+var monthArr = [];
+var xValues = [];
+var yValues = [];
+var yValuesTwo = [];
 
 
 var date = new Date(); // 현재 날짜(로컬 기준) 가져오기
@@ -1078,6 +1306,9 @@ var today = new Date(utc + kstGap); // 한국 시간으로 date 객체 만들기
 
   //차트
   function calendarInit(){
+	  
+	  var monthArr = [];
+	  
     // 날짜 정보 가져오기
     // var date = new Date(); // 현재 날짜(로컬 기준) 가져오기
     // var utc = date.getTime() + (date.getTimezoneOffset() * 60 * 1000); // uct 표준시 도출
@@ -1089,8 +1320,8 @@ var today = new Date(utc + kstGap); // 한국 시간으로 date 객체 만들기
           thisMonth = new Date(currentYear, currentMonth + 1, 1);
         }else{
           thisMonth = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-        }        
-
+        }
+    
     // 달력에서 표기하는 날짜 객체
         currentYear = thisMonth.getFullYear(); // 달력에서 표기하는 연
         currentMonth = thisMonth.getMonth(); // 달력에서 표기하는 월
@@ -1115,12 +1346,6 @@ var today = new Date(utc + kstGap); // 한국 시간으로 date 객체 만들기
     var endDay = new Date(currentYear, currentMonth + 1, 0);
     var nextDate = endDay.getDate();
     var nextDay = endDay.getDay();
-
-
-    var xValues = [];
-    var yValues = [];
-    var monthArr = [];
-
 
     // 현재 월 표기
      $('.year-month').text(currentYear + '.' + (currentMonth + 1));
@@ -1177,89 +1402,360 @@ var today = new Date(utc + kstGap); // 한국 시간으로 date 객체 만들기
     $('.div_chart2').append('<canvas id="salseChartID" style="width: 100%; max: width 1104px;"></canvas>');
     bbcc = "salseChartID";
 
-    }else if(tabText == "게시물"){
+    }
+    
+//    else if(tabText == "게시물"){
     // 기존 캔버스 삭제
-    $('.div_chart3').find('canvas').remove();
+//    $('.div_chart3').find('canvas').remove();
 
     // 새로 다시 그림
-    $('.div_chart3').append('<canvas id="galleryChartID" style="width: 100%; max: width 1104px;"></canvas>');
-      bbcc = "galleryChartID";
-    }
-
-      var yValuesTwo = [];
-
-      for(var i = 1; i <= monthArr.length; i++){
-          var randomNumber = Math.floor( Math.random() * 5 + 2);
-          var randomNumber1 = Math.floor( Math.random() * 3 + 2);
-          xValues.push(i + "일");
-          yValues.push(randomNumber);
-          
-          if(tabText != "매출"){
-            yValuesTwo.push(randomNumber1);
-          }
-      }
-
-   
-      
-
-  // 차트 세팅
-      if(tabText == "회원" || tabText == "게시물"){
-
-        new Chart(bbcc, {
-			  type: "bar",
-			  data: {
-			    labels: xValues,
-			    datasets: [
-                     { backgroundColor: "rgba(30, 144, 255, 1)", data: yValues }
-                    ,{ backgroundColor: "rgba(24, 154, 155, 1)", borderColor:"red", data: yValuesTwo }
-          ]
-			  },
-			  options: {
-			    legend: {display: true},
-			    scales: {
-			      yAxes: [{
-			        ticks: {
-			          beginAtZero: true
-			        }
-			      }],
-			    }
-			  }
-			});
-
-
-    }else if(tabText == "매출"){
-
-      new Chart(bbcc, {
-			  type: "bar",
-			  data: {
-			    labels: xValues,
-			    datasets: [{ backgroundColor: "rgba(30, 144, 255, 1)", data: yValues }]
-			  },
-			  options: {
-			    legend: {display: true},
-			    scales: {
-			      yAxes: [{
-			        ticks: {
-			          beginAtZero: true
-			        }
-			      }],
-			    }
-			  }
-			});
-    }
-      
+//    $('.div_chart3').append('<canvas id="galleryChartID" style="width: 100%; max: width 1104px;"></canvas>');
+//      bbcc = "galleryChartID";
+//    }
+    
   } // CALENDAR INIT FN END
+  
+  
+
+  
+  
+  
+  // 갤러리 데이터 조회
+  function galleryAjax(){
+	  
+	  
+	  
+	  var monthArr = [];
+	  
+	  var date = new Date(); // 현재 날짜(로컬 기준) 가져오기
+	  var utc = date.getTime() + (date.getTimezoneOffset() * 60 * 1000); // uct 표준시 도출
+	  var kstGap = 9 * 60 * 60 * 1000; // 한국 kst 기준시간 더하기
+	  var today = new Date(utc + kstGap); // 한국 시간으로 date 객체 만들기(오늘)
+	  
+	    // 날짜 정보 가져오기
+	    // var date = new Date(); // 현재 날짜(로컬 기준) 가져오기
+	    // var utc = date.getTime() + (date.getTimezoneOffset() * 60 * 1000); // uct 표준시 도출
+	    // var kstGap = 9 * 60 * 60 * 1000; // 한국 kst 기준시간 더하기
+	    // var today = new Date(utc + kstGap); // 한국 시간으로 date 객체 만들기(오늘)
+	        if(monthText == "이전달"){
+	          thisMonth = new Date(currentYear, currentMonth - 1, 1);  
+	        }else if(monthText == "다음달"){
+	          thisMonth = new Date(currentYear, currentMonth + 1, 1);
+	        }else{
+	          thisMonth = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+	        }
+	    
+	    // 달력에서 표기하는 날짜 객체
+	        currentYear = thisMonth.getFullYear(); // 달력에서 표기하는 연
+	        currentMonth = thisMonth.getMonth(); // 달력에서 표기하는 월
+	    var currentDate = thisMonth.getDate(); // 달력에서 표기하는 일
+
+	    var now = new Date();
+	    var month_now = now.getMonth()+1
+	    var year_now = now.getFullYear();
+
+
+	    // 렌더링을 위한 데이터 정리
+	    currentYear = thisMonth.getFullYear();
+	    currentMonth = thisMonth.getMonth();
+	    currentDate = thisMonth.getDate();
+	    
+	    // 이전 달의 마지막 날 날짜와 요일 구하기
+	    var startDay = new Date(currentYear, currentMonth, 0);
+	    var prevDate = startDay.getDate();
+	    var prevDay = startDay.getDay();
+
+	    // 이번 달의 마지막날 날짜와 요일 구하기
+	    var endDay = new Date(currentYear, currentMonth + 1, 0);
+	    var nextDate = endDay.getDate();
+	    var nextDay = endDay.getDay();
+
+	    // 현재 월 표기
+	     $('.year-month').text(currentYear + '.' + (currentMonth + 1));
+
+	    // 렌더링 html 요소 생성
+	    calendar = document.querySelector('.dates')
+	    calendar.innerHTML = '';
+	    $(".dates").hide();
+
+	    // 지난달
+	    for (var i = prevDate - prevDay + 1; i <= prevDate; i++) {
+	        calendar.innerHTML = calendar.innerHTML + '<div class="day prev disable">' + i + '</div>'
+	    }
+	    // 이번달
+	    for (var i = 1; i <= nextDate; i++) {
+	        calendar.innerHTML = calendar.innerHTML + '<div class="day current">' + i + '</div>';
+	        monthArr.push(i);
+	    }
+
+	    if(month_now == currentMonth + 1 && currentYear == year_now){
+	      $('.go-next').hide();
+	    }else{
+	      $('.go-next').show();
+	    }
+
+	    // 다음달
+	    for (var i = 1; i <= (7 - nextDay == 7 ? 0 : 7 - nextDay); i++) {        	
+	        calendar.innerHTML = calendar.innerHTML + '<div class="day next disable">' + i + '</div>'
+	    }
+
+	    // 오늘 날짜 표기
+	    if (today.getMonth() == currentMonth) {
+	        todayDate = today.getDate();
+	        var currentMonthDate = document.querySelectorAll('.dates .current');
+	        currentMonthDate[todayDate -1].classList.add('today');
+	    }
+	    
+	    
+	    
+//	    =========================================================================
+	  
+      // 기존 캔버스 삭제
+      $('.div_chart3').find('canvas').remove();
+   	  // 새로 다시 그림
+      $('.div_chart3').append('<canvas id="galleryChartID" style="width: 100%; max: width 1104px;"></canvas>');
+	 
+	var yValues = [];
+	var yValuesTwo = [];
+ 
+	var today = String(thisMonth.getFullYear());	
+	var month = String(thisMonth.getMonth() + 1);
+	month = month >= 10 ? month : '0' + month;
+	var firstDay = today + month + "01";
+	
+	
+	
+ 	$.ajax({
+	 	url: localhost + "/gallery.do",
+	    type: "POST",
+	    cache: false,
+        dataType: "json",
+	    data: {
+			
+	    	'today' : firstDay
+	    	
+	    },
+	    success: function(data){
+	    	
+	    	var cArr = [];
+	    	var xValues = [];
+	    	    	
+	    	$('#galleryDateTr1').html('');
+	    	$('#galleryDateTr2').html('');
+	    	$('#galleryDateTr3').html('');
+
+	    	
+			// 갤러리 일별 표
+			$('#galleryDateTr1').append('<th scope="col">일자</th>');
+			$('#galleryDateTr2').append('<th scope="col">일자</th>');
+			$('#galleryDateTr3').append('<th scope="col">일자</th>');
+	    	
+		    for(var i = 1; i <= monthArr.length; i++){
+		    	
+		    	var dateValue = i >= 10 ? i : '0' + i;
+		    	
+		    	if(Number(dateValue) <= 10){
+					$('#galleryDateTr1').append('<th scope="col">'+ dateValue +'일</th>');
+		    	}else if(Number(dateValue) <= 20){
+					$('#galleryDateTr2').append('<th scope="col">'+ dateValue +'일</th>');
+		    	}else{
+		    		$('#galleryDateTr3').append('<th scope="col">'+ dateValue +'일</th>');
+		    	}
+		    	
+		    	
+		    	
+		    	var testDay = today + month + dateValue;	
+		    	cArr.push(testDay);
+		        xValues.push(i + "일");
+		    }
+		    
+		    
+		    var aaArr = [];
+		    var bbArr = [];
+		    
+		    for(var i = 0; i < data.length; i++){
+		    	
+		    	
+		    	var obj = {};
+		    	
+		    	var v = data[i];
+		    
+			    	for(var y = 0; y < cArr.length; y++){
+			    		
+			    		var obj1 = {};
+			    		var obj2 = {};
+			    		
+			    		var vv = cArr[y];
+			    		
+			    		if(i == data.length-1){
+				    		if(vv == v.dateDay){
+				    			obj1.dateDay = v.dateDay;
+				    			obj1.photo = v.photo;
+				    			obj1.photomuseum = v.photomuseum;
+				    		}
+				    		
+				    		if(vv != v.dateDay){
+				    			obj1.dateDay = vv;
+				    			obj1.photo = 0;
+				    			obj1.photomuseum = 0;
+				    		}
+				    		
+				    		aaArr.push(obj1);
+			    		}else{
+				    		if(vv == v.dateDay){
+				    			obj2.dateDay = v.dateDay;
+				    			obj2.photo = v.photo;
+				    			obj2.photomuseum = v.photomuseum;
+				    		}
+				    		
+				    		if(vv != v.dateDay){
+				    			obj2.dateDay = vv;
+				    			obj2.photo = 0;
+				    			obj2.photomuseum = 0;
+				    		}
+				    		
+				    		bbArr.push(obj2);
+			    		}
+			    	
+			    	}	
+		    	}
+		    
+		    		for(var i = 0; i < aaArr.length; i++){
+		    			var obj = {};
+		    			var aa = aaArr[i];
+		    			var bb = bbArr[i];
+		    			
+		    			if(aa.dateDay == bb.dateDay &&  aa.photo == bb.photo && aa.photomuseum == bb.photomuseum){		    				
+		    				yValues.push(aa.photo)
+		    				yValuesTwo.push(aa.photomuseum);
+		    				
+		    			}else{
+		    				
+		    				if(aa.dateDay == bb.dateDay &&  aa.photo != bb.photo || aa.dateDay == bb.dateDay && aa.photomuseum != bb.photomuseum){
+		    					
+		    					if(aa.photo == 0 && aa.photomuseum == 0){
+			    					
+		    					}else{
+				    				yValues.push(aa.photo)
+				    				yValuesTwo.push(aa.photomuseum);
+		    					}
+		    					
+		    					if(bb.photo == 0 && bb.photomuseum == 0){
+		    						
+		    					}else{
+				    				yValues.push(bb.photo)
+				    				yValuesTwo.push(bb.photomuseum);
+		    					}
+		    				}
+		    			}
+		    		}
+		   
+//		    	dateDay
+//	    		photo
+//	    		photomuseum
+				
+		 		$('#galleryTotal').text('');
+		 		$('#storyTotal').text('');
+					
+		 		let sum = 0;
+		 		let sum1 = 0;
+
+		 		for (let i = 0; i < yValues.length; i++) {
+		 		    sum += yValues[i];
+		 		}
+				
+		 		for (let i = 0; i < yValuesTwo.length; i++) {
+		 		    sum1 += yValuesTwo[i];
+		 		}
+		 		
+		 		
+		 		
+		 		$('#galleryTotal').text(sum);
+		 		$('#storyTotal').text(sum1);
+		 		
+		 		
+		 		$('#galleryCount1').html('');
+		 		$('#galleryCount2').html('');
+		 		$('#galleryCount3').html('');
+		 		$('#storyCount1').html('');
+		 		$('#storyCount2').html('');
+		 		$('#storyCount3').html('');
+		 		
+		 		
+ 				$('#galleryCount1').html('');
+ 				$('#storyCount1').html('');
+ 				$('#galleryCount2').html('');
+ 				$('#storyCount2').html('');
+ 				$('#galleryCount3').html('');
+ 				$('#storyCount3').html('');
+
+		 		
+		 		$('#galleryCount1').append('<th scope="col">갤러리 수</th>');
+		 		$('#galleryCount2').append('<th scope="col">갤러리 수</th>');
+		 		$('#galleryCount3').append('<th scope="col">갤러리 수</th>');
+		 		$('#storyCount1').append('<th scope="col">스토리 수</th>');
+		 		$('#storyCount2').append('<th scope="col">스토리 수</th>');
+		 		$('#storyCount3').append('<th scope="col">스토리 수</th>');
+		 		
+		 		for(var i = 0; i < yValues.length; i++){
+		 			
+		 			if(i  <= 9){
+		 				$('#galleryCount1').append('<td>'+ yValues[i] +'</td>');
+		 				$('#storyCount1').append('<td>'+ yValuesTwo[i] +'</td>');
+		 			}else if(i <= 19){
+		 				$('#galleryCount2').append('<td>'+ yValues[i] +'</td>');
+		 				$('#storyCount2').append('<td>'+ yValuesTwo[i] +'</td>');
+		 			}else{
+		 				$('#galleryCount3').append('<td>'+ yValues[i] +'</td>');
+		 				$('#storyCount3').append('<td>'+ yValuesTwo[i] +'</td>');
+		 			}
+		 		}
+
+
+			// 차트 세팅
+			  new Chart("galleryChartID", {
+					  type: "bar",
+					  data: {
+					    labels: xValues,
+					    datasets: [
+			                { backgroundColor: "rgba(30, 144, 255, 1)", data: yValues }
+			              , { backgroundColor: "rgba(24, 154, 155, 1)", borderColor:"red", data: yValuesTwo }
+			    ]
+					  },
+					  options: {
+					    legend: {display: true},
+					    scales: {
+					      yAxes: [{
+					        ticks: {
+					          beginAtZero: true
+					        }
+					      }],
+					    }
+					  }
+					});
+					
+
+
+	    }, error: function (request, status, error){
+	    	alert("Error");
+	    }
+	  });
+  }
 
   // 이전달로 이동
   $('.go-prev').on('click', function() {
       monthText = "이전달";
-      calendarInit();
+//      calendarInit();
+
+		galleryAjax();
+			
   });
 
   // 다음달로 이동
   $('.go-next').on('click', function() {
         monthText = "다음달";
-        calendarInit();
+ //       calendarInit();
+        galleryAjax();
   });
 
   // 탭 클릭
@@ -1282,8 +1778,192 @@ var today = new Date(utc + kstGap); // 한국 시간으로 date 객체 만들기
     $('.galleryClass').on('click', function(){
           monthText = "";
           tabText = "게시물";
-          calendarInit();
-    });  
+//          calendarInit();
+          galleryAjax();
+    });
+  
+  
+  
+//======================================= 회원 ===============================================================
+  //회원 정보
+  	$('.userClass').on('click', function(){
+  		console.log("회원 정보 확인123");
+  		userAjax();
+  	});
+  
+  
+  	var userData = "";
+
+  // 회원 리스트 조회
+  	function userAjax(){
+			
+	 	$.ajax({
+		 	url: localhost + "/userData.do",
+		    type: "POST",
+		    cache: false,
+	        dataType: "json",
+		    data: {
+		    	'userNo' : 0,
+		    	'enabled' : 0,
+		    	'userId' : ""
+		    },
+		    success: function(data){
+				
+		    	console.log("DATA CHECK : ", data)
+		    	
+				userData = data;
+				
+				memberSetting(data);
+				
+		    }, error: function (request, status, error){
+		    	alert("Error");
+		    }
+		  });
+  	}
+  
+  	// 회원 리스트 세팅
+  	function memberSetting(data){
+  		
+  		$('#userListAppend').html('');
+  		
+		for(var i = 0; i < data.length; i++){
+			var v = data[i];
+			
+			if(v.enabled == 1){
+				var buttonName = "활동정지";
+			}else{
+				var buttonName = "복원";
+			}
+			
+			var innerHtml = "";	
+			innerHtml += '<tr>';
+			innerHtml += 	'<td class="text-center">'+ v.userNo +'</td>';
+			innerHtml +=	'<td class="text-center"><a class="primary modalShow" data-toggle="modal" data-target="#exampleModalCenter" data-userno='+ v.userNo +'>'+ v.userId +'</a></td>';
+			innerHtml +=	'<td class="text-center">'+ v.userPassword +'</a></td>';
+			innerHtml +=	'<td class="text-center">'+ v.userEmail +'</a></td>';
+			innerHtml +=	'<td class="text-center">'+ v.userName +'</td>';
+			innerHtml +=	'<td class="text-center">'+ v.userNickname +'</td>';
+			innerHtml +=	'<td class="text-center"> <button type="button" class="btn btn-secondary btn-sm btnClick" data-userno='+ v.userNo +' data-enabled='+ v.enabled +'>'+ buttonName +'</button></td>';
+			innerHtml += '</tr>';
+			$('#userListAppend').append(innerHtml);
+		}
+  	}
+  	
+  	
+  	// 모달 세팅
+  	$(document).on("click", '.modalShow',function(){
+  		var userNo = $(this).data("userno");  		
+  		for(var i = 0; i < userData.length; i++){
+  			var v = userData[i];
+  			if(userNo == v.userNo){
+  				$('.modal0').val(v.userProfile);
+  				$('.modal1').val(v.userNo);
+  				$('.modal2').val(v.userId);
+  				$('.modal3').val(v.userPassword);
+  				$('.modal4').val(v.userEmail);
+  				$('.modal5').val(v.userName);
+  				$('.modal6').val(v.userNickname);
+  				$('.modal7').val(v.userSelf);
+  				$('.modal8').val(v.userFing);
+  				$('.modal9').val(v.userFwer);
+  			}
+  		}
+  	});
+  	
+  	
+  	// 활동 정지 버튼
+  	$(document).on('click', '.btnClick', function(){
+  		var userNo = $(this).data('userno');
+		var enabled = $(this).data('enabled');
+		
+			if(enabled == 1){
+				var enData = 2;
+			}else{
+				var enData = 1;
+			}
+  		
+  		 $.ajax({
+ 		    url: localhost + "/userData.do",
+ 		    type: "POST",
+ 		    cache: false,
+ 		    dataType: "json",
+ 		    data: {
+ 		    	
+ 		    	'userNo' : userNo,
+ 		    	'enabled' : enData,
+ 		    	'userId' : ""
+ 		    	
+ 		    },
+ 		    success: function(data){
+ 				
+ 				var check = "";
+ 				 				
+ 				for(var i = 0; i < data.length; i++){
+ 					var v = data[i];
+ 					
+ 					if(userNo == v.userNo && enabled != v.enabled){
+ 						check = "success";
+ 					}
+ 				}
+ 				 				
+				if(check == "success"){
+					alert("업데이트 되었습니다");
+				}else{
+					alert("업데이트에 실패 했습니다");	
+				}
+			
+					memberSetting(data);
+ 				
+ 		    }, error: function (request, status, error){
+ 		    	alert("Error");
+ 		    }
+ 		  });
+  	});
+  	
+  	
+  	// 검색 버튼
+  	$('#searchClick').on('click', function(){
+  		searchFn();
+  	});
+  	
+  	//엔터키
+   $("#keyword").on("keyup",function(key){
+		if(key.keyCode==13) {
+			searchFn();
+	     }
+	});
+  	
+  	// 회원 검색
+  	function searchFn(){
+		var keyword = $("#keyword").val();
+  		
+  		if(keyword == ""){
+  			alert("검색어를 입력해주세요");
+  			return false;
+  		}
+  		
+  		
+ 		 $.ajax({
+  		    url: localhost + "/userData.do",
+  		    type: "POST",
+  		    cache: false,
+  		    dataType: "json",
+  		    data: {
+  		    	
+  		    	'userId' : keyword,
+ 		    	'userNo' : 0,
+ 		    	'enabled' : 0
+  		    	
+  		    },
+  		    success: function(data){
+ 			
+			 memberSetting(data);
+  				
+  		    }, error: function (request, status, error){
+  		    	alert("Error");
+  		    }
+  		});
+  	}
 
 //=========================================================================
 

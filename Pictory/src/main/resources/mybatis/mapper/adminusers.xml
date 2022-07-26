@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pictory.springapp.dto.AdminUsersDTO">
+
+	<select id="userList" parameterType="AdminUsersDTO" resultType="AdminUsersDTO">
+		SELECT u.*, a.enabled FROM USERS u 
+    	 INNER JOIN AUTHORITIES a 
+          ON u.USERNO = a.USERNO
+	</select>
+			
+	<update id="updateEnabled" parameterType="AdminUsersDTO">
+		UPDATE AUTHORITIES 
+		 SET ENABLED = #{enabled}
+		  WHERE
+		    USERNO = #{userNo}
+	</update>
+	
+	<select id="searchList" parameterType="AdminUsersDTO" resultType="AdminUsersDTO">
+		SELECT u.*, a.enabled FROM USERS u 
+    	 INNER JOIN AUTHORITIES a 
+          ON u.USERNO = a.USERNO
+          WHERE
+          	UPPER(USERID) LIKE UPPER('%' || #{userId} || '%')
+          	OR USERNAME LIKE '%'||#{userName}||'%'
+          	OR USERNICKNAME LIKE '%'||#{userNickname}||'%' 
+	</select>
+</mapper>

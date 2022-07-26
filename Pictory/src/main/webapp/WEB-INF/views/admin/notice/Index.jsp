@@ -91,8 +91,11 @@
         <link
 	href="${pageContext.request.contextPath}/resources/css/admin/admin.css"
 	rel="stylesheet" />
-  <link href="css/admin.css" rel="stylesheet" />     
+  <script src="${pageContext.request.contextPath}/resources/js/admin/index.js"></script>
+  <link href="css/admin.css" rel="stylesheet" />
+<style>
 
+</style>
 </head>
 
 <body>
@@ -264,20 +267,26 @@ class="panel-radios" type="radio" name="tab-radios">
 class="panel-radios" type="checkbox" name="nav-checkbox">
 <br>
 
+
+
 <!-- TABS LIST -->
 <ul id="tabs-list" class="bg-light">
 <!-- MENU TOGGLE -->
 <label id="open-nav-label" for="nav-ctrl"></label>
 <li id="li-for-panel-1" class="memberClass">
 <label class="panel-label"
-      for="panel-1-ctrl">최근 거래 내역</label>
+      for="panel-1-ctrl">공지사항</label>
 </li><!--INLINE-BLOCK FIX
 --><li id="li-for-panel-2" class="salesClass">
 <label class="panel-label"
-      for="panel-2-ctrl">회원 매출 및 PICTORY 매출 현황</label>
+      for="panel-2-ctrl">Q & A</label>
+</li><!--INLINE-BLOCK FIX
+--><li id="li-for-panel-3" class="galleryClass">
+<label class="panel-label"
+      for="panel-3-ctrl">신고 리스트</label>
 </li><!--INLINE-BLOCK FIX
 -->
-<!--INLINE-BLOCK FIX
+</li><!--INLINE-BLOCK FIX
 --><!--INLINE-BLOCK FIX
 -->
 
@@ -288,119 +297,284 @@ class="panel-radios" type="checkbox" name="nav-checkbox">
     <article class="container">
     <section id="panel-1" >
     <main>
-    <div class="container-fluid pt-4 px-4">
+        <div class="container-fluid pt-4 px-4">
   <div class="bg-light  rounded p-4" >
       <div class="table-responsive">
           <div class="bg-light text-center rounded p-4">
               <!--월별 매출 차트 시작-->
               <div class="d-flex align-items-center justify-content-between mb-4">
-                  <h3 class="mb-0">최근 구매 / 판매 목록</h3>
+                  <h3 class="mb-0">공지사항</h3>
               </div>
-     
-					<div class="searchbox" style="margin-top:10px; margin-bottom:10px; ">
+              <div class="container-fluid pt-4 px-4">
+                <div class="bg-light  rounded p-4">
+                    <div class="searchbox" style="margin-top:10px; margin-bottom:10px; ">
                         <!--정렬 (가입일순 / 생년월일 / 주소(시) / )-->
                         <div class="dropdown" style="margin-left: 20px;">
                             <button type="button" class="btn btn-primary dropdown-toggle btn-sm" data-toggle="dropdown">
                                 정렬
                             </button>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">최신순</a>
-                                <a class="dropdown-item" href="#">구매자 아이디</a>
-                                <a class="dropdown-item" href="#">판매자 아이디</a>
-                                <a class="dropdown-item-text" href="#">구매/판매 목록</a>
+                                <a class="dropdown-item" href="#">날짜</a>
+                                <a class="dropdown-item" href="#">구매자</a>
+                                <a class="dropdown-item-text" href="#">구매목록</a>
                             </div>
                         </div>
             
                            <!--search-->
                            <div>
                             <input type="text" placeholder="검색">
-                            <button>검색</button>
+                            <button class="btn btn-primary btn-sm" type="button" onclick="location.href='joinUs.jsp' ">검색</button>
                             </div>
                         <!--search-->
                     </div> 
-					<div class="table-responsive">
-						<table class="table table-hover">
-							<thead>
-								<tr class="table-secondary">
-										<th class="col-1 text-center">글 번호</th>
-			                            <th class="col-1 text-center">구매자<br> 아이디</th>
-			                            <th class="col-1 text-center">판매자<br> 아이디</th>
-			                            <th class="col-2 text-center">주문 일련 번호</th>
-			                            <th class="col-2 text-center">상품 일련 번호</th>
-			                            <th class="col-2 text-center">상품명</th>
-			                            <th class="col-1 text-center">주문<br> 합계금액</th>
-			                            <th class="col-1 text-center">주문<br> 날짜</th>
-									</tr>
-							</thead>
-							<tbody>
-							<c:if test="${empty records }" var="isEmpty">
-								<tr>
-									<td class="text-center" colspan="6">등록된 글이 없습니다.</td>
-								</tr>	
-							</c:if>
-								<c:if test="${not isEmpty }">
-				                    <c:forEach var="records" items="${records }">
-				                         <tr>
-				                            <td class="text-center">${record.postNo}</td>
-				                            <td class="text-center">${record.id}</a></td>
-				                            <td class="text-center">${record.id}</a></td>
-				                            <td class="text-center">${record.paymentNo}</td>
-				                            <td class="text-center">${record.pdNo}</a></td>
-				                            <td class="text-center">${record.photoName}</td>
-				                            <td class="text-center">${record.paymentTotal}</td>
-				                            <td class="text-center">${record.paymentDate}</td>
-				                        </tr>
-				                    </c:forEach>
-				                </c:if>
-							<!-- 최근 구매/ 판매 목록 글 쐈을때의 예시 -->
-								 <tr>
-		                            <td class="text-center">5</td>
-		                            <td class="text-center"><a href="#">BROKEROW</a></td>
-		                            <td class="text-center"><a href="memberOne.html">SAMURAI</a></td>
-		                            <td class="text-center">324352</td>
-		                            <td class="text-center"><a href="memberOne.html">2335</a></td>
-		                            <td class="text-center">경복궁.jpg</td>
-		                            <td class="text-center">500원</td>
-		                            <td class="text-center">22-06-16</td>
-		                        </tr>
+          
 
-								<tr>
-		                            <td class="text-center">6</td>
-		                            <td class="text-center"><a href="#">BROKEROW</a></td>
-		                            <td class="text-center"><a href="memberOne.html">SAMURAI</a></td>
-		                            <td class="text-center">324352</td>
-		                            <td class="text-center"><a href="memberOne.html">2335</a></td>
-		                            <td class="text-center">경복궁.jpg</td>
-		                            <td class="text-center">500원</td>
-		                            <td class="text-center">22-06-16</td>
-		                        </tr>
-
-								<tr>
-		                            <td class="text-center">7</td>
-		                            <td class="text-center"><a href="#">BROKEROW</a></td>
-		                            <td class="text-center"><a href="memberOne.html">SAMURAI</a></td>
-		                            <td class="text-center">324352</td>
-		                            <td class="text-center"><a href="memberOne.html">2335</a></td>
-		                            <td class="text-center">경복궁.jpg</td>
-		                            <td class="text-center">500원</td>
-		                            <td class="text-center">22-06-16</td>
-		                        </tr>
-
-								<tr>
-		                            <td class="text-center">1</td>
-		                            <td class="text-center"><a href="#">BROKEROW</a></td>
-		                            <td class="text-center"><a href="memberOne.html">SAMURAI</a></td>
-		                            <td class="text-center">324352</td>
-		                            <td class="text-center"><a href="memberOne.html">2335</a></td>
-		                            <td class="text-center">경복궁.jpg</td>
-		                            <td class="text-center">500원</td>
-		                            <td class="text-center">22-06-16</td>
-		                        </tr>
-							</tbody>
-						</table>
-						<!-- Recent Sales End -->
-					</div>
-				</div>
+            <!-- Sales Chart Start -->
+            <div class="table-responsive">
+            <table class="table table-hover text-center">
+                <thead>
+                  <tr class="table-secondary text-center">
+                      <th class="col-1">번호</th>
+                      <th class="col-6">제목</th>
+                      <th class="col-1">아이디</th>
+                      <th class="col-1">작성일</th>
+                      
+                    </tr>
+                </thead>
+                <tbody class="table-sm">
+					<c:if test="${empty records }" var="isEmpty">
+						<tr>
+							<td class="text-center" colspan="6">등록된 글이 없습니다.</td>
+						</tr>	
+					</c:if>
+					<c:if test="${not isEmpty }">
+						<c:forEach var="record" items="${records}">
+							<tr>
+                                <td class="text-center">${records.noticeNo }</td>
+                                <td><a class="primary" data-toggle="modal" data-target="#exampleModalCenter">${records.noticeTitle }</a></td>
+                                <td><a href="memberOne.html">${records.noticeId }</a></td>
+                                <td class="text-center">${records.noticeDate }</td>
+                          </tr>
+						</c:forEach>
+					</c:if>
+					
+			<!-- 예시 게시물 표현 시작-->
+			                 <tr>
+			                      <td class="text-center">1</td>
+			                      <td><a class="primary" data-toggle="modal" data-target="#exampleModalCenter">[공지사항] 공지사항입니다</a></td>
+			                      <td><a href="memberOne.html">Picktory</a></td>
+			                      <td class="text-center">22-06-22</td>
+			                </tr>
+			                
+			                <tr>
+			                      <td class="text-center">2</td>
+			                      <td><a href="adminNoticeDetail.html">[공지사항] 공지사항입니다</a></td>
+			                      <td><a href="memberOne.html">Picktory</a></td>
+			                      <td class="text-center">22-06-22</td>
+			                </tr>
+			                
+			               <tr>
+			                      <td class="text-center">3</td>
+			                      <td><a href="adminNoticeDetail.html">[공지사항] 공지사항입니다</a></td>
+			                      <td><a href="memberOne.html">Picktory</a></td>
+			                      <td class="text-center">22-06-22</td>
+			                </tr>
+			                
+			                <tr>
+			                      <td class="text-center">4</td>
+			                      <td><a href="adminNoticeDetail.html">[공지사항]  공지사항입니다</a></td>
+			                      <td><a href="memberOne.html">Picktory</a></td>
+			                      <td class="text-center">22-06-22</td>
+			                </tr>
+			                
+			                <tr>
+			                      <td class="text-center">5</td>
+			                      <td><a href="adminNoticeDetail.html">[공지사항] 공지사항입니다</a></td>
+			                      <td><a href="memberOne.html">Picktory</a></td>
+			                      <td class="text-center">22-06-22</td>
+			                </tr>
+			                
+			                <tr>
+			                      <td class="text-center">6</td>
+			                      <td><a href="adminNoticeDetail.html">[공지사항] 공지사항입니다</a></td>
+			                      <td><a href="memberOne.html">Picktory</a></td>
+			                      <td class="text-center">22-06-22</td>
+			                </tr>
+		    <!-- 예시 게시물 표현 끝-->
+		    
+              	</tbody>
+              </table>
+              <div>
+              <button class="btn btn-primary btn-sm" style="float: right;" type="button" data-toggle="modal"  data-target="#exampleModalCenter3">작성</button>
+              </div>
+              
+              
+              
+              <!-- 모달로 공지사항 보기-->
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalCenterTitle">공 지 사 항</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div>
+                
+                
+                <form method="post" action="">   
+                         <div class="container">
+	<table class="table table-bordered">
+		<tbody class="table-sm">
+			<tr>
+				<th class="w-25 bg-dark text-white text-center">번호</th>
+				<td class="text-white">${records.noticeNo}</td>
+			</tr>
+			<tr>
+				<th class="w-25 bg-dark text-white text-center">아이디</th>
+				<td class="text-white">${records.noticeId}</td>
+			</tr>
+			<tr>
+				<th class="w-25 bg-dark text-white text-center">등록일</th>
+				<td class="text-white">${records.noticeDate}</td>
+			</tr>
+			<tr>
+				<th class="w-25 bg-dark text-white text-center">제목</th>
+				<td class="text-white">${records.noticeTitle}</td>
+			</tr>
+			<tr>
+				<th class="bg-dark text-white text-center" colspan="2">내 용</th>
+			</tr>
+			<tr>
+				<td colspan="2" class="text-white">${records.noticeContent}</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+</form>	
+				
+            </div> 
+        </div>
+        <div class="modal-footer">
+        <c:if test="${sessionScope.user_Id eq records.userId }">
+ 			<a href="<c:url value="/Controller/EditController.KOSMO?no=${records.noticeNo}&title=${records.noticeTitle}&content=${records.noticeContent}"/>"class="btn btn-primary" >수정</a>
+			<a href="<c:url value="/Controller/DeleteController.KOSMO?no=${records.noticeNo}"/>" class="btn btn-primary">삭제</a> 
+		</c:if>
+          	<button type="button" class="btn btn-secondary right" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+  <!-- 모달로 공지사항 쓰기-->
+        <div class="modal fade" id="exampleModalCenter3" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalCenterTitle">공 지 사 항 작 성</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div>
+                
+                
+                <form method="post" action="">   
+                         <div class="container">
+	<table class="table table-bordered">
+		<tbody class="table-sm">
+		<c:forEach var="record" items="${records}">
+			<tr>
+			<c:if test="${sessionScope.user_Id eq record.userId }">
+				<th class="w-25 bg-dark text-white text-center">아이디</th>
+				<td class="text-white">${records.userId}</td>
+			</c:if>
+			</tr>
+		</c:forEach>
+			<tr>
+				<th class="w-25 bg-dark text-white text-center left">제목</th>
+				<td class="text-white"><input type="text" class="form-control" placeholder="제목을 입력하세요" name="title"></td>
+			</tr>
+			<tr>
+				<th class="bg-dark text-white text-center" colspan="2">내 용</th>
+			</tr>
+			<tr>
+				<td colspan="2" class="text-white"><textarea class="form-control" rows="5" name="content"></textarea></td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+</form>	
+				
+            </div> 
+        </div>
+        <div class="modal-footer">
+        <c:if test="${sessionScope.user_Id eq records.userId }">
+ 			<a href="<c:url value="/Controller/EditController.KOSMO?no=${records.noticeNo}&title=${records.noticeTitle}&content=${records.noticeContent}"/>"class="btn btn-primary" >작성</a>
+		</c:if>
+          	<button type="button" class="btn btn-secondary right" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 모달로 공지사항 수정-->
+        <div class="modal fade" id="exampleModalCenter4" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalCenterTitle">공 지 사 항 수 정</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div>
+                
+                
+                <form method="post" action="">   
+                         <div class="container">
+	<table class="table table-bordered">
+		<tbody class="table-sm">
+		<c:forEach var="record" items="${records}">
+			<tr>
+			<c:if test="${sessionScope.user_Id eq record.userId }">
+				<th class="w-25 bg-dark text-white text-center">아이디</th>
+				<td class="text-white">${records.userId}</td>
+			</c:if>
+			</tr>
+		</c:forEach>
+			<tr>
+				<th class="w-25 bg-dark text-white text-center left">제목</th>
+				<td class="text-white"><input type="text" class="form-control" placeholder="제목을 입력하세요" name="title"></td>
+			</tr>
+			<tr>
+				<th class="bg-dark text-white text-center" colspan="2">내 용</th>
+			</tr>
+			<tr>
+				<td colspan="2" class="text-white"><textarea class="form-control" rows="5" name="content"></textarea></td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+</form>	
+				
+            </div> 
+        </div>
+        <div class="modal-footer">
+        <c:if test="${sessionScope.user_Id eq records.userId }">
+ 			<a href="<c:url value="/Controller/EditController.KOSMO?no=${records.noticeNo}&title=${records.noticeTitle}&content=${records.noticeContent}"/>"class="btn btn-primary" >작성</a>
+		</c:if>
+          	<button type="button" class="btn btn-secondary right" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
     </main>
     </section>
 <!--일일매출 끝-->
@@ -408,155 +582,350 @@ class="panel-radios" type="checkbox" name="nav-checkbox">
 <section id="panel-2">
     <main>
 <div class="container-fluid pt-4 px-4">
-    <div class="bg-light  rounded p-4">
-        <div class="table-responsive">
-            <div class="bg-light text-center rounded p-4">
-                <!--달력 시작-->
-                <div class="sec_cal">
-                    <div class="cal_nav">
-                      <a href="javascript:;" class="nav-btn go-prev">prev</a>
-                      <div class="year-month"></div>
-                      <a href="javascript:;" class="nav-btn go-next">next</a>
-                    </div>
-                </div>
-                <!--달력 끝-->
-                <!--주차별 매출 차트 시작-->
-                <div class="d-flex align-items-center justify-content-between mb-4">
-                            <h3 class="mb-0">매출 차트</h3>
-                </div>
-                <div class="div_chart2">
-                    <!-- <canvas id="memberDayChart" style="width: 100%; max: width 1104px;"></canvas> -->
-                </div>
-                <!--주차별 매출 차트 끝-->
-            </div>
-            <!--주차별 매출 표 시작-->
-             <div class="col-sm-10 col-xl-10">
-                        <div class="bg-light rounded h-100 p-4">
-                            <h3 class="mb-4">총 매출 표</h3>
-                            <table class="table table-hover">
-                                <thead>
-                                    <tr class="thID1">
-                                    <!--<th scope="col">회원수</th>
-                                        <th scope="col">1일</th>
-                                        <th scope="col">2일</th>
-                                        <th scope="col">3일</th>
-                                        <th scope="col">4일</th>
-                                        <th scope="col">5일</th>
-                                        <th scope="col">6일</th>
-                                        <th scope="col">7일</th>
-                                        <th scope="col">8일</th>
-                                        <th scope="col">9일</th>
-                                        <th scope="col">10일</th>-->
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr class="thID_1">
-                                    <!--     <th scope="row">회원수</th>
-                                        <td>100</td>
-                                        <td>200</td>
-                                        <td>300</td>
-                                        <td>100</td>
-                                        <td>200</td>
-                                        <td>300</td>
-                                        <td>100</td>
-                                        <td>200</td>
-                                        <td>300</td>
-                                        <td>300</td> -->
-                                    </tr>
-                                </tbody>
-                                <thead>
-                                    <tr class="trID2">
-                                     <!--     <th scope="col">회원수</th>
-                                        <th scope="col">11일</th>
-                                        <th scope="col">12일</th>
-                                        <th scope="col">13일</th>
-                                        <th scope="col">14일</th>
-                                        <th scope="col">15일</th>
-                                        <th scope="col">16일</th>
-                                        <th scope="col">17일</th>
-                                        <th scope="col">18일</th>
-                                        <th scope="col">19일</th>
-                                        <th scope="col">20일</th>-->
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr class="thID_2">
-                                    <!--     <th scope="row">회원수</th>
-                                        <td>100</td>
-                                        <td>200</td>
-                                        <td>300</td>
-                                        <td>100</td>
-                                        <td>200</td>
-                                        <td>300</td>
-                                        <td>100</td>
-                                        <td>200</td>
-                                        <td>300</td>
-                                        <td>300</td>--> 
-                                    </tr>
-                                </tbody>
-                                <thead>
-                                    <tr class="thID3">
-                                      <!--  <th scope="col">회원수</th>
-                                        <th scope="col">21일</th>
-                                        <th scope="col">22일</th>
-                                        <th scope="col">23일</th>
-                                        <th scope="col">24일</th>
-                                        <th scope="col">25일</th>
-                                        <th scope="col">26일</th>
-                                        <th scope="col">27일</th>
-                                        <th scope="col">28일</th>
-                                        <th scope="col">29일</th>
-                                        <th scope="col">30일</th> --> 
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr class="thID_3">
-                                     <!--   <th scope="row">회원수</th>
-                                        <td>100</td>
-                                        <td>200</td>
-                                        <td>300</td>
-                                        <td>100</td>
-                                        <td>200</td>
-                                        <td>300</td>
-                                        <td>100</td>
-                                        <td>200</td>
-                                        <td>300</td>
-                                        <td>300</td> --> 
-                                    </tr>
-                                </tbody>
-                            </table>
+  <div class="bg-light  rounded p-4" >
+      <div class="table-responsive">
+          <div class="bg-light text-center rounded p-4">
+              <!--월별 매출 차트 시작-->
+              <div class="d-flex align-items-center justify-content-between mb-4">
+                  <h3 class="mb-0">Q & A</h3>
+              </div>
+              <div class="container-fluid pt-4 px-4">
+                <div class="bg-light  rounded p-4">
+                    <div class="searchbox" style="margin-top:10px; margin-bottom:10px; ">
+                        <!--정렬 (가입일순 / 생년월일 / 주소(시) / )-->
+                        <div class="dropdown" style="margin-left: 20px;">
+                            <button type="button" class="btn btn-primary dropdown-toggle btn-sm" data-toggle="dropdown">
+                                정렬
+                            </button>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="#">날짜</a>
+                                <a class="dropdown-item" href="#">구매자</a>
+                                <a class="dropdown-item-text" href="#">구매목록</a>
+                            </div>
                         </div>
-                    </div>
-                    <!--일일매출표 끝-->
-                    <!--총 매출 합계 시작-->
-                    <div class="col-sm-12 col-xl-5">
-                        <div class="bg-light rounded h-100 p-4">
-                            <h3 class="mb-4">현재 총 매출합계</h3>
-                            <table class="table table-hover">
-                                <thead>
-                                    <tr>
-                                        <th scope="col"></th>
-                                        <th scope="col">현재 매출 합계</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <th scope="row">매출</th>
-                                        <td id="total_all"></td>
-                                    </tr>
-                                     
-                                </tbody>
-                            </table>
-                    </div>
-                     <!--총 매출 합계 끝-->
+            
+                           <!--search-->
+                           <div>
+                            <input type="text" placeholder="검색">
+                            <button class="btn btn-primary btn-sm" type="button" onclick="location.href='joinUs.jsp' ">검색</button>
+                            </div>
+                        <!--search-->
+                    </div> 
+          
+
+            <!-- Sales Chart Start -->
+            <div class="table-responsive">
+            <table class="table table-hover text-center">
+                <thead>
+                  <tr class="table-secondary text-center">
+                      <th class="col-1">번호</th>
+                      <th class="col-6">제목</th>
+                      <th class="col-1">아이디</th>
+                      <th class="col-1">작성일</th>
+                      
+                    </tr>
+                </thead>
+                <tbody class="table-sm">
+					<c:if test="${empty records }" var="isEmpty">
+						<tr>
+							<td class="text-center" colspan="6">등록된 글이 없습니다.</td>
+						</tr>	
+					</c:if>
+					<c:if test="${not isEmpty }">
+						<c:forEach var="record" items="${records}">
+							<tr>
+                                <td class="text-center">${records.qnaNo }</td>
+                                <td class="text-center"><a class="primary" data-toggle="modal" data-target="#exampleModalCenter1">${records.qnaTitle }</a></td>
+                                <td class="text-center">${records.userId }</a></td>
+                                <td class="text-center">${records.qnaDate }</td>
+                          </tr>
+						</c:forEach>
+					</c:if>
+					
+			<!-- 예시 게시물 표현 시작-->
+			                 <tr>
+			                      <td class="text-center">1</td>
+			                      <td class="text-center"><a class="primary" data-toggle="modal" data-target="#exampleModalCenter1">결제시스템에 질문이 있습니다</a></td>
+			                      <td class="text-center">Picktory</a></td>
+			                      <td class="text-center">22-06-22</td>
+			                </tr>
+			                
+			                <tr>
+			                      <td class="text-center">2</td>
+			                      <td class="text-center"><a class="primary" data-toggle="modal" data-target="#exampleModalCenter1">결제시스템에 질문이 있습니다</a></td>
+			                      <td class="text-center">Picktory</a></td>
+			                      <td class="text-center">22-06-22</td>
+			                </tr>
+			                
+			               <tr>
+			                      <td class="text-center">5</td>
+			                      <td class="text-center"><a class="primary" data-toggle="modal" data-target="#exampleModalCenter1">결제시스템에 질문이 있습니다</a></td>
+			                      <td class="text-center">Picktory</a></td>
+			                      <td class="text-center">22-06-22</td>
+			                </tr>
+			                
+			                <tr>
+			                      <td class="text-center">5</td>
+			                      <td class="text-center"><a class="primary" data-toggle="modal" data-target="#exampleModalCenter1">결제시스템에 질문이 있습니다</a></td>
+			                      <td class="text-center">Picktory</a></td>
+			                      <td class="text-center">22-06-22</td>
+			                </tr>
+			                
+			                <tr>
+			                      <td class="text-center">5</td>
+			                      <td class="text-center"><a class="primary" data-toggle="modal" data-target="#exampleModalCenter1">결제시스템에 질문이 있습니다</a></td>
+			                      <td class="text-center">Picktory</a></td>
+			                      <td class="text-center">22-06-22</td>
+			                </tr>
+			                
+			                <tr>
+			                      <td class="text-center">5</td>
+			                      <td class="text-center"><a class="primary" data-toggle="modal" data-target="#exampleModalCenter1">결제시스템에 질문이 있습니다</a></td>
+			                      <td class="text-center">Picktory</a></td>
+			                      <td class="text-center">22-06-22</td>
+			                </tr>
+		    <!-- 예시 게시물 표현 끝-->
+		    
+              	</tbody>
+              </table>
+             
+              
+              
+              <!-- 모달 Q & A 보기  -->
+        <div class="modal fade" id="exampleModalCenter1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalCenterTitle">Q & A</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
-    </div>
+        <div class="modal-body">
+            <div>
+                
+                
+                <form method="post" action="">   
+                         <div class="container">
+	<table class="table table-bordered">
+		<tbody class="table-sm">
+			<tr>
+				<th class="w-25 bg-dark text-white text-center">번호</th>
+				<td class="text-white">${records.qnaNo}</td>
+			</tr>
+			<tr>
+				<th class="w-25 bg-dark text-white text-center">아이디</th>
+				<td class="text-white">${records.userId}</td>
+			</tr>
+			<tr>
+				<th class="w-25 bg-dark text-white text-center">등록일</th>
+				<td class="text-white">${records.qnaDate}</td>
+			</tr>
+			<tr>
+				<th class="w-25 bg-dark text-white text-center">제목</th>
+				<td class="text-white">${records.qnaTitle}</td>
+			</tr>
+			<tr>
+				<th class="bg-dark text-white text-center" colspan="2">내 용</th>
+			</tr>
+			<tr>
+				<td colspan="2" class="text-white">${records.qnaContent}</td>
+			</tr>
+		</tbody>
+	</table>
 </div>
+</form>	
+				
+            </div> 
+        </div>
+        <div class="modal-footer">
+        <c:if test="${sessionScope.user_Id eq records.userId }">
+ 			<a href="<c:url value="/Controller/EditController.KOSMO?no=${records.qnaNo}&title=${records.qnaTitle}&content=${records.qnaContent}"/>"class="btn btn-primary" >답장</a>
+			<a href="<c:url value="/Controller/DeleteController.KOSMO?no=${records.qnaNo}"/>" class="btn btn-primary">삭제</a> 
+		</c:if>
+          	<button type="button" class="btn btn-secondary right" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+  
 </main>
 </section>
 <!--주매출 끝-->
+<!--달매출 시작-->
+<section id="panel-3">
+    <main>
+<div class="container-fluid pt-4 px-4">
+  <div class="bg-light  rounded p-4" >
+      <div class="table-responsive">
+          <div class="bg-light text-center rounded p-4">
+              <!--월별 매출 차트 시작-->
+              <div class="d-flex align-items-center justify-content-between mb-4">
+                  <h3 class="mb-0">신고리스트</h3>
+              </div>
+              <div class="container-fluid pt-4 px-4">
+                <div class="bg-light  rounded p-4">
+                    <div class="searchbox" style="margin-top:10px; margin-bottom:10px; ">
+                        <!--정렬 (가입일순 / 생년월일 / 주소(시) / )-->
+                        <div class="dropdown" style="margin-left: 20px;">
+                            <button type="button" class="btn btn-primary dropdown-toggle btn-sm" data-toggle="dropdown">
+                                정렬
+                            </button>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="#">날짜</a>
+                                <a class="dropdown-item" href="#">구매자</a>
+                                <a class="dropdown-item-text" href="#">구매목록</a>
+                            </div>
+                        </div>
+            
+                           <!--search-->
+                           <div>
+                            <input type="text" placeholder="검색">
+                            <button class="btn btn-primary btn-sm" type="button" onclick="location.href='joinUs.jsp' ">검색</button>
+                            </div>
+                        <!--search-->
+                    </div> 
+          
 
-<!--달 매출 끝-->
+            <!-- Sales Chart Start -->
+            <div class="table-responsive">
+            <table class="table table-hover text-center">
+                <thead>
+                  <tr class="table-secondary text-center">
+                      <th class="col-1">번호</th>
+                      <th class="col-6">제목</th>
+                      <th class="col-1">아이디</th>
+                      <th class="col-1">작성일</th>
+                      
+                    </tr>
+                </thead>
+                <tbody class="table-sm">
+					<c:if test="${empty records }" var="isEmpty">
+						<tr>
+							<td class="text-center" colspan="6">등록된 글이 없습니다.</td>
+						</tr>	
+					</c:if>
+					<c:if test="${not isEmpty }">
+						<c:forEach var="record" items="${records}">
+							<tr>
+                                <td class="text-center">5</td>
+                                <td class="text-center"><a class="primary" data-toggle="modal" data-target="#exampleModalCenter2">신고합니다</a></td>
+                                <td class="text-center"><a href="memberOne.html">Picktory</a></td>
+                                <td class="text-center">22-06-22</td>
+                          </tr>
+						</c:forEach>
+					</c:if>
+					
+			<!-- 예시 게시물 표현 시작-->
+			                 <tr>
+			                      <td class="text-center">5</td>
+			                      <td><a class="primary" data-toggle="modal" data-target="#exampleModalCenter2">신고합니다</a></td>
+			                      <td><a href="memberOne.html">Picktory</a></td>
+			                      <td class="text-center">22-06-22</td>
+			                </tr>
+			                
+			                <tr>
+			                      <td class="text-center">5</td>
+			                      <td><a class="primary" data-toggle="modal" data-target="#exampleModalCenter2">신고합니다</a></td>
+			                      <td><a href="memberOne.html">Picktory</a></td>
+			                      <td class="text-center">22-06-22</td>
+			                </tr>
+			                
+			               <tr>
+			                      <td class="text-center">5</td>
+			                      <td><a class="primary" data-toggle="modal" data-target="#exampleModalCenter2">신고합니다</a></td>
+			                      <td><a href="memberOne.html">Picktory</a></td>
+			                      <td class="text-center">22-06-22</td>
+			                </tr>
+			                
+			                <tr>
+			                      <td class="text-center">5</td>
+			                      <td><a class="primary" data-toggle="modal" data-target="#exampleModalCenter2">신고합니다</a></td>
+			                      <td><a href="memberOne.html">Picktory</a></td>
+			                      <td class="text-center">22-06-22</td>
+			                </tr>
+			                
+			                <tr>
+			                      <td class="text-center">5</td>
+			                      <td><a class="primary" data-toggle="modal" data-target="#exampleModalCenter2">신고합니다</a></td>
+			                      <td><a href="memberOne.html">Picktory</a></td>
+			                      <td class="text-center">22-06-22</td>
+			                </tr>
+			                
+			                <tr>
+			                      <td class="text-center">5</td>
+			                      <td><a class="primary" data-toggle="modal" data-target="#exampleModalCenter2">신고합니다</a></td>
+			                      <td><a href="memberOne.html">Picktory</a></td>
+			                      <td class="text-center">22-06-22</td>
+			                </tr>
+		    <!-- 예시 게시물 표현 끝-->
+		    
+              	</tbody>
+              </table>
+             
+              
+              <!-- 모달 신고접수 받기 보기 -->
+        <div class="modal fade" id="exampleModalCenter2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalCenterTitle">신고 접수 받기</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div>
+                
+                
+                <form method="post" action="">   
+                         <div class="container">
+	<table class="table table-bordered">
+		<tbody class="table-sm">
+			<tr>
+				<th class="w-25 bg-dark text-white text-center">번호</th>
+				<td class="text-white">${records.qnaNo}</td>
+			</tr>
+			<tr>
+				<th class="w-25 bg-dark text-white text-center">아이디</th>
+				<td class="text-white">${records.userId}</td>
+			</tr>
+			<tr>
+				<th class="w-25 bg-dark text-white text-center">등록일</th>
+				<td class="text-white">${records.qnaDate}</td>
+			</tr>
+			<tr>
+				<th class="w-25 bg-dark text-white text-center">제목</th>
+				<td class="text-white">${records.qnaTitle}</td>
+			</tr>
+			<tr>
+				<th class="bg-dark text-white text-center" colspan="2">내 용</th>
+			</tr>
+			<tr>
+				<td colspan="2" class="text-white">${records.qnaContent}</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+</form>	
+				
+            </div> 
+        </div>
+        <div class="modal-footer">
+        <c:if test="${sessionScope.user_Id eq records.userId }">
+ 			<a href="<c:url value="/Controller/EditController.KOSMO?no=${records.qnaNo}&title=${records.qnaTitle}&content=${records.qnaContent}"/>"class="btn btn-primary" >접수받기</a>
+			<a href="<c:url value="/Controller/DeleteController.KOSMO?no=${records.qnaNo}"/>" class="btn btn-primary">삭제</a> 
+		</c:if>
+          	<button type="button" class="btn btn-secondary right" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</main>
+</section>
 
 </article>
 <!-- Chart End -->
@@ -571,23 +940,6 @@ class="panel-radios" type="checkbox" name="nav-checkbox">
 </div>
 </body>
 
-<script>
-   window.pagObj = $('#pagination').twbsPagination({
-        totalPages: [[$(dataListPage.totalPages)]], // 전체 페이지
-        startPage: parseInt([[$(dataListPage.number)]] + 1), // 시작(현재) 페이지
-        visiblePages: 10, // 최대로 보여줄 페이지
-        prev: "‹", // Previous Button Label
-        next: "›", // Next Button Label
-        first: '«', // First Button Label
-        last: '»', // Last Button Label
-        onPageClick: function (event, page) { // Page Click event
-            console.info("current page : " + page);
-        }
-    }).on('page', function (event, page) {
-        searchDataList(page);
-    });
-
-</script>
 
 <script>
 
