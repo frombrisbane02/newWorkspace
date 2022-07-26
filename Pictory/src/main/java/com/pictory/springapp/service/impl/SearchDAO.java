@@ -1,15 +1,29 @@
 package com.pictory.springapp.service.impl;
 
+import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-@Repository()
-public class SearchDAO {
+import com.pictory.springapp.dto.SearchDTO;
 
-	public int select(Map map) {
-		// TODO Auto-generated method stub
-		return 0;
+@Repository("searchDAO")
+public class SearchDAO {
+	@Autowired
+	private SqlSessionFactory sqlMapper;
+	//- SqlSessionTemplate사용: 위 프로그래밍 순서 가, 나에서는 commit(), 다의 close()호출 불필요
+	
+	@Autowired
+	private SqlSessionTemplate template;
+	
+	public List<SearchDTO> select(Map map) {
+		
+		return template.selectList("searchSelect", map);
 	}
+	
+	
 
 }

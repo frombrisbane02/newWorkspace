@@ -16,7 +16,7 @@
 	padding-bottom: 0;
 	overflow: hidden;
 	margin-left: 85px;
-	background: url("/img/search/searchIcon.png") no-repeat left;
+	background: url("${pageContext.request.contextPath}/resources/img/search/searchIcon.png") no-repeat left;
 	background-size: 25px;
 	width: 300px;
 }
@@ -133,4 +133,3 @@ body {
 .nav li .dropdown-menu a {
     width: 150px;
 }
-

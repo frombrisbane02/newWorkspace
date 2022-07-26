@@ -12,6 +12,7 @@
 	<typeAliases>
 		<typeAlias type="com.pictory.springapp.dto.AdminUsersDTO" alias="AdminUsersDTO" />
 		<typeAlias type="com.pictory.springapp.dto.AdminGalleryDTO" alias="AdminGalleryDTO" />
+		<typeAlias type="com.pictory.springapp.dto.SearchDTO" alias="searchDTO"/>
 	</typeAliases>
 	 <environments default="development">
     <environment id="development">
@@ -36,5 +37,6 @@
 		<mapper resource="mybatis/mapper/payment.xml"/>
 		<mapper resource="mybatis/mapper/adminusers.xml"/>
 		<mapper resource="mybatis/mapper/admingallery.xml"/>
+		<mapper resource="mybatis/mapper/search.xml"/>
 	</mappers>
 </configuration>

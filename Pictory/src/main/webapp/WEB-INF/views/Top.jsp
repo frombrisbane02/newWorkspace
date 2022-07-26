@@ -93,9 +93,9 @@
                         </li>
 
                         <!-- Navbar Form -->
-                        <form action="<c:url value="/search/Search.do"/>" class="navbar-form navbar-right">
+                        <form action="<c:url value="/search/Search.do"/>" method="post" class="navbar-form navbar-right">
                             <div class="form-group d-inline-flex">
-                                <input type="text" class="form-control" placeholder="Search">
+                                <input name="searchName" id="searchName" type="text" class="form-control" placeholder="Search">
                                 <button type="submit" class="btn">Submit</button>
                             </div>
                         </form>

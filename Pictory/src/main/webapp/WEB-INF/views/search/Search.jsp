@@ -19,88 +19,74 @@
 </head>
 
 <body>
-
+	</br>
+	</br>
+	</br>
+	</br>
+	</br>
+	
 	<!-- Actual search box -->
 	<div class="form-group has-search">
 		<span class="fa fa-search form-control-feedback"></span>
 		<input type="search" class="form-control" placeholder="Search">
 	</div>
-
-	<ul class="nav">
-
-		<li class="button-dropdown">
-		  <a href="#" class="dropdown-toggle">
-			작품 <span></span>
-		  </a>
-		  <ul class="dropdown-menu">
-			<li>
-			  <a href="#">
-				작품
-			  </a>
+	<div>
+		<ul class="nav">
+			<li class="button-dropdown">
+			  <a href="#" class="dropdown-toggle">작품 <span></span></a>
+			  <ul class="dropdown-menu">
+				<li ><a href="#" class="selected"  data-value="gallery">작품</a></li>
+				<li ><a href="#" class="selected"  data-value="story">스토리</a></li>
+				<li ><a href="#" class="selected"  data-value="users">사람</a></li>
+			  </ul>
 			</li>
-			<li>
-			  <a href="#">
-				스토리
-			  </a>
+			
+			<li class="button-dropdown">
+			  <a href="#" class="dropdown-toggle">인물 <span></span></a>
+			  <ul class="dropdown-menu">
+				<li ><a href="#" class="selected"  data-value="figure">인물</a></li>
+				<li ><a href="#" class="selected"  data-value="object">정물</a></li>
+				<li ><a href="#" class="selected"  data-value="landscape">풍경</a></li>
+				<li ><a href="#" class="selected"  data-value="etc">기타</a></li>
+			  </ul>
 			</li>
-			<li>
-			  <a href="#">
-				사람
-			  </a>
+			
+			<li class="button-dropdown">
+			  <a href="#" class="dropdown-toggle">최신순 <span></span></a>
+			  <ul class="dropdown-menu">
+				<li ><a href="#" class="selected"  data-value="recent">최신순</a></li>
+				<li ><a href="#" class="selected"  data-value="select">조회순</a></li>
+				<li ><a href="#" class="selected"  data-value="sale">구매순</a></li>
+			  </ul>
 			</li>
-		  </ul>
-		</li>
-		<li class="button-dropdown">
-		  <a href="#" class="dropdown-toggle">
-			인물 <span></span>
-		  </a>
-		  <ul class="dropdown-menu">
-			<li>
-			  <a href="#">
-				인물
-			  </a>
-			</li>
-			<li>
-			  <a href="#">
-				정물
-			  </a>
-			</li>
-			<li>
-			  <a href="#">
-				풍경
-			  </a>
-			</li>
-			<li>
-			  <a href="#">
-				기타
-			  </a>
-			</li>
-		  </ul>
-		</li>
-		<li class="button-dropdown">
-		  <a href="#" class="dropdown-toggle">
-			최신순 <span></span>
-		  </a>
-		  <ul class="dropdown-menu">
-			<li>
-			  <a href="#">
-				최신순
-			  </a>
-			</li>
-			<li>
-			  <a href="#">
-				조회순
-			  </a>
-			</li>
-			<li>
-			  <a href="#">
-				구매순
-			  </a>
-			</li>
-		  </ul>
-		</li>
-	  </ul>
+			
+			<div class="chk_sale">
+				<input type="checkbox" id="chk_sale" class="ipt_chk">
+				<label for="chk_sale">판매중인 사진 보기</label>
+			</div>
+		</ul>
+		<div id="searchContent">
+		<!-- 메뉴 선택에 따른 페이지 보여주기 -->
+		여기에 데이타 뿌려줍니다
+		</div>
+	</div>
 	
 </body>
+
+ <script>
+ 	
+    //자스 통해 위에 div에 검색된 데이터들을 뿌려주는 방법을 모색중... 
+     
+ 	//window.onload = function(){
+ 	//	var searchContent=document.getElementsByTagName("a");
+ 	//	searchContent.onclick = data;
+ 	//}
+ 	//function data(){
+ 	//	alert('검색결과입니다');
+ 	//}
+ 
+ 
+ 	
+</script>
 
 </html>
