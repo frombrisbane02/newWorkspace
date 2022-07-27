@@ -90,6 +90,7 @@
 	<br>
 	<br>
 	<!-- ===================================파일 업로드=================================== -->
+	<button id="editImage" type="button" data-toggle="modal" data-target="#editModal" class="btn btn-outline-dark m-2">Edit</button>
     <div class="form-group text-center">    
       	<label for="uploadImage" class="btn btn-ouline-dark m-2" style="display:inline-block;">
 	      <c:if test="${postSellorNot eq 'sell'}">
@@ -104,6 +105,7 @@
 	     </c:if>
     <!-- ===================================지도=================================== -->
         <button id="map-upload" type="button" data-toggle="modal" data-target="#mapModal" class="btn btn-outline-dark m-2">map</button>
+        <button id="editImage" type="button" data-toggle="modal" data-target="#editModal" class="btn btn-outline-dark m-2">Edit</button>
     </div>
     
     <!-- =================================== 판매안할때 스토리 생성 추가=================================== -->
@@ -188,6 +190,17 @@
         <div class="modal-dialog modal-xl">
           <div class="modal-content">
             저쩌구
+          </div>
+        </div>
+      </div>
+    </form>
+    
+     <!--===================================Image Modal===================================-->
+    <form>
+      <div class="modal" id="mapModal">
+        <div class="modal-dialog modal-xl">
+          <div class="modal-content">
+            image
           </div>
         </div>
       </div>
