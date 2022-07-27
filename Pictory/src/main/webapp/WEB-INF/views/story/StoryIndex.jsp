@@ -61,7 +61,7 @@
 				<div class="tab_cont tab_ac" id="tab1">
 					<ul class="story_list">
 						<li>
-							<a href="<c:url value="/story/virtualprocess.do"/>" target="_blank">
+							<a href="<c:url value="/story/virtualprocess.do"/>">
 								<div class="img_area" style="background-image: url(<c:url value="/resources/img/story/test_img04.jpg"/>);">
 									<img src="<c:url value="/resources/img/story/fake03.png"/>" alt="">
 								</div>
@@ -70,12 +70,11 @@
 									<p class="small">
 										<span class="cate">CATEGORY</span><span class="gray">뭐 넣는건가요</span>
 									</p>
-									<p class="main_txt">안녕하세요 여기에 글을 넣어주세요 네네네네 반갑습니다 오오오오오오오
-										멋져멋져 안녕하세요 안녕하세요 여기에 글을 넣어주세요 네네네네 반갑습니다 오오오오오오오 멋져멋져</p>
+									<p class="main_txt">${virtualList.StoryDescription}</p>
 										
 									<div class="pro_line">
 										<p>
-											<img src="<c:url value="/resources/img/story/test_img02.jpg"/>" alt="" class="pro_p">User name
+											<img src="<c:url value="/resources/img/story/test_img02.jpg"/>" alt="" class="pro_p">${virtualList.UserNickname}
 										</p>
 										<p class="gray">
 											<img

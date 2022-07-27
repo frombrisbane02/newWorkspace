@@ -34,6 +34,7 @@
 	<mappers>
 		<mapper resource="mybatis/mapper/member.xml"/>
 		<mapper resource="mybatis/mapper/post.xml"/>
+		<mapper resource="mybatis/mapper/story.xml"/>
 		<mapper resource="mybatis/mapper/comment.xml"/>
 		<mapper resource="mybatis/mapper/payment.xml"/>
 		<mapper resource="mybatis/mapper/adminusers.xml"/>

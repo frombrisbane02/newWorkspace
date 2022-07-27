@@ -24,6 +24,8 @@ public class StoryDTO {
 	private String userNickname;
 	private String userId;
 	private int userNo;
+	private int photoNo;  //사진고유번호
+	private String photoUrl;
 	
 
 }

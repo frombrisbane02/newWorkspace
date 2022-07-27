@@ -8,5 +8,12 @@
 	<select id="virtuallist" resultType="com.pictory.springapp.dto.StoryDTO">
 		SELECT * FROM STORY
 	</select>
+	
+	
+<!-- <select id="virtualImages" resultType="com.pictory.springapp.dto.StoryDTO">
+	</select> -->
+	
+	
+	
 
 </mapper>

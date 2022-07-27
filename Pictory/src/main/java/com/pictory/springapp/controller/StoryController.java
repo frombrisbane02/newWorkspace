@@ -13,12 +13,15 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pictory.springapp.dto.StoryDTO;
 import com.pictory.springapp.dto.StoryService;
 
+
+@SessionAttributes("userId")
 @Controller
 @RequestMapping("/story/")
 public class StoryController {
@@ -37,19 +40,23 @@ public class StoryController {
 		
 		//selectList 쿼리가 들어있는 서비스 호출하기
 		//storyService.virtualList(storyList);
-		storyService.virtualList();
+		List<StoryDTO> returnValue = storyService.virtualList();
+		
+		System.out.println("returnValue: "+returnValue);
+		
+		for(StoryDTO storyOne : returnValue) {
+			System.out.println("storyone에 담긴 sNo: "+ storyOne.getSNo());
+			System.out.println("storyone에 담긴 title: "+ storyOne.getStoryTitle());
+			System.out.println("storyone에 담긴 desc: "+ storyOne.getStoryDescription());
+			System.out.println("storyone에 담긴 nick: "+ storyOne.getUserNickname());
+		}
+		
+		//여기서 한 스토리의 모든 사진 URL 가져오기!
+		//storyService.virtualImages(returnValue);
 		
 	
 		return "story/StoryIndex.tiles";
 	}
-
-	
-//	@RequestMapping("virtual.do")
-//	public String virtual() {
-//		System.out.println("버츄얼 컨트롤러");
-//	
-//		return "story/Virtual.ㅓㄴ";
-//	
 	
 	
 	@RequestMapping("virtualprocess.do")
@@ -74,14 +81,13 @@ public class StoryController {
 		System.out.println("스토리 가상");
 	   List<Map<String,String>> lists=new Vector<>();
 		for(int i=1;i <= 7 ;i++) {
-			System.out.println("이미지 for");
 			Map<String,String> map = new HashMap<>();
 			map.put("image_url",String.format(" http://192.168.0.27:4040/springapp/images/%d.jpg",i));
 			map.put("image_title",String.format("이미지 제목%d",i));
 			map.put("image_id",String.format("%s$#@",i));
 			lists.add(map);
 		}
-		System.out.println("이미지 fo끝");
+		System.out.println("이미지 for문 끝");
 		Map resultMap = new HashMap();
 		resultMap.put("preference", null);
 		resultMap.put("data", lists);
