@@ -12,6 +12,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,6 +29,7 @@ import org.springframework.web.multipart.MultipartResolver;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.pictory.springapp.dto.MemberDTO;
 import com.pictory.springapp.dto.PostDTO;
 import com.pictory.springapp.dto.PostUploadService;
 import com.pictory.springapp.service.impl.PostUploadServiceImpl;
@@ -58,7 +60,41 @@ public class PostController {
 		
 		return "gallery/Upload2.tiles";
 	}
-
+	
+	//===========================EDIT IMAGE===============================
+	
+	@GetMapping("post/EditImage.do")
+	public String editImage(HttpSession session, Model model) {
+		String userId = (String)session.getAttribute("userId");
+		
+		
+		
+		return "gallery/EditImage";
+	}
+	
+	
+	@GetMapping(value="post/UploadMap.do")
+	public String popupGet(Model model) throws Exception{
+	
+		//model.addAttribute("", 1);
+		return "gallery/UploadMap";
+	}
+	
+	
+	
+	//===========================ADD MAP===============================
+	
+	@GetMapping("post/AddMap.do")
+	public String addMap(HttpSession session, Model model) {
+		
+		String userId = (String)session.getAttribute("userId");
+		System.out.println("EditImage이동전! 아이디!!: "+userId);
+		//id저장하고 이동? 엥 근데 난 이동할 필요가 없는거 같기두하궁..
+		
+		return "gallery/UploadMap";
+	}
+	
+	
 	//판매용 업로드 처리
 	@PostMapping("post/SellUpload.do")
 	public String sellUpload(@ModelAttribute("userId") String userId, @RequestParam Map map,

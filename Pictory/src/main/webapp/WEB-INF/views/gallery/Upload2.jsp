@@ -7,6 +7,17 @@
   <title>Upload2</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1 shrink-to-fit=no">
+    <!-- example 추가 -->
+   <!--<script type="module" src="/public/init.js"></script>-->
+    <script src="https://cdn.scaleflex.it/plugins/js-cloudimage-responsive/4.8.5/js-cloudimage-responsive.min.js"></script>
+    <script src="https://cdn.scaleflex.it/filerobot/js-cloudimage-responsive/lazysizes.min.js"></script>
+  <!--vanilla js cdn-->
+  	<script src="https://scaleflex.cloudimg.io/v7/plugins/filerobot-image-editor/latest/filerobot-image-editor.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.scaleflex.it/plugins/js-cloudimage-responsive/4.8.5/js-cloudimage-responsive.min.css?vh=a076ef&func=proxy"/>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/upload/style.css" />
+  
   <!--기본 bootstrap4용-->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
@@ -90,8 +101,7 @@
 	<br>
 	<br>
 	<!-- ===================================파일 업로드=================================== -->
-	<button id="editImage" type="button" data-toggle="modal" data-target="#editModal" class="btn btn-outline-dark m-2">Edit</button>
-    <div class="form-group text-center">    
+    <div class="form-group text-center">
       	<label for="uploadImage" class="btn btn-ouline-dark m-2" style="display:inline-block;">
 	      <c:if test="${postSellorNot eq 'sell'}">
 	      <img src="${pageContext.request.contextPath}/resources/img/upload/btnimage.jpg" style="width: 57.33px;"/>
@@ -104,7 +114,10 @@
 	        <input name="uploadImage" id="uploadImage" type="file" accept="image/*" class="form-control btn btn-ouline-dark m-2" multiple hidden/>
 	     </c:if>
     <!-- ===================================지도=================================== -->
-        <button id="map-upload" type="button" data-toggle="modal" data-target="#mapModal" class="btn btn-outline-dark m-2">map</button>
+        <button id="uploadMap" type="button" data-toggle="modal" data-target="#mapModal" class="btn btn-outline-dark m-2">map</button>
+        
+        
+    <!-- ===================================이미지 보정=================================== -->    
         <button id="editImage" type="button" data-toggle="modal" data-target="#editModal" class="btn btn-outline-dark m-2">Edit</button>
     </div>
     
@@ -184,23 +197,63 @@
   </form>
   
   
-    <!--===================================Map Modal===================================-->
+    <!--===================================Map Modal===================================
     <form>
       <div class="modal" id="mapModal">
         <div class="modal-dialog modal-xl">
-          <div class="modal-content">
-            저쩌구
+          <div class="modal-content" >
+            
+	        <div class="modal-header">
+	          <button type="button" class="close" data-dismiss="modal">&times;</button>
+	        </div>-->
+          
+	          <!-- Modal body 
+	        <div class="modal-body" id="mapContent">
+	          <iframe src="map.html" id="modalMap">
+	        </div>-->
+	          <!-- Modal footer 
+	        <div class="modal-footer">
+	        	<div>
+	          <label for="editUpload" class="btn btn-ouline-dark m-2" style="display:inline-block;">
+	     		<img src="${pageContext.request.contextPath}/resources/img/upload/addImage.png" style="width: 20px;"/>
+	     	  </label>
+	        <input name="editUpload" id="editUpload" type="file" accept="image/*" class="form-control btn btn-ouline-dark m-2" multiple hidden/>
+	        
+	          <!-- <button type="button" class="btn btn-sm btn-outline-dark">FileUpload</button> -->
+	          <button type="button" class="btn btn-sm btn-outline-dark" data-dismiss="modal">Save</button>
+	          	</div>
+	        </div>
           </div>
         </div>
       </div>
-    </form>
+    </form>-->
     
      <!--===================================Image Modal===================================-->
     <form>
-      <div class="modal" id="mapModal">
+      <div class="modal" id="editModal">
         <div class="modal-dialog modal-xl">
           <div class="modal-content">
-            image
+            <!-- Modal Header -->
+	        <div class="modal-header">
+	          <button type="button" class="close" data-dismiss="modal">&times;</button>
+	        </div>
+          
+	          <!-- Modal body -->
+	        <div class="modal-body"  id="editContent">
+	          
+	        </div>
+	          <!-- Modal footer -->
+	        <div class="modal-footer">
+	        	<div>
+	          <label for="editUpload" class="btn btn-ouline-dark m-2" style="display:inline-block;">
+	     		<img src="${pageContext.request.contextPath}/resources/img/upload/addImage.png" style="width: 20px;"/>
+	     	  </label>
+	        <input name="editUpload" id="editUpload" type="file" accept="image/*" class="form-control btn btn-ouline-dark m-2" multiple hidden/>
+	        
+	          <!--<button type="button" class="btn btn-sm btn-outline-dark">FileUpload</button>-->
+	          <button type="button" class="btn btn-sm btn-outline-dark" data-dismiss="modal">Save</button>
+	          	</div>
+	        </div>
           </div>
         </div>
       </div>
@@ -343,8 +396,71 @@ function leavePage(){
 };
 
 
-//
 
+
+//$(document).ready(function(){
+//	$('#editContent').load("<c:url value='/gallery/post/EditImage.do'/>");
+//});
+
+
+//$(document).ready(function(){
+//	$('#mapContent').load("<c:url value='/gallery/post/AddMap.do'/>");
+//});
+
+
+//모달 열기
+function modalOpen() {
+  Swal.fire({
+    title: '<strong>HTML <u>example</u></strong>',
+    width: 1430,
+    html:
+    '<iframe width="1350" height="700" src="map.html" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',
+    showCloseButton: true,
+    showCancelButton: true,
+    focusConfirm: false,
+    confirmButtonText:
+    '<i class="fa fa-thumbs-up"></i> Select',
+    confirmButtonAriaLabel: 'Thumbs up, great!',
+    cancelButtonText:
+    '<i class="fa fa-thumbs-down"></i>Cancel',
+    cancelButtonAriaLabel: 'Thumbs down'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      console.log(123);
+    } else {
+      console.log(456);
+    }
+  })
+}
+
+//버튼 클릭리스너 달기
+document.querySelector('#modal_btn').addEventListener('click', modalOpen);
+
+
+
+
+
+/*
+$(document).ready(function(){
+	var mapObj = $("form[role='form']");
+
+	$('#uploadMap').on("click",function(){
+		//var userId = $("#user_id").val(); //화면 파라미터 가져오기
+		//window.open("/daily/UploadMap?userId="+userId,"_blank","toolbar=yes,menubar=yes,width=900,height=600").focus();
+		window.open("<c:url value='/gallery/post/UploadMap.do'/>","_blank","toolbar=yes,menubar=yes,width=900,height=600").focus();
+	});
+});
+*/
+
+$(document).ready(function(){
+	var mapObj = $("form[role='form']");
+
+	$('#editImage').on("click",function(){
+		//var userId = $("#user_id").val(); //화면 파라미터 가져오기
+		//window.open("/daily/UploadMap?userId="+userId,"_blank","toolbar=yes,menubar=yes,width=900,height=600").focus();
+		window.open("<c:url value='/gallery/post/EditImage.do'/>","_blank","toolbar=yes,menubar=yes,width=900,height=600").focus();
+	});
+});
 
 
 
