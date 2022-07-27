@@ -56,6 +56,24 @@ public class MemberDAO {
 		session.close();
 		return count==1 ? true:false;
 	}*/
+	
+	public MemberDTO readMember(String id) {
+		// TODO Auto-generated method stub
+		SqlSession session= sqlMapper.openSession();
+		MemberDTO memberDTO = session.selectOne("readMember", id);
+		return memberDTO;
+	}
+
+	public void updateMember(MemberDTO dto) {
+		SqlSession session= sqlMapper.openSession();
+		session.update("updateMember", dto);
+	}
+	
+	public void updateMemberPassword(MemberDTO dto) {
+
+		SqlSession session= sqlMapper.openSession();
+		session.update("updateMemberPassword", dto);
+	}
 
 		
 }

@@ -20,7 +20,7 @@ import com.pictory.springapp.dto.MemberService;
 
 @SessionAttributes({"userId"})
 @Controller
-@RequestMapping("/mypage/")
+@RequestMapping("/mypage")
 public class MypageProfileController {
 	
 	@Autowired
@@ -33,7 +33,7 @@ public class MypageProfileController {
 		String id = (String) session.getAttribute("userId");
 		
 		if (id == null) {
-			return "auth/Login.tiles";
+			return "auth/Login";
 		} else {
 			//서비스안의 회원정보보기 메서드 호출
 			MemberDTO dto = service.readMember(id);

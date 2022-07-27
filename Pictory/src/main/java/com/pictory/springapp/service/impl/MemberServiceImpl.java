@@ -27,21 +27,41 @@ public class MemberServiceImpl implements MemberService<MemberDTO>{
 		return dao.isExist(map);
 	}
 
-	@Override
-	public MemberDTO readMember(String id) {
-		MemberDTO dto = dao.readMember(id);
-		return dto;
-	}
+		//회원정보보기
+		@Override
+		public MemberDTO readMember(String id) {
+			MemberDTO dto = null;
+			try {
+			dto = dao.readMember(id);
+			}
+			catch(Exception e) {
+				e.printStackTrace();
+			}
+			return dto;
+		}
+		
+		//회원정보수정 
+		@Override
+		public MemberDTO updateMember(MemberDTO dto) {
+			try {
+				dao.updateMember(dto);
+				return dao.readMember(dto.getUserId());
+			}
+			catch(Exception e) {
+				e.printStackTrace();
+			}
+			return null;
+		}
 
-	@Override
-	public int updateMemberPassword(MemberDTO dto) {
-		int count = dao.updateMemberPassword(dto);
-		return count;
-	}
+		@Override
+		public int updateMemberPassword(MemberDTO dto) {
 
-	@Override
-	public MemberDTO updateMember(MemberDTO dto) {
-		MemberDTO result = dao.updateMember(dto);
-		return result;
-	}
+			try {
+				dao.updateMemberPassword(dto);
+			} catch (Exception e) {
+				return 0;
+			}
+			return 1;
+			
+		}
 }
