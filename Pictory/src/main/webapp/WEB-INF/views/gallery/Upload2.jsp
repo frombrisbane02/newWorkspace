@@ -398,45 +398,14 @@ function leavePage(){
 
 
 
-//$(document).ready(function(){
-//	$('#editContent').load("<c:url value='/gallery/post/EditImage.do'/>");
-//});
+$(document).ready(function(){
+	$('#editContent').load("<c:url value='/gallery/post/EditImage.do'/>");
+});
 
 
 //$(document).ready(function(){
 //	$('#mapContent').load("<c:url value='/gallery/post/AddMap.do'/>");
 //});
-
-
-//모달 열기
-function modalOpen() {
-  Swal.fire({
-    title: '<strong>HTML <u>example</u></strong>',
-    width: 1430,
-    html:
-    '<iframe width="1350" height="700" src="map.html" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',
-    showCloseButton: true,
-    showCancelButton: true,
-    focusConfirm: false,
-    confirmButtonText:
-    '<i class="fa fa-thumbs-up"></i> Select',
-    confirmButtonAriaLabel: 'Thumbs up, great!',
-    cancelButtonText:
-    '<i class="fa fa-thumbs-down"></i>Cancel',
-    cancelButtonAriaLabel: 'Thumbs down'
-  }).then((result) => {
-    if (result.isConfirmed) {
-      console.log(123);
-    } else {
-      console.log(456);
-    }
-  })
-}
-
-//버튼 클릭리스너 달기
-document.querySelector('#modal_btn').addEventListener('click', modalOpen);
-
-
 
 
 
@@ -451,16 +420,6 @@ $(document).ready(function(){
 	});
 });
 */
-
-$(document).ready(function(){
-	var mapObj = $("form[role='form']");
-
-	$('#editImage').on("click",function(){
-		//var userId = $("#user_id").val(); //화면 파라미터 가져오기
-		//window.open("/daily/UploadMap?userId="+userId,"_blank","toolbar=yes,menubar=yes,width=900,height=600").focus();
-		window.open("<c:url value='/gallery/post/EditImage.do'/>","_blank","toolbar=yes,menubar=yes,width=900,height=600").focus();
-	});
-});
 
 
 
