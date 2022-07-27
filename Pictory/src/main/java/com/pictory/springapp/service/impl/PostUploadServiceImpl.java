@@ -54,6 +54,8 @@ public class PostUploadServiceImpl implements PostUploadService<PostDTO> {
 			
 			//3) photoInsert하기
 			dao.photoInsert(oneFile);	
+			
+			//4) photoInsert 후에 post insert
 		}
 		
 		//이건 걍 보내... ㅎ;

@@ -14,7 +14,7 @@ public interface PostUploadService<T> {
 	String uploadingFile(Map map, List<MultipartFile> uploadImage);
 	int photoInsert(Map fileList);
 	
-	//post 넣는 곳에 photo 업로드용 리스트 같이 넘기기
+	//post 넣는 곳에 photo 업로드용 리스트 같이 넘기기(map에 해시태그도 있어요..)
 	int postInsert(Map map, List<Map<String, Object>> fileInfo);
 	
 	//Story 생성하는 경우 썸네일 업로드용!

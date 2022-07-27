@@ -83,12 +83,19 @@ public class PostController {
 	@PostMapping("post/NotSellUpload.do")
 	public String notSellUpload(@ModelAttribute("userId") String userId,@RequestParam Map map, Model model,
 			@RequestParam("storyThumbnail") MultipartFile sThumbnail,
+			@RequestParam(value="hashtags") List<String> hashtag,
 			@RequestParam("uploadImage") List<MultipartFile> uploadImage, HttpServletRequest req) throws IllegalStateException, IOException {
 		
 		//할일: 스토리랑 해시태그 추가하기
-		System.out.println("가져온맵: "+map);
+		System.out.println("가져온 맵: "+map);
 		System.out.println("스토리썸네일이름: "+sThumbnail.getOriginalFilename());
 		System.out.println("스토리썸네일사이즈: "+sThumbnail.getSize());
+		
+		if(hashtag!=null) {
+			for(int i=0; i<hashtag.size(); i++) {
+				System.out.println("hashtag "+i+"번방 : "+hashtag.get(i));
+			}
+		}
 		
 		//일단 아이디부터 map에 넣고!!
 		map.put("userId", userId);

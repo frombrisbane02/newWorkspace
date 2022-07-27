@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Bootstrap Example</title>
+  <title>Upload2</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1 shrink-to-fit=no">
   <!--기본 bootstrap4용-->
@@ -41,7 +41,7 @@
 	 	<form action="<c:url value="/gallery/post/NotSellUpload.do"/>" method="POST" enctype="multipart/form-data">
 	 </c:if>
 	<input type="hidden" class="form-control" value="${postSellorNot}" name="postSellorNot" id="postSellorNot">
-	<input type="hidden" class="form-control" value="${hashtags}" name="hashtag" id="hashtag">
+		<input type="hidden" class="form-control" value="" name="hashtags" id="hashtags">
   	<div class="form-group">
 	  <select id="postCategory"  name="postCategory" class="custom-select form-control">
 	      <option selected>카테고리</option>
@@ -289,6 +289,9 @@ function addHash(){
 
     ul.appendChild(li);
     document.querySelector("#putHashtag").value="";
+    
+    hashtags.join;
+    document.querySelector('#hashtags').value=hashtags;
 
 };
 
