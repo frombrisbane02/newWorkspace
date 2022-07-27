@@ -11,8 +11,8 @@
 	</page_setting>
 	<category_index>0</category_index>
 	<zoom>0.8</zoom>
-	<x>0</x>
-	<y>171</y>
+	<x>320</x>
+	<y>375</y>
 	<default_color>
 		<r>128</r>
 		<g>128</g>
@@ -135,7 +135,7 @@
 			</connections>
 			<display>false</display>
 			<creation_date>2022-07-09 15:48:37</creation_date>
-			<updated_date>2022-07-27 11:41:07</updated_date>
+			<updated_date>2022-07-27 14:51:30</updated_date>
 			<model_property>
 				<name>프로젝트명</name>
 				<value></value>
@@ -1477,8 +1477,8 @@
 			<width>332</width>
 				<font_name>맑은 고딕</font_name>
 				<font_size>9</font_size>
-			<x>1488</x>
-			<y>516</y>
+			<x>1489</x>
+			<y>552</y>
 			<color>
 				<r>128</r>
 				<g>128</g>
@@ -1487,7 +1487,7 @@
 			<connections>
 				<relation>
 					<id>2</id>
-					<source>16</source>
+					<source>14</source>
 					<target>2</target>
 						<source_xp>-1</source_xp>
 						<source_yp>-1</source_yp>
@@ -1509,7 +1509,7 @@
 				</relation>
 				<relation>
 					<id>3</id>
-					<source>14</source>
+					<source>16</source>
 					<target>2</target>
 						<source_xp>-1</source_xp>
 						<source_yp>-1</source_yp>
@@ -1540,7 +1540,7 @@
 				<normal_column>
 					<id>7</id>
 					<referenced_column>53</referenced_column>
-					<relation>3</relation>
+					<relation>2</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -1574,7 +1574,7 @@
 				<normal_column>
 					<id>8</id>
 					<referenced_column>67</referenced_column>
-					<relation>2</relation>
+					<relation>3</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -2845,7 +2845,7 @@
 				<normal_column>
 					<id>33</id>
 					<referenced_column>53</referenced_column>
-					<relation>13</relation>
+					<relation>12</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name>회원아이디(보내는)</logical_name>
@@ -2879,7 +2879,7 @@
 				<normal_column>
 					<id>34</id>
 					<referenced_column>53</referenced_column>
-					<relation>12</relation>
+					<relation>13</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name>회원아이디(받는)</logical_name>
@@ -3569,10 +3569,10 @@
 		<table>
 			<id>13</id>
 			<height>217</height>
-			<width>390</width>
+			<width>516</width>
 				<font_name>맑은 고딕</font_name>
 				<font_size>9</font_size>
-			<x>1868</x>
+			<x>1908</x>
 			<y>564</y>
 			<color>
 				<r>128</r>
@@ -4292,28 +4292,6 @@
 			<connections>
 				<relation>
 					<id>19</id>
-					<source>13</source>
-					<target>16</target>
-						<source_xp>-1</source_xp>
-						<source_yp>-1</source_yp>
-						<target_xp>-1</target_xp>
-						<target_yp>-1</target_yp>
-						<color>
-							<r>0</r>
-							<g>0</g>
-							<b>0</b>
-						</color>
-					<child_cardinality>0..n</child_cardinality>
-					<parent_cardinality>0..1</parent_cardinality>
-					<reference_for_pk>true</reference_for_pk>
-					<name></name>
-					<on_delete_action>RESTRICT</on_delete_action>
-					<on_update_action>RESTRICT</on_update_action>
-					<referenced_column>null</referenced_column>
-					<referenced_complex_unique_key>null</referenced_complex_unique_key>
-				</relation>
-				<relation>
-					<id>20</id>
 					<source>14</source>
 					<target>16</target>
 						<source_xp>-1</source_xp>
@@ -4327,6 +4305,28 @@
 						</color>
 					<child_cardinality>1..n</child_cardinality>
 					<parent_cardinality>1</parent_cardinality>
+					<reference_for_pk>true</reference_for_pk>
+					<name></name>
+					<on_delete_action>RESTRICT</on_delete_action>
+					<on_update_action>RESTRICT</on_update_action>
+					<referenced_column>null</referenced_column>
+					<referenced_complex_unique_key>null</referenced_complex_unique_key>
+				</relation>
+				<relation>
+					<id>20</id>
+					<source>13</source>
+					<target>16</target>
+						<source_xp>-1</source_xp>
+						<source_yp>-1</source_yp>
+						<target_xp>-1</target_xp>
+						<target_yp>-1</target_yp>
+						<color>
+							<r>0</r>
+							<g>0</g>
+							<b>0</b>
+						</color>
+					<child_cardinality>0..n</child_cardinality>
+					<parent_cardinality>0..1</parent_cardinality>
 					<reference_for_pk>true</reference_for_pk>
 					<name></name>
 					<on_delete_action>RESTRICT</on_delete_action>
@@ -4378,7 +4378,7 @@
 				<normal_column>
 					<id>68</id>
 					<referenced_column>53</referenced_column>
-					<relation>20</relation>
+					<relation>19</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -4412,7 +4412,7 @@
 				<normal_column>
 					<id>69</id>
 					<referenced_column>49</referenced_column>
-					<relation>19</relation>
+					<relation>20</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -4699,17 +4699,12 @@
 			<connections>
 				<relation>
 					<id>21</id>
-					<source>17</source>
+					<source>14</source>
 					<target>17</target>
-						<source_xp>100</source_xp>
-						<source_yp>66</source_yp>
-						<target_xp>79</target_xp>
-						<target_yp>100</target_yp>
-						<bendpoint>
-							<relative>true</relative>
-							<x>42</x>
-							<y>69</y>
-						</bendpoint>
+						<source_xp>-1</source_xp>
+						<source_yp>-1</source_yp>
+						<target_xp>-1</target_xp>
+						<target_yp>-1</target_yp>
 						<color>
 							<r>0</r>
 							<g>0</g>
@@ -4748,12 +4743,17 @@
 				</relation>
 				<relation>
 					<id>23</id>
-					<source>14</source>
+					<source>17</source>
 					<target>17</target>
-						<source_xp>-1</source_xp>
-						<source_yp>-1</source_yp>
-						<target_xp>-1</target_xp>
-						<target_yp>-1</target_yp>
+						<source_xp>100</source_xp>
+						<source_yp>66</source_yp>
+						<target_xp>79</target_xp>
+						<target_yp>100</target_yp>
+						<bendpoint>
+							<relative>true</relative>
+							<x>42</x>
+							<y>69</y>
+						</bendpoint>
 						<color>
 							<r>0</r>
 							<g>0</g>
@@ -4846,7 +4846,7 @@
 				<normal_column>
 					<id>79</id>
 					<referenced_column>53</referenced_column>
-					<relation>23</relation>
+					<relation>21</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -4979,7 +4979,7 @@
 				<normal_column>
 					<id>83</id>
 					<referenced_column>77</referenced_column>
-					<relation>21</relation>
+					<relation>23</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name>코멘트번호(참조용)</logical_name>

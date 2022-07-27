@@ -21,4 +21,8 @@ public interface PostUploadService<T> {
 	String uploadStoryThumbnail(Map map, MultipartFile storyThumbnail);
 	int storyInsert(Map map);
 	
+	//이거는 파일 업로드용인데 한장짜리 업로드용!
+	String uploadoneFile(Map map, MultipartFile uploadImage);
+	int sellPostInsert(Map map);
+	
 }

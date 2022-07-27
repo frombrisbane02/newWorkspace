@@ -36,6 +36,22 @@
 	<select id="getSNo" parameterType="map" resultType="int">
 		SELECT sNo FROM STORY WHERE storyThumbnail=#{storyThumbnail}
 	</select>
+	
+	<insert id="hashtagInsert" parameterType="map" >
+			INSERT INTO HASHTAG VALUES(#{postNo}, #{hashtag})
+	</insert>
+	
+	<insert id="productInsert" parameterType="map">
+		<selectKey keyProperty="pdNo" resultType="int" order="BEFORE">
+			SELECT SEQ_PRODUCT.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO PRODUCT VALUES (SEQ_PRODUCT.CURRVAL, #{photoNo}, #{price}, DEFAULT, SYSDATE)
+	</insert>
+	
+	<select id="getPhotoNo" parameterType="map" resultType="int">
+		SELECT photoNo FROM PHOTO WHERE postNo=#{postNo}
+	</select>
+	
 
 
 </mapper>

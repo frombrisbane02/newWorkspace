@@ -113,9 +113,8 @@
           <ul class="list-group list-group-horizontal">
               <li class="list-group-item overflow-x: auto; border-0">
               <div class="inline" id="sThumnail">
-                  <label for="storyThumnail">
-                      <img src="${pageContext.request.contextPath}/resources/img/upload/addstory.jpg" id="addedThumnail" width="114px;" height="162px;">
-                      </label>
+                  <label for="storyThumbnail">
+                      <img src="${pageContext.request.contextPath}/resources/img/upload/addstory.jpg" id="addedThumbnailimg" width="114px;" height="162px;">
                   </label>
                       <input id="storyThumbnail" name="storyThumbnail" type="file" accept="image/*" hidden/>
               </div>
@@ -161,7 +160,7 @@
 <c:if test="${postSellorNot eq 'sell'}">
    <div class="form-group">
       <label for="price">가격(￦)</label>
-      <input type="text" class="form-control" placeholder="숫자만 입력" id="price">
+      <input type="text" class="form-control" placeholder="숫자만 입력" id="price" name="price">
     </div>
    <div class="form-group">
        <label for="warning">정책 유의사항</label>
@@ -302,7 +301,7 @@ function readURL(input) {
   var reader = new FileReader();
   
   reader.onload = function (e) {
-   $('#addedThumnail').attr('src', e.target.result);  
+   $('#addedThumbnailimg').attr('src', e.target.result);  
   }
   
   reader.readAsDataURL(input.files[0]);
