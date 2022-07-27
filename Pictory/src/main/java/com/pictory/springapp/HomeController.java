@@ -27,6 +27,8 @@ public class HomeController {
 		
 		model.addAttribute("serverTime", formattedDate );
 		
+		System.out.println("메인화면 들어왔니?");
+		
 		return "index.tiles";
 	}
 	
