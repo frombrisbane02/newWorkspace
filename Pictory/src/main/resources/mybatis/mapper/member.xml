@@ -13,4 +13,35 @@
 		SELECT count(*) from USERS where userId='${userId}'
 	</select>
 	
+	<select id="selectMyCart" parameterType="String" resultType="MyCartDTO">
+		SELECT cart.USERNO ,  u.USERNICKNAME ,  product.PDNO , product.PHOTONO, product.PDPRICE, photo.PHOTOURL 
+		FROM CART cart
+		INNER JOIN PRODUCT product 
+		ON cart.PDNO = product.PDNO 
+		INNER JOIN PHOTO photo
+		ON product.PHOTONO = photo.PHOTONO 
+		INNER JOIN USERS u 
+		ON cart.USERNO = u.USERNO 
+		WHERE cart.USERNO = #{userId}
+	</select>
+	
+	<select id="readMember" parameterType="String" resultType="MemberDTO">
+		SELECT * FROM users WHERE userId= #{userId}
+	</select>
+	
+	<update id="updateMemberPassword" parameterType="MemberDTO">
+		UPDATE USERS 
+		SET USERPASSWORD = #{userPassword}
+		  WHERE
+		    USERID = #{userId} 
+	</update>
+	
+	<update id="updateMember" parameterType="MemberDTO">
+		UPDATE USERS
+		SET USERPROFILE = #{userProfile}
+		WHERE
+		USERID = #{userId}
+	</update>
+	
+	
 </mapper>

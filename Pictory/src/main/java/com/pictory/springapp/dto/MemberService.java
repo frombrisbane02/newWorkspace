@@ -15,4 +15,10 @@ public interface MemberService<T> {
 	
 	public boolean isExist(String id);
 	
+	public MemberDTO readMember(String id);
+	
+	public int updateMemberPassword(MemberDTO dto);
+	
+	public MemberDTO updateMember(MemberDTO dto);
+	
 }

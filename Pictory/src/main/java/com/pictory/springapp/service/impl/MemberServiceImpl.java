@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.config.annotation.authentication.configurers.userdetails.DaoAuthenticationConfigurer;
 import org.springframework.stereotype.Service;
 
 import com.pictory.springapp.dto.MemberDTO;
@@ -26,5 +25,23 @@ public class MemberServiceImpl implements MemberService<MemberDTO>{
 		map.put("userId", userId);
 		System.out.println("@@@@@");
 		return dao.isExist(map);
+	}
+
+	@Override
+	public MemberDTO readMember(String id) {
+		MemberDTO dto = dao.readMember(id);
+		return dto;
+	}
+
+	@Override
+	public int updateMemberPassword(MemberDTO dto) {
+		int count = dao.updateMemberPassword(dto);
+		return count;
+	}
+
+	@Override
+	public MemberDTO updateMember(MemberDTO dto) {
+		MemberDTO result = dao.updateMember(dto);
+		return result;
 	}
 }
