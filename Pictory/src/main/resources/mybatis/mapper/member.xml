@@ -41,9 +41,9 @@
 		where USERID = #{userId}
 	</update>
 	
-	<!-- 마이페이지 장바구니 목록 불러오기 쿼리 -->
-	<select id="selectMyCart" parameterType="String" resultType="MyCartDTO">
-		SELECT cart.USERNO ,  u.USERNICKNAME ,  product.PDNO , product.PHOTONO, product.PDPRICE, photo.PHOTOURL 
+	<!-- 마이페이지 장바구니 목록 불러오기 쿼리: 아직 안됨 >> sql 에러뜸 해결필요 -->
+	<select id="selectMyCart" parameterType="int" resultType="MyCartDTO">
+		SELECT cart.USERNO, u.USERNICKNAME, product.PDNO, product.PHOTONO, product.PDPRICE, photo.PHOTOURL, photo.PHOTONAME
 		FROM CART cart
 		INNER JOIN PRODUCT product 
 		ON cart.PDNO = product.PDNO 
@@ -51,7 +51,7 @@
 		ON product.PHOTONO = photo.PHOTONO 
 		INNER JOIN USERS u 
 		ON cart.USERNO = u.USERNO 
-		WHERE cart.USERNO = #{userId}
+		WHERE cart.USERNO = #{userNo}
 	</select>
 	
 </mapper>

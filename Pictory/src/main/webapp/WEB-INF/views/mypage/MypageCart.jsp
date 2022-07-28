@@ -25,21 +25,12 @@
                </thead>
                <tbody>
                  <tr>
-                   <td><input type="checkbox"/><a href="#"><img src="<c:url value="/resources/img/mypage/test_img01.jpg"/>" alt="White Blouse Armani" style="width:250px;height:250px;padding-left:20px"></a></td>
-                   <td><a href="#">하얗고 이쁜 인테리어</a></td>
-                   <td><a href="#">윤진이</a></td>
-                   <td>2,500</td>
-                   <td>250</td>
-                   <td>2,750</td>
-                   <td><a href="#"><i class="fa fa-trash-o"></i></a></td>
-                 </tr>
-                 <tr>
-                   <td><input type="checkbox"/><a href="#"><img src="<c:url value="/resources/img/mypage/test_img02.jpg"/>" alt="Black Blouse Armani" style="width:250px;height:250px;padding-left:20px"></a></td>
-                   <td><a href="#">고급진 분위기의 인테리어 사진</a></td>
-                   <td><a href="#">안똥균</a></td>
-                   <td>2,000</td>
-                   <td>200</td>
-                   <td>2,200</td>
+                   <td><input type="checkbox"/><a href="#"><img src="<c:url value="/resources/img/mypage/${myCartList.photoUrl}"/>" alt="White Blouse Armani" style="width:250px;height:250px;padding-left:20px"></a></td>
+                   <td><a href="#">${myCartList.photoName}</a></td>
+                   <td><a href="#">${myCartList.userNickName}</a></td>
+                   <td>${myCartList.pdPrice}</td>
+                   <td>${myCartList.commision}</td>
+                   <td>${myCartList.totalPrice}</td>
                    <td><a href="#"><i class="fa fa-trash-o"></i></a></td>
                  </tr>
                </tbody>

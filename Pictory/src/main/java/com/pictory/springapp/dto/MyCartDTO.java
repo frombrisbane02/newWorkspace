@@ -18,4 +18,5 @@ public class MyCartDTO {
 	private String photoUrl;
 	private int commision;
 	private int totalPrice;
+	private String photoName;
 }
