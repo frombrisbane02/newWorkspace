@@ -49,7 +49,7 @@ public class PostController {
 	
 	@GetMapping("post/Upload1.do")
 	public String upload1Page() {
-		//업로드 버튼 클릭시 업로드1 페이지로 넘겨주기
+		//상단바 업로드 버튼 클릭시 업로드1 페이지로 넘겨주기
 		return "gallery/Upload1.tiles";
 	}
 	

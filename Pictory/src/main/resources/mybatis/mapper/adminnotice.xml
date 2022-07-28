@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mybatis.mapper.adminnotice">
+
+	<select id="noticeList" parameterType="hashMap" resultType="AdminNoticeDTO">
+		<![CDATA[
+			SELECT n.*, u.USERID
+			 FROM NOTICE n 
+			  JOIN USERS u
+              ON n.USERNO = u.USERNO
+              WHERE 1=1
+                AND UPPER(NOTICETITLE) LIKE UPPER('%' || #{noticeKeyword} || '%')
+				ORDER BY LPAD(NOTICEDATE, 10, 0) ${orderby}, NOTICENO ${orderby}
+		]]>
+	</select>
+	
+	<insert id="noticeInsert" parameterType="map">
+		INSERT INTO NOTICE(
+				NOTICENO
+			,	USERNO
+			,	NOTICECODE
+			,	NOTICETITLE
+			,	NOTICECONTENT
+			,	NOTICECATEGORY
+		)VALUES(
+				(SELECT NVL(MAX(NOTICENO), 0)+1 FROM NOTICE)
+	        ,   #{userNo}
+	        ,   (SELECT NVL(MAX(NOTICECODE), 0)+1 FROM NOTICE)
+	        ,   #{noticeTitle}
+	        ,   #{noticeContent}
+	        ,   (SELECT NVL(MAX(NOTICECATEGORY), 0)+1 FROM NOTICE)
+		)
+	</insert>
+	
+	<update id="noticeUpdate" parameterType="map">
+		UPDATE NOTICE SET
+			NOTICETITLE = #{noticeTitle}
+		,	NOTICECONTENT = #{noticeContent}
+		,	NOTICEDATE = TO_DATE(SYSDATE, 'YYYY/MM/DD HH:MI:SS')
+		 WHERE 1=1
+		  AND NOTICENO = #{noticeNo}
+	</update>
+	
+	<delete id="noticeDelete" parameterType="int">
+		DELETE FROM NOTICE WHERE 1=1 AND NOTICENO = #{noticeNo}
+	</delete>
+</mapper>

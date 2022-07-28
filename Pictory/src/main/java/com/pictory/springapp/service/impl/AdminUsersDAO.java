@@ -2,9 +2,8 @@ package com.pictory.springapp.service.impl;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
-import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -15,14 +14,58 @@ import com.pictory.springapp.dto.AdminUsersDTO;
 public class AdminUsersDAO {
 	
 	@Autowired
-	private SqlSessionFactory sqlMapper;
-	//- SqlSessionTemplate사용: 위 프로그래밍 순서 가, 나에서는 commit(), 다의 close()호출 불필요
+	private SqlSessionFactory sqlMapper;	
 	
-	@Autowired
-	private SqlSessionTemplate template;
+	public List<AdminUsersDTO> userList() throws Exception {
+		SqlSession session = sqlMapper.openSession();
+		
+		try {
+			
+			return session.selectList("userList");
+
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			session.close();
+		}
+		
+		return null;
+		
+	}
 	
+	public List<AdminUsersDTO> searchList(AdminUsersDTO keyword)throws Exception {
+		SqlSession session = sqlMapper.openSession();
+		
+		try {
+			
+			List<AdminUsersDTO> list = session.selectList("searchList", keyword);			
+			return list;  
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			session.close();
+		}
+		
+		return null;
+		
+	}
 	
-	//public List<AdminUsersDTO> userList();
-	//public int updateEnabled(AdminUsersDTO params);
-	//public List<AdminUsersDTO> searchList(AdminUsersDTO keyword);
+	public int updateEnabled(AdminUsersDTO params) throws Exception{
+		SqlSession session = sqlMapper.openSession();
+		
+		try {
+			
+			return session.update("updateEnabled", params);
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			session.close();
+		}
+		
+		return 0;
+		
+	}
+
 }

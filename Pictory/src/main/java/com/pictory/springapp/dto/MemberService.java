@@ -1,5 +1,6 @@
 package com.pictory.springapp.dto;
 
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,6 +16,9 @@ public interface MemberService<T> {
 	
 	public boolean isExist(String id);
 	
+	//회원가입
+	public int signUp(MemberDTO dto);
+	
 	//회원정보 보기
 	public MemberDTO readMember(String id);
 		
@@ -23,5 +27,6 @@ public interface MemberService<T> {
 	
 	//회원 비밀번호 수정
 	public int updateMemberPassword(MemberDTO dto);
+	
 	
 }

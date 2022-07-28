@@ -7,8 +7,8 @@
   <title>Upload2</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1 shrink-to-fit=no">
-    <!-- example 추가 -->
-   <!--<script type="module" src="/public/init.js"></script>-->
+    <!-- Image Edit용 example 추가 -->
+	   <!--<script type="module" src="/public/init.js"></script>-->
     <script src="https://cdn.scaleflex.it/plugins/js-cloudimage-responsive/4.8.5/js-cloudimage-responsive.min.js"></script>
     <script src="https://cdn.scaleflex.it/filerobot/js-cloudimage-responsive/lazysizes.min.js"></script>
   <!--vanilla js cdn-->
@@ -16,7 +16,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.scaleflex.it/plugins/js-cloudimage-responsive/4.8.5/js-cloudimage-responsive.min.css?vh=a076ef&func=proxy"/>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet"/>
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/upload/style.css" />
+    <!-- 
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/upload/style.css" /> -->
+  
   
   <!--기본 bootstrap4용-->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
@@ -33,6 +35,17 @@
   
 </head>
 <style>
+
+.imgpre > img {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 1000px;
+  margin-bottom: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  
+}
 
 </style>
 
@@ -134,15 +147,18 @@
                       <input id="storyThumbnail" name="storyThumbnail" type="file" accept="image/*" hidden/>
               </div>
               </li>
+              <!--<c:if test="">foreach로 스토리 가져와서 뿌려주기!!!!!!!!!</c:if>-->
               <li class="list-group-item overflow-x: auto; border-0">
                   <div>
                       <input type="checkbox" id="story1" onclick="imageClicked(this)" hidden/>
                       <label for="story1">
-                          <img src="${pageContext.request.contextPath}/resources/img/upload/sell.jpg"   id="sThumnail" width="114" height="162">
+                          <img src="${pageContext.request.contextPath}/resources/img/upload/sell.jpg"  id="sThumnail+1" width="114" height="162">
                       </label>
                   </div>
                   스토리이름1
               </li>
+              
+              
               <li class="list-group-item overflow-x: auto; border-0">
                   <div>
                       <input type="checkbox" id="story2" onclick="imageClicked(this)" hidden/>
@@ -161,7 +177,7 @@
     
     <!-- ===================================해시태그=================================== -->
     <div class="form-group inline">
-       <label for="price">해시태그</label><button type="button" class="btn btn-dark" onclick="addHash()">+</button>
+       <label for="price">해시태그</label><button type="button" class="btn btn-sm btn-dark ml-3" onclick="addHash()">+</button>
        <input type="text" class="form-control" placeholder="10자이내 해시태그를 입력 후 추가 버튼을 누르세요." id="putHashtag">
        
    </div>
@@ -245,12 +261,13 @@
 	          <!-- Modal footer -->
 	        <div class="modal-footer">
 	        	<div>
+	        <!-- 
 	          <label for="editUpload" class="btn btn-ouline-dark m-2" style="display:inline-block;">
 	     		<img src="${pageContext.request.contextPath}/resources/img/upload/addImage.png" style="width: 20px;"/>
 	     	  </label>
-	        <input name="editUpload" id="editUpload" type="file" accept="image/*" class="form-control btn btn-ouline-dark m-2" multiple hidden/>
-	        
-	          <!--<button type="button" class="btn btn-sm btn-outline-dark">FileUpload</button>-->
+	        <input name="editUpload" id="editUpload" type="file" accept="image/*" class="form-control btn btn-ouline-dark m-2" hidden/>
+	         -->
+	         
 	          <button type="button" class="btn btn-sm btn-outline-dark" data-dismiss="modal">Save</button>
 	          	</div>
 	        </div>
@@ -303,6 +320,8 @@
 
                 reader.onload = function(event) {
                     $($.parseHTML('<img>')).attr('src', event.target.result).appendTo(imgplace);
+                    
+                   
                     //이 뒤에 다이브 추가생성점....
                 }
                 reader.readAsDataURL(input.files[i]);

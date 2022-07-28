@@ -272,15 +272,15 @@ class="panel-radios" type="checkbox" name="nav-checkbox">
 <ul id="tabs-list" class="bg-light">
 <!-- MENU TOGGLE -->
 <label id="open-nav-label" for="nav-ctrl"></label>
-<li id="li-for-panel-1" class="memberClass">
+<li id="li-for-panel-1" class="noticeTab tabClick" data-tab_title="공지">
 <label class="panel-label"
       for="panel-1-ctrl">공지사항</label>
 </li><!--INLINE-BLOCK FIX
---><li id="li-for-panel-2" class="salesClass">
+--><li id="li-for-panel-2" class="qnaTab tabClick" data-tab_title="qna">
 <label class="panel-label"
       for="panel-2-ctrl">Q & A</label>
 </li><!--INLINE-BLOCK FIX
---><li id="li-for-panel-3" class="galleryClass">
+--><li id="li-for-panel-3" class="reportTab tabClick" data-tab_title="신고">
 <label class="panel-label"
       for="panel-3-ctrl">신고 리스트</label>
 </li><!--INLINE-BLOCK FIX
@@ -304,25 +304,38 @@ class="panel-radios" type="checkbox" name="nav-checkbox">
               <div class="d-flex align-items-center justify-content-between mb-4">
                   <h3 class="mb-0">공지사항</h3>
               </div>
+              
+
+              
               <div class="container-fluid pt-4 px-4">
-                <div class="bg-light  rounded p-4">
+                <div class="bg-light rounded p-4">                
                     <div class="searchbox" style="margin-top:10px; margin-bottom:10px; ">
+
                         <!--정렬 (가입일순 / 생년월일 / 주소(시) / )-->
                         <div class="dropdown" style="margin-left: 20px;">
-                            <button type="button" class="btn btn-primary dropdown-toggle btn-sm" data-toggle="dropdown">
+                            <button type="button" style="width: 160px; height: 31px;" class="btn btn-primary dropdown-toggle btn-sm" data-toggle="dropdown">
                                 정렬
                             </button>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">날짜</a>
-                                <a class="dropdown-item" href="#">구매자</a>
-                                <a class="dropdown-item-text" href="#">구매목록</a>
+                            	<a class="dropdown-item orderClick" href="#" value="ASC">내림차순</a>
+                                <a class="dropdown-item orderClick" href="#" value="DESC">오름차순</a>
+                             <!--     <a class="dropdown-item" href="#">구매자</a>
+                                <a class="dropdown-item-text" href="#">구매목록</a>	-->
                             </div>
                         </div>
             
                            <!--search-->
+                       <!--    <div>
+						  	<select id="" class="form-select form-select-lg mb-3" style="width:210px;height:28px;">
+								<option value="0" selected>전체</option>
+								<option value="1">제목</option>
+								<option value="2">아이디</option>
+							</select>	                           
+                           </div>	-->
+                           
                            <div>
-                            <input type="text" placeholder="검색">
-                            <button class="btn btn-primary btn-sm" type="button" onclick="location.href='joinUs.jsp' ">검색</button>
+                            <input type="text" id="noticeKeyword" placeholder="검색">
+                            <button class="btn btn-primary btn-sm" type="button" onclick="noticeListFn();">검색</button>
                             </div>
                         <!--search-->
                     </div> 
@@ -340,8 +353,8 @@ class="panel-radios" type="checkbox" name="nav-checkbox">
                       
                     </tr>
                 </thead>
-                <tbody class="table-sm">
-					<c:if test="${empty records }" var="isEmpty">
+                <tbody class="table-sm" id="tr_notice" >
+				<!--  	<c:if test="${empty records }" var="isEmpty">
 						<tr>
 							<td class="text-center" colspan="6">등록된 글이 없습니다.</td>
 						</tr>	
@@ -355,10 +368,10 @@ class="panel-radios" type="checkbox" name="nav-checkbox">
                                 <td class="text-center">${records.noticeDate }</td>
                           </tr>
 						</c:forEach>
-					</c:if>
+					</c:if>	-->
 					
 			<!-- 예시 게시물 표현 시작-->
-			                 <tr>
+			              <!--   <tr>
 			                      <td class="text-center">1</td>
 			                      <td><a class="primary" data-toggle="modal" data-target="#exampleModalCenter">[공지사항] 공지사항입니다</a></td>
 			                      <td><a href="memberOne.html">Picktory</a></td>
@@ -398,7 +411,7 @@ class="panel-radios" type="checkbox" name="nav-checkbox">
 			                      <td><a href="adminNoticeDetail.html">[공지사항] 공지사항입니다</a></td>
 			                      <td><a href="memberOne.html">Picktory</a></td>
 			                      <td class="text-center">22-06-22</td>
-			                </tr>
+			                </tr>	-- >
 		    <!-- 예시 게시물 표현 끝-->
 		    
               	</tbody>
@@ -429,25 +442,27 @@ class="panel-radios" type="checkbox" name="nav-checkbox">
 		<tbody class="table-sm">
 			<tr>
 				<th class="w-25 bg-dark text-white text-center">번호</th>
-				<td class="text-white">${records.noticeNo}</td>
+				<td class="text-black modalNo" id="modalNo" >${records.noticeNo}</td>
 			</tr>
 			<tr>
 				<th class="w-25 bg-dark text-white text-center">아이디</th>
-				<td class="text-white">${records.noticeId}</td>
+				<td class="text-black" id="modalID">${records.noticeId}</td>
 			</tr>
 			<tr>
 				<th class="w-25 bg-dark text-white text-center">등록일</th>
-				<td class="text-white">${records.noticeDate}</td>
+				<td class="text-black" id="modalDate" >${records.noticeDate}</td>
 			</tr>
 			<tr>
 				<th class="w-25 bg-dark text-white text-center">제목</th>
-				<td class="text-white">${records.noticeTitle}</td>
+				<td class="text-black"><input type="text" class="form-control" id="modalTitle" placeholder="제목을 입력하세요" /></td>
 			</tr>
 			<tr>
 				<th class="bg-dark text-white text-center" colspan="2">내 용</th>
 			</tr>
 			<tr>
-				<td colspan="2" class="text-white">${records.noticeContent}</td>
+				<td colspan="2" class="text-black" >
+					<textarea class="form-control" rows="5" id="modalContent"></textarea>
+				</td>
 			</tr>
 		</tbody>
 	</table>
@@ -457,11 +472,14 @@ class="panel-radios" type="checkbox" name="nav-checkbox">
             </div> 
         </div>
         <div class="modal-footer">
-        <c:if test="${sessionScope.user_Id eq records.userId }">
+         <button type="button" class="btn btn-primary" id="updateNoticeBtn">수정</button>
+         <button type="button" class="btn btn-primary modelDeleteBtn" id="deleteNoticeBtn">삭제</button>
+         <button type="button" class="btn btn-secondary right" data-dismiss="modal">Close</button>
+<!--          <c:if test="${sessionScope.user_Id eq records.userId }">
  			<a href="<c:url value="/Controller/EditController.KOSMO?no=${records.noticeNo}&title=${records.noticeTitle}&content=${records.noticeContent}"/>"class="btn btn-primary" >수정</a>
 			<a href="<c:url value="/Controller/DeleteController.KOSMO?no=${records.noticeNo}"/>" class="btn btn-primary">삭제</a> 
 		</c:if>
-          	<button type="button" class="btn btn-secondary right" data-dismiss="modal">Close</button>
+          	<button type="button" class="btn btn-secondary right" data-dismiss="modal">Close</button>	-->
         </div>
       </div>
     </div>
@@ -469,54 +487,59 @@ class="panel-radios" type="checkbox" name="nav-checkbox">
   
   
   <!-- 모달로 공지사항 쓰기-->
-        <div class="modal fade" id="exampleModalCenter3" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+ <div class="modal fade hide" id="exampleModalCenter3" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
+      <div class="modal-content" id="modalClose">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalCenterTitle">공 지 사 항 작 성</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div class="modal-body">
-            <div>
+        <div class="modal-body"><div>
                 
                 
-                <form method="post" action="">   
-                         <div class="container">
+	<!--  <form method="post" action=""> -->   
+	<div class="container">
 	<table class="table table-bordered">
 		<tbody class="table-sm">
-		<c:forEach var="record" items="${records}">
+<!--  		<c:forEach var="record" items="${records}">
 			<tr>
 			<c:if test="${sessionScope.user_Id eq record.userId }">
 				<th class="w-25 bg-dark text-white text-center">아이디</th>
 				<td class="text-white">${records.userId}</td>
 			</c:if>
 			</tr>
-		</c:forEach>
+		</c:forEach>	-->
 			<tr>
 				<th class="w-25 bg-dark text-white text-center left">제목</th>
-				<td class="text-white"><input type="text" class="form-control" placeholder="제목을 입력하세요" name="title"></td>
+				<td class="text-white"><input type="text" id="noInsertTitle" class="form-control" placeholder="제목을 입력하세요" name="title"></td>
 			</tr>
 			<tr>
 				<th class="bg-dark text-white text-center" colspan="2">내 용</th>
 			</tr>
 			<tr>
-				<td colspan="2" class="text-white"><textarea class="form-control" rows="5" name="content"></textarea></td>
+				<td colspan="2" class="text-white"><textarea id="noInsertContent" placeholder="내용을 입력하세요" class="form-control" rows="5" name="content"></textarea></td>
 			</tr>
 		</tbody>
 	</table>
 </div>
-</form>	
+<!--  </form>	-->	
 				
             </div> 
         </div>
-        <div class="modal-footer">
+        
+		<div class="modal-footer">
+			<button type="button" class="btn btn-primary" id="noticeInsertBtn">작성</button>
+        	<button type="button" class="btn btn-secondary right" data-dismiss="modal">Close</button>          	
+        </div>
+        
+      <!--    <div class="modal-footer">
         <c:if test="${sessionScope.user_Id eq records.userId }">
  			<a href="<c:url value="/Controller/EditController.KOSMO?no=${records.noticeNo}&title=${records.noticeTitle}&content=${records.noticeContent}"/>"class="btn btn-primary" >작성</a>
 		</c:if>
           	<button type="button" class="btn btn-secondary right" data-dismiss="modal">Close</button>
-        </div>
+        </div>	-->
       </div>
     </div>
   </div>
@@ -593,20 +616,19 @@ class="panel-radios" type="checkbox" name="nav-checkbox">
                     <div class="searchbox" style="margin-top:10px; margin-bottom:10px; ">
                         <!--정렬 (가입일순 / 생년월일 / 주소(시) / )-->
                         <div class="dropdown" style="margin-left: 20px;">
-                            <button type="button" class="btn btn-primary dropdown-toggle btn-sm" data-toggle="dropdown">
+                            <button type="button" style="width: 160px; height: 31px;" class="btn btn-primary dropdown-toggle btn-sm" data-toggle="dropdown">
                                 정렬
                             </button>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">날짜</a>
-                                <a class="dropdown-item" href="#">구매자</a>
-                                <a class="dropdown-item-text" href="#">구매목록</a>
+                            	<a class="dropdown-item orderClick" href="#" value="ASC">내림차순</a>
+                                <a class="dropdown-item orderClick" href="#" value="DESC">오름차순</a>
                             </div>
                         </div>
             
                            <!--search-->
                            <div>
-                            <input type="text" placeholder="검색">
-                            <button class="btn btn-primary btn-sm" type="button" onclick="location.href='joinUs.jsp' ">검색</button>
+                            <input type="text" id="qnaKeyword" placeholder="검색">
+                            <button class="btn btn-primary btn-sm" type="button" onclick="noticeListFn();">검색</button>
                             </div>
                         <!--search-->
                     </div> 
@@ -624,8 +646,8 @@ class="panel-radios" type="checkbox" name="nav-checkbox">
                       
                     </tr>
                 </thead>
-                <tbody class="table-sm">
-					<c:if test="${empty records }" var="isEmpty">
+                <tbody class="table-sm" id="qnaTbody">
+				<!--  	<c:if test="${empty records }" var="isEmpty">
 						<tr>
 							<td class="text-center" colspan="6">등록된 글이 없습니다.</td>
 						</tr>	
@@ -639,10 +661,10 @@ class="panel-radios" type="checkbox" name="nav-checkbox">
                                 <td class="text-center">${records.qnaDate }</td>
                           </tr>
 						</c:forEach>
-					</c:if>
+					</c:if>	-->
 					
 			<!-- 예시 게시물 표현 시작-->
-			                 <tr>
+			           <!--        <tr>
 			                      <td class="text-center">1</td>
 			                      <td class="text-center"><a class="primary" data-toggle="modal" data-target="#exampleModalCenter1">결제시스템에 질문이 있습니다</a></td>
 			                      <td class="text-center">Picktory</a></td>
@@ -682,7 +704,7 @@ class="panel-radios" type="checkbox" name="nav-checkbox">
 			                      <td class="text-center"><a class="primary" data-toggle="modal" data-target="#exampleModalCenter1">결제시스템에 질문이 있습니다</a></td>
 			                      <td class="text-center">Picktory</a></td>
 			                      <td class="text-center">22-06-22</td>
-			                </tr>
+			                </tr>	-->
 		    <!-- 예시 게시물 표현 끝-->
 		    
               	</tbody>
@@ -710,26 +732,35 @@ class="panel-radios" type="checkbox" name="nav-checkbox">
 		<tbody class="table-sm">
 			<tr>
 				<th class="w-25 bg-dark text-white text-center">번호</th>
-				<td class="text-white">${records.qnaNo}</td>
+				<td class="text-black" id="modalQnaNo"></td>
 			</tr>
 			<tr>
 				<th class="w-25 bg-dark text-white text-center">아이디</th>
-				<td class="text-white">${records.userId}</td>
+				<td class="text-black" id="modalQnaId"></td>
 			</tr>
 			<tr>
 				<th class="w-25 bg-dark text-white text-center">등록일</th>
-				<td class="text-white">${records.qnaDate}</td>
+				<td class="text-black" id="modalQnaDate"></td>
 			</tr>
 			<tr>
 				<th class="w-25 bg-dark text-white text-center">제목</th>
-				<td class="text-white">${records.qnaTitle}</td>
+				<td class="text-black" id="modalQnaTitle"></td>
 			</tr>
 			<tr>
 				<th class="bg-dark text-white text-center" colspan="2">내 용</th>
 			</tr>
 			<tr>
-				<td colspan="2" class="text-white">${records.qnaContent}</td>
+				<td colspan="2" class="text-black" id="modalQnaContent"></td>
 			</tr>
+			<tr>
+				<th class="bg-dark text-white text-center" colspan="2">답 변</th>
+			</tr>
+			<tr>
+				<td colspan="2" class="text-black">
+					<textarea id="modalQnaAnswer" placeholder="답변내용을 입력하세요" class="form-control" rows="5" name="content"></textarea>
+				</td>
+			</tr>
+			
 		</tbody>
 	</table>
 </div>
@@ -738,18 +769,18 @@ class="panel-radios" type="checkbox" name="nav-checkbox">
             </div> 
         </div>
         <div class="modal-footer">
-        <c:if test="${sessionScope.user_Id eq records.userId }">
+      <!--    <c:if test="${sessionScope.user_Id eq records.userId }">
  			<a href="<c:url value="/Controller/EditController.KOSMO?no=${records.qnaNo}&title=${records.qnaTitle}&content=${records.qnaContent}"/>"class="btn btn-primary" >답장</a>
 			<a href="<c:url value="/Controller/DeleteController.KOSMO?no=${records.qnaNo}"/>" class="btn btn-primary">삭제</a> 
-		</c:if>
+		</c:if>	-->
+		
+			<button type="button" id="modalQnaClick" class="btn btn-primary right">답장</button>
+			<button type="button" id="modalQnaDelete" class="btn btn-primary right modelDeleteBtn">삭제</button>
           	<button type="button" class="btn btn-secondary right" data-dismiss="modal">Close</button>
         </div>
       </div>
     </div>
   </div>
-  
-  
-  
 </main>
 </section>
 <!--주매출 끝-->
@@ -942,781 +973,270 @@ class="panel-radios" type="checkbox" name="nav-checkbox">
 
 <script>
 
-var monthDay = '';
-var dataText = "";
-var bbcc = "";
-var currentYear = "";
-var currentMonth = "";
-var thisMonth = "";
-var monthText = "";
+const localhost = 'http://localhost:4040/springapp/admin';
+var tabText = '공지';
+var orderby = "ASC";
 
-var tabText = "회원";
+//Sidebar Toggler
+$('.sidebar-toggler').click(function () {
+    $('.sidebar, .content').toggleClass("open");
+    return false;
+});
 
+var noticeAjaxData = "";
+var URLInfo = "/noticeList.do";
 
-var date = new Date(); // 현재 날짜(로컬 기준) 가져오기
-var utc = date.getTime() + (date.getTimezoneOffset() * 60 * 1000); // uct 표준시 도출
-var kstGap = 9 * 60 * 60 * 1000; // 한국 kst 기준시간 더하기
-var today = new Date(utc + kstGap); // 한국 시간으로 date 객체 만들기(오늘)
-
-  //달력
   $(document).ready(function() {
-      calendarInit();
+		noticeListFn();
   });
-
-  //Sidebar Toggler
-  $('.sidebar-toggler').click(function () {
-      $('.sidebar, .content').toggleClass("open");
-      return false;
-  });
-
-  //차트
-  function calendarInit(){
-    // 날짜 정보 가져오기
-    // var date = new Date(); // 현재 날짜(로컬 기준) 가져오기
-    // var utc = date.getTime() + (date.getTimezoneOffset() * 60 * 1000); // uct 표준시 도출
-    // var kstGap = 9 * 60 * 60 * 1000; // 한국 kst 기준시간 더하기
-    // var today = new Date(utc + kstGap); // 한국 시간으로 date 객체 만들기(오늘)
-        if(monthText == "이전달"){
-          thisMonth = new Date(currentYear, currentMonth - 1, 1);  
-        }else if(monthText == "다음달"){
-          thisMonth = new Date(currentYear, currentMonth + 1, 1);
-        }else{
-          thisMonth = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-        }        
-
-    // 달력에서 표기하는 날짜 객체
-        currentYear = thisMonth.getFullYear(); // 달력에서 표기하는 연
-        currentMonth = thisMonth.getMonth(); // 달력에서 표기하는 월
-    var currentDate = thisMonth.getDate(); // 달력에서 표기하는 일
-
-    var now = new Date();
-    var month_now = now.getMonth()+1
-    var year_now = now.getFullYear();
-
-
-    // 렌더링을 위한 데이터 정리
-    currentYear = thisMonth.getFullYear();
-    currentMonth = thisMonth.getMonth();
-    currentDate = thisMonth.getDate();
-    
-    // 이전 달의 마지막 날 날짜와 요일 구하기
-    var startDay = new Date(currentYear, currentMonth, 0);
-    var prevDate = startDay.getDate();
-    var prevDay = startDay.getDay();
-
-    // 이번 달의 마지막날 날짜와 요일 구하기
-    var endDay = new Date(currentYear, currentMonth + 1, 0);
-    var nextDate = endDay.getDate();
-    var nextDay = endDay.getDay();
-
-
-    var xValues = [];
-    var yValues = [];
-    var monthArr = [];
-
-
-    // 현재 월 표기
-     $('.year-month').text(currentYear + '.' + (currentMonth + 1));
-
-    // 렌더링 html 요소 생성
-    calendar = document.querySelector('.dates')
-    calendar.innerHTML = '';
-    $(".dates").hide();
-
-    // 지난달
-    for (var i = prevDate - prevDay + 1; i <= prevDate; i++) {
-        calendar.innerHTML = calendar.innerHTML + '<div class="day prev disable">' + i + '</div>'
-    }
-    // 이번달
-    for (var i = 1; i <= nextDate; i++) {
-        calendar.innerHTML = calendar.innerHTML + '<div class="day current">' + i + '</div>';
-        monthArr.push(i);
-    }
-
-    if(month_now == currentMonth + 1 && currentYear == year_now){
-      $('.go-next').hide();
-    }else{
-      $('.go-next').show();
-    }
-
-    // 다음달
-    for (var i = 1; i <= (7 - nextDay == 7 ? 0 : 7 - nextDay); i++) {        	
-        calendar.innerHTML = calendar.innerHTML + '<div class="day next disable">' + i + '</div>'
-    }
-
-    // 오늘 날짜 표기
-    if (today.getMonth() == currentMonth) {
-        todayDate = today.getDate();
-        var currentMonthDate = document.querySelectorAll('.dates .current');
-        currentMonthDate[todayDate -1].classList.add('today');
-    }
-
-    var objSetting = "";
-
-    if(tabText == "회원"){
-
-      // 기존 캔버스 삭제
-    $('.div_chart1').find('canvas').remove();
-        // 새로 다시 그림
-    $('.div_chart1').append('<canvas id="memberDayChart" style="width: 100%; max: width 1104px;"></canvas>');
-      bbcc = "memberDayChart";
-      
-    }else if(tabText == "매출"){
-
-      // 기존 캔버스 삭제
-    $('.div_chart2').find('canvas').remove();
-
-    // 새로 다시 그림
-    $('.div_chart2').append('<canvas id="salseChartID" style="width: 100%; max: width 1104px;"></canvas>');
-    bbcc = "salseChartID";
-
-    }else if(tabText == "게시물"){
-    // 기존 캔버스 삭제
-    $('.div_chart3').find('canvas').remove();
-
-    // 새로 다시 그림
-    $('.div_chart3').append('<canvas id="galleryChartID" style="width: 100%; max: width 1104px;"></canvas>');
-      bbcc = "galleryChartID";
-    }
-
-      var yValuesTwo = [];
-
-      for(var i = 1; i <= monthArr.length; i++){
-          var randomNumber = Math.floor( Math.random() * 5 + 2);
-          var randomNumber1 = Math.floor( Math.random() * 3 + 2);
-          xValues.push(i + "일");
-          yValues.push(randomNumber);
-          
-          if(tabText != "매출"){
-            yValuesTwo.push(randomNumber1);
-          }
-      }
-
-   
-      
-
-  // 차트 세팅
-      if(tabText == "회원" || tabText == "게시물"){
-
-        new Chart(bbcc, {
-			  type: "bar",
-			  data: {
-			    labels: xValues,
-			    datasets: [
-                     { backgroundColor: "rgba(30, 144, 255, 1)", data: yValues }
-                    ,{ backgroundColor: "rgba(24, 154, 155, 1)", borderColor:"red", data: yValuesTwo }
-          ]
-			  },
-			  options: {
-			    legend: {display: true},
-			    scales: {
-			      yAxes: [{
-			        ticks: {
-			          beginAtZero: true
-			        }
-			      }],
-			    }
-			  }
-			});
-
-
-    }else if(tabText == "매출"){
-
-      new Chart(bbcc, {
-			  type: "bar",
-			  data: {
-			    labels: xValues,
-			    datasets: [{ backgroundColor: "rgba(30, 144, 255, 1)", data: yValues }]
-			  },
-			  options: {
-			    legend: {display: true},
-			    scales: {
-			      yAxes: [{
-			        ticks: {
-			          beginAtZero: true
-			        }
-			      }],
-			    }
-			  }
-			});
-    }
-      
-  } // CALENDAR INIT FN END
-
-  // 이전달로 이동
-  $('.go-prev').on('click', function() {
-      monthText = "이전달";
-      calendarInit();
-  });
-
-  // 다음달로 이동
-  $('.go-next').on('click', function() {
-        monthText = "다음달";
-        calendarInit();
-  });
-
-  // 탭 클릭
-  // 회원과 방문객 현황
   
-  $('.memberClass').on('click', function(){
-        monthText = "";
-        tabText = "회원";
-        calendarInit();
-    });
-
-  // 매출 현황
-    $('.salesClass').on('click', function(){
-        monthText = "";
-        tabText = "매출";
-        calendarInit();
-    });
-
-  //갤러리 현황
-    $('.galleryClass').on('click', function(){
-          monthText = "";
-          tabText = "게시물";
-          calendarInit();
-    });  
-
-//=========================================================================
-
-
-// function calendarInit() {
-
-// // 날짜 정보 가져오기
-// var date = new Date(); // 현재 날짜(로컬 기준) 가져오기
-// var utc = date.getTime() + (date.getTimezoneOffset() * 60 * 1000); // uct 표준시 도출
-// var kstGap = 9 * 60 * 60 * 1000; // 한국 kst 기준시간 더하기
-// var today = new Date(utc + kstGap); // 한국 시간으로 date 객체 만들기(오늘)
-
-// var thisMonth = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-// // 달력에서 표기하는 날짜 객체
-
-
-// var currentYear = thisMonth.getFullYear(); // 달력에서 표기하는 연
-// var currentMonth = thisMonth.getMonth(); // 달력에서 표기하는 월
-// var currentDate = thisMonth.getDate(); // 달력에서 표기하는 일
-
-// // kst 기준 현재시간
-// // console.log(thisMonth);
-
-// // 캘린더 렌더링
-// renderCalender(thisMonth);
-
-// function renderCalender(thisMonth) {
-
-//   var aaArr = [];
-//   var now = new Date();
-//   var month_now = now.getMonth()+1
-//   var year_now = now.getFullYear();
-
-//     // 렌더링을 위한 데이터 정리
-//     currentYear = thisMonth.getFullYear();
-//     currentMonth = thisMonth.getMonth();
-//     currentDate = thisMonth.getDate();
-    
-//     // 이전 달의 마지막 날 날짜와 요일 구하기
-//     var startDay = new Date(currentYear, currentMonth, 0);
-//     var prevDate = startDay.getDate();
-//     var prevDay = startDay.getDay();
-
-//     // 이번 달의 마지막날 날짜와 요일 구하기
-//     var endDay = new Date(currentYear, currentMonth + 1, 0);
-//     var nextDate = endDay.getDate();
-//     var nextDay = endDay.getDay();
-
-//     // console.log(prevDate, prevDay, nextDate, nextDay);
-
-//     if(month_now == currentMonth + 1 && currentYear == year_now){
-//       $('.go-next').hide();
-//     }else{
-//       $('.go-next').show();
-//     }
-    
-//     // 현재 월 표기
-//     $('.year-month').text(currentYear + '.' + (currentMonth + 1));
-
-//     // 렌더링 html 요소 생성
-//     calendar = document.querySelector('.dates')
-//     calendar.innerHTML = '';
-//     $(".dates").hide();
-//     // 지난달
-//     for (var i = prevDate - prevDay + 1; i <= prevDate; i++) {
-//         calendar.innerHTML = calendar.innerHTML + '<div class="day prev disable">' + i + '</div>'
-//     }
-//     // 이번달
-//     for (var i = 1; i <= nextDate; i++) {
-//         calendar.innerHTML = calendar.innerHTML + '<div class="day current">' + i + '</div>';
-        
-//         aaArr.push(i);
-//     }
-
-//         if(dataText == "매출"){
-//           salseFn(aaArr.length);
-//         }else{
-//           memberInfoFn(aaArr.length);      
-//         }
-    
-    
-      
-    
-//     // 다음달
-//     for (var i = 1; i <= (7 - nextDay == 7 ? 0 : 7 - nextDay); i++) {        	
-//         calendar.innerHTML = calendar.innerHTML + '<div class="day next disable">' + i + '</div>'
-//     }
-
-//     // 오늘 날짜 표기
-//     if (today.getMonth() == currentMonth) {
-//         todayDate = today.getDate();
-//         var currentMonthDate = document.querySelectorAll('.dates .current');
-//         currentMonthDate[todayDate -1].classList.add('today');
-//     }
-// }
-
-// // 이전달로 이동
-// $('.go-prev').on('click', function() {
-//     monthDay = '';
-//     thisMonth = new Date(currentYear, currentMonth - 1, 1);
-//     renderCalender(thisMonth);
-
-//     if(dataText == "매출"){
-//         salseFn($('.current').length);
-//       }else{
-//         memberInfoFn($('.current').length);
-//       }
-// });
-
-// // 다음달로 이동
-// $('.go-next').on('click', function() {
-//     thisMonth = new Date(currentYear, currentMonth + 1, 1);
-//     renderCalender(thisMonth);
-//     if(dataText == "매출"){
-//         salseFn($('.current').length);
-//       }else{
-//         memberInfoFn($('.current').length);
-//       }
-//   });
-// }
-
-// // 매출
-// $('.salesClass').on('click', function(){
-//       console.log('매출 클릭 확인');
-//       dataText = "매출";
-//       calendarInit();
-// });
-
-// // 게시물
-// $('.galleryClass').on('click', function(){
-//       console.log('게시물 클릭 확인');
-//       dataText = "게시물";
-//       calendarInit();
-// });
-
-// /*
-//     달력 렌더링 할 때 필요한 정보 목록 
-
-//     현재 월(초기값 : 현재 시간)
-//     금월 마지막일 날짜와 요일
-//     전월 마지막일 날짜와 요일
-// */
-
-
-
-
-// //============================================================================
-
-// // },{
-// // 			      backgroundColor: "rgba(24, 154, 155, 1)",
-// // 			      borderColor:"red",
-// // 				    data: yValues1
-
-
-//   //매출
-//   function salseFn(monthDay){
-//     console.log('매출FN 확인');
-//     var toArr = [];
-// 		var yArr = [];
-// 		var yArr1 = [];
-		
-// 		$('.thID1').html('');
-// 		$('.thID2').html('');
-// 		$('.thID3').html('');
-		
-// 		$('.thID_1').html('');
-// 		$('.thID_2').html('');
-// 		$('.thID_3').html('');
-		
-// 		$('.thID_1_1').html('');
-// 		$('.thID_2_1').html('');
-// 		$('.thID_3_1').html('');
-		
-// 		$('.thID1').append('<th scope="col">일자</th>');
-// 		$('.thID2').append('<th scope="col">일자</th>');
-// 		$('.thID3').append('<th scope="col">일자</th>');
-// 		$('.thID_1').append('<th scope="col">회원</th>');
-// 		$('.thID_2').append('<th scope="col">회원</th>');
-// 		$('.thID_3').append('<th scope="col">회원</th>');
-// 		$('.thID_1_1').append('<th scope="col">방문객</th>');
-// 		$('.thID_2_1').append('<th scope="col">방문객</th>');
-// 		$('.thID_3_1').append('<th scope="col">방문객</th>');
-		
-		
-// 		for(var i = 1; i <= monthDay; i++){	
-			
-// 			var mm = Math.floor( Math.random() * 5 + 2);
-// 			var zz = Math.floor( Math.random() * 5 + 5);
-		
-// 			if(i <= 10){
-// 				$('.thID1').append('<th scope="col">'+ i +'일</th>');
-// 				$('.thID_1').append('<td>'+ mm +'</td>');
-// 				$('.thID_1_1').append('<td>'+ zz +'</td>');
-				
-// 			}	
-// 			if( i > 10 && i <= 20){
-// 				$('.thID2').append('<th scope="col">'+ i +'일</th>');
-// 				$('.thID_2').append('<td>'+ mm +'</td>');
-// 				$('.thID_2_1').append('<td>'+ zz +'</td>');
-// 			}
-			
-// 			if( i > 20){
-// 				$('.thID3').append('<th scope="col">'+ i +'일</th>');
-// 				$('.thID_3').append('<td>'+ mm +'</td>');
-// 				$('.thID_3_1').append('<td>'+ zz +'</td>');
-// 			}
-			
-// 			var bb = i + "일";
-// 			toArr.push(bb);
-// 			yArr.push(mm);
-// 			yArr1.push(zz);
-// 		}
-		
-// 		let sum = 0;
-// 		let sum1 = 0;
-
-// 		for (let i = 0; i < yArr.length; i++) {
-// 		    sum += yArr[i];
-// 		}
-		
-// 		$('#total_all').text(sum);
-		
-// 		for (let i = 0; i < yArr1.length; i++) {
-// 		    sum1 += yArr1[i];
-// 		}
-		
-// 		$('#total_all1').text(sum1);
-		
-// 		var xValues = toArr;
-// 	    var yValues = yArr;
-// 	    var yValues1 = yArr1;
-
-//             		// 기존 캔버스 삭제
-// 		 $('#memberDayChart').remove();
-//         // 새로 다시 그림
-//         $('#div_memberDayChart').append('<canvas id="memberDayChart" style="width: 100%; max: width 1104px;"></canvas>');
-//         bbcc = "memberDayChart";
-
-//         new Chart(bbcc, {
-// 			  type: "bar",
-// 			  data: {
-// 			    labels: xValues,
-// 			    datasets: [{
-// 			      backgroundColor: "rgba(30, 144, 255, 1)",
-// 			      data: yValues
-// 			    }]
-// 			  },
-// 			  options: {
-// 			    legend: {display: true},
-// 			    scales: {
-// 			      yAxes: [{
-// 			        ticks: {
-// 			          beginAtZero: true
-// 			        }
-// 			      }],
-// 			    }
-// 			  }
-// 			});
-//   }
-
   
-//   //회원
-// 	function memberInfoFn(monthDay){
-
-//       if(dataText == '게시물'){
-//         // 기존 캔버스 삭제
-//         $('#earningMonthChart').remove();
-//         // 새로 다시 그림
-//         $('#div_gallery').append('<canvas id="earningMonthChart" style="width: 100%; max: width 1104px;"></canvas>');
-//         bbcc = "earningMonthChart";
-
-//       }else{
-//         // 기존 캔버스 삭제
-//         $('#earningDayChart').remove();
-//         // 새로 다시 그림
-//         $('#div_earningDayChart').append('<canvas id="earningDayChart" style="width: 100%; max: width 1104px;"></canvas>');
-//         bbcc = "earningDayChart";
-//     }
-		
-
-		
-// 		var toArr = [];
-// 		var yArr = [];
-// 		var yArr1 = [];
-		
-// 		$('.thID1').html('');
-// 		$('.thID2').html('');
-// 		$('.thID3').html('');
-		
-// 		$('.thID_1').html('');
-// 		$('.thID_2').html('');
-// 		$('.thID_3').html('');
-		
-// 		$('.thID_1_1').html('');
-// 		$('.thID_2_1').html('');
-// 		$('.thID_3_1').html('');
-		
-// 		$('.thID1').append('<th scope="col">일자</th>');
-// 		$('.thID2').append('<th scope="col">일자</th>');
-// 		$('.thID3').append('<th scope="col">일자</th>');
-// 		$('.thID_1').append('<th scope="col">회원</th>');
-// 		$('.thID_2').append('<th scope="col">회원</th>');
-// 		$('.thID_3').append('<th scope="col">회원</th>');
-// 		$('.thID_1_1').append('<th scope="col">방문객</th>');
-// 		$('.thID_2_1').append('<th scope="col">방문객</th>');
-// 		$('.thID_3_1').append('<th scope="col">방문객</th>');
-		
-		
-// 		for(var i = 1; i <= monthDay; i++){	
-			
-// 			var mm = Math.floor( Math.random() * 5 + 2);
-// 			var zz = Math.floor( Math.random() * 5 + 5);
-		
-// 			if(i <= 10){
-// 				$('.thID1').append('<th scope="col">'+ i +'일</th>');
-// 				$('.thID_1').append('<td>'+ mm +'</td>');
-// 				$('.thID_1_1').append('<td>'+ zz +'</td>');
-				
-// 			}	
-// 			if( i > 10 && i <= 20){
-// 				$('.thID2').append('<th scope="col">'+ i +'일</th>');
-// 				$('.thID_2').append('<td>'+ mm +'</td>');
-// 				$('.thID_2_1').append('<td>'+ zz +'</td>');
-// 			}
-			
-// 			if( i > 20){
-// 				$('.thID3').append('<th scope="col">'+ i +'일</th>');
-// 				$('.thID_3').append('<td>'+ mm +'</td>');
-// 				$('.thID_3_1').append('<td>'+ zz +'</td>');
-// 			}
-			
-// 			var bb = i + "일";
-// 			toArr.push(bb);
-// 			yArr.push(mm);
-// 			yArr1.push(zz);
-// 		}
-		
-// 		let sum = 0;
-// 		let sum1 = 0;
-
-// 		for (let i = 0; i < yArr.length; i++) {
-// 		    sum += yArr[i];
-// 		}
-		
-// 		$('#total_all').text(sum);
-		
-// 		for (let i = 0; i < yArr1.length; i++) {
-// 		    sum1 += yArr1[i];
-// 		}
-		
-// 		$('#total_all1').text(sum1);
-		
-// 		var xValues = toArr;
-// 	    var yValues = yArr;
-// 	    var yValues1 = yArr1;
-	    
-// 		var barColors = [
-		 
-// 		];
-
-// 		new Chart(bbcc, {
-// 			  type: "bar",
-// 			  data: {
-// 			    labels: xValues,
-// 			    datasets: [{
-// 			      backgroundColor: "rgba(30, 144, 255, 1)",
-// 			      data: yValues
-			
-// 			    },{
-// 			      backgroundColor: "rgba(24, 154, 155, 1)",
-// 			      borderColor:"red",
-// 				  data: yValues1
-				
-// 			    }]
-// 			  },
-// 			  options: {
-// 			    legend: {display: true},
-// 			    scales: {
-// 			      yAxes: [{
-// 			        ticks: {
-// 			          beginAtZero: true
-// 			        }
-// 			      }],
-// 			    }
-// 			  }
-// 			});	
-// 	}
-
-</script>
-
-<script>
-//일일별 매출
-//var xValues = ["1일", "2일", "3일", "4일", "5일", "6일", "7일", "8일", "9일", "10일", "11일", "12일", "13일", "14일", "15일",
-//    "16일", "17일", "18일", "19일", "20일", "21일", "22일", "23일", "24일", "25일", "26일", "27일", "28일", "29일", "30일", "31일"];
-//var yValues = [150, 300, 550, 650, 600, 800, 950, 1200, 800, 300, 260, 790, 430, 460, 760, 320, 210, 970, 230, 760, 320, 
-//	210, 970, 230,760, 320, 210, 970, 230, 210, 970];
-//var barColors = [
- 
-//];
-
-//new Chart("earningDayChart", {
-//	  type: "bar",
-//	  data: {
-//	    labels: xValues,
-//	    datasets: [{
-//	      backgroundColor: "rgba(30, 144, 255, 1)",
-//	      data: yValues
-//	    }]
-//	  },
-//	  options: {
-//	    legend: {display: false},
-//	    scales: {
-//	      yAxes: [{
-//	        ticks: {
-//	          beginAtZero: true
-//	        }
-//	      }],
-//	    }
-//	  }
-//	});
-</script>
-
-<script>
-//주차별 매출
-// function zz(monthDay){
-		
-// 		// 기존 캔버스 삭제
-// 		 $('#memberDayChart').remove();
-// 		// 새로 다시 그림
-// 		 $('#div_memberDayChart').append('<canvas id="memberDayChart" style="width: 100%; max: width 1104px;"></canvas>');
-		
-// 		var toArr = [];
-// 		var yArr = [];
-	
-		
-// 		$('.thID1').html('');
-// 		$('.thID2').html('');
-// 		$('.thID3').html('');
-		
-// 		$('.thID_1').html('');
-// 		$('.thID_2').html('');
-// 		$('.thID_3').html('');
-	
-		
-// 		$('.thID1').append('<th scope="col">일자</th>');
-// 		$('.thID2').append('<th scope="col">일자</th>');
-// 		$('.thID3').append('<th scope="col">일자</th>');
-// 		$('.thID_1').append('<th scope="col">회원</th>');
-// 		$('.thID_2').append('<th scope="col">회원</th>');
-// 		$('.thID_3').append('<th scope="col">회원</th>');
-		
-		
-		
-// 		for(var i = 1; i <= monthDay; i++){	
-			
-// 			var mm = Math.floor( Math.random() * 5 + 2);
-			
-		
-// 			if(i <= 10){
-// 				$('.thID1').append('<th scope="col">'+ i +'일</th>');
-// 				$('.thID_1').append('<td>'+ mm +'</td>');
-		
-				
-// 			}	
-// 			if( i > 10 && i <= 20){
-// 				$('.thID2').append('<th scope="col">'+ i +'일</th>');
-// 				$('.thID_2').append('<td>'+ mm +'</td>');
-		
-// 			}
-			
-// 			if( i > 20){
-// 				$('.thID3').append('<th scope="col">'+ i +'일</th>');
-// 				$('.thID_3').append('<td>'+ mm +'</td>');
-		
-// 			}
-			
-// 			var bb = i + "일";
-// 			toArr.push(bb);
-// 			yArr.push(mm);
-	
-// 		}
-		
-// 		let sum = 0;
-
-
-// 		for (let i = 0; i < yArr.length; i++) {
-// 		    sum += yArr[i];
-// 		}
-		
-// 		$('#total_all').text(sum);
-		
-		
-// 		var xValues = toArr;
-// 	    var yValues = yArr;
+  $('#modalQnaClick').on('click', function(){
+	 	alert("준비중입니다");
+	 	return false;
+  });
+  
+  //탭 클릭
+  $(document).on('click', '.tabClick', function(){
 	 
+	 tabText = $(this).data('tab_title');
+	 
+	 if(tabText == "공지"){
+		 URLInfo = "/noticeList.do";
+		 noticeListFn();
+	 }else if(tabText == "qna"){
+		 URLInfo = "/qnaList.do";
+		 noticeListFn();
+	 }else{
+//		 URLInfo = "/reportList.do";
+	 }
+  });
+  
+  
+  // 공지사항 정렬
+  $('.orderClick').on('click', function(){
+	  orderby = $(this).attr('value');
+	  noticeListFn();
+  });
+  
+  // 데이터 AJAX
+  function noticeListFn(){
+	  
+	  
+	  if(tabText == "공지"){
+		  var noticeKeyword = $('#noticeKeyword').val();
+		  var obj = { "orderby" : orderby, "noticeKeyword" :  noticeKeyword};
+	  } 
+		  
+	  if(tabText == "qna"){
+		  var qnaKeyword = $('#qnaKeyword').val();
+		  var obj = { "orderby" : orderby, "qnaKeyword" :  qnaKeyword};		  
+	  }
+
+	 $.ajax({
+		    url: localhost + URLInfo,
+		    type: "POST",
+		    cache: false,
+		    dataType: "json",
+		    contentType: "application/json",
+		    data: JSON.stringify(obj),
+		    success: function(data){
+		    	
+		    	noticeAjaxData = data;
+		    	
+		    	$('#tr_notice').html('');
+		    	$('#qnaTbody').html('');
+		    	
+		    	noticeSettingFn();
+		    	
+		    }, error: function (request, status, error){
+		    	alert("Error");
+		    }
+	  });
+  }
+  
+  
+  
+  
+  // 리스트 세팅
+  function noticeSettingFn(){
+	  if(tabText == "공지"){
+		  for(var i = 0; i < noticeAjaxData.length; i++){
+			  var noticeHTML = '';
+			  var v = noticeAjaxData[i];
+			  var noDate = v.noticeDate.substring(0, 10);
+			  	  noticeHTML += '<tr>'
+				  noticeHTML += '<td class="text-center">'+ v.noticeNo +'</td>'
+				  noticeHTML += '<td><a class="primary modalClick" data-modal_no='+ v.noticeNo +' data-toggle="modal" data-target="#exampleModalCenter">[공지사항] '+ v.noticeTitle +'</a></td>'
+				  noticeHTML += '<td><a href="memberOne.html">'+ v.userId +'</a></td>'
+				  noticeHTML += '<td class="text-center">'+ noDate +'</td>'
+				  noticeHTML += '</tr>'
+				  $('#tr_notice').append(noticeHTML);
+		  }  
+	  }else if(tabText == 'qna'){
+		  for(var i = 0; i < noticeAjaxData.length; i++){
+			  var qnaHTML = '';
+			  var v = noticeAjaxData[i];
+			  
+			  var qnDate = v.qnaDate.substring(0, 10);
+			 	  qnaHTML += '<tr>'
+				  qnaHTML += '<td class="text-center">'+ v.qnaNo +'</td>'
+				  qnaHTML += '<td class="text-center"><a class="primary modalClick" data-modal_no='+ v.qnaNo +' data-toggle="modal" data-target="#exampleModalCenter1">'+ v.qnaTitle +'</a></td>'
+				  qnaHTML += '<td class="text-center">'+ v.userId +'</a></td>'
+				  qnaHTML += '<td class="text-center">'+ qnDate +'</td>'
+				  qnaHTML += '</tr>'				  
+				  $('#qnaTbody').append(qnaHTML);
+		  }		  
+	  }
+  }
+  
+  
+  // 모달 클릭
+  $(document).on('click', '.modalClick', function(){
+	  var modalNo = $(this).data('modal_no');
+	  if(tabText == '공지'){
+		  for(var i = 0; i < noticeAjaxData.length; i++){
+			  var v = noticeAjaxData[i];
+			  var noDate = v.noticeDate.substring(0, 10);
+			  if(modalNo == v.noticeNo){
+				  $('#modalNo').text(v.noticeNo);
+				  $('#modalID').text(v.userId);
+				  $('#modalDate').text(noDate);
+				  $('#modalTitle').val(v.noticeTitle);
+				  $('#modalContent').val(v.noticeContent);
+				  $('#updateNoticeBtn').val(v.noticeNo);
+				  $('#deleteNoticeBtn').val(v.noticeNo);
+			  }
+		  }  
+	  }else if(tabText == 'qna'){
+		  for(var i = 0; i < noticeAjaxData.length; i++){
+			  var v = noticeAjaxData[i];
+			  var qnDate = v.qnaDate.substring(0, 10);
+			  if(modalNo == v.qnaNo){
+				  $('#modalQnaNo').text(v.qnaNo);
+				  $('#modalQnaId').text(v.userId);
+				  $('#modalQnaDate').text(qnDate);
+				  $('#modalQnaTitle').text(v.qnaTitle);
+				  $('#modalQnaContent').text(v.qnaContent);
+				  $('#modalQnaClick').val(v.qnaNo);
+				  $('#modalQnaDelete').val(v.qnaNo);
+			  }
+		  }
+	  }
+  });
+  
+  // 공지사항 업데이트
+  $('#updateNoticeBtn').on('click',function(){
+	  
+	  var noticeTitle = $('#modalTitle').val();
+	  var noticeContent = $('#modalContent').val();
+	  var noticeNo = $(this).val();
+	  var obj = {"noticeNo" : noticeNo, "noticeTitle" : noticeTitle, "noticeContent" : noticeContent};
+	  
+	// 모달창 삭제
+	   $('#updateNoticeBtn').attr('data-dismiss', "modal");
+	  
+		 $.ajax({
+			    url: localhost + "/noticeUpdate.do",
+			    type: "POST",
+			    cache: false,
+			    dataType: "json",
+			    contentType: "application/json",
+			    data: JSON.stringify(obj),
+			    success: function(data){
+					if(data == false){
+						alert("업데이트에 실패했습니다");
+						return false;
+					}else{
+						alert("업데이트 되었습니다");
+						noticeListFn();
+					}
+			    }, error: function (request, status, error){
+			    	alert("Error");
+			    }
+		  });
+  });
+  
+  // 공지사항 삭제
+  $('.modelDeleteBtn').on('click', function(){
+
+		  var deleteMessage = confirm('공지사항을 삭제하시겠습니까?');
+		  if(!deleteMessage){
+			  alert("취소 되었습니다");
+			  return false;
+		  }
+		  
+		if(tabText == '공지'){
+		 var noticeNo = $(this).val();
+		 var obj = { "noticeNo" : noticeNo };
+		 var delUrl = "/noticeDelete.do";
+		 // 모달창 삭제
+		 $('#deleteNoticeBtn').attr('data-dismiss', "modal");
+				 
+		}else if(tabText == 'qna'){
+		 var qnaNo = $(this).val();
+		 var obj = { "qnaNo" : qnaNo };
+		 var delUrl = "/qnaDelete.do";
+		// 모달창 삭제
+		 $('#modalQnaDelete').attr('data-dismiss', "modal");
+		}
 	    
-// 		var barColors = [
-		 
-// 		];
-
-// 		new Chart("memberDayChart", {
-// 			  type: "bar",
-// 			  data: {
-// 			    labels: xValues,
-// 			    datasets: [{
-// 			      backgroundColor: "rgba(30, 144, 255, 1)",
-// 			      data: yValues
-			
-// 			    }]
-// 			  },
-// 			  options: {
-// 			    legend: {display: false},
-// 			    scales: {
-// 			      yAxes: [{
-// 			        ticks: {
-// 			          beginAtZero: true
-// 			        }
-// 			      }],
-// 			    }
-// 			  }
-// 			});
-		
-// 	}
+		 $.ajax({
+			    url: localhost + delUrl,
+			    type: "POST",
+			    cache: false,
+			    dataType: "json",
+			    data: obj,
+			    success: function(data){
+					if(data == false){
+						alert("삭제가 안 되었습니다");
+						return false;
+					}else{
+						alert("삭제 되었습니다");
+						noticeListFn();
+					}
+			    	
+			    }, error: function (request, status, error){
+			    	alert("Error");
+			    }
+		  });
+  });
+  
+  // 공지사항 등록
+  $('#noticeInsertBtn').on('click', function(){
+	 	  
+	  var noticeTitle = $("#noInsertTitle").val();
+	  var noticeContent = $("#noInsertContent").val();
+	  var obj = [{"userNo" : 2, "noticeTitle" : noticeTitle, "noticeContent" : noticeContent}];
+	  
+	  // 모달창 삭제
+	  $('#noticeInsertBtn').attr('data-dismiss', "modal");
+	  
+	 $.ajax({
+		    url: localhost + "/noticeInsert.do",
+		    type: "POST",
+		    cache: false,
+		    dataType: "json",
+		    contentType: "application/json",
+		    data: JSON.stringify(obj),
+		    success: function(data){
+		    	if(data == false){
+		    		alert("등록에 실패 했습니다");
+		    		return false;
+		    	}else{
+		    		alert("등록 되었습니다");
+		    		$("#noInsertTitle").val('');
+		    		$("#noInsertContent").val('');
+		    		
+		    		noticeListFn();
+		    	}
+		    	
+		    }, error: function (request, status, error){
+		    	alert("Error");
+		    }
+	  });
+  });
+  
 </script>
-
-<!-- <script>
-	function queryVisit(by) {
-		console.log(by.value);
-		$.ajax({
-			type: "GET",
-			url: "<c:url value="/admin/analysis/VisitSummary.do"/>" + "?by=" + by.value,
-			dataType: "json",
-			data : {
-		//obj 방식으로 쓴다 (키 : 밸류)
-			},
-			success : (data) => {
-				document.querySelector("#status").innerHTML =  data.visitData;
-			}
-		});
-	}
-</script> -->
 </html>
  		

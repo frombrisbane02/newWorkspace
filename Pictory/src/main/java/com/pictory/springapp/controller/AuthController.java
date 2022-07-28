@@ -55,7 +55,7 @@ public class AuthController {
 		
 		}
 		
-		else if(flag.equals("ROLE_USER")) {
+		else if(flag.equals("USER")) {
 			System.out.println("너여기들어오니?????");
 			model.addAttribute("userId",map.get("userId"));			
 		}

@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.support.SessionStatus;
@@ -14,21 +16,22 @@ import org.springframework.web.bind.support.SessionStatus;
 
 import com.pictory.springapp.dto.MemberDTO;
 import com.pictory.springapp.dto.MemberService;
+import com.pictory.springapp.service.impl.MemberServiceImpl;
 
 @Controller
 @RequestMapping("/member")
 public class MemberController<T> {
 	
 	@Autowired
-	private MemberService<T> memberService;
+	private MemberServiceImpl memberService;
 	
 	@RequestMapping("Join.do")
 	public String join() {	
 		return "member/Join.tiles";
 	}
 	
-	
-	@RequestMapping("SignInProcess.do")
+	/*<유효성 검사>*/
+	/*@RequestMapping("SignInProcess.do")
 	public String signinprocess(MemberDTO dto, Model model) {
 		System.out.println("DDDDDDD");
 		model.addAttribute("userName", dto.getUserName());
@@ -45,7 +48,7 @@ public class MemberController<T> {
 			return false;
 		}
 		return true;
-	}
+	}*/
 	
 	@GetMapping(value="IdCheck.do", produces="application/json;charset=UTF-8")
 	public @ResponseBody String idCheck(@RequestParam String userId) {
@@ -54,6 +57,13 @@ public class MemberController<T> {
 		boolean isExist = memberService.isExist(userId);
 		System.out.println("sdkfljasldkfjaslkdfjalksjdflkasjdflkasjdlkfjl");
 		return String.format("{\"isDuplicated\":\"%s\"}", isExist);
+	}
+	/////////회원가입
+	
+	@RequestMapping(value="Insert.do", method = RequestMethod.POST)
+	public String insert(MemberDTO dto) {
+		memberService.signUp(dto);
+		return "redirect:/";
 	}
 
 }

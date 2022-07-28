@@ -15,9 +15,15 @@ public class AdminGalleryServiceImpl implements AdminGalleryService {
 	private AdminGalleryDAO galleryDAO;
 
 	@Override
-	public List<AdminGalleryDTO> galleryList(AdminGalleryDTO param) {
-		List<AdminGalleryDTO> galleryList = galleryDAO.selectList(param);
-		return galleryList;
+	public List<AdminGalleryDTO> galleryList(AdminGalleryDTO param) throws Exception {
+		try {
+			List<AdminGalleryDTO> galleryList = galleryDAO.selectList(param);
+			return galleryList;
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return null;
 	}
 
 

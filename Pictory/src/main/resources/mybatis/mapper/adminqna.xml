@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mybatis.mapper.adminqna">
+	 
+	 <select id="qnaList" parameterType="hashMap" resultType="AdminQnaDTO">
+	 	<![CDATA[
+			SELECT q.*, u.USERID
+			 FROM QNA q 
+			  JOIN USERS u
+              ON q.USERNO = u.USERNO
+              WHERE 1=1
+                AND UPPER(QNATITLE) LIKE UPPER('%' || #{qnaKeyword} || '%')
+				ORDER BY LPAD(QNADATE, 10, 0) ${orderby}, QNANO ${orderby}
+		]]>
+	 </select>
+	 
+	 <delete id="qnaDelete" parameterType="int">
+	 	DELETE FROM QNA WHERE 1=1 AND QNANO = #{qnaNo}
+	 </delete>
+
+
+</mapper>

@@ -45,7 +45,7 @@ background: linear-gradient(to right, rgba(132, 250, 176, 1), rgba(143, 211, 244
               <div class="card-body p-5">
                 <h2 class="text-uppercase text-center mb-5">Create an account</h2>
   
-                <form action="javascript:" method="POST"  id="joinForm">
+                <form action="<c:url value="/member/Insert.do"/>" method="POST"  id="joinForm">
   				
   				<div class="form-outline mb-4">
                     <input type="text" class="form-control form-control-lg" name="userId" placeholder="ID"/>
@@ -79,6 +79,7 @@ background: linear-gradient(to right, rgba(132, 250, 176, 1), rgba(143, 211, 244
                 </form>
   
               </div>
+              <!-- 
               <c:if test="${not empty param.userName }">
               <hr/>
               <h3>입력한 값들 출력</h3>
@@ -86,6 +87,7 @@ background: linear-gradient(to right, rgba(132, 250, 176, 1), rgba(143, 211, 244
               	<li class = "list-group-item">이름 : ${param.userName }</li>
               </ul>
               </c:if>
+               -->
             </div>
           </div>
         </div>
@@ -117,10 +119,10 @@ background: linear-gradient(to right, rgba(132, 250, 176, 1), rgba(143, 211, 244
 		const inputId = document.querySelector("input[name='userId']").value;
 	    let isValid = 0;
 	    // 유효한 경우
-		if (validityChecker("userId", inputuserId)) {
+		if (validityChecker("userId", userId)) {
 			await $.ajax({
 				type: "GET",
-				url: "<c:url value='/member/IdCheck.do'/>" + "?userId=" + inputuserId,
+				url: "<c:url value='/member/IdCheck.do'/>" + "?userId=" + userId,
 				dataType: "json",
 		        // 중복체크
 		        success : (data) => {
@@ -170,7 +172,6 @@ background: linear-gradient(to right, rgba(132, 250, 176, 1), rgba(143, 211, 244
 			userName : "이름이 작성되지 않았습니다.",
 			userEmail : "이메일이 작성되지 않았습니다",
 			userPassword : "비밀번호가 일치하지 않습니다.",
-			pwd2 : "비밀번호가 일치하지 않습니다.",
 			
 	}
 	
@@ -214,58 +215,9 @@ background: linear-gradient(to right, rgba(132, 250, 176, 1), rgba(143, 211, 244
 			}
 		}
 		
-		// 중복 체크
-		fetch("<c:url value='/member/IdCheck.do'/>" + "?userId=" + form.userId.value, {
-    		method: 'GET',
-			})
-				.then((response) => {
-	    			return response.json();
-	    		})
-	    		.then((result) => {
-	    			if(JSON.parse(result.isDuplicated)) {
-	    				throw new Error("다른 아이디를 입력하세요");
-	    			} else {
-	    				return "<c:url value='/member/Join.do'/>";
-	    			}
-	    		})
-	    		.then((actionURL) => {
-	    			var inter = document.querySelectorAll("input[name='userId']");
-	    			const interList = [];
-	    			inter.forEach((inter) => {
-	    				interList.push(inter.value);
-	    			})	    			
-
-	    			console.log(actionURL);
-	    			
-				    $.ajax({
-				        type:"POST",
-				        url: actionURL,
-				        contentType: "application/x-www-form-urlencoded; charset=UTF-8",
-				        dataType: "json",
-				        data:{
-				        	userName: form.userName.value,
-	    		            userId: form.userId.value,
-	    		            userPassword: form.userPassword.value,
-	    		            pwd2: form.pwd2.value
-	    		            
-//	    		         
-				        },
-				        success : (resp) => {
-				        	location.href = "<c:url value='/index.do'/>";
-				        },
-				        error : (err) => {
-							console.log(err);
-						}
-				    });
-	    			
-	    			
-	    		})
-	    		.catch((err) => {
-	    			Swal.fire('중복', err.message, 'error');
-	    		})
+	
 	});
 
-	
 	
 </script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
