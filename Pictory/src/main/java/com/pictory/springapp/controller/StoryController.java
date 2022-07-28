@@ -32,7 +32,7 @@ public class StoryController {
 	
 	//종근 - 스토리 컨트롤러
 	@RequestMapping("StoryIndex.do")
-	public String index() {
+	public String index(Model model) {
 		System.out.println("스토리 컨트롤러");
 		
 		List<StoryDTO> storyList = new ArrayList<StoryDTO>();
@@ -51,12 +51,13 @@ public class StoryController {
 			System.out.println("storyone에 담긴 nick: "+ storyOne.getUserNickname());
 		}
 		
-		//여기서 한 스토리의 모든 사진 URL 가져오기!
-		//storyService.virtualImages(returnValue);
+
 		
-	
+		model.addAllAttributes(returnValue);
+		
 		return "story/StoryIndex.tiles";
 	}
+	
 	
 	
 	@RequestMapping("virtualprocess.do")
@@ -66,6 +67,9 @@ public class StoryController {
 		
 		System.out.println("버츄얼 프로세서");
 		System.out.println("들어왔습니다 버츄얼 어쩌구 저쩌구");
+		
+		//여기서 한 스토리의 모든 사진 URL 가져오기!
+		//storyService.virtualImages();
 	
 		return "story/Virtual.tiles";
 	}

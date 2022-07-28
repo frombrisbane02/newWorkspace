@@ -9,9 +9,10 @@
 		SELECT * FROM STORY
 	</select>
 	
-	
-<!-- <select id="virtualImages" resultType="com.pictory.springapp.dto.StoryDTO">
-	</select> -->
+	<!-- post 넘버 받아오기 -->
+	<select id="virtualImages" parameterType="com.pictory.springapp.dto.StoryDTO" resultType="com.pictory.springapp.dto.StoryDTO">
+		SELECT s.sNo, ph.photoURL FROM PHOTO ph, POST p, STORY s WHERE s.sNo = p.sNo AND p.postNo = ph.postNo
+	</select> 
 	
 	
 	

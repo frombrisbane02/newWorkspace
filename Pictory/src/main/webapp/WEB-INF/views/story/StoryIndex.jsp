@@ -60,21 +60,28 @@
 			<div class="cont_area">
 				<div class="tab_cont tab_ac" id="tab1">
 					<ul class="story_list">
+					
+					<c:if test="${empty returnValue.StoryDTO}" var="isEmpty">
+					데이터가없어요....(못 받아옴???)) 
+					</c:if>
+					
+					<c:if test="${not isEmpty}">
+						<c:forEach var="record" items="returnValue.StoryDTO" varStatus="loop">
 						<li>
 							<a href="<c:url value="/story/virtualprocess.do"/>">
 								<div class="img_area" style="background-image: url(<c:url value="/resources/img/story/test_img04.jpg"/>);">
-									<img src="<c:url value="/resources/img/story/fake03.png"/>" alt="">
+									<img src="${record.storyThumbnail}" alt="">
 								</div>
 
 								<div class="txt_area">
 									<p class="small">
-										<span class="cate">CATEGORY</span><span class="gray">뭐 넣는건가요</span>
+										<span class="cate">CATEGORY</span><span class="gray">풍경</span>
 									</p>
-									<p class="main_txt">${virtualList.StoryDescription}</p>
+									<p class="main_txt">${record.StoryDescription}</p>
 										
 									<div class="pro_line">
 										<p>
-											<img src="<c:url value="/resources/img/story/test_img02.jpg"/>" alt="" class="pro_p">${virtualList.UserNickname}
+											<img src="<c:url value="/resources/img/story/test_img02.jpg"/>" alt="" class="pro_p">${record.UserNickname}
 										</p>
 										<p class="gray">
 											<img
@@ -87,6 +94,11 @@
 								</div>
 							</a>
 						</li>
+						</c:forEach>
+					</c:if>
+						
+						
+						
 					</ul>
 					
 				</div>
