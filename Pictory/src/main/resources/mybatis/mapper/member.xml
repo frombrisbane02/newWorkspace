@@ -10,9 +10,20 @@
 	</select>
 	
 	<select id="memberCheck" parameterType="Map" resultType="int">
-		SELECT count(*) from USERS where userId='${userId}'
+		SELECT count(*) from USERS where userId='#{userId}'
 	</select>
 	
+	<!-- 회원가입 -->
+	<insert id="memberInsert" parameterType="MemberDTO">
+		<selectKey keyProperty="userNo" resultType="int" order="BEFORE">
+		SELECT SEQ_USERS.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT ALL
+			INTO users(userNo,userId,userPassword,userEmail,userName) VALUES (SEQ_USERS.CURRVAL,#{userId},#{userPassword},#{userEmail},#{userName})
+			INTO authorities(userNo,authorities,enabled) VALUES (SEQ_USERS.CURRVAL,default,default)
+			SELECT * FROM DUAL
+	</insert>
+	 
 	<!-- 마이페이지 회원정보 불러오기 쿼리 -->
 	<select id="readMember" parameterType="String" resultType="MemberDTO">
 		SELECT *

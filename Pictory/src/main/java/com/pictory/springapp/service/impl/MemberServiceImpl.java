@@ -1,5 +1,6 @@
 package com.pictory.springapp.service.impl;
 
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,6 +26,14 @@ public class MemberServiceImpl implements MemberService<MemberDTO>{
 		map.put("userId", userId);
 		System.out.println("@@@@@");
 		return dao.isExist(map);
+	}
+	//회원가입
+	
+	public int signUp(MemberDTO dto) {
+		int resultCnt=0;
+		resultCnt = dao.signUp(dto);
+		return resultCnt;
+		
 	}
 
 		//회원정보보기

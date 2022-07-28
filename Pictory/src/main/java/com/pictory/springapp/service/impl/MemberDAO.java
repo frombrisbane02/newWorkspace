@@ -45,6 +45,13 @@ public class MemberDAO {
 		int count = template.selectOne("memberCheck", map);
 		return count == 1;
 	}
+	
+	public int signUp(MemberDTO dto) {
+		
+		int succ=template.insert("memberInsert",dto);
+		System.out.println("회원가입succ:"+succ);
+		return succ;
+	}
 	/*
 	public boolean isLogin(Map map) {
 		System.out.println("@@MemberDAO_isLogin@@");
@@ -56,6 +63,8 @@ public class MemberDAO {
 		session.close();
 		return count==1 ? true:false;
 	}*/
+	
+
 	
 	public MemberDTO readMember(String id) {
 		// TODO Auto-generated method stub
