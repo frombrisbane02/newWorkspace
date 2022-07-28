@@ -1955,7 +1955,6 @@ var today = new Date(utc + kstGap); // 한국 시간으로 date 객체 만들기
   		    	
   		    },
   		    success: function(data){
- 			
 			 memberSetting(data);
   				
   		    }, error: function (request, status, error){

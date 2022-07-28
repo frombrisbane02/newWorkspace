@@ -1,8 +1,16 @@
 package com.pictory.springapp.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class AdminUsersDTO {
 	private int userNo;
 	private String userId;

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
 
 	<link rel="stylesheet" href="<c:url value="/resources/css/notice/common.css"/>"/>
 	<link rel="stylesheet" href="<c:url value="/resources/css/notice/page2.css"/>"/>
@@ -13,7 +13,7 @@
  
 <body>	
    <form method="post" action="<c:url value="/notice/Index.do"/>" accept-charset="UTF-8">
-    <sec:csrfInput/>     
+       
    <div>
 	  <img class="top_bg" src="<c:url value="/resources/img/notice/qnabg.jpg"/>" style="width:1900px ; height: 300px;">
 		</div><br>
@@ -59,17 +59,17 @@
                     </tr>
                 </thead>
                 <tbody class="table-sm">
-					<c:if test="${empty listPagingData.lists }" var="isEmpty">
+					<c:if test="${empty list}" var="isEmpty">
 						<tr>
 							<td colspan="4">등록된 글이 없습니다.</td>
 						</tr>
 					</c:if>
-						<c:if test="${not isEmpty }">
-							<c:forEach var="record" items="${listPagingData.lists}" varStatus="loop">
+						<c:if test="${not isEmpty}">
+							<c:forEach var="record" items="${list}" varStatus="loop">
 								<tr>
-									<td>${listPagingData.map.totalCount - (((listPagingData.map.nowPage - 1) * listPagingData.map.pageSize) + loop.index)}</td>				
-									<td class="text-left"><a href="<c:url value="/notice/noticeView.do?no=${record.noticeNo}&nowPage="/><c:out value="${param.nowPage}" default="1"/>">${record.noticeTitle}</a></td>
-									<td>${record.userId}</td>	
+									<td>${record.noticeNo}</td>				
+									<td class="text-left">${record.noticeTitle}</td>
+									<td>${record.userNo}</td>	
 									<td>${record.noticeDate}</td>	
 								</tr>
 							</c:forEach>
@@ -79,42 +79,42 @@
 			<!-- 예시 게시물 표현 시작-->
 			                 <tr>
 			                      <td class="text-center">5</td>
-			                      <td><a href="${pageContext.request.contextPath}/notice/noticeView.do">공지사항입니다</a></td>
+			                      <td><a href="${pageContext.request.contextPath}/notice/NoticeView.do">공지사항입니다</a></td>
 			                      <td><a href="memberOne.html">Picktory</a></td>
 			                      <td class="text-center">22-06-22</td>
 			                </tr>
 			                
 			                <tr>
 			                      <td class="text-center">5</td>
-			                      <td><a href="${pageContext.request.contextPath}/notice/noticeView.do">공지사항입니다</a></td>
+			                      <td><a href="${pageContext.request.contextPath}/notice/NoticeView.do">공지사항입니다</a></td>
 			                      <td><a href="memberOne.html">Picktory</a></td>
 			                      <td class="text-center">22-06-22</td>
 			                </tr>
 			                
 			               <tr>
 			                      <td class="text-center">5</td>
-			                      <td><a href="${pageContext.request.contextPath}/notice/noticeView.do">공지사항입니다</a></td>
+			                      <td><a href="${pageContext.request.contextPath}/notice/NoticeView.do">공지사항입니다</a></td>
 			                      <td><a href="memberOne.html">Picktory</a></td>
 			                      <td class="text-center">22-06-22</td>
 			                </tr>
 			                
 			                <tr>
 			                      <td class="text-center">5</td>
-			                      <td><a href="${pageContext.request.contextPath}/notice/noticeView.do">공지사항입니다</a></td>
+			                      <td><a href="${pageContext.request.contextPath}/notice/NoticeView.do">공지사항입니다</a></td>
 			                      <td><a href="memberOne.html">Picktory</a></td>
 			                      <td class="text-center">22-06-22</td>
 			                </tr>
 			                
 			                <tr>
 			                      <td class="text-center">5</td>
-			                      <td><a href="${pageContext.request.contextPath}/notice/noticeView.do">공지사항입니다</a></td>
+			                      <td><a href="${pageContext.request.contextPath}/notice/NoticeView.do">공지사항입니다</a></td>
 			                      <td><a href="memberOne.html">Picktory</a></td>
 			                      <td class="text-center">22-06-22</td>
 			                </tr>
 			                
 			                <tr>
 			                      <td class="text-center">5</td>
-			                      <td><a href="${pageContext.request.contextPath}/notice/noticeView.do">공지사항입니다</a></td>
+			                      <td><a href="${pageContext.request.contextPath}/notice/NoticeView.do">공지사항입니다</a></td>
 			                      <td><a href="memberOne.html">Picktory</a></td>
 			                      <td class="text-center">22-06-22</td>
 			                </tr>
@@ -135,21 +135,7 @@
             
             </div>
         </div><!--  -->
-        <!-- Footer Start -->
- <div class="container-fluid pt-4 px-4">
-    <div class="bg-light rounded-top p-4">
-        <div class="row">
-            <div class="col-12 col-sm-6 text-center text-sm-start">
-                &copy; <a href="#">Your Site Name</a>, All Right Reserved. 
-            </div>
-            <div class="col-12 col-sm-6 text-center text-sm-end">
-                <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
-                Designed By <a href="https://htmlcodex.com">HTML Codex</a>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Footer End -->
+      
     </div><!--  -->
 
   

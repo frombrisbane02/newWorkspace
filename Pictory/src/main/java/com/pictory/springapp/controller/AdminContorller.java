@@ -1,9 +1,11 @@
 package com.pictory.springapp.controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -12,6 +14,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pictory.springapp.dto.AdminGalleryDTO;
 import com.pictory.springapp.dto.AdminGalleryService;
+import com.pictory.springapp.dto.AdminNoticeDTO;
+import com.pictory.springapp.dto.AdminNoticeService;
+import com.pictory.springapp.dto.AdminQnaDTO;
+import com.pictory.springapp.dto.AdminQnaService;
 import com.pictory.springapp.dto.AdminUsersDTO;
 import com.pictory.springapp.dto.AdminUsersService;
 
@@ -25,8 +31,14 @@ public class AdminContorller {
 	@Autowired
 	private AdminGalleryService galleryService;
 	
+	@Autowired
+	private AdminNoticeService noticeService;
+	
+	@Autowired
+	private AdminQnaService qnaService;
+	
 	@RequestMapping("/Index.do")
-	public String adminMain() {		
+	public String adminMain() {
 		return "admin/Index";
 	}
 	
@@ -48,7 +60,6 @@ public class AdminContorller {
 			if(userNo == 0 && enabled == 0 && userId == "" ) {
 				List<AdminUsersDTO> users = usersService.getUserList();
 				jsonStr = obj.writeValueAsString(users);
-				
 				return jsonStr;
 				
 			} else if(userId != "") {
@@ -62,7 +73,7 @@ public class AdminContorller {
 				s.setUserNickname(userNickname);
 				
 				List<AdminUsersDTO> sUser = usersService.searchList(s);
-				jsonStr = obj.writeValueAsString(sUser);			
+				jsonStr = obj.writeValueAsString(sUser);
 				return jsonStr;
 				
 			}else if(userNo != 0 && enabled != 0){
@@ -81,28 +92,19 @@ public class AdminContorller {
 			return null;
 	}
 	
-	/*
 	@ResponseBody
-	@RequestMapping(value="/gallery.do", method = { RequestMethod.POST })
+	@RequestMapping(value="/gallery.do", method = { RequestMethod.POST }, produces="text/plain;charset=UTF-8")
 	public String gallery(@RequestParam("today") String today ) throws Exception {
-		
-		System.out.println("갤러리 확인 : " + today);
-		
 		ObjectMapper obj = new ObjectMapper();
 		String jsonStr = "";
 		
-		AdminGalleryDTO param = new AdminGalleryDTO();
-		param.setDateDay(today);
-		
-		//밑으로 옮김(잠시 주석처리함)
-		List<AdminGalleryDTO> ss= AdminGalleryService.galleryList(param);
-	
 		try {
 			
+			AdminGalleryDTO param = new AdminGalleryDTO();
+			param.setDateDay(today);
+			
+			List<AdminGalleryDTO> ss = galleryService.galleryList(param);			
 			jsonStr = obj.writeValueAsString(ss);
-			
-			System.out.println("jsonStr : " + jsonStr);
-			
 			return jsonStr;
 			
 		} catch (Exception e) {
@@ -111,7 +113,8 @@ public class AdminContorller {
 		
 		return null;
 	}
-	*/
+	
+	
 	@RequestMapping("/manager/Index")
 	public String managerIndex() {
 		return "admin/manager/Index";
@@ -122,12 +125,98 @@ public class AdminContorller {
 		return "admin/notice/Index";
 	}
 	
-	
-	// 테스트
-	@RequestMapping("/test.do")
-	public String test() {		
-		return "admin/test";
+	@ResponseBody
+	@RequestMapping(value="/noticeList.do", method = {RequestMethod.POST}, produces="text/plain;charset=UTF-8")
+	public String noticeList(@RequestBody HashMap<String, Object> map) throws Exception {
+		ObjectMapper obj = new ObjectMapper();
+		String jsonStr = "";
+		try {
+			
+			List<AdminNoticeDTO> list = noticeService.getNoticeList(map);			
+			jsonStr = obj.writeValueAsString(list);
+			
+			return jsonStr;
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+			return null;
 	}
-
 	
+	
+	@ResponseBody
+	@RequestMapping(value="/noticeInsert.do", method = {RequestMethod.POST})
+	public boolean noticeInsert(@RequestBody List<HashMap<String, Object>> map ) throws Exception {
+		try {
+			boolean result = noticeService.getNoticeInsert(map);
+			return result;
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return false;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/noticeUpdate.do", method = {RequestMethod.POST})
+	public boolean noticeUpdate(@RequestBody HashMap<String, Object> map) throws Exception {
+		System.out.println("CONTROLLER DATA CHECK : " + map);
+		try {
+			
+			boolean result = noticeService.getNoticeUpdate(map);
+			return result;
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	
+			return false;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/noticeDelete.do", method = {RequestMethod.POST})
+	public boolean noticeDelete(@RequestParam("noticeNo") int noticeNo) throws Exception {
+		try {
+			
+			boolean result = noticeService.getNoticeDelete(noticeNo);
+			return result;
+		}catch (Exception e) {
+		  e.printStackTrace();
+		}
+		
+			return false;
+	}
+	
+//============================== Q&A====================================================================
+	@ResponseBody
+	@RequestMapping(value="/qnaList.do", method = {RequestMethod.POST}, produces="text/plain;charset=UTF-8")
+	public String qnaList(@RequestBody HashMap<String, Object> map) throws Exception {
+		ObjectMapper obj = new ObjectMapper();
+		String jsonStr = "";
+		
+		try {
+			List<AdminQnaDTO> list = qnaService.qnaList(map);
+			jsonStr = obj.writeValueAsString(list);
+			return jsonStr;
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/qnaDelete.do", method = {RequestMethod.POST})
+	public boolean qnaDelete(@RequestParam("qnaNo") int qnaNo ) throws Exception {
+		
+		try {
+			boolean result = qnaService.qnaDelete(qnaNo);
+			return result;
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return false;
+	}
 }

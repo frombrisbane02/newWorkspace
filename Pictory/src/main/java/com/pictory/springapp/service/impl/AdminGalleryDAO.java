@@ -2,7 +2,7 @@ package com.pictory.springapp.service.impl;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,15 +18,25 @@ public class AdminGalleryDAO {
 	private SqlSessionFactory sqlMapper;
 	//- SqlSessionTemplate사용: 위 프로그래밍 순서 가, 나에서는 commit(), 다의 close()호출 불필요
 	
-	@Autowired
-	private SqlSessionTemplate template;
+//	@Autowired
+//	private SqlSessionTemplate template;
 
-	public List<AdminGalleryDTO> selectList(AdminGalleryDTO param) {
+	public List<AdminGalleryDTO> selectList(AdminGalleryDTO param) throws Exception {
+		SqlSession session = sqlMapper.openSession();
+		try {
+			List<AdminGalleryDTO>  list =  session.selectList("selectList");
+			
+			return list;
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			session.close();
+		}
 		
 		//참고용! template.selectList("selectList", param);
 		return null;
 	}
-	
-	
-	
 }
+	
+	
