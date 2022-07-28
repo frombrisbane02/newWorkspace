@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.pictory.springapp.dto.AdminGalleryDTO">
+<!--  <mapper namespace="com.pictory.springapp.dto.AdminGalleryDTO"> -->
+<mapper namespace="mybatis.mapper.admingallery">
 
 	<select id="selectList" parameterType="AdminGalleryDTO" resultType="AdminGalleryDTO">
 	<![CDATA[ SELECT

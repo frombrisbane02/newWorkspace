@@ -12,6 +12,8 @@
 	<typeAliases>
 		<typeAlias type="com.pictory.springapp.dto.AdminUsersDTO" alias="AdminUsersDTO" />
 		<typeAlias type="com.pictory.springapp.dto.AdminGalleryDTO" alias="AdminGalleryDTO" />
+		<typeAlias type="com.pictory.springapp.dto.AdminNoticeDTO" alias="AdminNoticeDTO" />
+		<typeAlias type="com.pictory.springapp.dto.AdminQnaDTO" alias="AdminQnaDTO" />
 		<typeAlias type="com.pictory.springapp.dto.SearchDTO" alias="searchDTO"/>
 		<typeAlias type="com.pictory.springapp.dto.MyCartDTO" alias="MyCartDTO"/>
 		<typeAlias type="com.pictory.springapp.dto.MemberDTO" alias="MemberDTO"/>
@@ -42,5 +44,7 @@
 		<mapper resource="mybatis/mapper/admingallery.xml"/>
 		<mapper resource="mybatis/mapper/search.xml"/>
 		<mapper resource="mybatis/mapper/notice.xml"/>
+		<mapper resource="mybatis/mapper/adminnotice.xml"/>
+		<mapper resource="mybatis/mapper/adminqna.xml"/>
 	</mappers>
 </configuration>
