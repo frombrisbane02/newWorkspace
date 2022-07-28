@@ -229,9 +229,9 @@
 
 		
 		<!-- Mod Start Dong.Mi 2022-07-22 @Resource 오류해결을 위한 추가  -->
-		<dependency>     
-			<groupId>javax.annotation</groupId>     
-			<artifactId>javax.annotation-api</artifactId>     
+		<dependency>
+			<groupId>javax.annotation</groupId>
+			<artifactId>javax.annotation-api</artifactId>
 			<version>1.3.2</version> 
 		</dependency>
 		

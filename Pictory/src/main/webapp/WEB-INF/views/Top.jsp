@@ -74,6 +74,10 @@
                         <li class="nav-item">
                             <a href="<c:url value="/auth/Login.do"/>">Login</a>
                         </li>
+                        <!-- 쳇봇 나중에 lightframe으로 하단에서 접근 할 수 있도록 변경할 예정, 임시로 nav에 만들었습니다. -->
+                        <li class="nav-item">
+                            <a href="<c:url value="/Chatbot.do"/>">Chatbot</a>
+                        </li>
                         <!-- Dropdown -->   
                         <li class="dropdown">Service
                             <div class="dropdown-content">
