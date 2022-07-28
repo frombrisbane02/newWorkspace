@@ -60,7 +60,7 @@
                             <a href="<c:url value="/feed/Index.do"/>" id="nava">Feed</a>
                         </li>
                         <li class="nav-item">
-                            <a href="<c:url value="/gallery/Index.do"/>" id="nava">Gallery</a>
+                            <a href="<c:url value="/gallery/GalleryList.do"/>" id="nava">Gallery</a>
                         </li>
                         <li class="nav-item">
                             <a href="<c:url value="/story/StoryIndex.do"/>">Story</a>
