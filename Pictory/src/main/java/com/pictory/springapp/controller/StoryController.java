@@ -119,7 +119,7 @@ public class StoryController {
 	   List<Map<String,String>> lists=new Vector<>();
 		for(int i=1;i <= 7 ;i++) {
 			Map<String,String> map = new HashMap<>();
-			map.put("image_url",String.format(" http://192.168.0.27:4040/springapp/images/%d.jpg",i));
+			map.put("image_url",String.format(" http://localhost:4040/springapp/images/%d.jpg",i));
 			map.put("image_title",String.format("이미지 제목%d",i));
 			map.put("image_id",String.format("%s$#@",i));
 			lists.add(map);
