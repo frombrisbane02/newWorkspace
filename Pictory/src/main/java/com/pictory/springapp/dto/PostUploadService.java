@@ -25,4 +25,7 @@ public interface PostUploadService<T> {
 	String uploadoneFile(Map map, MultipartFile uploadImage);
 	int sellPostInsert(Map map);
 	
+	//편집된 이미지 저장될때마다 서비스 호출
+	String editedImageInfo(Map<String, Object> fileInfo);
+	
 }

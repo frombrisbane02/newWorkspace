@@ -37,7 +37,7 @@ public class PostDAO {
 	}
 	
 	public int photoInsert(Map<String, Object> fileInfo) {
-		System.out.println("FILEINFO"+fileInfo);
+		System.out.println("업로드한 파일 정보"+fileInfo);
 		
 		return  template.insert("photoUpload", fileInfo);
 	}
@@ -70,6 +70,7 @@ public class PostDAO {
 			//이거 path 바꾸기 (전에 한 springproj 참고)
 		
 			System.out.println("path 잘 받아왔니?;;: "+map.get("path"));
+		
 			String path = String.valueOf(map.get("path"))+"\\img\\"+String.valueOf(map.get("userId"));
 			System.out.println("path 잘 합쳐졌는지 확인갈겨 : "+path);
 			
@@ -141,7 +142,7 @@ public class PostDAO {
 		try {storyThumbnail.transferTo(dest);}
 		catch (Exception e) {e.printStackTrace();}
 		
-		return path+storyThumbnail.getOriginalFilename();
+		return storyThumbnail.getOriginalFilename();
 	}
 
 	public int storyInsert(Map map) {
@@ -153,7 +154,6 @@ public class PostDAO {
 	public int getSNo(Map map) {
 		//sNo 있으면 셀렉해오는것임
 		return template.selectOne("getSNo", map);
-				
 	}
 
 	public int hashtagInsert(Map map) {

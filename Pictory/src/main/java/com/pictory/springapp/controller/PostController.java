@@ -3,9 +3,11 @@ package com.pictory.springapp.controller;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +19,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -61,23 +64,81 @@ public class PostController {
 		return "gallery/Upload2.tiles";
 	}
 	
-	//===========================EDIT IMAGE===============================
+	//===========================EDIT IMAGE 불러오기===============================
 	
-	@GetMapping("post/EditImage.do")
-	public String editImage(HttpSession session, Model model) {
-		String userId = (String)session.getAttribute("userId");
+	
+	@RequestMapping("post/loadEditor.do")
+	public String loadModal(@RequestParam Map map, Model model) {
 		
-		
+		System.out.println("컨트롤러 모달 로드");
 		
 		return "gallery/EditImage";
 	}
+
 	
 	
-	@GetMapping(value="post/UploadMap.do")
-	public String popupGet(Model model) throws Exception{
+	//===========================EDIT IMAGE===============================
+	//보정 이미지 한장한장 save 누를때마다 컨트롤러로 넘겨서 업로드 처리 및 db에 인서트할 값 필요 + 본문에 첨부
 	
-		//model.addAttribute("", 1);
-		return "gallery/UploadMap";
+	@CrossOrigin
+	@RequestMapping(value="post/EditImage.do",produces = "application/json;charset=UTF-8")
+	public @ResponseBody String image(@RequestParam String base64,@RequestParam 
+									String filename, HttpSession session, Model model,
+									HttpServletRequest req) throws JsonProcessingException {
+		//save를 누르면 정보가 여기로 들어옴
+		System.out.println("base64:"+base64);
+		String userId = (String)session.getAttribute("userId");
+		System.out.println("IEC) userId 가지고 왔나요? :"+ userId);
+		
+		
+		//서버의 물리적 경로 얻어서 파일 업로드 처리 먼저
+		//1.1) PATH 먼저! userId 붙여서 설정하기
+		String path = req.getSession().getServletContext().getRealPath("/upload")+"\\img\\"+userId;
+		System.out.println("IEC) path는 제대로 가지고 왔나요? :"+ path);
+		
+		//1.2) 파일 객체 생성하기
+		FileOutputStream fos=null;
+		File Folder = new File(path);
+		byte[] data = Base64.getDecoder().decode(base64);
+		
+		//1.3) mkdir로 폴더 있으면 냅두고 없으면 생성
+		try{
+			if (!Folder.exists()) {
+				    Folder.mkdir();
+				    System.out.println("IEC) 폴더 생성!");
+			}
+			else {System.out.println("IEC) 이미 폴더 있는데요..");}
+		
+		
+		//2) 파일 해당 경로에 업로드하기(한장)
+		File dest = new File(path+File.separator+filename);
+		fos = new FileOutputStream(dest);
+		fos.write(data);
+		
+		//3) DB 저장용 및 본문에 뿌려주기 위한 정보 따로 저장
+		//필요값: photoSize, photoName
+		int photoSize = ((int)Math.ceil(dest.length()/1024.0));
+		String photoName = filename;
+		
+		
+		System.out.println("IEC) 사진크기: "+photoSize+"KB");
+		System.out.println("IEC) 파일명: "+photoName);
+		
+		Map<String, Object> fileInfo = new HashMap<String, Object>();
+		fileInfo.put("photoSize", photoSize);
+		fileInfo.put("photoName", photoName);
+		
+		
+		
+		List<Map<String,Object>> fileInfos = new ArrayList<Map<String,Object>>();
+		fileInfos.add(fileInfo);
+		
+		model.addAttribute("fileInfos",fileInfos);
+
+		}//try
+		catch(Exception e) {e.getStackTrace();}
+		
+		return "{\"upload\":\"sucsses\"}";
 	}
 	
 	
@@ -130,17 +191,16 @@ public class PostController {
 		//PRODUCT - pdNo, photoNo, pdPrice, pdSalesNo, pdDate
 		String photoName = uploadImage.getOriginalFilename();
 		int photoSize = (int)Math.ceil(uploadImage.getSize()/1024.0);
-		String photoUrl = path+"\\"+photoName;
+		//String photoUrl = "http://192.168.0.146"+"\\"+photoName;
 		
 		map.put("photoName", photoName);
 		map.put("photoSize", photoSize);
-		map.put("photoUrl", photoUrl);
+		//map.put("photoUrl", photoUrl);
 		
 		postUploadService.sellPostInsert(map);
 		
 		
-		
-		return "gallery/Index.tiles";
+		return "gallery/GalleryList.tiles";
 	}
 	
 //=============================================절취선========================================================
@@ -221,6 +281,6 @@ public class PostController {
 	
 	
 		//전부 업로드하고 갤러리 목록으로 ㄱㄱ
-		return "gallery/Index.tiles";
+		return "gallery/GalleryList.tiles";
 	}
 }

@@ -36,16 +36,48 @@
 </head>
 <style>
 
-.imgpre > img {
-  display: block;
+
+
+*{box-sizing: border-box;}
+
+.editpic {
+display: block;
   width: auto;
   height: auto;
   max-width: 1000px;
   margin-bottom: 10px;
   margin-left: auto;
   margin-right: auto;
-  
+	position: relative;
 }
+
+.imageprev {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.editImagebtn {
+  position: absolute;
+  bottom: 0;
+  background: rgb(0, 0, 0);
+  background: rgba(0, 0, 0, 0.5); /* Black see-through */
+  color: #FFFFFF;
+  width: auto;
+  height: auto;
+  transition: .5s ease;
+  opacity:0;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 10px;
+  text-align: center;
+  border: 0;
+
+}
+.editpic:hover .editImagebtn {
+  opacity: 1;
+}
+
 
 </style>
 
@@ -64,8 +96,11 @@
 	 <c:if test="${postSellorNot eq 'notsell'}">
 	 	<form action="<c:url value="/gallery/post/NotSellUpload.do"/>" method="POST" enctype="multipart/form-data">
 	 </c:if>
+	 
+	
 	<input type="hidden" class="form-control" value="${postSellorNot}" name="postSellorNot" id="postSellorNot">
-		<input type="hidden" class="form-control" value="" name="hashtags" id="hashtags">
+	<input type="hidden" class="form-control" value="" name="hashtags" id="hashtags">
+	<input type="hidden" class="form-control" value="" name="fileInfos" id="fileInfos">
   	<div class="form-group">
 	  <select id="postCategory"  name="postCategory" class="custom-select form-control">
 	      <option selected>카테고리</option>
@@ -81,11 +116,13 @@
 
 
     <!--===================================이미지 프리뷰 ===================================-->
-    <div class="border-light">
-      <div class="imgpre">
-       
-      </div>
+    <div class="mothercontainer">
+	<!--<div class="container border-light">
+	      <div class="imgpre">
+	      </div>
+	 </div>-->
     </div>
+    
 	<br>
 	<br>
 	<!-- ===================================text 영역=================================== -->
@@ -131,7 +168,9 @@
         
         
     <!-- ===================================이미지 보정=================================== -->    
-        <button id="editImage" type="button" data-toggle="modal" data-target="#editModal" class="btn btn-outline-dark m-2">Edit</button>
+        
+        
+        <button id="popupEditor" type="button" class="btn btn-outline-dark m-2">POPUP</button>
     </div>
     
     <!-- =================================== 판매안할때 스토리 생성 추가=================================== -->
@@ -212,65 +251,14 @@
     </div>
   </form>
   
-  
-    <!--===================================Map Modal===================================
-    <form>
-      <div class="modal" id="mapModal">
-        <div class="modal-dialog modal-xl">
-          <div class="modal-content" >
-            
-	        <div class="modal-header">
-	          <button type="button" class="close" data-dismiss="modal">&times;</button>
-	        </div>-->
-          
-	          <!-- Modal body 
-	        <div class="modal-body" id="mapContent">
-	          <iframe src="map.html" id="modalMap">
-	        </div>-->
-	          <!-- Modal footer 
-	        <div class="modal-footer">
-	        	<div>
-	          <label for="editUpload" class="btn btn-ouline-dark m-2" style="display:inline-block;">
-	     		<img src="${pageContext.request.contextPath}/resources/img/upload/addImage.png" style="width: 20px;"/>
-	     	  </label>
-	        <input name="editUpload" id="editUpload" type="file" accept="image/*" class="form-control btn btn-ouline-dark m-2" multiple hidden/>
-	        
-	          <!-- <button type="button" class="btn btn-sm btn-outline-dark">FileUpload</button> -->
-	          <button type="button" class="btn btn-sm btn-outline-dark" data-dismiss="modal">Save</button>
-	          	</div>
-	        </div>
-          </div>
-        </div>
-      </div>
-    </form>-->
+
     
      <!--===================================Image Modal===================================-->
     <form>
       <div class="modal" id="editModal">
         <div class="modal-dialog modal-xl">
-          <div class="modal-content">
-            <!-- Modal Header -->
-	        <div class="modal-header">
-	          <button type="button" class="close" data-dismiss="modal">&times;</button>
-	        </div>
-          
-	          <!-- Modal body -->
-	        <div class="modal-body"  id="editContent">
-	          
-	        </div>
-	          <!-- Modal footer -->
-	        <div class="modal-footer">
-	        	<div>
-	        <!-- 
-	          <label for="editUpload" class="btn btn-ouline-dark m-2" style="display:inline-block;">
-	     		<img src="${pageContext.request.contextPath}/resources/img/upload/addImage.png" style="width: 20px;"/>
-	     	  </label>
-	        <input name="editUpload" id="editUpload" type="file" accept="image/*" class="form-control btn btn-ouline-dark m-2" hidden/>
-	         -->
-	         
-	          <button type="button" class="btn btn-sm btn-outline-dark" data-dismiss="modal">Save</button>
-	          	</div>
-	        </div>
+          <div class="modal-content" id="editContent">
+          	<iframe style="width: 1050px; height: 800px;" frameborder="0" scrolling="no" src="<c:url value="/gallery/post/loadEditor.do"/>"></iframe>
           </div>
         </div>
       </div>
@@ -314,27 +302,63 @@
 
         if (input.files) {
             var filesAmount = input.files.length;
-
+			var html="";
+			
             for (i = 0; i < filesAmount; i++) {
+            	
                 var reader = new FileReader();
-
-                reader.onload = function(event) {
-                    $($.parseHTML('<img>')).attr('src', event.target.result).appendTo(imgplace);
-                    
-                   
-                    //이 뒤에 다이브 추가생성점....
-                }
                 reader.readAsDataURL(input.files[i]);
-            }
+                reader.onload = function(event) {
+                	html="<div class='container editpic'><img src='"+event.target.result+"' onclick=pickUrl(this) class='imageprev'><button type='button' onclick=imgClick(this) data-toggle='modal' data-target='#editModal' class='btn btn-sm btn-light editImagebtn'>이미지 보정</button></div>";
+       				document.querySelector('div.mothercontainer').innerHTML+=html;
+       				
+       				var imgsrc = event.target.result;
+       				console.log('src: ',imgsrc);
+                }
+            }//for
         }
     };
 
     $('#uploadImage').on('change', function() {
-        imagesPreview(this, 'div.imgpre');
+    	//change 이벤트 발생시 div container 만들고 그 안에 쭉쭉 append해서 영역 넘겨주기
+        imagesPreview(this, 'div.mothercontainer');
     });
 });
   
-	  //textarea 높이 자동조정
+//====================버튼 클릭했을때 imgsrc 가져오기 =====================================
+
+	function imgClick(target){
+		  
+		  console.log('여기 들어오니?;;;; 클릭했는디;;;');
+		  console.log('you click here!!!!!! >',target);
+		  var imgsrc0 = $(target).parent();
+		  var imgsrc = $(target).siblings();
+		  console.log('imgsrc0',imgsrc0);
+		  console.log('imgsrc',imgsrc);
+	}
+	
+	function pickUrl(e){
+		console.log(e);
+	}
+	
+	
+//======================모달에 EditImage.jsp 로드==============================
+//$(document).ready(function(){
+//	$('#editContent').load();
+//	
+//});
+
+
+//==========================popup==================================
+$(document).ready(function(){
+	
+	$('#popupEditor').on("click", function(){
+		window.open('<c:url value="/gallery/post/loadEditor.do"/>','_black','toolbar=no, menubar=no, scrollbars=no, width=1000, height=800').focus();
+	});
+});
+  
+  
+//==============================textarea 높이 자동조정==============================
 	  $(document).ready(function() {
 	  $('#textContent').on('keypress', function() {
 	      $(this).height(0);
@@ -380,7 +404,7 @@ function addHash(){
 };
 
 
-//스토리 Thumbnail 업로드시 img 태그에 prepend
+//스토리 Thumbnail 업로드시 img 태그에 append
 function readURL(input) {
  if (input.files && input.files[0]) {
   var reader = new FileReader();
@@ -394,9 +418,7 @@ function readURL(input) {
  
 //이미지 띄우고 나서 밑에 스토리타이틀, 스토리설명 추가하기 한번만!!!!!
  if(!document.querySelector('#storyTitle')){ //storyTitle 없으면!
-
  var html = "<label>Story Title</label><input type='text' class='w-100 form-control' id='storyTitle' placeholder='스토리 제목을 입력하세요' name='storyTitle'></div><br><div class='form-group'><label>Story Description</label><textarea class='w-100 form-control' id='storyDescription' name='storyDescription'  placeholder='스토리 설명을 입력하세요. (100자 이내)' style='min-height:100px; max-height:100px;'></textarea>";
- //<input class='w-100 form-control' type='text' id='storyDescription' placeholder='스토리 설명을 입력하세요' 'name=storyDescription'>";
  document.querySelector("#story_field").insertAdjacentHTML('afterbegin',html);
  }
 }
@@ -417,28 +439,6 @@ function leavePage(){
 
 
 
-$(document).ready(function(){
-	$('#editContent').load("<c:url value='/gallery/post/EditImage.do'/>");
-});
-
-
-//$(document).ready(function(){
-//	$('#mapContent').load("<c:url value='/gallery/post/AddMap.do'/>");
-//});
-
-
-
-/*
-$(document).ready(function(){
-	var mapObj = $("form[role='form']");
-
-	$('#uploadMap').on("click",function(){
-		//var userId = $("#user_id").val(); //화면 파라미터 가져오기
-		//window.open("/daily/UploadMap?userId="+userId,"_blank","toolbar=yes,menubar=yes,width=900,height=600").focus();
-		window.open("<c:url value='/gallery/post/UploadMap.do'/>","_blank","toolbar=yes,menubar=yes,width=900,height=600").focus();
-	});
-});
-*/
 
 
 

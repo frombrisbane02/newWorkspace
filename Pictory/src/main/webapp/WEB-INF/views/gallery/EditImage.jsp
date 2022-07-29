@@ -3,18 +3,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
  
   <!-- example 추가 -->
-   <!--<script type="module" src="/public/init.js"></script>-->
     <script src="https://cdn.scaleflex.it/plugins/js-cloudimage-responsive/4.8.5/js-cloudimage-responsive.min.js"></script>
     <script src="https://cdn.scaleflex.it/filerobot/js-cloudimage-responsive/lazysizes.min.js"></script>
   <!--vanilla js cdn-->
   	<script src="https://scaleflex.cloudimg.io/v7/plugins/filerobot-image-editor/latest/filerobot-image-editor.min.js"></script>
-<!-- 
-	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdn.scaleflex.it/plugins/js-cloudimage-responsive/4.8.5/js-cloudimage-responsive.min.css?vh=a076ef&func=proxy"/>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet"/>
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/upload/style.css" /> -->
-
 	<script>
+	
+	/*
 		//input type="file"버튼을 이미지로 변경하기 위한 이벤트 트리거 소스(수업 소스임-추가 코딩)
 		window.addEventListener('DOMContentLoaded', function() {
 			var file = document.querySelector('#add-image');
@@ -27,13 +22,10 @@
 					cancelable : true,
 					view : window
 				});
-
 				//type="file"요소에 마우스 클릭 이벤트 발송
 				file.dispatchEvent(fileClick);
-
 			};
-
-		});
+		});*/
 	</script>
 	
 	<div class="container">
@@ -45,30 +37,12 @@
      	<!--style="display: none"(추가 코딩) 으로 숨긴다-->
 		<input name="image" id="add-image" type="file" accept="image/*" class="add-img" style="display: none"/>
         
-<!-- <img src="${pageContext.request.contextPath}/resources/img/upload/addImage.png" alt="업로드" id="img_plus" style="width: 30px; height: 30px"/> -->
 		</div>
 		<!--아래 div에 이미지 보정 에디터가 디스플레이 된다-->
 		<div id="editor_container"></div>
-		<img id="display_image" alt="보정이미지 표시" style="display: none" />
+		<img id="display_image" alt="보정이미지 표시" style="display: none; margin-left: auto; margin-right: auto;" />
 	</div>
-
-
-<!-- 
-   <section class="content-wrapper">
-      <header class="header">
-      </header>
-      <div class="content">
-        <div class="img-table container">
-          <div class="editor-container" id="editor_container">
-            <div class="plugin-spinner"></div>
-          </div>
-        </div>
-        <div class="blue-blur-ellipse"></div>
-        <div class="cyan-blur-ellipse"></div>
-      </div>
-    </section>
- -->
-
+	
    
     <script>
       const ciResponsive = new window.CIResponsive({
@@ -98,11 +72,11 @@
     </script>
 
     
-<!--===============================절 취 선 =========================================-->
 	<script>
+	
 	  const { TABS, TOOLS } = FilerobotImageEditor;
 	  const config = {
-	  source: 'https://images.unsplash.com/photo-1656936632096-59fcacae533f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2670&q=80',
+	  source: 'https://images.unsplash.com/photo-1658959305360-b942374cb042?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80',
 	  language:'ko',
 	  onSave: (editedImageObject, designState) =>{//저장 버튼 클릭시 콜백 함수
 		//editedImageObject이 보정된 이미지에 대한 정보가 담긴 객체임
@@ -115,9 +89,12 @@
 		console.log('editedImageObject.imageBase64:',editedImageObject.imageBase64)
 		console.log('editedImageObject.fullName:',editedImageObject.fullName)
 		console.log('editedImageObject.mimeType:',editedImageObject.mimeType)
+		
+		
 		//아래는 보정한 이미지를 스프링 서버로 업로드하는 코드
 		$.ajax({
-		  url:"http://192.168.0.5:4040/springapp/image.do",
+		  //url:"http://192.168.0.5:4040/springapp/gallery/image.do",
+		  url:"<c:url value='/gallery/post/EditImage.do'/>",
 		  data:"base64="+encodeURIComponent(data)+"&filename="+editedImageObject.fullName,
 		  dataType:'json',
 		  method:'post'
@@ -127,6 +104,14 @@
 		  //보정이미지 표시
 		  document.querySelector("#display_image").style.display='';
 		  document.querySelector("#display_image").src=editedImageObject.imageBase64
+		  
+		  /*
+		  var editimg = document.createElement("img");
+		  editimg.src = editedImageObject.imageBase64;
+		  var div = document.querySelector(".imgpre");
+		  div.appendChild(editimg);
+		  */
+		    
 		  //자동 다운로드 코드 구현
 		  var a= document.createElement('a');		 
 		  a.setAttribute("style", 'display:none');
@@ -307,10 +292,10 @@
 	});
 
 
-	//파일 교환을 추가코드
+	//파일 교환 위한 추가코드
 	document.querySelector('#add-image').onchange=function(){
 		//보정이미지를 표시하는 IMG태그 숨기기
-		document.querySelector("#display_image").style.display='none';		
+		document.querySelector("#display_image").style.display='none';	
 		
 		if (this.files && this.files[0]) {
 			var reader = new FileReader();
@@ -322,8 +307,10 @@
 
 		  
 		}
-	  }	  
-	  
+	  }
+	
+	
+	
 	  </script>
   </body>
 </html>

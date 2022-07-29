@@ -6,7 +6,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=0,maximum-scale=1">
-	<title>Pictory - Gallery</title>
+	<title>Gallery</title>
 
 	<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
@@ -21,7 +21,11 @@
 	<script src="http://code.jquery.com/jquery-1.8.1.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/gallerylist/tab.js"></script>
 </head>
-<body>	
+<body>
+<br>
+<br>
+<br>
+<br>
 	<div class="gall_list">
 		<div class="top_filter">
 			<div class="filter_left">
@@ -30,7 +34,7 @@
 			</div>
 			<!-- sort area 삭제함 -->
 		</div>
-		<ul class="fil_sel_list">
+		<ul class="fil_sel_list" style="list-style-type: none;">
 		<!-- 여기 선택한 필터 리스트 목록 갖고와서 foreach로 뿌리면서 엑스<도 기능하고, 엑스 눌렀을때 체크 해제되게 기능구현  -->
 			<li>
 				<a href=""><img src="img/test_icon16.png" alt=""></a>
@@ -63,37 +67,41 @@
 		
 			<li class="photo_area">
 				<a href="" class="photo_link">					
-					<div class="img_area" style="background-image: url(img/test_img12.jpg);"><img src="#" alt=""></div>	
+					<div class="img_area" style="background-image: url(${pageContext.request.contextPath}/resources/img/gallerylist/test_img13.jpg);"><img src="${pageContext.request.contextPath}/resources/img/gallerylist/fake02.png" alt=""></div>	
 
 					<div class="txt_area">
-						<p><img src="img/test_img02.jpg" alt="" class="pro_p">User name</p>
-						<p><img src="img/test_icon06.png" alt="" class="pro_icon"><span>0</span><img src="img/test_icon07.png" alt="" class="pro_icon"><span>0</span></p>
+						<p><img src="${pageContext.request.contextPath}/resources/img/gallerylist/test_img02.jpg" alt="" class="pro_p">User name</p>
+						<p><img src="${pageContext.request.contextPath}/resources/img/gallerylist/test_icon06.png" alt="" class="pro_icon"><span>0</span><img src="${pageContext.request.contextPath}/resources/img/gallerylist/test_icon07.png" alt="" class="pro_icon"><span>0</span></p>
 					</div>						
 				</a>
 
 				<ul class="hover_btn">
-					<li><a href=""><img src="img/test_icon06.png" alt="">Like</a></li>
+					<li><a href=""><img src="${pageContext.request.contextPath}/resources/img/gallerylist/test_icon06.png" alt="">Like</a></li>
 					<li><a href="">Save</a></li>
 				</ul>
+				
 				<div class="hover_txt">
 					<h3>Marietta Modern Farmhouse</h3>
 					<p class="sub_txt">Farmhouse Laundry Room</p>
 					<p class="bot_txt">United Kingdom</p>
 				</div>
 			</li>
+			
+	<!-- ===========================절취선================================= -->
+			
 
 			<li class="photo_area">
 				<a href="" class="photo_link">					
-					<div class="img_area" style="background-image: url(img/test_img13.jpg);"><img src="img/fake02.png" alt=""></div>	
+					<div class="img_area" style="background-image: url(${pageContext.request.contextPath}/resources/img/gallerylist/test_img13.jpg);"><img src="${pageContext.request.contextPath}/resources/img/gallerylist/fake02.png" alt=""></div>	
 
 					<div class="txt_area">
-						<p><img src="img/test_img02.jpg" alt="" class="pro_p">User name</p>
-						<p><img src="img/test_icon06.png" alt="" class="pro_icon"><span>0</span><img src="img/test_icon07.png" alt="" class="pro_icon"><span>0</span></p>
+						<p><img src="${pageContext.request.contextPath}/resources/img/gallerylist/test_img02.jpg" alt="" class="pro_p">User name</p>
+						<p><img src="${pageContext.request.contextPath}/resources/img/gallerylist/test_icon06.png" alt="" class="pro_icon"><span>0</span><img src="${pageContext.request.contextPath}/resources/img/gallerylist/test_icon07.png" alt="" class="pro_icon"><span>0</span></p>
 					</div>						
 				</a>
 
 				<ul class="hover_btn">
-					<li><a href=""><img src="img/test_icon06.png" alt="">Like</a></li>
+					<li><a href=""><img src="${pageContext.request.contextPath}/resources/img/gallerylist/test_icon06.png" alt="">Like</a></li>
 					<li><a href="">Save</a></li>
 				</ul>
 				<div class="hover_txt">
@@ -103,89 +111,7 @@
 				</div>
 			</li>
 
-			<li class="photo_area">
-				<a href="" class="photo_link">					
-					<div class="img_area" style="background-image: url(img/test_img14.jpg);"><img src="img/fake02.png" alt=""></div>	
 
-					<div class="txt_area">
-						<p><img src="img/test_img02.jpg" alt="" class="pro_p">User name</p>
-						<p><img src="img/test_icon06.png" alt="" class="pro_icon"><span>0</span><img src="img/test_icon07.png" alt="" class="pro_icon"><span>0</span></p>
-					</div>						
-				</a>
-
-				<ul class="hover_btn">
-					<li><a href=""><img src="img/test_icon06.png" alt="">Like</a></li>
-					<li><a href="">Save</a></li>
-				</ul>
-				<div class="hover_txt">
-					<h3>Marietta Modern Farmhouse</h3>
-					<p class="sub_txt">Farmhouse Laundry Room</p>
-					<p class="bot_txt">United Kingdom</p>
-				</div>
-			</li>
-
-			<li class="photo_area">
-				<a href="" class="photo_link">					
-					<div class="img_area" style="background-image: url(img/test_img15.jpg);"><img src="img/fake02.png" alt=""></div>	
-
-					<div class="txt_area">
-						<p><img src="img/test_img02.jpg" alt="" class="pro_p">User name</p>
-						<p><img src="img/test_icon06.png" alt="" class="pro_icon"><span>0</span><img src="img/test_icon07.png" alt="" class="pro_icon"><span>0</span></p>
-					</div>						
-				</a>
-
-				<ul class="hover_btn">
-					<li><a href=""><img src="img/test_icon06.png" alt="">Like</a></li>
-					<li><a href="">Save</a></li>
-				</ul>
-				<div class="hover_txt">
-					<h3>Marietta Modern Farmhouse</h3>
-					<p class="sub_txt">Farmhouse Laundry Room</p>
-					<p class="bot_txt">United Kingdom</p>
-				</div>
-			</li>
-
-			<li class="photo_area">
-				<a href="" class="photo_link">					
-					<div class="img_area" style="background-image: url(img/test_img16.jpg);"><img src="img/fake02.png" alt=""></div>	
-
-					<div class="txt_area">
-						<p><img src="img/test_img02.jpg" alt="" class="pro_p">User name</p>
-						<p><img src="img/test_icon06.png" alt="" class="pro_icon"><span>0</span><img src="img/test_icon07.png" alt="" class="pro_icon"><span>0</span></p>
-					</div>						
-				</a>
-
-				<ul class="hover_btn">
-					<li><a href=""><img src="img/test_icon06.png" alt="">Like</a></li>
-					<li><a href="">Save</a></li>
-				</ul>
-				<div class="hover_txt">
-					<h3>Marietta Modern Farmhouse</h3>
-					<p class="sub_txt">Farmhouse Laundry Room</p>
-					<p class="bot_txt">United Kingdom</p>
-				</div>
-			</li>
-
-			<li class="photo_area">
-				<a href="" class="photo_link">					
-					<div class="img_area" style="background-image: url(img/test_img17.jpg);"><img src="img/fake02.png" alt=""></div>	
-
-					<div class="txt_area">
-						<p><img src="img/test_img02.jpg" alt="" class="pro_p">User name</p>
-						<p><img src="img/test_icon06.png" alt="" class="pro_icon"><span>0</span><img src="img/test_icon07.png" alt="" class="pro_icon"><span>0</span></p>
-					</div>						
-				</a>
-
-				<ul class="hover_btn">
-					<li><a href=""><img src="img/test_icon06.png" alt="">Like</a></li>
-					<li><a href="">Save</a></li>
-				</ul>
-				<div class="hover_txt">
-					<h3>Marietta Modern Farmhouse</h3>
-					<p class="sub_txt">Farmhouse Laundry Room</p>
-					<p class="bot_txt">United Kingdom</p>
-				</div>
-			</li>
 		</ul>
 	</div>
 

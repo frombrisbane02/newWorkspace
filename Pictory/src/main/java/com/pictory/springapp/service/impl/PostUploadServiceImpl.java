@@ -1,5 +1,6 @@
 package com.pictory.springapp.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -123,8 +124,19 @@ public class PostUploadServiceImpl implements PostUploadService<PostDTO> {
 		return 1;
 	}
 
+
+
 	
 	
+
+	@Override
+	public String editedImageInfo(Map<String, Object> fileInfo) {
+		
+		
+		return null;
+	}
+
+
 
 	//파일 DB에 넣기
 	@Override
@@ -143,9 +155,6 @@ public class PostUploadServiceImpl implements PostUploadService<PostDTO> {
 	public int postUpdate(Map map) {
 		return dao.postUpdate(map);
 	}
-
-
-
 
 
 	

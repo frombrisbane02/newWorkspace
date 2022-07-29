@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+ <!-- 글한번올라갈때 테이블 채울거 필수: post, photo 선택: hashtag,map,text,product,museum 등 -->
+ <!-- postNo, userNo, sNo, postTitle, postHits, postSellorNot, postCategory, postText, postLikes, postDate -->
+<mapper namespace="mybatis.mapper.gallery">
+	
+	<!-- 필요 인자: 카테고리, 해시태그, 첫번째 이미지 url(썸네일용), 좋아요수, 댓글 수 -->
+	<select id="galleryList" resultType="GalleryDTO">
+		SELECT p.*, u.*, ph.*, h.*
+		FROM POST p, USERS u, PHOTO ph, HASHTAG h
+		WHERE p.userno=u.userno and ph.postno=p.postno and h.postno=p.postno
+	</select>
+</mapper>
