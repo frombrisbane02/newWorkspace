@@ -39,7 +39,7 @@ public class StoryServiceImpl implements StoryService<StoryDTO> {
 
 	// =====0728
 	@Override
-	public List<StoryDTO> virtualImages(int sNO) {
+	public List<StoryDTO> virtualImages() {
 		System.out.println("서비스 virtualImages...오니?");
 		
 		List<StoryDTO> storyImages = dao.virtualImages();

@@ -63,11 +63,22 @@ public class StoryController {
 	
 	
 	   @RequestMapping("virtualprocess.do")
-	   public String virtualprocess(Model model, int sNo) {
+	   public String virtualprocess(Model model) {
 	      
-	      List<StoryDTO> images = storyService.virtualImages(sNo);
-	      model.addAttribute("virtualImage", images);
-	      System.out.println("이미지가 들어올려나???"+images.toArray().toString());
+		   
+		   System.out.println("virtual프로세서 프로세서");
+//	      List<StoryDTO> images = storyService.virtualImages();
+//	      model.addAttribute("virtualImage", images);
+//	      System.out.println("이미지가 들어올려나???"+images.toArray().toString());
+		   
+			List<StoryDTO> storyimages = storyService.virtualImages();
+			System.out.println("1111111111111 ");
+
+			System.out.println("storyimages: "+storyimages);
+			System.out.println("222222222222 ");
+
+			
+
 	      
 	      return "story/Virtual.tiles";
 	   }
@@ -104,11 +115,13 @@ public class StoryController {
 	@CrossOrigin
 	@RequestMapping(value="virtualrest.do",produces = "application/json;charset=UTF-8")
 	public @ResponseBody String virtualrest() throws JsonProcessingException {
+		System.out.println("스토리 가상");
 	   List<Map<String,String>> lists=new Vector<>();
 		for(int i=1;i <= 7 ;i++) {
 			Map<String,String> map = new HashMap<>();
-			map.put("image_url","D:\\YJG\\newWorkspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\Pictory\\upload\\img\\CHOI2.jpg");
-			
+			map.put("image_url",String.format(" http://192.168.0.27:4040/springapp/images/%d.jpg",i));
+			map.put("image_title",String.format("이미지 제목%d",i));
+			map.put("image_id",String.format("%s$#@",i));
 			lists.add(map);
 		}
 		System.out.println("이미지 for문 끝");
@@ -121,6 +134,5 @@ public class StoryController {
 		
 		return mapper.writeValueAsString(resultMap);
 	}//
-	
 	
 }

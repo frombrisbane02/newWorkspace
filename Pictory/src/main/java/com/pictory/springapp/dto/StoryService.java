@@ -10,7 +10,7 @@ public interface StoryService<T>{
 	// 사진저장
 	//List<T> virtualImages(List<StoryDTO> returnValue);
 	
-	List<T> virtualImages(int sNO);
+	List<T> virtualImages();
 	
 	//상세보기용
 	//T selectOne(List list);

@@ -32,7 +32,7 @@ public class StoryDAO<T> {
 
 		System.out.println("****(dao)virtualImages까지는...왔니");
 		
-		return template.selectList("storyimages");
+		return template.selectList("storyimages",);
 		
 	}
 	
