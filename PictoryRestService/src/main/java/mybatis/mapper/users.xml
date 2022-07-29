@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="mybatis.mapper.users">
+	
+	<select id="UsersIsJoin" parameterType="Map" resultType="int">
+		SELECT COUNT(*) FROM users 
+		WHERE 1=1
+		<if test="userId !=null">
+			AND userid=#{userId}
+		</if>	
+		<if test="userPassword !=null">
+			AND userpassword=#{userPassword}
+		</if>	
+		<if test="email !=null">
+			AND useremail=#{email}
+		</if>		
+	</select>
+	
+	<select id="selectOneUser" parameterType="Map" resultType="usersDto">
+		SELECT * FROM users
+		WHERE 1=1 
+		<if test="userId !=null">
+			AND userid=#{userId}
+		</if>
+		<if test="email !=null">
+			AND useremail=#{email}
+		</if>	
+	</select>
+	
+	<insert id="usersInsert" parameterType="Map">
+		INSERT INTO users VALUES(SEQ_USERS.NEXTVAL, #{id}, 'KAKAO', #{email}, null, #{nickname}, default, default, #{profile}, null)
+	</insert>
+	
+	<insert id="authoritiesInsert">
+		INSERT INTO authorities VALUES(SEQ_USERS.CURRVAL, default, 1)
+	</insert>
+	
+</mapper>
