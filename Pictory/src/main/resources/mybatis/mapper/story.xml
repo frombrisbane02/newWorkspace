@@ -5,13 +5,13 @@
   
 <mapper namespace="mybatis.mapper.story">	
 
-	<select id="virtuallist" resultType="com.pictory.springapp.dto.StoryDTO">
+	<select id="storyllist" resultType="com.pictory.springapp.dto.StoryDTO">
 		SELECT * FROM STORY
 	</select>
 	
 	<!-- 스토리가 #번인 사진 전부 가져오기 -->
-	<select id="virtualimages" parameterType="com.pictory.springapp.dto.StoryDTO" resultType="com.pictory.springapp.dto.StoryDTO">
-		select * from photo where postno in (select postno from post where sno=#{sno});
+	<select id="storyimages" parameterType="int" resultType="com.pictory.springapp.dto.StoryDTO">
+		select photoNo from photo where postno in (select postno from post where sNO=#{sNO})
 	</select> 
 	
 	

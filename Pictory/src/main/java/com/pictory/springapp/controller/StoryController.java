@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Vector;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +23,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pictory.springapp.dto.StoryDTO;
 import com.pictory.springapp.dto.StoryService;
 
+import lombok.AllArgsConstructor;
 
 @SessionAttributes("userId")
 @Controller
@@ -47,32 +51,26 @@ public class StoryController {
 			System.out.println("storyone에 담긴 sNo: "+ storyOne.getSNo());
 			System.out.println("storyone에 담긴 title: "+ storyOne.getStoryTitle());
 			System.out.println("storyone에 담긴 desc: "+ storyOne.getStoryDescription());
-			System.out.println("storyone에 담긴 desc: "+ storyOne.getStoryThumbnail());
-
+			System.out.println("storyone에 담긴 Thumb: "+ storyOne.getStoryThumbnail());
+			
+			System.out.println("storyone에 담긴 UserId: "+ storyOne.getUserId());
+			System.out.println("storyone에 담긴 Nick: "+ storyOne.getUserNickname());
 		}
-		
-
-		
 		model.addAttribute("returnValue", returnValue);
-		
 		return "story/StoryIndex.tiles";
 	}
 	
 	
 	
-	@RequestMapping("virtualprocess.do")
-	public String virtualprocess() {
-		
-		//username으로 sNo 호출해오는 쿼리 든 서비스 호출
-		
-		System.out.println("버츄얼 프로세서");
-		System.out.println("들어왔습니다 버츄얼 어쩌구 저쩌구");
-		
-		//여기서 한 스토리의 모든 사진 URL 가져오기!
-		//storyService.virtualImages();
-	
-		return "story/Virtual.tiles";
-	}
+	   @RequestMapping("virtualprocess.do")
+	   public String virtualprocess(Model model, int sNo) {
+	      
+	      List<StoryDTO> images = storyService.virtualImages(sNo);
+	      model.addAttribute("virtualImage", images);
+	      System.out.println("이미지가 들어올려나???"+images.toArray().toString());
+	      
+	      return "story/Virtual.tiles";
+	   }
 
 	@Autowired
 	private ObjectMapper mapper;
@@ -106,22 +104,23 @@ public class StoryController {
 	@CrossOrigin
 	@RequestMapping(value="virtualrest.do",produces = "application/json;charset=UTF-8")
 	public @ResponseBody String virtualrest() throws JsonProcessingException {
-	   List<Map<String,String>> virtualImages=new Vector<>();
+	   List<Map<String,String>> lists=new Vector<>();
 		for(int i=1;i <= 7 ;i++) {
 			Map<String,String> map = new HashMap<>();
 			map.put("image_url","D:\\YJG\\newWorkspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\Pictory\\upload\\img\\CHOI2.jpg");
 			
-			virtualImages.add(map);
+			lists.add(map);
 		}
 		System.out.println("이미지 for문 끝");
 		Map resultMap = new HashMap();
 		resultMap.put("preference", null);
-		resultMap.put("data", virtualImages);
+		resultMap.put("data", lists);
 		
 		System.out.println(resultMap.get("preference"));
 		System.out.println(resultMap.get("data"));
 		
 		return mapper.writeValueAsString(resultMap);
 	}//
+	
 	
 }
