@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="mybatis.mapper.gallery">
+	
+	<select id="feedGalleryList"  parameterType="galleryDto" resultType="galleryDto">
+		SELECT po.postno,
+               po.posttitle,
+               u.usernickname,
+               u.userprofile,
+               u.userno,
+               po.posthits,
+	           po.postlikes,
+	           (SELECT ph.photourl FROM photo ph WHERE ph.postno=po.postno AND ROWNUM = 1) photourl,
+	           (SELECT COUNT(ct.cno) FROM comment_tbl ct WHERE ct.postno=po.postno) commentcnt,
+	           s.sno,
+	           s.storytitle,
+	           s.storythumbnail
+		  FROM post po INNER JOIN users u
+			ON po.userno = u.userno
+		  LEFT OUTER JOIN story s
+			ON po.sno = s.sno
+		 WHERE po.userno IN (SELECT followtargetid FROM follow WHERE userno = #{userNo})
+		 ORDER BY po.postdate DESC
+  	</select>
+	
+</mapper>
