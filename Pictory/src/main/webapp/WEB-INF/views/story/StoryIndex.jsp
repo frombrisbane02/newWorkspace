@@ -61,27 +61,30 @@
 				<div class="tab_cont tab_ac" id="tab1">
 					<ul class="story_list">
 					
-					<c:if test="${empty returnValue.StoryDTO}" var="isEmpty">
+					
+					<c:if test="${empty returnValue}" var="isEmpty">
 					데이터가없어요....(못 받아옴???)) 
 					</c:if>
-					
+					 
+					 
 					<c:if test="${not isEmpty}">
-						<c:forEach var="record" items="returnValue.StoryDTO" varStatus="loop">
+						<c:forEach var="record" items="${returnValue}" varStatus="loop">
 						<li>
 							<a href="<c:url value="/story/virtualprocess.do"/>">
-								<div class="img_area" style="background-image: url(<c:url value="/resources/img/story/test_img04.jpg"/>);">
-									<img src="${record.storyThumbnail}" alt="">
+								<div class="img_area" style="background-image: url(<c:url value="${record.storyThumbnail}"/>);">
+								<img src="<c:url value="/resources/img/story/fake03.png"/>" alt="">
+							
 								</div>
 
 								<div class="txt_area">
 									<p class="small">
 										<span class="cate">CATEGORY</span><span class="gray">풍경</span>
 									</p>
-									<p class="main_txt">${record.StoryDescription}</p>
+									<p class="main_txt">${record.storyDescription}</p>
 										
 									<div class="pro_line">
 										<p>
-											<img src="<c:url value="/resources/img/story/test_img02.jpg"/>" alt="" class="pro_p">${record.UserNickname}
+											<img src="<c:url value="/resources/img/story/test_img02.jpg"/>" alt="" class="pro_p">${record.userNickname}
 										</p>
 										<p class="gray">
 											<img
@@ -96,17 +99,16 @@
 						</li>
 						</c:forEach>
 					</c:if>
-						
-						
-						
+
 					</ul>
 					
 				</div>
 
+
 				<div class="tab_cont" id="tab2">
 					<ul class="story_list">
 						<li>
-						<a href="http://192.168.0.27:9966/" target="_blank">
+						<a href="<c:url value="/story/virtualprocess.do"/>">
 								<div class="img_area"
 									style="background-image: url(<c:url value="/resources/img/story/test_img03.jpg"/>);">
 									<img src="<c:url value="/resources/img/story/fake03.png"/>" alt="">
@@ -117,8 +119,7 @@
 										<span class="cate">CATEGORY</span><span class="gray">뭐
 											넣는건가요</span>
 									</p>
-									<p class="main_txt">안녕하세요 여기에 글을 넣어주세요 네네네네 반갑습니다 오오오오오오오
-										멋져멋져 안녕하세요 안녕하세요 여기에 글을 넣어주세요 네네네네 반갑습니다 오오오오오오오 멋져멋져</p>
+									<p class="main_txt">스토리 설명글이 여기에  스토리 스토리 설명글  몇자로 제한 하는거죠?? 스토리 설명글이 여기에 스토리 설명글이 여기에 </p>
 									<div class="pro_line">
 										<p>
 											<img

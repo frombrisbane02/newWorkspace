@@ -10,6 +10,15 @@ import org.springframework.stereotype.Repository;
 
 import com.pictory.springapp.dto.StoryDTO;
 
+
+/*
+[프로그래밍 순서]
+가. SqlSessionFactory타입의 openSession() method로 sqlsession타입 얻기
+나. SqlSession타입 Method호출
+	.쿼리문 select     다중레코드: selectList()   ///    단일레코드: selectOne()
+	.쿼리문 INSERT - insert()  ///    DELETE - delete()       ///     UPDATE - update()
+	단, I/D/U는 반드시 commit()호출
+다. close() 호출    */
 @Repository("storyDAO")
 public class StoryDAO<T> {
 
@@ -27,6 +36,8 @@ public class StoryDAO<T> {
 		
 	}
 
+	
+	/*====================0726
 	public List<StoryDTO> virtualImages(List<StoryDTO> returnValue) {
 		
 		System.out.println("virtualImages 맞나요?");
@@ -42,11 +53,18 @@ public class StoryDAO<T> {
 		for(StoryDTO virtualImage : virtualImages ) {			
 			
 			System.out.println("가지고온 sNo: "+virtualImage.getSNo());
-			System.out.println("가지고온 photoUrl: "+virtualImage.getPhotoUrl());
-			
+			//System.out.println("가지고온 photoUrl: "+virtualImage.getPhotoUrl());	
 		}
-		
-		
 		return virtualImages;
+	}*/
+	
+	public List<StoryDTO> virtualImages() {
+		
+		System.out.println("virtualImages");
+		
+		return template.selectList("virtualimages");
+		
 	}
+	
+	
 }

@@ -33,7 +33,6 @@ public class StoryController {
 	//종근 - 스토리 컨트롤러
 	@RequestMapping("StoryIndex.do")
 	public String index(Model model) {
-		System.out.println("스토리 컨트롤러");
 		
 		List<StoryDTO> storyList = new ArrayList<StoryDTO>();
 		//Map<StoryDTO> storyList = new Map<StoryDTO>();
@@ -48,12 +47,13 @@ public class StoryController {
 			System.out.println("storyone에 담긴 sNo: "+ storyOne.getSNo());
 			System.out.println("storyone에 담긴 title: "+ storyOne.getStoryTitle());
 			System.out.println("storyone에 담긴 desc: "+ storyOne.getStoryDescription());
-			System.out.println("storyone에 담긴 nick: "+ storyOne.getUserNickname());
+			System.out.println("storyone에 담긴 desc: "+ storyOne.getStoryThumbnail());
+
 		}
 		
 
 		
-		model.addAllAttributes(returnValue);
+		model.addAttribute("returnValue", returnValue);
 		
 		return "story/StoryIndex.tiles";
 	}
@@ -78,11 +78,10 @@ public class StoryController {
 	private ObjectMapper mapper;
 	
 	
-
+	/*
 	@CrossOrigin
 	@RequestMapping(value="virtualrest.do",produces = "application/json;charset=UTF-8")
 	public @ResponseBody String virtualrest() throws JsonProcessingException {
-		System.out.println("스토리 가상");
 	   List<Map<String,String>> lists=new Vector<>();
 		for(int i=1;i <= 7 ;i++) {
 			Map<String,String> map = new HashMap<>();
@@ -95,6 +94,29 @@ public class StoryController {
 		Map resultMap = new HashMap();
 		resultMap.put("preference", null);
 		resultMap.put("data", lists);
+		
+		System.out.println(resultMap.get("preference"));
+		System.out.println(resultMap.get("data"));
+		
+		return mapper.writeValueAsString(resultMap);
+	}//
+	*/
+	
+
+	@CrossOrigin
+	@RequestMapping(value="virtualrest.do",produces = "application/json;charset=UTF-8")
+	public @ResponseBody String virtualrest() throws JsonProcessingException {
+	   List<Map<String,String>> virtualImages=new Vector<>();
+		for(int i=1;i <= 7 ;i++) {
+			Map<String,String> map = new HashMap<>();
+			map.put("image_url","D:\\YJG\\newWorkspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\Pictory\\upload\\img\\CHOI2.jpg");
+			
+			virtualImages.add(map);
+		}
+		System.out.println("이미지 for문 끝");
+		Map resultMap = new HashMap();
+		resultMap.put("preference", null);
+		resultMap.put("data", virtualImages);
 		
 		System.out.println(resultMap.get("preference"));
 		System.out.println(resultMap.get("data"));

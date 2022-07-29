@@ -13,19 +13,19 @@ import lombok.ToString;
 @Setter
 @Getter
 @ToString
-@NoArgsConstructor
-@AllArgsConstructor
+@NoArgsConstructor   //룸복 기본생성자 
+@AllArgsConstructor    //룸북 인자생성자
 public class StoryDTO {
 
 	private int sNo;
-	private String storyThumbnail; //300
+	private String storyThumbnail; //썸네일
 	private String storyTitle;//20자
 	private String storyDescription;//100자  
 	private String userNickname;
 	private String userId;
 	private int userNo;
 	private int photoNo;  //사진고유번호
-	private String photoUrl;
+	private String photoUrl;    //사진 URL
 	
 
 }
