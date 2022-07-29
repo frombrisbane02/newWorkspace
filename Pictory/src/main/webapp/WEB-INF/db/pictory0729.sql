@@ -1,5 +1,5 @@
 
-/* Drop Tables 
+/* Drop Tables */
 
 DROP TABLE AUTHORITIES CASCADE CONSTRAINTS;
 DROP TABLE CART CASCADE CONSTRAINTS;
@@ -20,7 +20,6 @@ DROP TABLE STORY CASCADE CONSTRAINTS;
 DROP TABLE USERS CASCADE CONSTRAINTS;
 
 
-
 --시퀀스 DROP용
 DROP SEQUENCE SEQ_USERS;
 DROP SEQUENCE SEQ_POST;
@@ -34,7 +33,6 @@ DROP SEQUENCE SEQ_DM;
 DROP SEQUENCE SEQ_DMROOM;
 DROP SEQUENCE SEQ_QNA;
 DROP SEQUENCE SEQ_NOTICE;
-*/
 
 
 /* 필요 시퀀스!!! 총 12개 개수 확인 완료 */
@@ -108,7 +106,7 @@ CREATE TABLE AUTHORITIES
 (
 	-- USER_SEQ
 	userNo number NOT NULL,
-	authorities nvarchar2(10) DEFAULT 'USER',
+	authorities nvarchar2(10) DEFAULT 'ROLE_USER',
 	-- 활동중지 및 재개 관련
 	-- 1- 활성
 	-- 2- 비활성
@@ -248,6 +246,8 @@ CREATE TABLE PHOTO
 	postNo number NOT NULL,
 	photoSize number,
 	photoName nvarchar2(200),
+	-- http://192.168.0.,xxx:4040/springapp이런식으로 구성됩니다!
+	photoUrl nvarchar2(300),
 	PRIMARY KEY (photoNo)
 );
 
@@ -259,13 +259,14 @@ CREATE TABLE POST
 	-- USER_SEQ
 	userNo number NOT NULL,
 	-- 생성순서대로 SEQ_STORY
+	-- 
 	sNo number,
-	postTitle nvarchar2(40) NOT NULL,
+	postTitle nvarchar2(25) NOT NULL,
 	postHits number DEFAULT 0,
 	-- 1 판매 2 낫판매
 	postSellorNot number NOT NULL,
 	-- 카테고리 인물정물풍경기타 nvarchar2로 넣기
-	postCategory nvarchar2(30) NOT NULL,
+	postCategory nvarchar2(10) NOT NULL,
 	-- 텍스트영역
 	postText nvarchar2(300),
 	-- 좋아요개수 저장용
@@ -312,7 +313,7 @@ CREATE TABLE STORY
 	-- 생성순서대로 SEQ_STORY
 	-- 
 	sNo number NOT NULL,
-	-- 이미지 먼저 업로드 처리할거니께 url로 넣을게용
+	-- 상대경로 url로 저장!
 	storyThumbnail nvarchar2(300),
 	storyTitle nvarchar2(20),
 	storyDescription nvarchar2(100),
@@ -338,7 +339,6 @@ CREATE TABLE USERS
 	-- 자기소개 하나만!
 	-- 
 	userSelf nvarchar2(300),
-	userDate date DEFAULT SYSDATE,
 	PRIMARY KEY (userNo)
 );
 

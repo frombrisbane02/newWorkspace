@@ -305,7 +305,6 @@
 				filerobotImageEditor.render({source: e.target.result})
 			};
 
-		  
 		}
 	  }
 	

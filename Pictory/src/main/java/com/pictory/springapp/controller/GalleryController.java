@@ -36,8 +36,4 @@ public class GalleryController {
 		
 		return "gallery/GalleryList.tiles";
 	}
-	
-	
-	
-
 }

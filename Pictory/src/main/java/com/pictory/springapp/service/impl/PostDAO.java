@@ -97,7 +97,8 @@ public class PostDAO {
 		}//try
 		catch(Exception e) {e.getStackTrace();}
 		
-		return path;
+		
+		return "http://192.168.0.209:4040/springapp/upload/img/"+String.valueOf(map.get("userId"));
 	}
 	
 	
@@ -126,23 +127,25 @@ public class PostDAO {
 		System.out.println("파일명"+uploadImage.getOriginalFilename());
 		
 		uploadImage.transferTo(dest);
-			
 
 		}//try
 		catch(Exception e) {e.getStackTrace();}
 		
-		return path;
+		return "http://192.168.0.209:4040/springapp/upload/img/"+String.valueOf(map.get("userId"))+"/"+uploadImage.getOriginalFilename();
 	}
 
 	public String uploadStoryThumbnail(Map map, MultipartFile storyThumbnail) {
 		
 		System.out.println("path 잘 받아왔니?;;: "+map.get("path"));
 		String path = String.valueOf(map.get("path"))+"\\img\\"+String.valueOf(map.get("userId"));
+		//String path = "http://192.168.0.209:4040/springapp/upload/img/"+String.valueOf(map.get("userId"));
 		File dest = new File(path+File.separator+storyThumbnail.getOriginalFilename());
 		try {storyThumbnail.transferTo(dest);}
 		catch (Exception e) {e.printStackTrace();}
 		
-		return storyThumbnail.getOriginalFilename();
+		System.out.println("http://192.168.0.209:4040/springapp/upload/img/"+String.valueOf(map.get("userId"))+"/"+storyThumbnail.getOriginalFilename());
+		
+		return "http://192.168.0.209:4040/springapp/upload/img/"+String.valueOf(map.get("userId"))+"/"+storyThumbnail.getOriginalFilename();
 	}
 
 	public int storyInsert(Map map) {
