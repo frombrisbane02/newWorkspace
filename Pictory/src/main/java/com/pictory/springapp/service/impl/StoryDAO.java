@@ -31,9 +31,9 @@ public class StoryDAO<T> {
    public List<StoryDTO> virtualImages() {
 
       System.out.println("****(dao)virtualImages까지는...왔니");
-      int sNo=1;
-      List<StoryDTO> storyresult = template.selectList("storyimages",sNo);
-      System.out.println("strresult:@@@"+storyresult);
+      //int sNo=1;
+      List<StoryDTO> storyresult = template.selectList("storyimages");
+      System.out.println("strresult:@@@"+storyresult.toString());
       
       return storyresult;
       

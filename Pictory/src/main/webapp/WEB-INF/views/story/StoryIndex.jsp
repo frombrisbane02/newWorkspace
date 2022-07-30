@@ -70,7 +70,7 @@
 					<c:if test="${not isEmpty}">
 						<c:forEach var="record" items="${returnValue}" varStatus="loop">
 						<li>
-							<a href="<c:url value="/story/virtualprocess.do"/>">
+							<a href="<c:url value="/story/virtualprocess.do?sNo=${record.SNo}"/>">
 								<div class="img_area" style="background-image: url(<c:url value="/upload/img/${record.userId}/${record.storyThumbnail}"/>);">
 								<img src="<c:url value="/resources/img/story/fake03.png"/>" alt="">
 							

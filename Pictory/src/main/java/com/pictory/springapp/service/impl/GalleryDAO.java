@@ -20,11 +20,13 @@ public class GalleryDAO {
 
 	public List<GalleryDTO> selectGalleryList() {
 		
+		/*
 		List<GalleryDTO> resultList = template.selectList("galleryList");
 		
 		for(GalleryDTO oneResult : resultList) {
 			System.out.println("결과가 있긴하다네요..");
 		}
-		return resultList;
+		*/
+		return null;
 	}
 }

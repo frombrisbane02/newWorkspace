@@ -82,7 +82,7 @@ public class PostController {
 	
 	@CrossOrigin
 	@RequestMapping(value="post/EditImage.do",produces = "application/json;charset=UTF-8")
-	public @ResponseBody String image(@RequestParam String base64,@RequestParam 
+	public @ResponseBody String image(@RequestParam String base64,@RequestParam
 									String filename, HttpSession session, Model model,
 									HttpServletRequest req) throws JsonProcessingException {
 		//save를 누르면 정보가 여기로 들어옴
@@ -119,6 +119,7 @@ public class PostController {
 		//필요값: photoSize, photoName
 		int photoSize = ((int)Math.ceil(dest.length()/1024.0));
 		String photoName = filename;
+		String photoUrl = "http://192.168.0.209:4040/springapp/upload/img/"+userId+"/"+photoName;
 		
 		
 		System.out.println("IEC) 사진크기: "+photoSize+"KB");
@@ -127,6 +128,7 @@ public class PostController {
 		Map<String, Object> fileInfo = new HashMap<String, Object>();
 		fileInfo.put("photoSize", photoSize);
 		fileInfo.put("photoName", photoName);
+		fileInfo.put("photoUrl", "");
 		
 		
 		
@@ -140,7 +142,6 @@ public class PostController {
 		
 		return "{\"upload\":\"sucsses\"}";
 	}
-	
 	
 	
 	//===========================ADD MAP===============================
@@ -191,11 +192,11 @@ public class PostController {
 		//PRODUCT - pdNo, photoNo, pdPrice, pdSalesNo, pdDate
 		String photoName = uploadImage.getOriginalFilename();
 		int photoSize = (int)Math.ceil(uploadImage.getSize()/1024.0);
-		//String photoUrl = "http://192.168.0.146"+"\\"+photoName;
+		String photoUrl = "http://192.168.0.209:4040/springapp/upload/img/"+String.valueOf(map.get("userId"))+"/"+photoName;
 		
 		map.put("photoName", photoName);
 		map.put("photoSize", photoSize);
-		//map.put("photoUrl", photoUrl);
+		map.put("photoUrl", photoUrl);
 		
 		postUploadService.sellPostInsert(map);
 		
@@ -211,6 +212,7 @@ public class PostController {
 			@RequestParam(value="hashtags") List<String> hashtag,
 			@RequestParam("uploadImage") List<MultipartFile> uploadImage, HttpServletRequest req) throws IllegalStateException, IOException {
 		
+		System.out.println(userId);
 		System.out.println("가져온 맵: "+map);
 		System.out.println("스토리썸네일이름: "+sThumbnail.getOriginalFilename());
 		System.out.println("스토리썸네일사이즈: "+sThumbnail.getSize());
@@ -251,7 +253,8 @@ public class PostController {
 			
 			String photoName = file.getOriginalFilename();
 			int photoSize = (int)Math.ceil(file.getSize()/1024.0);
-			String photoUrl = path+"\\"+photoName;
+			String photoUrl = "http://192.168.0.209:4040/springapp/upload/img/"+String.valueOf(map.get("userId"))+"/"+photoName;
+			
 			
 			fileList.put("photoName", photoName);
 			fileList.put("photoSize", photoSize);

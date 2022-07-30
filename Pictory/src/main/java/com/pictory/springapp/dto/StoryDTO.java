@@ -23,14 +23,28 @@ public class StoryDTO {
 	private String storyTitle;//20자
 	private String storyDescription;//100자  
 	
-	//users
+	//TBL_USERS
+	private int userNo;
 	private String userNickname;
 	private String userId;
-	private int userNo;
+	private String userEmail;
+	private String userName;
+	private int userFing;
+	private int userFwer;
+	private String userProfile;
+	private String userPassword;
+	private String userSelf;
+	private Date userDate;
+	
+	//TBL_PHOTO
+	private int photoNo;
+	private int photoSize;
+	private String photoName;
+	private String photoUrl;
 	
 	//photo
-	private int photoNo;  //사진고유번호
-	private String photoUrl;    //사진 URL
+	//private int photoNo;  //사진고유번호
+	//private String photoUrl;    //사진 URL
 	
 
 }

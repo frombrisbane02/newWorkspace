@@ -12,7 +12,7 @@ public class GalleryDTO {
 	
 	//List에 필요한 변수들(POST, PHOTO, USER 테이블)
 	//목록: 카테고리, 제목, 해시태그, 첫번째 이미지(썸네일용), 좋아요수, 댓글 수, 닉네임
-	
+	//TBL_POST
 	private int postNo;
 	private String postTitle;
 	private int postHits;
@@ -21,33 +21,48 @@ public class GalleryDTO {
 	private String postText;
 	private int postLikes;
 	private Date postDate;
-	private int commentCount;
 	
-	//user 정보
-	private String userId;
+
+	
+	//TBL_STORY
+	private int sNo;
+
+	
+	//TBL_USERS
 	private int userNo;
-	private String userProfile;
+	private String userId;
+	private String userPassword;
+	private String userEmail;
 	private String userName;
+	private String userNickname;
 	private int userFing;
 	private int userFwer;
+	private String userProfile;
+	private String userSelf;
+	private Date userDate;
 	
 	
-	//hashtag(등록하는경우)
+	//TBL_HASHTAG
 	private String hashtag;
 	
-	//photo
+	//TBL_PHOTO
 	private int photoNo;
 	private int photoSize;
 	private String photoName;
 	private String photoUrl;
 	
 	
-	// 댓글용
+	//TBL_COMMENT
+	private int commentCount;
 	private int cNo;
 	private String cText;
 	private int cLevel;
 	private Date cDate;
 	private int parentCNo;
+	
+	//TBL_FOLLOW
+	private int followTargetId;
+	
 	
 	
 	//map용(등록하는경우)

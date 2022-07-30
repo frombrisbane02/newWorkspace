@@ -188,7 +188,7 @@ public class PostDAO {
 		System.out.println("productInsert에 postNo 있지? 젭알 있다고 해 ㅡㅡ "+map.get("postNo"));
 		int photoNo = getPhotoNo(map);
 		
-		map.put("pdNo", photoNo);
+		map.put("photoNo", photoNo);
 		
 		template.insert("productInsert",map);
 		

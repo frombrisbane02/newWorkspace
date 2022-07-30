@@ -19,14 +19,15 @@ public class GalleryServiceImpl implements GalleryService<GalleryDTO> {
 		
 		List<GalleryDTO> resultList =dao.selectGalleryList();
 		
+		System.out.println("DAO ResultList: "+resultList);
+		
 		for(GalleryDTO oneResult: resultList) {
 			System.out.println("카테고리 :"+oneResult.getPostCategory());
-			System.out.println("카테고리 :"+oneResult.getPostCategory());
-			System.out.println("카테고리 :"+oneResult.getPostLikes());
-			System.out.println("카테고리 :"+oneResult.getPostNo());
-			System.out.println("카테고리 :"+oneResult.getUserId());
-			System.out.println("카테고리 :"+oneResult.getUserName());
-			
+			System.out.println("타이틀 :"+oneResult.getPostTitle());
+			System.out.println("좋아요숫자 :"+oneResult.getPostLikes());
+			System.out.println("글번호 :"+oneResult.getPostNo());
+			System.out.println("유저아이디 :"+oneResult.getUserId());
+			System.out.println("유저닉네임 :"+oneResult.getUserName());
 		}
 		return null;
 	}

@@ -9,8 +9,8 @@
 	
 	<!-- 필요 인자: 카테고리, 해시태그, 첫번째 이미지 url(썸네일용), 좋아요수, 댓글 수 -->
 	<select id="galleryList" resultType="GalleryDTO">
-		SELECT p.*, u.*, ph.*, h.*
-		FROM POST p, USERS u, PHOTO ph, HASHTAG h
-		WHERE p.userno=u.userno and ph.postno=p.postno and h.postno=p.postno
+		SELECT p.postCategory, p.postTitle, p.PostLikes, p.PostNo, u.userId, u.userName, ph.photoUrl
+		FROM POST p, PHOTO ph, USERS u
+		WHERE p.userNo=u.userNo AND p.postNo=ph.postNo
 	</select>
 </mapper>

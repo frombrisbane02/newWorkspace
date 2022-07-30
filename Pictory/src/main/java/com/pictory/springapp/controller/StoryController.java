@@ -45,14 +45,13 @@ public class StoryController {
 		//storyService.virtualList(storyList);
 		List<StoryDTO> returnValue = storyService.virtualList();
 		
-		System.out.println("returnValue: "+returnValue);
+		System.out.println("returnValue: "+returnValue.toString());
 		
 		for(StoryDTO storyOne : returnValue) {
 			System.out.println("storyone에 담긴 sNo: "+ storyOne.getSNo());
 			System.out.println("storyone에 담긴 title: "+ storyOne.getStoryTitle());
 			System.out.println("storyone에 담긴 desc: "+ storyOne.getStoryDescription());
 			System.out.println("storyone에 담긴 Thumb: "+ storyOne.getStoryThumbnail());
-			
 			System.out.println("storyone에 담긴 UserId: "+ storyOne.getUserId());
 			System.out.println("storyone에 담긴 Nick: "+ storyOne.getUserNickname());
 		}

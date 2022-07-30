@@ -18,7 +18,7 @@
 		<selectKey keyProperty="photoNo" resultType="int" order="BEFORE">
 			SELECT SEQ_PHOTO.NEXTVAL FROM DUAL
 		</selectKey>
-		INSERT INTO PHOTO VALUES (SEQ_PHOTO.CURRVAL, #{postNo}, #{photoSize}, #{photoName})
+		INSERT INTO PHOTO VALUES (SEQ_PHOTO.CURRVAL, #{postNo}, #{photoSize}, #{photoName}, #{photoUrl})
 	</insert>
 	
 	<select id="getPostNo" parameterType="int" resultType="int">

@@ -532,10 +532,6 @@ function leavePage(){
 
 
 
-
-
-
-
 </script>
 
 

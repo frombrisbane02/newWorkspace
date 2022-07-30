@@ -20,6 +20,7 @@ DROP TABLE STORY CASCADE CONSTRAINTS;
 DROP TABLE USERS CASCADE CONSTRAINTS;
 
 
+
 --시퀀스 DROP용
 DROP SEQUENCE SEQ_USERS;
 DROP SEQUENCE SEQ_POST;
@@ -33,7 +34,6 @@ DROP SEQUENCE SEQ_DM;
 DROP SEQUENCE SEQ_DMROOM;
 DROP SEQUENCE SEQ_QNA;
 DROP SEQUENCE SEQ_NOTICE;
-
 
 /* 필요 시퀀스!!! 총 12개 개수 확인 완료 */
 
@@ -99,14 +99,13 @@ NOCYCLE;
 
 
 
-
 /* Create Tables */
 
 CREATE TABLE AUTHORITIES
 (
 	-- USER_SEQ
 	userNo number NOT NULL,
-	authorities nvarchar2(10) DEFAULT 'ROLE_USER',
+	authorities nvarchar2(10) DEFAULT 'USER',
 	-- 활동중지 및 재개 관련
 	-- 1- 활성
 	-- 2- 비활성
@@ -339,6 +338,7 @@ CREATE TABLE USERS
 	-- 자기소개 하나만!
 	-- 
 	userSelf nvarchar2(300),
+	userDate date DEFAULT SYSDATE,
 	PRIMARY KEY (userNo)
 );
 
@@ -445,14 +445,14 @@ ALTER TABLE COMMENT_TBL
 
 
 ALTER TABLE DM
-	ADD FOREIGN KEY (sendNick)
+	ADD FOREIGN KEY (readNick)
 	REFERENCES USERS (userNo)
 	ON DELETE CASCADE
 ;
 
 
 ALTER TABLE DM
-	ADD FOREIGN KEY (readNick)
+	ADD FOREIGN KEY (sendNick)
 	REFERENCES USERS (userNo)
 	ON DELETE CASCADE
 ;
