@@ -5,8 +5,10 @@
   
 <mapper namespace="mybatis.mapper.story">	
 
-	<select id="storyllist" resultType="StoryDTO">
-		SELECT * FROM STORY
+	<select id="storyllist" resultType="StoryDTO">	      
+		select s.*,p.*,u.*  from story s
+		LEFT OUTER JOIN post p on s.sNO = p.sNO
+		LEFT OUTER JOIN users u on u.userNO = p.userNo
 	</select>
 	
 	<!-- 스토리가 #번인 사진 전부 가져오기 -->
