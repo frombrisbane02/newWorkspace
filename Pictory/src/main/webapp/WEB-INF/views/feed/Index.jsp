@@ -1,16 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+	
 	<link rel="shortcut icon" type="image/x-icon" href="img/favicon.png">
 	<link rel="apple-touch-icon" href="img/favicon.png">
 	
 	<link rel="stylesheet" href="<c:url value="/resources/css/feed/common.css"/>"/>
 	<link rel="stylesheet" href="<c:url value="/resources/css/feed/page2.css"/>"/>
+	<link rel="stylesheet" href="<c:url value="/resources/css/feed/dm.css"/>"/>
 
     <script src="${pageContext.request.contextPath}/resources/js/feed/html5shiv.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/feed/tab.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/feed/modernizr.js"></script>
-    <script src="http://code.jquery.com/jquery-1.8.1.min.js"></script>
+    
 
 	
 <body>	 
@@ -55,7 +56,8 @@
 
 				<ul class="btn_area">
 					<li><a href="" class="black_icon"><img src="<c:url value="/resources/img/feed/test_icon02.png"/>">Following</a></li>
-					<li><a href="" class="white_icon"><span></span>DM</a></li>
+					<li><a href="<c:url value="/message/message_list.do"/>" class="white_icon" id="addClass"><span></span>DM</a></li>
+					
 				</ul>
 
 				<div class="best_project">
@@ -75,62 +77,17 @@
 					<p><img src="<c:url value="/resources/img/feed/test_icon01.png"/>" alt="">서울시 서울구 서울동 12-345</p>
 				</div>
 			</div>
-
 			<div class="right_list">
-				<ul class="top_tab">
-					<li class="tab_link tab_ac" data-tab="tab1"><a href="">Artwork <span>1</span></a></li>
-					<li class="tab_link" data-tab="tab2"><a href="">Story <span>1</span></a></li>
-					<li class="tab_link" data-tab="tab3"><a href="">Likes <span>1</span></a></li>
+				<ul class="top_tab" role="tablist" >
+					<li class="tab_link tab_ac" data-tab="Artwork"><a data-toggle="tab" href="Artwork" aria-controls="artwork2" aria-selected="true" role="tab">Artwork <span>1</span></a></li>
+					<li class="tab_link" data-tab="Story"><a href="<c:url value="feed/Stroy.do" />" data-toggle="tab" href="Story" aria-controls="story2" aria-selected="false" role="tab">Story <span>1</span></a></li>
+					<li class="tab_link" data-tab="Likes"><a href="" data-toggle="tab" href="Likes" aria-controls="likes2" aria-selected="false" role="tab">Likes <span>1</span></a></li>
 				</ul>
-
-				<div class="cont_area">
-					<div class="tab_cont tab_ac" id="tab1">
-						<ul class="cont_list">
-							<li class="photo_area">
-								<a href="" class="photo_link">					
-									<div class="img_area" style="background-image: url(<c:url value="/resources/img/feed/test_img03.jpg"/>);"><img src="<c:url value="/resources/img/feed/fake02.png"/>" alt=""></div>	
-									<div class="txt_area">
-										<p><img src="<c:url value="/resources/img/feed/test_img02.jpg"/>" alt="" class="pro_p">User name</p>
-										<p><img src="<c:url value="/resources/img/feed/test_icon06.png"/>" alt="" class="pro_icon"><span>0</span><img src="<c:url value="/resources/img/feed/test_icon07.png"/>" alt="" class="pro_icon"><span>0</span></p>
-									</div>		
-								</a>
-							</li>
-						</ul>
-					</div>
-
-					<div class="tab_cont" id="tab2">
-						<ul class="story_list">
-							<li>
-								<a href="">					
-									<div class="img_area" style="background-image: url(<c:url value="/resources/img/feed/test_img04.png"/>"><img src="<c:url value="/resources/img/feed/fake03.png"/>" alt=""></div>	
-									<div class="txt_area">
-										<p class="small"><span class="cate">CATEGORY</span><span class="gray">뭐 넣는건가요</span></p>
-										<p class="main_txt">안녕하세요 여기에 글을 넣어주세요 네네네네 반갑습니다 오오오오오오오 멋져멋져 안녕하세요 안녕하세요 여기에 글을 넣어주세요 네네네네 반갑습니다 오오오오오오오 멋져멋져</p>
-										<div class="pro_line">
-											<p><img src="<c:url value="/resources/img/feed/test_img2.jpg"/>" alt="" class="pro_p">User name</p>
-											<p class="gray"><img src="<c:url value="/resources/img/feed/test_icon08.png"/>" alt="" class="pro_icon"><span>0</span><img src="<c:url value="/resources/img/feed/test_icon09.png"/>" alt="" class="pro_icon"><span>0</span></p>
-										</div>
-									</div>		
-								</a>
-							</li>
-						</ul>
-					</div>
-
-					<div class="tab_cont" id="tab3">
-						<ul class="cont_list">
-							<li class="photo_area">
-								<a href="" class="photo_link">					
-									<div class="img_area" style="background-image: url(<c:url value="/resources/img/feed/test_img04.jpg"/>"><img src="<c:url value="/resources/img/feed/fake02.png"/>" alt=""></div>	
-									<div class="txt_area">
-										<p><img src="<c:url value="/resources/img/feed/test_img02.jpg"/>" alt="" class="pro_p">User name</p>
-										<p><img src="<c:url value="/resources/img/feed/test_icon06.png"/>" alt="" class="pro_icon"><span>0</span><img src="<c:url value="/resources/img/feed/test_icon07.png"/>" alt="" class="pro_icon"><span>0</span></p>
-									</div>		
-								</a>
-							</li>
-						</ul>
-					</div>
-				</div>
-			</div>
+				
+        			<div id="myTab2Content" class="tab-content">
+          <!-- 데이터 뿌려주기 -->
+        	</div>
+			
 		</div>
 	</div>
 </form>
