@@ -85,7 +85,7 @@
 										
 									<div class="pro_line">
 										<p>
-											<img src="<c:url value="/resources/img/story/test_img02.jpg"/>" alt="" class="pro_p">${record.userNickname}
+											<img src="<c:url value="${record.userProfile}"/>" alt="" class="pro_p">${record.userNickname}
 										</p>
 										<p class="gray">
 											<img
