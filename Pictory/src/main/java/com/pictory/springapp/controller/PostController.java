@@ -119,7 +119,7 @@ public class PostController {
 		//필요값: photoSize, photoName
 		int photoSize = ((int)Math.ceil(dest.length()/1024.0));
 		String photoName = filename;
-		String photoUrl = "http://192.168.0.209:4040/springapp/upload/img/"+userId+"/"+photoName;
+		String photoUrl = "http://localhost:4040/springapp/upload/img/"+userId+"/"+photoName;
 		
 		
 		System.out.println("IEC) 사진크기: "+photoSize+"KB");
@@ -192,7 +192,7 @@ public class PostController {
 		//PRODUCT - pdNo, photoNo, pdPrice, pdSalesNo, pdDate
 		String photoName = uploadImage.getOriginalFilename();
 		int photoSize = (int)Math.ceil(uploadImage.getSize()/1024.0);
-		String photoUrl = "http://192.168.0.209:4040/springapp/upload/img/"+String.valueOf(map.get("userId"))+"/"+photoName;
+		String photoUrl = "http://localhost:4040/springapp/upload/img/"+String.valueOf(map.get("userId"))+"/"+photoName;
 		
 		map.put("photoName", photoName);
 		map.put("photoSize", photoSize);
@@ -253,7 +253,7 @@ public class PostController {
 			
 			String photoName = file.getOriginalFilename();
 			int photoSize = (int)Math.ceil(file.getSize()/1024.0);
-			String photoUrl = "http://192.168.0.209:4040/springapp/upload/img/"+String.valueOf(map.get("userId"))+"/"+photoName;
+			String photoUrl = "http://localhost:4040/springapp/upload/img/"+String.valueOf(map.get("userId"))+"/"+photoName;
 			
 			
 			fileList.put("photoName", photoName);

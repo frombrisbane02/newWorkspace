@@ -36,6 +36,7 @@
 		</div>
 		<ul class="fil_sel_list" style="list-style-type: none;">
 		<!-- 여기 선택한 필터 리스트 목록 갖고와서 foreach로 뿌리면서 엑스<도 기능하고, 엑스 눌렀을때 체크 해제되게 기능구현  -->
+		
 			<li>
 				<a href=""><img src="img/test_icon16.png" alt=""></a>
 				<p>Clean all</p>
@@ -61,17 +62,22 @@
 				<p>COLOR 2</p>
 			</li>
 		</ul>
+		
 
 		<ul class="gall_list_wrap">
 		<!-- li~li까지 데이터 저장후 받아와서 foreach로 뿌리기 -->
-		
+		<c:if test="${empty lists}" var="isEmpty">
+			    <li> There is NO POST YET</li>
+		</c:if>
+		<c:if test="${not isEmpty}">
+		     <c:forEach var="list" items="${lists}" varStatus="loop">
 			<li class="photo_area">
 				<a href="" class="photo_link">					
-					<div class="img_area" style="background-image: url(${pageContext.request.contextPath}/resources/img/gallerylist/test_img13.jpg);"><img src="${pageContext.request.contextPath}/resources/img/gallerylist/fake02.png" alt=""></div>	
+					<div class="img_area" style="background-image: url(${list.photoUrl});"><img src="${pageContext.request.contextPath}/resources/img/gallerylist/fake02.png" alt=""></div>	
 
 					<div class="txt_area">
-						<p><img src="${pageContext.request.contextPath}/resources/img/gallerylist/test_img02.jpg" alt="" class="pro_p">User name</p>
-						<p><img src="${pageContext.request.contextPath}/resources/img/gallerylist/test_icon06.png" alt="" class="pro_icon"><span>0</span><img src="${pageContext.request.contextPath}/resources/img/gallerylist/test_icon07.png" alt="" class="pro_icon"><span>0</span></p>
+						<p><img src="${pageContext.request.contextPath}/resources/img/gallerylist/test_img02.jpg" alt="" class="pro_p">${list.userNickname}</p>
+						<p><img src="${pageContext.request.contextPath}/resources/img/gallerylist/test_icon06.png" alt="" class="pro_icon"><span>${list.postLikes}</span><img src="${pageContext.request.contextPath}/resources/img/gallerylist/test_icon07.png" alt="" class="pro_icon"><span>0</span></p>
 					</div>						
 				</a>
 
@@ -81,37 +87,14 @@
 				</ul>
 				
 				<div class="hover_txt">
-					<h3>Marietta Modern Farmhouse</h3>
-					<p class="sub_txt">Farmhouse Laundry Room</p>
-					<p class="bot_txt">United Kingdom</p>
+					<h3>${list.postTitle}</h3>
+					<p class="sub_txt">HASHTAG(NULLCHECK)</p>
+					<p class="bot_txt">${list.postCategory}</p>
 				</div>
 			</li>
-			
+			</c:forEach>
+			</c:if>
 	<!-- ===========================절취선================================= -->
-			
-
-			<li class="photo_area">
-				<a href="" class="photo_link">					
-					<div class="img_area" style="background-image: url(${pageContext.request.contextPath}/resources/img/gallerylist/test_img13.jpg);"><img src="${pageContext.request.contextPath}/resources/img/gallerylist/fake02.png" alt=""></div>	
-
-					<div class="txt_area">
-						<p><img src="${pageContext.request.contextPath}/resources/img/gallerylist/test_img02.jpg" alt="" class="pro_p">User name</p>
-						<p><img src="${pageContext.request.contextPath}/resources/img/gallerylist/test_icon06.png" alt="" class="pro_icon"><span>0</span><img src="${pageContext.request.contextPath}/resources/img/gallerylist/test_icon07.png" alt="" class="pro_icon"><span>0</span></p>
-					</div>						
-				</a>
-
-				<ul class="hover_btn">
-					<li><a href=""><img src="${pageContext.request.contextPath}/resources/img/gallerylist/test_icon06.png" alt="">Like</a></li>
-					<li><a href="">Save</a></li>
-				</ul>
-				<div class="hover_txt">
-					<h3>Marietta Modern Farmhouse</h3>
-					<p class="sub_txt">Farmhouse Laundry Room</p>
-					<p class="bot_txt">United Kingdom</p>
-				</div>
-			</li>
-
-
 		</ul>
 	</div>
 

@@ -5,9 +5,11 @@ import java.sql.Date;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
+@ToString
 public class GalleryDTO {
 	
 	//List에 필요한 변수들(POST, PHOTO, USER 테이블)
@@ -23,9 +25,11 @@ public class GalleryDTO {
 	private Date postDate;
 	
 
-	
 	//TBL_STORY
 	private int sNo;
+	private String storyThumbnail;
+	private String storyTitle;
+	private String storyDescription;
 
 	
 	//TBL_USERS
@@ -76,6 +80,11 @@ public class GalleryDTO {
 	private int pdPrice;
 	private int pdSalesNo;
 	private Date pdDate;
+	
+	//PAYMENT
+	private int paymentNo;
+	private Date paymentDate;
+	private int paymentTotal;
 	
 
 	

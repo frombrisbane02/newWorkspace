@@ -18,15 +18,10 @@ public class GalleryDAO {
 	@Autowired
 	private SqlSessionTemplate template;
 
+	
+	//상단바-갤러리 클릭시 조회용
 	public List<GalleryDTO> selectGalleryList() {
 		
-		/*
-		List<GalleryDTO> resultList = template.selectList("galleryList");
-		
-		for(GalleryDTO oneResult : resultList) {
-			System.out.println("결과가 있긴하다네요..");
-		}
-		*/
-		return null;
+		return template.selectList("galleryList");
 	}
 }

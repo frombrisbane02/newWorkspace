@@ -17,7 +17,5 @@
 		RIGHT OUTER JOIN STORY s ON p.sNo=s.sNo
 	</select>
 
-	
-	
 
 </mapper>
