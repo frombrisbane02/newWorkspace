@@ -89,7 +89,7 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
 		
 		<div class="sidebar pe-4 pb-3">
 			<nav class="navbar bg-light navbar-light">
-				<a href="Index.do" class="navbar-brand mx-4 mb-3">
+				<a href="/springapp/Index.do" class="navbar-brand mx-4 mb-3">
 					<h3 class="text-primary">
 						<i class="fa fa-hashtag me-2"></i>PICKTORY
 					</h3>
@@ -200,7 +200,7 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
 							<i class="fa fa-chart-line fa-3x text-primary"></i>
 							<div class="ms-3">
 								<p class="mb-2">
-									이번 주 매출
+									이번 주 PICKTORY 매출
 								</p>
 								<h6 class="mb-0 text-right">$1234</h6>
 							</div>
@@ -212,7 +212,7 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
 							<i class="fa fa-chart-bar fa-3x text-primary"></i>
 							<div class="ms-3">
 								<p class="mb-2">
-									총 매출
+									총 PICKTORY 매출
 								</p>
 								<h6 class="mb-0 text-right">$56853</h6>
 							</div>
@@ -224,7 +224,7 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
 							<i class="fa fa-chart-area fa-3x text-primary"></i>
 							<div class="ms-3">
 								<p class="mb-2">
-									회원 수
+									이번 주 가입한 회원 수
 								</p>
 								<h6 class="mb-0 text-right">42명</h6>
 							</div>
@@ -236,7 +236,7 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
 							<i class="fa fa-chart-pie fa-3x text-primary"></i>
 							<div class="ms-3">
 								<p class="mb-2">
-									누적 총 방문자 수
+									총 회원 수
 								</p>
 								<h6 class="mb-0 text-right">2352명</h6>
 							</div>
@@ -255,7 +255,7 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
 						<div class="bg-light text-center rounded p-4">
 							<div
 								class="d-flex align-items-center justify-content-between mb-4">
-								<h6 class="mb-0">주차별 매출</h6>
+								<h6 class="mb-0">이번 주 매출</h6>
 								
 							</div>
 							<canvas id="earningChart" style="width: 100%; max: width 1104px;"></canvas>
@@ -266,7 +266,7 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
 						<div class="bg-light text-center rounded p-4">
 							<div
 								class="d-flex align-items-center justify-content-between mb-4">
-								<h6 class="mb-0">주차별 방문자 수</h6>
+								<h6 class="mb-0">이번 주 PICKTORY 매출</h6>
 							
 							</div>
 							<canvas id="visitChart" style="width: 100%; max-width: 1104px"></canvas>
@@ -282,7 +282,7 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
 						<div class="bg-light text-center rounded p-4">
 							<div
 								class="d-flex align-items-center justify-content-between mb-4">
-								<h6 class="mb-0">주차별 회원 수</h6>
+								<h6 class="mb-0">이번 주 가입한 회원 수</h6>
 								
 							</div>
 							<canvas id="memberChart" style="width: 100%; max-width: 1104px"></canvas>
@@ -293,7 +293,7 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
 						<div class="bg-light text-center rounded p-4">
 							<div
 								class="d-flex align-items-center justify-content-between mb-4">
-								<h6 class="mb-0">주차별 갤러리/스토리 비율</h6>
+								<h6 class="mb-0">이번 주 총 갤러리/스토리 비율</h6>
 							
 							</div>
 							<canvas id="galleryChart" style="width: 100%; max-width: 1104px"></canvas>
@@ -326,8 +326,8 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
 			                            <th class="col-1 text-center">주문<br> 날짜</th>
 									</tr>
 							</thead>
-							<tbody>
-							<c:if test="${empty records }" var="isEmpty">
+							<tbody id="mainPaymentAppend">
+						<!--  	<c:if test="${empty records }" var="isEmpty">
 								<tr>
 									<td class="text-center" colspan="12">등록된 글이 없습니다.</td>
 								</tr>	
@@ -345,11 +345,11 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
 				                            <td class="text-center">${record.paymentDate}</td>
 				                        </tr>
 				                    </c:forEach>
-				                </c:if>
+				                </c:if>	-->
 				                
 							<!--======================= 예시 게시물 표현 시작 =======================-->
 								 
-								 <tr>
+							<!--  	 <tr>
 		                            <td class="text-center">5</td>
 		                            <td class="text-center"><a class="primary" data-toggle="modal" data-target="#exampleModalCenter">BROKEROW</a></td>
 		                            <td class="text-center"><a class="primary" data-toggle="modal" data-target="#exampleModalCenter">SAMURAI</a></td>
@@ -391,7 +391,7 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
 		                            <td class="text-center">경복궁.jpg</td>
 		                            <td class="text-center">500원</td>
 		                            <td class="text-center">22-06-16</td>
-		                        </tr>
+		                        </tr>	-->
 							</tbody>
 						</table>
 					</div>
@@ -522,15 +522,15 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
 								<table class="table table-hover text-center">
                 <thead>
                   <tr class="table-secondary text-center">
-                      <th class="col-2">번호</th>
+                      <th class="col-1">NO</th>
                       <th class="col-5">제목</th>
-                      <th class="col-2">아이디</th>
-                      <th class="col-1">작성일</th>
+                      <th class="col-2">ID</th>
+                      <th class="col-3">작성일</th>
                       
                     </tr>
                 </thead>
-                <tbody class="table-sm">
-					<c:if test="${empty records }" var="isEmpty">
+                  <tbody class="table-sm" id="mainNoticeAppend">
+				<!--	<c:if test="${empty records }" var="isEmpty">
 						<tr>
 							<td class="text-center" colspan="10">등록된 글이 없습니다.</td>
 						</tr>	
@@ -544,10 +544,10 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
                                 <td class="text-center">${records.noticeDate }</td>
                           </tr>
 						</c:forEach>
-					</c:if>
+					</c:if>	-->
 					
 			<!--======================= 예시 게시물 표현 시작 =======================-->
-			                 <tr>
+			              <!--     <tr>
 			                      <td class="text-center">1</td>
 			                      <td><a class="primary" data-toggle="modal" data-target="#exampleModalCenter1">공지사항입니다</a></td>
 			                      <td><a class="primary" data-toggle="modal" data-target="#exampleModalCenter">Picktory</a></td>
@@ -573,7 +573,7 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
 			                      <td><a href="adminNoticeDetail.html">공지사항입니다</a></td>
 			                      <td><a class="primary" data-toggle="modal" data-target="#exampleModalCenter">Picktory</a></td>
 			                      <td class="text-center">22-06-22</td>
-			                </tr>
+			                </tr>	-->
 			             </tbody>
 		              </table>
 		      <!--======================= 예시 게시물 표현 끝 =======================-->
@@ -709,15 +709,15 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
 								<table class="table table-hover text-center">
                 <thead>
                   <tr class="table-secondary text-center">
-                      <th class="col-2">번호</th>
+                      <th class="col-1">NO</th>
                       <th class="col-5">제목</th>
-                      <th class="col-2">아이디</th>
-                      <th class="col-1">작성일</th>
+                      <th class="col-2">ID</th>
+                      <th class="col-3">작성일</th>
                       
                     </tr>
                 </thead>
-                <tbody class="table-sm">
-					<c:if test="${empty records }" var="isEmpty">
+                <tbody class="table-sm" id="mainQnaAppend">
+				<!--  	<c:if test="${empty records }" var="isEmpty">
 						<tr>
 							<td class="text-center" colspan="6">등록된 글이 없습니다.</td>
 						</tr>	
@@ -731,11 +731,11 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
                                 <td class="text-center">${records.qnaDate }</td>
                           </tr>
 						</c:forEach>
-					</c:if>
+					</c:if>	-->
 					
 			<!--============================ 예시 게시물 표현 시작 ============================-->
 			                 
-			                 <tr>
+			            <!--       <tr>
 			                      <td class="text-center">1</td>
 			                      <td class="text-center"><a class="primary" data-toggle="modal" data-target="#exampleModalCenter1">질문이 있습니다</a></td>
 			                      <td class="text-center">Picktory</a></td>
@@ -761,7 +761,7 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
 			                      <td class="text-center"><a class="primary" data-toggle="modal" data-target="#exampleModalCenter1">질문이 있습니다</a></td>
 			                      <td class="text-center">Picktory</a></td>
 			                      <td class="text-center">22-06-22</td>
-			                </tr>
+			                </tr>	-->
 			       </tbody>
               </table>
               		</div>
@@ -780,10 +780,10 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
 								<table class="table table-hover text-center">
                 <thead>
                   <tr class="table-secondary text-center">
-                      <th class="col-2">번호</th>
+                      <th class="col-1">NO</th>
                       <th class="col-5">제목</th>
-                      <th class="col-2">아이디</th>
-                      <th class="col-1">작성일</th>
+                      <th class="col-2">ID</th>
+                      <th class="col-3">작성일</th>
                       
                     </tr>
                 </thead>
@@ -918,168 +918,588 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
 		
 		
 <!--================================================= 자바스크립트 시작 =================================================-->
-		<script>
-		//주차별 매출 (메인에 보여주기)
-		var xValues = ["1주차", "2주차", "3주차", "4주차", "5주차"];
-		var yValues = [155, 300, 550, 650,600];
-		var barColors = [
-		  "rgba(30, 144, 255, 1)",
-		  "rgba(30, 144, 255, 1)",
-		  "rgba(30, 144, 255, 1)",
-		  "rgba(30, 144, 255, 1)",
-		  "rgba(30, 144, 255, 1)"
-		 
-		];
-		
-		new Chart("earningChart", {
-			  type: "bar",
-			  data: {
-			    labels: xValues,
-			    datasets: [{
-			      backgroundColor: barColors,
-			      data: yValues
-			    }]
-			  },
-			  options: {
-			    legend: {display: false},
-			    scales: {
-			      yAxes: [{
-			        ticks: {
-			          beginAtZero: true
-			        }
-			      }],
-			    }
-			  }
-			});
-		</script>
-		<script>
-		//주차별 방문자 수 (메인에 보여주기)
-		var xValues = ["1주차", "2주차", "3주차", "4주차", "5주차"];
-		var yValues = [99, 135, 170, 130, 190];
-		var barColors = [
-		  "rgba(30, 144, 255, 1)",
-		  "rgba(30, 144, 255, 1)",
-		  "rgba(30, 144, 255, 1)",
-		  "rgba(30, 144, 255, 1)",
-		  "rgba(30, 144, 255, 1)"
-		 
-		];
-		
-		new Chart("visitChart", {
-			  type: "bar",
-			  data: {
-			    labels: xValues,
-			    datasets: [{
-			      backgroundColor: barColors,
-			      data: yValues
-			    }]
-			  },
-			  options: {
-			    legend: {display: false},
-			    scales: {
-			      yAxes: [{
-			        ticks: {
-			          beginAtZero: true
-			        }
-			      }],
-			    }
-			  }
-			});
-		</script>
-		<script>
-		//주차별 회원 수 (메인에 보여주기)
-		var xValues = ["1주차", "2주차", "3주차", "4주차","5주차"];
-		var yValues = [10, 25, 37, 45, 52];
+<script>
 
-		new Chart("memberChart", {
-		  type: "line",
-		  data: {
-		    labels: xValues,
-		    datasets: [{
-		      fill: false,
-		      lineTension: 0,
-		      backgroundColor: "rgba(30, 144, 255, 1)",
-		      borderColor: "rgba(30, 144, 255, 1)",
-		      data: yValues
-		    }]
-		  },
-		  options: {
-		    legend: {display: false},
-		    scales: {
-		     
-		    }
-		  }
-		});
-		</script>
-		<script>
-		//갤러리와 스토리 도넛비율
-		var xValues = ["갤러리", "스토리"];
-		var yValues = [55, 42];
-		var barColors = [
-		  "dodgerblue",
-		  "#00aba9",
-		  
-		];
-		
-		new Chart("galleryChart", {
-		  type: "doughnut",
-		  data: {
-		    labels: xValues,
-		    datasets: [{
-		      backgroundColor: barColors,
-		      data: yValues
-		    }]
-		  },
-		  options: {
-		    responsive : false,
-		    title: {
-		      display: false
-		      
-		    }
-		  }
-		});
-		// Sidebar Toggler
-	    $('.sidebar-toggler').click(function () {
-	        $('.sidebar, .content').toggleClass("open");
-	        return false;
-	    });
+const localhost = 'http://localhost:4040/springapp/admin';
 
-
-	    // Progress Bar
-	    $('.pg-bar').waypoint(function () {
-	        $('.progress .progress-bar').each(function () {
-	            $(this).css("width", $(this).attr("aria-valuenow") + '%');
-	        });
-	    }, {offset: '80%'});
-		</script>
-		
-		
-</body>
-
-<script type="text/javascript">
-	$(document).ready(function() {
-		console.log("관리자페이지 메인");
-//		test();
+	$(document).ready(function(){
+		paymentChartAjax();
 	});
 	
-	function test() {
+	// 한 주
+	function weekDate(){
+	
+		var currentDay = new Date();  
+		var theYear = currentDay.getFullYear();
+		var theMonth = currentDay.getMonth();
+		var theDate  = currentDay.getDate();
+		var theDayOfWeek = currentDay.getDay();
+		 
+		var thisWeek = [];
+		 
+		for(var i = 1; i <= 7; i++) {
+		  var resultDay = new Date(theYear, theMonth, theDate + (i - theDayOfWeek));
+		  var yyyy = resultDay.getFullYear();
+		  var mm = Number(resultDay.getMonth()) + 1;
+		  var dd = resultDay.getDate();
+		 
+		  mm = String(mm).length === 1 ? '0' + mm : mm;
+		  dd = String(dd).length === 1 ? '0' + dd : dd;
+		 
+		  thisWeek[i] = yyyy + mm + dd;
+		}
+		 
 		
-		$.ajax({
-			url : "Index.do",
-			type : 'GET',
-			data : {
-				name : "홍길동",
-				age : "10",
-				gender : "남"
-			},
-			success : function(data)) {
-				console.log("AJAX DATA CHECK : ", data);
-		     },
-			error : function() {
-				alert("error");
-			}
-		});
+		return thisWeek;
+		console.log(thisWeek);
 	}
+	
+	// 이번주 매출(차트)
+	function paymentChartAjax(){
+		
+		var weekArr = [];
+		var weekDay = weekDate();
+		
+		var obj = {"startDate" : weekDay[1], "endDate" : weekDay[7]};
+		
+		weekArr.push(obj);
+		
+		 $.ajax({
+			    url: localhost + '/mainPaymentChart.do',
+			    type: "POST",
+			    cache: false,
+			    dataType: "json",
+			    contentType: "application/json",
+			    data: JSON.stringify(weekArr),
+			    success: function(data){
+			    		    
+			    	mainPaymentChartSetting(data);
+			    	
+			    }, error: function (request, status, error){
+			    	alert("Error");
+			    }
+		  });
+		
+	}
+		 
+		 function mainPaymentChartSetting(data){
+			 
+			 
+			 var weekLength = weekDate();
+			 
+			 var dateArr = [];
+			 var dataArr = [];
+			 var dataArr2 = [];
+			 var yValues = [];
+			 var yValues2 = [];
+			
+			 
+			 for(var i = 1; i < weekLength.length; i++){
+				 var v = weekLength[i];
+				 var obj = {"dateDay" : v, "paymentTotal" : 0, "persent" : 0, "idx" : i};
+				 dateArr.push(obj);
+			 }
+			 
+			 
+		if(data.length != 0){
+			
+			 for(var i = 0; i < data.length; i++){
+				 var v = data[i];
+				 var obj = {"dateDay" : v.dateDay, "paymentTotal" : v.paymentTotal, "persent" : v.persent};
+				 dataArr.push(obj);
+			 }
+			 
+			 	
+			 for(var i = 0; i < dataArr.length; i++){
+			 
+				 var v = dataArr[i];
+				 
+				for(var y = 0; y < dateArr.length; y++){
+				
+					var vv = dateArr[y];
+					
+					if(v.dateDay == vv.dateDay){
+						v.idx = vv.idx;
+						dataArr2.push(v);
+					}
+			  	}
+			}
+			 
+			  	var aaArr = [...new Set([...dataArr2, ...dateArr])];
+			  	var aa = aaArr.filter(
+	  				(arr, index, callback) => index === callback.findIndex(t => t.idx === arr.idx));
+			  	
+			  	
+			 //정렬
+			  var geResult = aa.sort(function (a, b) {
+			  	    return a.idx - b.idx;
+			  	});
+			 
+			 
+				for(var i = 0; i < geResult.length; i++){
+					var v = geResult[i];
+					yValues.push(v.paymentTotal);
+					yValues2.push(v.persent);
+				}
+		}else{
+			
+			for(var i = 0; i < dateArr.length; i++){
+				var v = dateArr[i];
+				yValues.push(v.paymentTotal);
+				yValues2.push(v.persent);
+			}
+		}
+
+	//이번 주 매출 (메인에 보여주기)				
+		 		var xValues = ["월", "화", "수", "목", "금", "토", "일"];
+
+				var barColors = [
+				  "rgba(30, 144, 255, 1)",
+		 		  "rgba(30, 144, 255, 1)",
+				  "rgba(30, 144, 255, 1)",
+				  "rgba(30, 144, 255, 1)",
+				  "rgba(30, 144, 255, 1)",
+				  "rgba(30, 144, 255, 1)",
+		 		  "rgba(30, 144, 255, 1)"
+				 
+				];
+
+				new Chart("earningChart", {
+					  type: "bar",
+					  data: {
+					    labels: xValues,
+					    datasets: [{
+					      backgroundColor: barColors,
+					      data: yValues
+					    }]
+					  },
+					  options: {
+					    legend: {display: false},
+					    scales: {
+					      yAxes: [{
+					        ticks: {
+					          beginAtZero: true
+					        }
+					      }],
+					    }
+					  }
+					});
+				
+				
+				//이번 주 Picktory 매출 (메인에 보여주기)
+				var xValues = ["월", "화", "수", "목", "금", "토", "일"];
+//				var yValues = [60, 50, 68, 87, 73, 79, 52];
+				var barColors = [
+				  "rgba(30, 144, 255, 1)",
+				  "rgba(30, 144, 255, 1)",
+				  "rgba(30, 144, 255, 1)",
+				  "rgba(30, 144, 255, 1)",
+				  "rgba(30, 144, 255, 1)",
+				  "rgba(30, 144, 255, 1)",
+				  "rgba(30, 144, 255, 1)"
+				 
+				];
+				
+				new Chart("visitChart", {
+					  type: "bar",
+					  data: {
+					    labels: xValues,
+					    datasets: [{
+					      backgroundColor: barColors,
+					      data: yValues2
+					    }]
+					  },
+					  options: {
+					    legend: {display: false},
+					    scales: {
+					      yAxes: [{
+					        ticks: {
+					          beginAtZero: true
+					        }
+					      }],
+					    }
+					  }
+					});
+				
+				mainUsersAjax();
+		 }
+		 
+		 
+		 function mainUsersAjax(){
+				var weekArr = [];
+				var weekDay = weekDate();
+				
+				var obj = {"startDate" : weekDay[1], "endDate" : weekDay[7]};
+				
+				weekArr.push(obj);
+				
+			 $.ajax({
+				    url: localhost + '/mainUsersChart.do',
+				    type: "POST",
+				    cache: false,
+				    dataType: "json",
+				    contentType: "application/json",
+				    data: JSON.stringify(weekArr),
+				    success: function(data){
+				    		    
+				    	console.log("data : ", data);
+				    	
+				    	mainUsersChartSetting(data);
+				    	
+				    }, error: function (request, status, error){
+				    	alert("Error");
+				    }
+			  });
+		 }
+		 
+		 
+		 function mainUsersChartSetting(data){
+			 
+			 
+		 	 var weekLength = weekDate();
+			 
+			 var dateArr = [];
+			 var dataArr = [];
+			 var dataArr2 = [];
+			 var yValues = [];
+			 var yValues2 = [];
+			
+			 
+			 for(var i = 1; i < weekLength.length; i++){
+				 var v = weekLength[i];
+				 var obj = {"dateDay" : v, "totalCount" : 0, "idx" : i};
+				 dateArr.push(obj);
+			 }
+			 
+			 
+			 
+			 if( data.length != 0 ){
+				 
+				 for(var i = 0; i < data.length; i++){
+					 var v = data[i];
+					 var obj = {"dateDay" : v.dateDay, "totalCount" : v.totalCount};
+					 dataArr.push(obj);
+				 }
+				 
+				 	
+				 for(var i = 0; i < dataArr.length; i++){
+				 
+					 var v = dataArr[i];
+					 
+					for(var y = 0; y < dateArr.length; y++){
+					
+						var vv = dateArr[y];
+						
+						if(v.dateDay == vv.dateDay){
+							v.idx = vv.idx;
+							dataArr2.push(v);
+						}
+				  	}
+				}
+				 
+				  	var aaArr = [...new Set([...dataArr2, ...dateArr])];
+				  	var aa = aaArr.filter(
+		  				(arr, index, callback) => index === callback.findIndex(t => t.idx === arr.idx));
+				  	
+				  	
+				 //정렬
+				  var geResult = aa.sort(function (a, b) {
+				  	    return a.idx - b.idx;
+				  	}); 
+				 
+					for(var i = 0; i < geResult.length; i++){
+						var v = geResult[i];
+						yValues.push(v.totalCount);
+					}
+			 }else{
+				 	
+					for(var i = 0; i < dateArr.length; i++){
+						var v = dateArr[i];
+						yValues.push(v.totalCount);
+					}
+				 
+			 }
+			 
+			 
+				//이번 주 가입한 회원 수 (메인에 보여주기)
+				var xValues = ["월", "화", "수", "목", "금", "토", "일"];
+//				var yValues = [3,5,3,4,7,3,1];
+
+				new Chart("memberChart", {
+					  type: "line",
+					  data: {
+					    labels: xValues,
+					    datasets: [{
+					      fill: false,
+					      lineTension: 0,
+					      backgroundColor: "rgba(30, 144, 255, 1)",
+					      borderColor: "rgba(30, 144, 255, 1)",
+					      data: yValues
+					    }]
+					  },
+					  options: {
+					    legend: {display: false},
+					    scales: {
+					     
+					    }
+					  }
+				});
+				
+				galleryChartAjax();
+		 }
+		 
+		 
+		 function galleryChartAjax(){
+				var weekArr = [];
+				var weekDay = weekDate();
+				
+				var obj = {"startDate" : weekDay[1], "endDate" : weekDay[7]};
+				
+				weekArr.push(obj);
+				
+				 $.ajax({
+					    url: localhost + '/mainGalleryChart.do',
+					    type: "POST",
+					    cache: false,
+					    dataType: "json",
+					    contentType: "application/json",
+					    data: JSON.stringify(weekArr),
+					    success: function(data){
+					    		   
+					    	console.log("data : ", data);
+					    	galleryChartSetting(data);
+					    	
+					    }, error: function (request, status, error){
+					    	alert("Error");
+					    }
+				  });
+		 }
+		 
+		 
+		 function galleryChartSetting(data){
+			 
+	
+			 
+			 var sumArr1 = [];
+			 var sumArr2 = [];
+			 var yValues = [];
+
+			 
+			 if( data.length != 0 ){
+				 
+				 for(var i = 0; i < data.length; i++){
+					 var v = data[i];
+					 
+					 sumArr1.push(v.photo);
+					 sumArr2.push(v.story);
+				 }
+				 
+				 
+				 const sum1 = sumArr1.reduce((a,b) => (a+b));
+				 const sum2 = sumArr2.reduce((a,b) => (a+b));
+				 
+				 
+				 yValues = [sum1, sum2];
+
+			 }else{
+				 
+				 yValues = [0, 0];				 
+			 }
+			 
+			 
+			//갤러리와 스토리 도넛비율
+				var xValues = ["갤러리", "스토리"];
+//				var yValues = [55, 42];
+				var barColors = [
+				  "dodgerblue",
+				  "#00aba9",
+				  
+				];
+				
+				new Chart("galleryChart", {
+					  type: "doughnut",
+					  data: {
+					    labels: xValues,
+					    datasets: [{
+					      backgroundColor: barColors,
+					      data: yValues
+					    }]
+					  },
+					  options: {
+					    responsive : false,
+					    title: {
+					      display: false
+					      
+					    }
+					  }
+				});
+			 
+				paymentAjax();
+		 }
+		
+	
+//============================================ 차트 END ======================================================================	
+	
+	// 최근 구매 / 판매 목록
+	function paymentAjax(){
+		
+		 $.ajax({
+			    url: localhost + '/mainPaymentList.do',
+			    type: "POST",
+			    cache: false,
+			    dataType: "json",
+			    contentType: "application/json",
+			    data: { },
+			    success: function(data){
+			    		    
+			    	paymentListSetting(data);
+			    	
+			    }, error: function (request, status, error){
+			    	alert("Error");
+			    }
+		  });
+	}
+	
+	// 최근 구매 / 판매 목록 세팅
+	function paymentListSetting(data){
+		
+		
+		$('#mainPaymentAppend').html('');
+		
+		if(data.length == 0){
+			var payHTML = "";			
+			payHTML += '<tr>';
+			payHTML +=  '<td class="text-center" colspan="12">등록된 글이 없습니다.</td>';
+			payHTML += '</tr>';
+			$('#mainPaymentAppend').append(payHTML);
+		}else{
+			
+			for(var i = 0; i < data.length; i++){
+				var v = data[i];
+				
+				var payHTML = "";
+				
+				var payDate = v.paymentDate.substring(0, 10);
+				var num = i + 1;
+				
+				
+				payHTML += '<tr>';
+				payHTML += '<td class="text-center">'+ num +'</td>';
+				payHTML += '<td class="text-center"><a class="primary" data-toggle="modal" data-target="#exampleModalCenter">'+ v.consumer +'</a></td>';
+				payHTML += '<td class="text-center"><a class="primary" data-toggle="modal" data-target="#exampleModalCenter">'+ v.seller +'</a></td>';
+				payHTML += '<td class="text-center">'+ v.paymentNo +'</td>';
+				payHTML += '<td class="text-center"><a href="memberOne.html">'+ v.pdNo +'</a></td>';
+				payHTML += '<td class="text-center">'+ v.photoName +'</td>';
+				payHTML += '<td class="text-center">'+ v.paymentTotal +'원</td>';
+				payHTML += '<td class="text-center">'+ payDate +'</td>';
+				payHTML += '</tr>';
+				$('#mainPaymentAppend').append(payHTML);
+			}
+		}
+		
+			noticeAjax();
+	}
+	
+		// 공 지 사 항
+		function noticeAjax(){
+			 $.ajax({
+				    url: localhost + '/mainNoticeList.do',
+				    type: "POST",
+				    cache: false,
+				    dataType: "json",
+				    contentType: "application/json",
+				    data: { },
+				    success: function(data){
+				    				    	
+				    	noticeListSetting(data);
+				    	
+				    }, error: function (request, status, error){
+				    	alert("Error");
+				    }
+			  });
+		}
+		
+		// 공 지 사 항 세팅
+		function noticeListSetting(data){
+			
+			
+			$('#mainNoticeAppend').html('');
+			
+			if(data.length == 0){
+				var noHTML = "";
+				noHTML += '<tr>';
+				noHTML += '<td class="text-center" colspan="10">등록된 글이 없습니다.</td>';
+				noHTML += '</tr>';
+				$('#mainNoticeAppend').append(noHTML);
+			}else{
+				for(var i = 0; i < data.length; i++){
+					
+					var v = data[i];
+					var noHTML = "";
+					var num = i + 1;
+					var noDate = v.noticeDate.substring(0, 10);
+					noHTML += '<tr>';
+					noHTML += '<td class="text-center">'+ num +'</td>';
+					noHTML += '<td><a class="primary" data-toggle="modal" data-target="#exampleModalCenter1">[공지사항] '+ v.noticeTitle +'</a></td>';
+					noHTML += '<td><a class="primary" data-toggle="modal" data-target="#exampleModalCenter">'+ v.userId +'</a></td>';
+					noHTML += '<td class="text-center">'+ noDate +'</td>';
+					noHTML += '</tr>';
+				}				
+			}
+			
+				mainQnaAjax();
+		}
+		
+		
+		// Q & A
+		function mainQnaAjax(){
+			 $.ajax({
+				    url: localhost + '/mainQnaList.do',
+				    type: "POST",
+				    cache: false,
+				    dataType: "json",
+				    contentType: "application/json",
+				    data: { },
+				    success: function(data){
+				    				    	
+				    	
+				    	mainQnaSetting(data);
+				    	
+				    }, error: function (request, status, error){
+				    	alert("Error");
+				    }
+			  });
+		}
+		
+		// Q & A 세팅
+		function mainQnaSetting(data){
+			
+			$("#mainQnaAppend").html('');
+			
+			if(data.length == 0){
+				var qnaHTML = "";
+				qnaHTML += '<tr>';
+				qnaHTML +=   '<td class="text-center" colspan="6">등록된 글이 없습니다.</td>';
+				qnaHTML +=	'</tr>';
+				$("#mainQnaAppend").append(qnaHTML);
+				
+			}else{
+				
+				for(var i = 0; i < data.length; i++){
+					var qnaHTML = "";
+					var num = i + 1;
+					var qnDate = v.qnaDate.substring(0, 10);
+					
+					qnaHTML += '<tr>';
+				    qnaHTML +=  '<td class="text-center">'+ num +'</td>';
+				    qnaHTML += 	'<td class="text-center"><a class="primary" data-toggle="modal" data-target="#exampleModalCenter1">'+ v.qnaTitle +'</a></td>';
+				    qnaHTML += 	'<td class="text-center">'+ v.userId +'</a></td>';
+				    qnaHTML += 	'<td class="text-center">'+ qnDate +'</td>';
+				    qnaHTML += '</tr>';
+					$("#mainQnaAppend").append(qnaHTML);	
+				}
+			}
+		}
 
 </script>
 

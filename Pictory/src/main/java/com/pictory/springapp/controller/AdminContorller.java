@@ -14,8 +14,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pictory.springapp.dto.AdminGalleryDTO;
 import com.pictory.springapp.dto.AdminGalleryService;
+import com.pictory.springapp.dto.AdminMainService;
 import com.pictory.springapp.dto.AdminNoticeDTO;
 import com.pictory.springapp.dto.AdminNoticeService;
+import com.pictory.springapp.dto.AdminPaymentDTO;
+import com.pictory.springapp.dto.AdminPaymentService;
 import com.pictory.springapp.dto.AdminQnaDTO;
 import com.pictory.springapp.dto.AdminQnaService;
 import com.pictory.springapp.dto.AdminUsersDTO;
@@ -24,6 +27,9 @@ import com.pictory.springapp.dto.AdminUsersService;
 @Controller
 @RequestMapping("/admin")
 public class AdminContorller {
+	
+	@Autowired
+	private AdminMainService mainService;
 	
 	@Autowired
 	private AdminUsersService usersService;
@@ -37,17 +43,140 @@ public class AdminContorller {
 	@Autowired
 	private AdminQnaService qnaService;
 	
+	@Autowired
+	private AdminPaymentService paymentService;
+	
+	
 	@RequestMapping("/Index.do")
 	public String adminMain() {
 		return "admin/Index";
 	}
 	
 	
+	@ResponseBody
+	@RequestMapping(value="/mainPaymentChart.do", method = { RequestMethod.POST }, produces="text/plain;charset=UTF-8")
+	public String mainPaymentChart(@RequestBody List<HashMap<String, Object>> params) throws Exception {
+		ObjectMapper obj = new ObjectMapper();
+		String jsonStr = "";
+		
+		try {
+	
+			List<AdminPaymentDTO> list = mainService.adminPaymentChart(params);
+			jsonStr = obj.writeValueAsString(list);
+			return jsonStr;
+				
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	
+		return null;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/mainUsersChart.do", method = { RequestMethod.POST }, produces="text/plain;charset=UTF-8")
+	public String mainUsersChart(@RequestBody List<HashMap<String, Object>> params) throws Exception {
+		ObjectMapper obj = new ObjectMapper();
+		String jsonStr = "";
+		
+		try {
+			
+			List<AdminUsersDTO> list = mainService.adminUsersChart(params);
+			jsonStr = obj.writeValueAsString(list);
+			return jsonStr;
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/mainGalleryChart.do", method = { RequestMethod.POST }, produces="text/plain;charset=UTF-8")
+	public String mainGalleryChart(@RequestBody List<HashMap<String, Object>> params) throws Exception {
+		ObjectMapper obj = new ObjectMapper();
+		String jsonStr = "";
+		
+		try {
+			
+			List<AdminGalleryDTO> list = mainService.adminGalleryChart(params);
+			jsonStr = obj.writeValueAsString(list);
+			return jsonStr;
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	
+	
+//========================================= 차트 END ===================================================================
+	@ResponseBody
+	@RequestMapping(value="/mainPaymentList.do", method = { RequestMethod.POST }, produces="text/plain;charset=UTF-8")
+	public String mainPaymentList() throws Exception {
+		
+		ObjectMapper obj = new ObjectMapper();
+		String jsonStr = "";
+		
+		try {
+			
+			List<AdminPaymentDTO> list = mainService.adminPaymentList();
+			jsonStr = obj.writeValueAsString(list);				
+			return jsonStr;
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/mainNoticeList.do", method = { RequestMethod.POST }, produces="text/plain;charset=UTF-8")
+	public String mainNoticeList() throws Exception {
+		ObjectMapper obj = new ObjectMapper();
+		String jsonStr = "";
+		try {
+		
+			List<AdminNoticeDTO> list = mainService.adminNoticeList();
+			jsonStr = obj.writeValueAsString(list);
+			return jsonStr;
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/mainQnaList.do", method = { RequestMethod.POST }, produces="text/plain;charset=UTF-8")
+	public String mainQnaList() throws Exception {
+		ObjectMapper obj = new ObjectMapper();
+		String jsonStr = "";
+		try {
+			
+			List<AdminQnaDTO> list = mainService.adminQnaList();
+			jsonStr = obj.writeValueAsString(list);
+			return jsonStr;
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	
+	
+//========================================================== 메인 END ===========================================================================	
+	
 	@RequestMapping("/analysis/Index.do")
 	public String anysisIndex() {		
 		return "admin/analysis/Index";
 	}
-	
 	
 	@ResponseBody
 	@RequestMapping(value="/userData.do", method = { RequestMethod.POST }, produces="text/plain;charset=UTF-8")
@@ -93,18 +222,37 @@ public class AdminContorller {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="/gallery.do", method = { RequestMethod.POST }, produces="text/plain;charset=UTF-8")
-	public String gallery(@RequestParam("today") String today ) throws Exception {
+	@RequestMapping(value="/userChart.do", method = {RequestMethod.POST}, produces="text/plain;charset=UTF-8")
+	public String userChart(@RequestBody List<HashMap<String, Object>> map) throws Exception{
+		try {
+			
+			ObjectMapper obj = new  ObjectMapper();
+			String jsonStr = "";	
+			List<AdminUsersDTO> list = usersService.usersChart(map);
+			jsonStr = obj.writeValueAsString(list);
+			return jsonStr;
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		 return null;
+	}
+	
+	
+//============================================ 회원 END =================================================================	
+	
+	@ResponseBody
+	@RequestMapping(value="/galleryChart.do", method = { RequestMethod.POST }, produces="text/plain;charset=UTF-8")
+	public String gallery(@RequestBody List<HashMap<String, Object>>   param) throws Exception {
 		ObjectMapper obj = new ObjectMapper();
 		String jsonStr = "";
 		
 		try {
+		
+			List<AdminGalleryDTO> list = galleryService.gelleryChart(param);
 			
-			AdminGalleryDTO param = new AdminGalleryDTO();
-			param.setDateDay(today);
+			jsonStr = obj.writeValueAsString(list);
 			
-			List<AdminGalleryDTO> ss = galleryService.galleryList(param);			
-			jsonStr = obj.writeValueAsString(ss);
 			return jsonStr;
 			
 		} catch (Exception e) {
@@ -114,11 +262,77 @@ public class AdminContorller {
 		return null;
 	}
 	
+
+//======================================= 수익 및 정산 ========================================================================	
 	
 	@RequestMapping("/manager/Index")
 	public String managerIndex() {
 		return "admin/manager/Index";
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="/paymentList.do", method = {RequestMethod.POST}, produces="text/plain;charset=UTF-8")
+	public String paymentList() throws Exception {
+		ObjectMapper obj = new ObjectMapper();
+		String jsonStr = "";
+		try {
+			
+			List<AdminPaymentDTO> list = paymentService.paymentList();
+			jsonStr = obj.writeValueAsString(list);			
+			return jsonStr;
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping(value="/paymentSearch.do", method = {RequestMethod.POST}, produces="text/plain;charset=UTF-8")
+	public String paymentSearch(@RequestBody HashMap<String, Object> params) throws Exception {
+		try {
+			
+			System.out.println("params : " + params);
+			
+			ObjectMapper obj = new ObjectMapper();
+			String jsonStr = "";
+			
+			List<AdminPaymentDTO> list = paymentService.paymentSearch(params);
+			jsonStr = obj.writeValueAsString(list);
+			
+			return jsonStr;
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/paymentChart.do", method = {RequestMethod.POST}, produces="text/plain;charset=UTF-8")
+	public String paymentChart(@RequestBody List<HashMap<String, Object>>   params) throws Exception {
+		ObjectMapper obj = new ObjectMapper();
+		String jsonStr = "";
+		try {
+			
+			List<AdminPaymentDTO> list = paymentService.paymentChart(params);
+			jsonStr = obj.writeValueAsString(list);
+			
+			return jsonStr;
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	
+//===========================================================================================================================
+	
 	
 	@RequestMapping("/notice/Index")
 	public String noticeIndex() {

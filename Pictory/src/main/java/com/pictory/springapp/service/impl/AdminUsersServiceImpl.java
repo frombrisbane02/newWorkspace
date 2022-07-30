@@ -1,5 +1,6 @@
 package com.pictory.springapp.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,4 +54,17 @@ public class AdminUsersServiceImpl implements AdminUsersService{
 			return false;
 	}
 //	
+
+	@Override
+	public List<AdminUsersDTO> usersChart(List<HashMap<String, Object>> params) throws Exception {
+		
+		try {
+			List<AdminUsersDTO> list = adminuserDAO.userChart(params);
+			return list;
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
 }

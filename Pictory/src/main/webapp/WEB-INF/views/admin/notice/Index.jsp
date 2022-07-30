@@ -3,11 +3,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <title>Picktory-매출 통계 페이지 </title>
+    <title>Picktory-공지사항 및 Q&A </title>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
@@ -1041,7 +1042,7 @@ var URLInfo = "/noticeList.do";
 		    contentType: "application/json",
 		    data: JSON.stringify(obj),
 		    success: function(data){
-		    	
+		    		    	
 		    	noticeAjaxData = data;
 		    	
 		    	$('#tr_notice').html('');
@@ -1060,6 +1061,25 @@ var URLInfo = "/noticeList.do";
   
   // 리스트 세팅
   function noticeSettingFn(){
+	  
+		if(tabText == "공지" && noticeAjaxData.length == 0){
+			var noticeHTML = '';
+			noticeHTML += '<tr>'
+			noticeHTML	+= '<td class="text-center" colspan="6">등록된 글이 없습니다.</td>'
+		    noticeHTML += '</tr>'
+			$('#tr_notice').append(noticeHTML);
+		   	return false;
+		}
+		
+		if(tabText == "qna" && noticeAjaxData.length == 0){
+			var qnaHTML = '';
+			qnaHTML += '<tr>'
+			qnaHTML += '<td class="text-center" colspan="6">등록된 글이 없습니다.</td>'
+			qnaHTML += '</tr>'
+			$('#qnaTbody').append(qnaHTML);
+			return false;
+		}
+	  
 	  if(tabText == "공지"){
 		  for(var i = 0; i < noticeAjaxData.length; i++){
 			  var noticeHTML = '';
@@ -1068,7 +1088,7 @@ var URLInfo = "/noticeList.do";
 			  	  noticeHTML += '<tr>'
 				  noticeHTML += '<td class="text-center">'+ v.noticeNo +'</td>'
 				  noticeHTML += '<td><a class="primary modalClick" data-modal_no='+ v.noticeNo +' data-toggle="modal" data-target="#exampleModalCenter">[공지사항] '+ v.noticeTitle +'</a></td>'
-				  noticeHTML += '<td><a href="memberOne.html">'+ v.userId +'</a></td>'
+				  noticeHTML += '<td>'+ v.userId +'</td>'
 				  noticeHTML += '<td class="text-center">'+ noDate +'</td>'
 				  noticeHTML += '</tr>'
 				  $('#tr_notice').append(noticeHTML);

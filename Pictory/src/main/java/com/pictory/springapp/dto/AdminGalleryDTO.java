@@ -6,5 +6,5 @@ import lombok.Data;
 public class AdminGalleryDTO {
 	private String dateDay;
 	private int photo;
-	private int photomuseum;
+	private int Story;
 }

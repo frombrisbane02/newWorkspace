@@ -24,4 +24,18 @@
           	OR USERNAME LIKE '%'||#{userName}||'%'
           	OR USERNICKNAME LIKE '%'||#{userNickname}||'%' 
 	</select>
+	<select id="userChart" parameterType="map" resultType="AdminUsersDTO">
+	<![CDATA[ 
+	 SELECT
+        TO_CHAR(USERDATE, 'YYYYMMDD') AS dateDay
+    ,   COUNT(*) AS totalCount
+	 FROM USERS u 
+        JOIN AUTHORITIES a
+         ON u.USERNO = a.USERNO
+	 WHERE
+	     USERDATE >= #{startDate} AND USERDATE < LAST_DAY(TO_DATE(#{endDate}, 'YYYYMMDD')) 
+	 GROUP BY
+	    TO_CHAR(USERDATE, 'YYYYMMDD')
+	]]>
+	</select>
 </mapper>

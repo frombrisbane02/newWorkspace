@@ -3,19 +3,21 @@
 <!--  <mapper namespace="com.pictory.springapp.dto.AdminGalleryDTO"> -->
 <mapper namespace="mybatis.mapper.admingallery">
 
-	<select id="selectList" parameterType="AdminGalleryDTO" resultType="AdminGalleryDTO">
-	<![CDATA[ SELECT
+	<select id="galleryChart" parameterType="map" resultType="AdminGalleryDTO">
+	<![CDATA[ 
+	 SELECT
         TO_CHAR(POSTDATE, 'YYYYMMDD') AS dateDay
     ,   COUNT(h.photono) AS photo
-    ,   COUNT(o.mno) AS photomuseum
+    ,   COUNT(s.sno) AS story
     FROM POST p
-    JOIN PHOTO h
+    LEFT JOIN PHOTO h
         ON p.POSTNO = h.POSTNO
-    LEFT JOIN PHOTOMUSEUM  o
-        ON h.PHOTONO = o.PHOTONO
+    LEFT JOIN STORY s
+        ON p.SNO = s.SNO
 	WHERE
-	     POSTDATE >='${dateDay}' AND POSTDATE < LAST_DAY(TO_DATE('${dateDay}', 'YYYYMMDD')) 
+	     POSTDATE >= #{startDate} AND POSTDATE < LAST_DAY(TO_DATE(#{endDate}, 'YYYYMMDD')) 
 	GROUP BY
-	    TO_CHAR(POSTDATE, 'YYYYMMDD') ]]>
+	    TO_CHAR(POSTDATE, 'YYYYMMDD')
+	   ]]>
 	</select>
 </mapper>

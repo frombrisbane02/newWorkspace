@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="mybatis.mapper.payment">	
+
+		<select id="paymentList" parameterType="AdminPaymentDTO" resultType="AdminPaymentDTO">
+		  SELECT ps.USERID AS seller
+		  	   , py.USERID AS consumer
+		  	   , py.PAYMENTNO
+		  	   , ps.PDNO
+		  	   , ps.PHOTONAME
+		  	   , py.PAYMENTTOTAL
+		  	   , py.PAYMENTDATE
+            FROM
+            (SELECT ups.USERNO AS pno, ups.USERID, sp.POSTNO, pd.PDNO, ph.PHOTONAME
+                   FROM POST sp
+                    JOIN USERS ups
+                     ON sp.USERNO = ups.USERNO
+                    JOIN PHOTO  ph
+                     ON sp.POSTNO = ph.POSTNO
+                    JOIN PRODUCT pd
+                     ON  ph.PHOTONO = pd.PHOTONO
+                    JOIN PDORDER pdo
+                     ON pd.PDNO = pdo.PDNO
+                    JOIN PAYMENT pay
+                     ON pdo.PAYMENTNO = pay.PAYMENTNO
+                ) ps, ( SELECT sur.USERNO AS surno, sur.USERID, spy.PAYMENTNO, spy.PAYMENTTOTAL, spy.PAYMENTDATE
+                    FROM PAYMENT spy
+                      JOIN USERS sur
+                   ON spy.USERNO = sur.USERNO ) py
+		</select>
+		
+		
+		<select id="paymentSearch" parameterType="AdminPaymentDTO" resultType="AdminPaymentDTO">
+		  SELECT ps.USERID AS seller
+		  	   , py.USERID AS consumer
+		  	   , py.PAYMENTNO
+		  	   , ps.PDNO
+		  	   , ps.PHOTONAME
+		  	   , py.PAYMENTTOTAL
+		  	   , py.PAYMENTDATE
+            FROM
+            (SELECT ups.USERNO AS pno, ups.USERID, sp.POSTNO, pd.PDNO, ph.PHOTONAME
+                   FROM POST sp
+                    JOIN USERS ups
+                     ON sp.USERNO = ups.USERNO
+                    JOIN PHOTO  ph
+                     ON sp.POSTNO = ph.POSTNO
+                    JOIN PRODUCT pd
+                     ON  ph.PHOTONO = pd.PHOTONO
+                    JOIN PDORDER pdo
+                     ON pd.PDNO = pdo.PDNO
+                    JOIN PAYMENT pay
+                     ON pdo.PAYMENTNO = pay.PAYMENTNO
+                ) ps, ( SELECT sur.USERNO AS surno, sur.USERID, spy.PAYMENTNO, spy.PAYMENTTOTAL, spy.PAYMENTDATE
+                    FROM PAYMENT spy
+                      JOIN USERS sur
+                   ON spy.USERNO = sur.USERNO ) py
+                   WHERE 1=1
+					AND UPPER(ps.USERID) LIKE UPPER('%' || #{keyword} || '%') 
+					OR UPPER(py.USERID) LIKE UPPER('%'||#{keyword}||'%')
+		</select>
+		
+		<select id="paymentChart" parameterType="map" resultType="AdminPaymentDTO">
+		<![CDATA[
+			SELECT  
+					TO_CHAR(PAYMENTDATE, 'YYYYMMDD') AS dateDay
+				  , PAYMENTTOTAL * 0.1 AS persent 
+				  , PAYMENTTOTAL
+ 			 FROM PAYMENT
+ 			  WHERE
+	     	   PAYMENTDATE >= #{startDate} AND PAYMENTDATE < LAST_DAY(TO_DATE(#{endDate}, 'YYYYMMDD')) 
+	 		GROUP BY
+	    	 TO_CHAR(PAYMENTDATE, 'YYYYMMDD'), PAYMENTTOTAL
+	      ]]>
+		</select>	
+	
+
+</mapper>

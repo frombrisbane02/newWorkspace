@@ -1,6 +1,5 @@
 package com.pictory.springapp.service.impl;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,79 +9,23 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.pictory.springapp.dto.AdminUsersDTO;
+import com.pictory.springapp.dto.AdminPaymentDTO;
 
-
-@Repository("adminusersDAO")
-public class AdminUsersDAO {
+@Repository("adminpaymentDAO")
+public class AdminPaymentDAO {
 	
 	@Autowired
-	private SqlSessionFactory sqlMapper;	
+	private SqlSessionFactory sqlMapper;
 	
-	public List<AdminUsersDTO> userList() throws Exception {
+	
+	public List<AdminPaymentDTO> paymentList() throws Exception {
+		
 		SqlSession session = sqlMapper.openSession();
 		
 		try {
 			
-			return session.selectList("userList");
-
-		}catch(Exception e) {
-			e.printStackTrace();
-		}finally {
-			session.close();
-		}
-		
-		return null;
-		
-	}
-	
-	public List<AdminUsersDTO> searchList(AdminUsersDTO keyword)throws Exception {
-		SqlSession session = sqlMapper.openSession();
-		
-		try {
+			List<AdminPaymentDTO> list = session.selectList("paymentList");
 			
-			List<AdminUsersDTO> list = session.selectList("searchList", keyword);			
-			return list;  
-			
-		}catch(Exception e) {
-			e.printStackTrace();
-		}finally {
-			session.close();
-		}
-		
-		return null;
-		
-	}
-	
-	public int updateEnabled(AdminUsersDTO params) throws Exception{
-		SqlSession session = sqlMapper.openSession();
-		
-		try {
-			
-			return session.update("updateEnabled", params);
-			
-		}catch(Exception e) {
-			e.printStackTrace();
-		}finally {
-			session.close();
-		}
-		
-		return 0;
-	}
-	
-	
-	public List<AdminUsersDTO> userChart(List<HashMap<String, Object>> params) throws Exception {
-			SqlSession session = sqlMapper.openSession();
-		try {
-			
-			Map<String, String> map = new HashMap<String, String>();
-			
-			for(int i = 0; i < params.size(); i++) {
-				map.put("startDate", (String) params.get(i).get("startDate"));
-				map.put("endDate", (String) params.get(i).get("endDate"));
-			}
-			
-			List<AdminUsersDTO> list = session.selectList("userChart", map);
 			return list;
 			
 		}catch(Exception e) {
@@ -93,5 +36,45 @@ public class AdminUsersDAO {
 		
 		return null;
 	}
-
+	
+	
+	public List<AdminPaymentDTO> paymentSearch(HashMap<String, Object> params) throws Exception {
+		SqlSession session = sqlMapper.openSession();
+		try {
+			
+			List<AdminPaymentDTO> list = session.selectList("paymentSearch", params);
+			
+			return list;
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	
+	public List<AdminPaymentDTO> paymentChart(List<HashMap<String, Object>> params) throws Exception {
+		SqlSession session = sqlMapper.openSession();
+		try {
+					
+			Map<String, String> map = new HashMap<String, String>();
+			
+			for(int i = 0; i < params.size(); i++) {
+				map.put("startDate", (String) params.get(i).get("startDate"));
+				map.put("endDate", (String) params.get(i).get("endDate"));
+			}
+			
+			List<AdminPaymentDTO> list = session.selectList("paymentChart", map);
+			
+			return list;
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			session.close();
+		}
+		
+		return null;
+	}
 }

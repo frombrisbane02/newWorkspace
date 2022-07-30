@@ -1,6 +1,8 @@
 package com.pictory.springapp.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -21,10 +23,18 @@ public class AdminGalleryDAO {
 //	@Autowired
 //	private SqlSessionTemplate template;
 
-	public List<AdminGalleryDTO> selectList(AdminGalleryDTO param) throws Exception {
+	public List<AdminGalleryDTO> galleryChart(List<HashMap<String, Object>> params) throws Exception {
 		SqlSession session = sqlMapper.openSession();
 		try {
-			List<AdminGalleryDTO>  list =  session.selectList("selectList");
+			
+			Map<String, String> map = new HashMap<String, String>();
+			
+			for(int i = 0; i < params.size(); i++) {
+				map.put("startDate", (String) params.get(i).get("startDate"));
+				map.put("endDate", (String) params.get(i).get("endDate"));
+			}
+			
+			List<AdminGalleryDTO> list =  session.selectList("galleryChart", map);
 			
 			return list;
 			
@@ -37,6 +47,8 @@ public class AdminGalleryDAO {
 		//참고용! template.selectList("selectList", param);
 		return null;
 	}
-}
 	
+	
+	
+}
 	

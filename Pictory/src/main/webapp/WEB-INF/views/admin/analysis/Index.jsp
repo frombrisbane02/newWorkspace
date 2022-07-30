@@ -282,7 +282,7 @@ class="panel-radios" type="checkbox" name="nav-checkbox">
 <label id="open-nav-label" for="nav-ctrl"></label>
 <li id="li-for-panel-1" class="memberClass" data-test="1">
 <label class="panel-label"
-      for="panel-1-ctrl">회원과 방문객 현황</label>
+      for="panel-1-ctrl">회원 현황</label>
 </li><!--INLINE-BLOCK FIX
 --> <!--   <li id="li-for-panel-2" class="salesClass" data-test="2">
 <label class="panel-label"
@@ -331,7 +331,7 @@ class="panel-radios" type="checkbox" name="nav-checkbox">
                         <!--======================== 회원과 방문객 현황 차트 시작=============================-->
                         
                         <div class="d-flex align-items-center justify-content-between mb-4">
-                            <h3 class="mb-0">회원과 방문객 차트</h3>
+                            <h3 class="mb-0">회원일별 차트</h3>
                         </div>
                         <div class="div_chart1">
                     		<!-- <canvas id="earningDayChart" style="width: 100%; max: width 1104px;"></canvas> -->
@@ -345,7 +345,7 @@ class="panel-radios" type="checkbox" name="nav-checkbox">
                         
                     <div class="col-sm-3 col-xl-12">
                         <div class="bg-light rounded h-100 p-4">
-                            <h3 class="mb-4">회원과 방문객 표</h3>
+                            <h3 class="mb-4">회원 표</h3>
                             <table class="table table-hover">
                                 <thead>
                                     <tr class="thID1">
@@ -493,12 +493,12 @@ class="panel-radios" type="checkbox" name="nav-checkbox">
                     
                     <div class="col-sm-12 col-xl-5">
                         <div class="bg-light rounded h-100 p-4">
-                            <h3 class="mb-4">현재 총 회원과 방문객 합계</h3>
+                            <h3 class="mb-4">총 회원일별 합계</h3>
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
                                         <th scope="col"></th>
-                                        <th scope="col">현재 회원과 방문객 합계</th>
+                                        <th scope="col">회원 합계</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -506,10 +506,10 @@ class="panel-radios" type="checkbox" name="nav-checkbox">
                                         <th scope="row">회원</th>
                                         <td id="total_all"></td>
                                     </tr>
-                                     <tr>
+                                   <!--    <tr>
                                         <th scope="row">방문객</th>
                                         <td id="total_all1"></td>
-                                    </tr>
+                                    </tr>	-->
                                 </tbody>
                             </table>
                     </div>
@@ -736,7 +736,7 @@ class="panel-radios" type="checkbox" name="nav-checkbox">
                             <h3 class="mb-4">일별 스토리/갤러리 수 표</h3>
                             <table class="table table-hover">
                                 <thead>
-                                      <tr id="galleryDateTr1">
+                                      <tr class="galleryDateTr1 GSRemove">
                                  <!--       <th scope="col">일자</th>
                                         <th scope="col">1일</th>
                                         <th scope="col">2일</th>
@@ -751,7 +751,7 @@ class="panel-radios" type="checkbox" name="nav-checkbox">
                                     </tr>	
                                 </thead>
                                 <tbody>
-                                    <tr id="galleryCount1">
+                                    <tr class="galleryCount1 GSRemove">
                                     <!--    <th scope="row">갤러리 수</th>
                                     <td>1</td>
                                         <td>2</td>
@@ -766,7 +766,7 @@ class="panel-radios" type="checkbox" name="nav-checkbox">
                                     </tr>
                                 </tbody>
                                 <tbody>
-                                    <tr id="storyCount1">
+                                    <tr class="storyCount1 GSRemove">
                                    <!--     <th scope="row">스토리 수</th>
                                           <td>1</td>
                                         <td>2</td>
@@ -781,7 +781,7 @@ class="panel-radios" type="checkbox" name="nav-checkbox">
                                     </tr>
                                 </tbody>
                                 <thead>
-                                      <tr id="galleryDateTr2">
+                                      <tr class="galleryDateTr2 GSRemove">
                                  <!--       <th scope="col">일자</th>
                                         <th scope="col">11일</th>
                                         <th scope="col">12일</th>
@@ -796,7 +796,7 @@ class="panel-radios" type="checkbox" name="nav-checkbox">
                                     </tr>	
                                 </thead>
                                 <tbody>
-                                    <tr id="galleryCount2">
+                                    <tr class="galleryCount2 GSRemove">
                                     <!--    <th scope="row">갤러리 수</th>
                                           <td>1</td>
                                         <td>2</td>
@@ -811,7 +811,7 @@ class="panel-radios" type="checkbox" name="nav-checkbox">
                                     </tr>
                                 </tbody>
                                 <tbody>
-                                    <tr id="storyCount2">
+                                    <tr class="storyCount2 GSRemove">
                                     <!--    <th scope="row">스토리 수</th>
                                           <td>1</td>
                                         <td>2</td>
@@ -826,7 +826,7 @@ class="panel-radios" type="checkbox" name="nav-checkbox">
                                     </tr>
                                 </tbody>
                                 <thead>
-                                      <tr id="galleryDateTr3">
+                                      <tr class="galleryDateTr3 GSRemove">
                                  <!--     <th scope="col">일자</th>
                                         <th scope="col">21일</th>
                                         <th scope="col">22일</th>
@@ -841,7 +841,7 @@ class="panel-radios" type="checkbox" name="nav-checkbox">
                                     </tr>	
                                 </thead>
                                 <tbody>
-                                    <tr id="galleryCount3">
+                                    <tr class="galleryCount3 GSRemove">
                                    <!--     <th scope="row">갤러리 수</th>
                                           <td>1</td>
                                         <td>2</td>
@@ -856,7 +856,7 @@ class="panel-radios" type="checkbox" name="nav-checkbox">
                                     </tr>
                                 </tbody>
                                 <tbody>
-                                    <tr id="storyCount3">
+                                    <tr class="storyCount3 GSRemove">
                                   <!--      <th scope="row">스토리 수</th>
                                           <td>1</td>
                                         <td>2</td>
@@ -1268,6 +1268,8 @@ class="panel-radios" type="checkbox" name="nav-checkbox">
 <script>
 
 const localhost = 'http://localhost:4040/springapp/admin';
+var urlChange = '/userChart.do';
+
 var monthDay = '';
 var dataText = "";
 var bbcc = "";
@@ -1276,23 +1278,22 @@ var currentMonth = "";
 var thisMonth = "";
 var monthText = "";
 
+// 날짜
+var startDate = "";
+var endDate = "";
+ 
+
 var tabText = "회원";
 
-var monthArr = [];
 var galleryArr = [];
 
+
+// 차트 관련
 var monthArr = [];
 var xValues = [];
 var yValues = [];
 var yValuesTwo = [];
 
-
-var date = new Date(); // 현재 날짜(로컬 기준) 가져오기
-var utc = date.getTime() + (date.getTimezoneOffset() * 60 * 1000); // uct 표준시 도출
-var kstGap = 9 * 60 * 60 * 1000; // 한국 kst 기준시간 더하기
-var today = new Date(utc + kstGap); // 한국 시간으로 date 객체 만들기(오늘)
-
-  //달력
   $(document).ready(function() {
       calendarInit();
   });
@@ -1302,17 +1303,58 @@ var today = new Date(utc + kstGap); // 한국 시간으로 date 객체 만들기
       $('.sidebar, .content').toggleClass("open");
       return false;
   });
+  
+  
+  // 이전달로 이동
+  $('.go-prev').on('click', function() {
+	  monthArr = [];
+      monthText = "이전달";
+      calendarInit();
+  });
+
+  // 다음달로 이동
+  $('.go-next').on('click', function() {
+	  	monthArr = [];
+        monthText = "다음달";
+        calendarInit();
+  });
+
+  // 회원과 현황 탭
+  $('.memberClass').on('click', function(){
+	   urlChange = '/userChart.do';
+        monthText = "";
+        tabText = "회원";
+        calendarInit();
+    });
+
+  // 매출 현황 탭
+//    $('.salesClass').on('click', function(){
+//        monthText = "";
+//        tabText = "매출";
+//        calendarInit();
+//    });
+
+  //갤러리 현황 탭
+    $('.galleryClass').on('click', function(){
+	      urlChange = '/galleryChart.do';
+          monthText = "";
+          tabText = "게시물";
+          calendarInit();
+    });
 
   //차트
   function calendarInit(){
 	  
-	  var monthArr = [];
+	  monthArr = [];
 	  
     // 날짜 정보 가져오기
-    // var date = new Date(); // 현재 날짜(로컬 기준) 가져오기
-    // var utc = date.getTime() + (date.getTimezoneOffset() * 60 * 1000); // uct 표준시 도출
-    // var kstGap = 9 * 60 * 60 * 1000; // 한국 kst 기준시간 더하기
-    // var today = new Date(utc + kstGap); // 한국 시간으로 date 객체 만들기(오늘)
+     var date = new Date(); // 현재 날짜(로컬 기준) 가져오기
+     var utc = date.getTime() + (date.getTimezoneOffset() * 60 * 1000); // uct 표준시 도출
+     var kstGap = 9 * 60 * 60 * 1000; // 한국 kst 기준시간 더하기
+     var today = new Date(utc + kstGap); // 한국 시간으로 date 객체 만들기(오늘)
+     
+     
+     
         if(monthText == "이전달"){
           thisMonth = new Date(currentYear, currentMonth - 1, 1);  
         }else if(monthText == "다음달"){
@@ -1350,7 +1392,7 @@ var today = new Date(utc + kstGap); // 한국 시간으로 date 객체 만들기
      $('.year-month').text(currentYear + '.' + (currentMonth + 1));
 
     // 렌더링 html 요소 생성
-    calendar = document.querySelector('.dates')
+    calendar = document.querySelector('.dates');
     calendar.innerHTML = '';
     $(".dates").hide();
 
@@ -1363,6 +1405,7 @@ var today = new Date(utc + kstGap); // 한국 시간으로 date 객체 만들기
         calendar.innerHTML = calendar.innerHTML + '<div class="day current">' + i + '</div>';
         monthArr.push(i);
     }
+    
 
     if(month_now == currentMonth + 1 && currentYear == year_now){
       $('.go-next').hide();
@@ -1381,344 +1424,352 @@ var today = new Date(utc + kstGap); // 한국 시간으로 date 객체 만들기
         var currentMonthDate = document.querySelectorAll('.dates .current');
         currentMonthDate[todayDate -1].classList.add('today');
     }
-
-    var objSetting = "";
-
-    if(tabText == "회원"){
-
-      // 기존 캔버스 삭제
-    $('.div_chart1').find('canvas').remove();
-        // 새로 다시 그림
-    $('.div_chart1').append('<canvas id="memberDayChart" style="width: 100%; max: width 1104px;"></canvas>');
-      bbcc = "memberDayChart";
-      
-    }else if(tabText == "매출"){
-
-      // 기존 캔버스 삭제
-    $('.div_chart2').find('canvas').remove();
-
-    // 새로 다시 그림
-    $('.div_chart2').append('<canvas id="salseChartID" style="width: 100%; max: width 1104px;"></canvas>');
-    bbcc = "salseChartID";
-
-    }
     
-//    else if(tabText == "게시물"){
-    // 기존 캔버스 삭제
-//    $('.div_chart3').find('canvas').remove();
-
-    // 새로 다시 그림
-//    $('.div_chart3').append('<canvas id="galleryChartID" style="width: 100%; max: width 1104px;"></canvas>');
-//      bbcc = "galleryChartID";
-//    }
+	var year = String(thisMonth.getFullYear());
+	var month = String(thisMonth.getMonth() + 1);
+	
+	month = month >= 10 ? month : '0' + month;
+	startDate = year + month + "01";
+	 
+	 var today = new Date(year, month, 0);
+	 var year = today.getFullYear();
+	 var month = ('0' + (today.getMonth() + 1)).slice(-2);
+	 
+	 
+	 var day = ('0' + today.getDate()).slice(-2);
+	 endDate = year + month + day;
+	 
+	 	if(tabText == "회원"){
+	 		chartUsersInfo();
+	 	}
+	 	
+	 	if(tabText == "게시물"){
+			chartUsersInfo();
+	 	}
     
   } // CALENDAR INIT FN END
   
   
-
   
-  
-  
-  // 갤러리 데이터 조회
-  function galleryAjax(){
-	  
-	  
-	  
-	  var monthArr = [];
-	  
-	  var date = new Date(); // 현재 날짜(로컬 기준) 가져오기
-	  var utc = date.getTime() + (date.getTimezoneOffset() * 60 * 1000); // uct 표준시 도출
-	  var kstGap = 9 * 60 * 60 * 1000; // 한국 kst 기준시간 더하기
-	  var today = new Date(utc + kstGap); // 한국 시간으로 date 객체 만들기(오늘)
-	  
-	    // 날짜 정보 가져오기
-	    // var date = new Date(); // 현재 날짜(로컬 기준) 가져오기
-	    // var utc = date.getTime() + (date.getTimezoneOffset() * 60 * 1000); // uct 표준시 도출
-	    // var kstGap = 9 * 60 * 60 * 1000; // 한국 kst 기준시간 더하기
-	    // var today = new Date(utc + kstGap); // 한국 시간으로 date 객체 만들기(오늘)
-	        if(monthText == "이전달"){
-	          thisMonth = new Date(currentYear, currentMonth - 1, 1);  
-	        }else if(monthText == "다음달"){
-	          thisMonth = new Date(currentYear, currentMonth + 1, 1);
-	        }else{
-	          thisMonth = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-	        }
-	    
-	    // 달력에서 표기하는 날짜 객체
-	        currentYear = thisMonth.getFullYear(); // 달력에서 표기하는 연
-	        currentMonth = thisMonth.getMonth(); // 달력에서 표기하는 월
-	    var currentDate = thisMonth.getDate(); // 달력에서 표기하는 일
+  var ajaxData = "";
 
-	    var now = new Date();
-	    var month_now = now.getMonth()+1
-	    var year_now = now.getFullYear();
-
-
-	    // 렌더링을 위한 데이터 정리
-	    currentYear = thisMonth.getFullYear();
-	    currentMonth = thisMonth.getMonth();
-	    currentDate = thisMonth.getDate();
-	    
-	    // 이전 달의 마지막 날 날짜와 요일 구하기
-	    var startDay = new Date(currentYear, currentMonth, 0);
-	    var prevDate = startDay.getDate();
-	    var prevDay = startDay.getDay();
-
-	    // 이번 달의 마지막날 날짜와 요일 구하기
-	    var endDay = new Date(currentYear, currentMonth + 1, 0);
-	    var nextDate = endDay.getDate();
-	    var nextDay = endDay.getDay();
-
-	    // 현재 월 표기
-	     $('.year-month').text(currentYear + '.' + (currentMonth + 1));
-
-	    // 렌더링 html 요소 생성
-	    calendar = document.querySelector('.dates')
-	    calendar.innerHTML = '';
-	    $(".dates").hide();
-
-	    // 지난달
-	    for (var i = prevDate - prevDay + 1; i <= prevDate; i++) {
-	        calendar.innerHTML = calendar.innerHTML + '<div class="day prev disable">' + i + '</div>'
-	    }
-	    // 이번달
-	    for (var i = 1; i <= nextDate; i++) {
-	        calendar.innerHTML = calendar.innerHTML + '<div class="day current">' + i + '</div>';
-	        monthArr.push(i);
-	    }
-
-	    if(month_now == currentMonth + 1 && currentYear == year_now){
-	      $('.go-next').hide();
-	    }else{
-	      $('.go-next').show();
-	    }
-
-	    // 다음달
-	    for (var i = 1; i <= (7 - nextDay == 7 ? 0 : 7 - nextDay); i++) {        	
-	        calendar.innerHTML = calendar.innerHTML + '<div class="day next disable">' + i + '</div>'
-	    }
-
-	    // 오늘 날짜 표기
-	    if (today.getMonth() == currentMonth) {
-	        todayDate = today.getDate();
-	        var currentMonthDate = document.querySelectorAll('.dates .current');
-	        currentMonthDate[todayDate -1].classList.add('today');
-	    }
-	    
-	    
-	    
-//	    =========================================================================
-	  
-      // 기존 캔버스 삭제
-      $('.div_chart3').find('canvas').remove();
-   	  // 새로 다시 그림
-      $('.div_chart3').append('<canvas id="galleryChartID" style="width: 100%; max: width 1104px;"></canvas>');
+  // 회원 CHRAT 현황 데이터
+  function chartUsersInfo(){
 	 
-	var yValues = [];
-	var yValuesTwo = [];
- 
-	var today = String(thisMonth.getFullYear());	
-	var month = String(thisMonth.getMonth() + 1);
-	month = month >= 10 ? month : '0' + month;
-	var firstDay = today + month + "01";
-	
-	
-	
+  var obj = [{"startDate" : startDate, "endDate" : endDate}];
+  	  
  	$.ajax({
-	 	url: localhost + "/gallery.do",
+	 	url: localhost + urlChange,
 	    type: "POST",
 	    cache: false,
         dataType: "json",
-	    data: {
-			
-	    	'today' : firstDay
-	    	
-	    },
+        contentType: "application/json",
+	    data: JSON.stringify(obj),
 	    success: function(data){
 	    	
-	    	var cArr = [];
-	    	var xValues = [];
-	    	    	
-	    	$('#galleryDateTr1').html('');
-	    	$('#galleryDateTr2').html('');
-	    	$('#galleryDateTr3').html('');
+	    	
+	    	if(tabText == "회원"){
+		    	// 기존 캔버스 삭제
+			      $('.div_chart1').find('canvas').remove();
+			   	  // 새로 다시 그림
+			      $('.div_chart1').append('<canvas id="memberChartID" style="width: 100%; max: width 1104px;"></canvas>');
+			   	  
+			      $('.thID1').html('');
+			      $('.thID2').html('');
+			      $('.thID3').html('');
+		    	
+				  $('.thID_1').html('');
+				  $('.thID_2').html('');
+				  $('.thID_3').html('');
+	    	}else{
+			      // 기존 캔버스 삭제
+			      $('.div_chart3').find('canvas').remove();
+			   	  // 새로 다시 그림
+			      $('.div_chart3').append('<canvas id="galleryChartID" style="width: 100%; max: width 1104px;"></canvas>');
+			   	  
+			      $('.GSRemove').html('');
+			      
+			      
+	    	}
+			  			
+	    	ajaxData = data;
+	    	
+	    	chartSetting();
+	    
+			
+	    }, error: function (request, status, error){
+	    	alert("Error");
+	    }
+	  });
+  }
+  
+  
+  // 차트 세팅
+  function chartSetting(){
+	  
+	  
+	    var xValues = [];
+	    var yValues = [];
+	    var yValuesTwo = [];
+	 	  
+		var yearValue = endDate.substring(0, 4);
+		var monthValue = endDate.substring(4, 6);
+		var sum = 0;
+		var sum2 = 0;
+		var dateArr = [];
+	    var dataArr = [];
+	    var dataArr2 = [];
+	    
+	    
+	    if(tabText == "회원"){
+		    $('.thID1').append('<th scope="col">일자</th>');
+		    $('.thID2').append('<th scope="col">일자</th>');
+		    $('.thID3').append('<th scope="col">일자</th>');	    	
+	    }else{
+		    $('.galleryDateTr1').append('<th scope="col">일자</th>');
+		    $('.galleryDateTr2').append('<th scope="col">일자</th>');
+		    $('.galleryDateTr3').append('<th scope="col">일자</th>');	    	
+	    }
+		
+	    for(var i = 1; i <= monthArr.length; i++){
+	    	var dateValue = i >= 10 ? i : '0' + i;
+	    	dateValue = String(dateValue);
+	    	var dateVal = yearValue + monthValue + dateValue;
+	    	
+	    	if(tabText == "회원"){
+	    		
+		    	if( i <= 10){
+		    		$('.thID1').append('<th scope="col">'+ dateValue +'</th>');	
+		    	} else if(i <= 20 && i >= 10 ) {
+		    		$('.thID2').append('<th scope="col">'+ dateValue +'</th>');
+		    	} else {
+		    		$('.thID3').append('<th scope="col">'+ dateValue +'</th>');
+		    	}
+		    	
+		    	var obj = {"dateDay" : dateVal, "totalCount" : 0, "idx" : i};
+		    			    	
+	    	}else{
+		    	if( i <= 10){
+		    		$('.galleryDateTr1').append('<th scope="col">'+ dateValue +'</th>');	
+		    	} else if(i <= 20 && i >= 10 ) {
+		    		$('.galleryDateTr2').append('<th scope="col">'+ dateValue +'</th>');
+		    	} else {
+		    		$('.galleryDateTr3').append('<th scope="col">'+ dateValue +'</th>');
+		    	}
+	    		
+		    	var obj = {"dateDay" : dateVal, "photo" : 0, "story" : 0, "idx" : i};
+		    	
+	    	}
+	    	
+	    	
+	    	
+	    	dateArr.push(obj);
+	    	xValues.push(dateValue);
+	    }
+	    
 
-	    	
-			// 갤러리 일별 표
-			$('#galleryDateTr1').append('<th scope="col">일자</th>');
-			$('#galleryDateTr2').append('<th scope="col">일자</th>');
-			$('#galleryDateTr3').append('<th scope="col">일자</th>');
-	    	
-		    for(var i = 1; i <= monthArr.length; i++){
-		    	
-		    	var dateValue = i >= 10 ? i : '0' + i;
-		    	
-		    	if(Number(dateValue) <= 10){
-					$('#galleryDateTr1').append('<th scope="col">'+ dateValue +'일</th>');
-		    	}else if(Number(dateValue) <= 20){
-					$('#galleryDateTr2').append('<th scope="col">'+ dateValue +'일</th>');
-		    	}else{
-		    		$('#galleryDateTr3').append('<th scope="col">'+ dateValue +'일</th>');
-		    	}
-		    	
-		    	
-		    	
-		    	var testDay = today + month + dateValue;	
-		    	cArr.push(testDay);
-		        xValues.push(i + "일");
-		    }
-		    
-		    
-		    var aaArr = [];
-		    var bbArr = [];
-		    
-		    for(var i = 0; i < data.length; i++){
-		    	
-		    	
-		    	var obj = {};
-		    	
-		    	var v = data[i];
-		    
-			    	for(var y = 0; y < cArr.length; y++){
-			    		
-			    		var obj1 = {};
-			    		var obj2 = {};
-			    		
-			    		var vv = cArr[y];
-			    		
-			    		if(i == data.length-1){
-				    		if(vv == v.dateDay){
-				    			obj1.dateDay = v.dateDay;
-				    			obj1.photo = v.photo;
-				    			obj1.photomuseum = v.photomuseum;
-				    		}
-				    		
-				    		if(vv != v.dateDay){
-				    			obj1.dateDay = vv;
-				    			obj1.photo = 0;
-				    			obj1.photomuseum = 0;
-				    		}
-				    		
-				    		aaArr.push(obj1);
-			    		}else{
-				    		if(vv == v.dateDay){
-				    			obj2.dateDay = v.dateDay;
-				    			obj2.photo = v.photo;
-				    			obj2.photomuseum = v.photomuseum;
-				    		}
-				    		
-				    		if(vv != v.dateDay){
-				    			obj2.dateDay = vv;
-				    			obj2.photo = 0;
-				    			obj2.photomuseum = 0;
-				    		}
-				    		
-				    		bbArr.push(obj2);
-			    		}
-			    	
-			    	}	
-		    	}
-		    
-		    		for(var i = 0; i < aaArr.length; i++){
-		    			var obj = {};
-		    			var aa = aaArr[i];
-		    			var bb = bbArr[i];
-		    			
-		    			if(aa.dateDay == bb.dateDay &&  aa.photo == bb.photo && aa.photomuseum == bb.photomuseum){		    				
-		    				yValues.push(aa.photo)
-		    				yValuesTwo.push(aa.photomuseum);
-		    				
-		    			}else{
-		    				
-		    				if(aa.dateDay == bb.dateDay &&  aa.photo != bb.photo || aa.dateDay == bb.dateDay && aa.photomuseum != bb.photomuseum){
-		    					
-		    					if(aa.photo == 0 && aa.photomuseum == 0){
-			    					
-		    					}else{
-				    				yValues.push(aa.photo)
-				    				yValuesTwo.push(aa.photomuseum);
-		    					}
-		    					
-		    					if(bb.photo == 0 && bb.photomuseum == 0){
-		    						
-		    					}else{
-				    				yValues.push(bb.photo)
-				    				yValuesTwo.push(bb.photomuseum);
-		    					}
-		    				}
-		    			}
-		    		}
-		   
-//		    	dateDay
-//	    		photo
-//	    		photomuseum
+	 	if(tabText == "회원"){
+	 		
+			  $('.thID_1').append('<th scope="col">회원수</th>');
+			  $('.thID_2').append('<th scope="col">회원수</th>');
+			  $('.thID_3').append('<th scope="col">회원수</th>');
+	 		
+	 		if(ajaxData.length != 0){
+			  	  for(var i = 0; i < ajaxData.length; i++){
+					  var v =  ajaxData[i];
+					  var obj = {"dateDay" : v.dateDay, "totalCount" : v.totalCount};
+					  dataArr.push(obj);
+				  }
+		
+			  	  
+			  	
+			  	  
+			  	  for(var i = 0; i < dateArr.length; i++){
+			  		  var v = dateArr[i];
+			  		  
+			  		  for(var y = 0; y < dataArr.length; y++){
+			  			  var vv = dataArr[y];
+			  			  
+			  			  if(v.dateDay == vv.dateDay){
+			  				vv.idx = v.idx;
+			  				dataArr2.push(vv);
+			  			  }
+			  		  }
+			  	  }
+			 
+			  	var aaArr = [...new Set([...dataArr2, ...dateArr])];
+			  	var aa = aaArr.filter(
+	  				(arr, index, callback) => index === callback.findIndex(t => t.idx === arr.idx));
+			  	
+			  	
+			 //정렬
+			  var geResult = aa.sort(function (a, b) {
+			  	    return a.idx - b.idx;
+			  	});
+			 
+			 
+			  	
+			 	for(var i = 0; i < geResult.length; i++){
+			 		var v = geResult[i];
+			 		
+			 		if(i < 10){
+			 			$('.thID_1').append('<td>'+ v.totalCount +'</td>');
+			 		
+			 		}else if(i <= 20 && i > 10){
+						  $('.thID_2').append('<td>'+ v.totalCount +'</td>');
+			 		}else{
+			 			  $('.thID_3').append('<td>'+ v.totalCount +'</td>');	
+			 		}
+			 		
+			 		
+			 		
+			 		 sum += v.totalCount;
+			 		$('#total_all').text(sum);
+			 		
+			 		yValues.push(v.totalCount);
+			 	}	 			
+	 		}else{
+	 			
+	 			for(var i = 0; i < xValues.length; i++){
+	 				
+			 		if(i < 10){
+			 			$('.thID_1').append('<td>0</td>');
+			 		
+			 		}else if(i <= 20 && i > 10){
+						  $('.thID_2').append('<td>0</td>');
+			 		}else{
+			 			  $('.thID_3').append('<td>0</td>');	
+			 		}
+	 			
+			 		
+	 				 yValues.push(0);
+	 			}
+	 			
+		 			$('#total_all').text(0);
+	 		}	 	  
+	 		
+		// 차트 세팅
+ 		  new Chart("memberChartID", {
+ 				  type: "bar",
+ 				  data: {
+ 				    labels: xValues,
+ 				    datasets: [
+ 		                { label: '회원 수', backgroundColor: "rgba(30, 144, 255, 1)", data: yValues }
+ 		    		]
+ 				  },
+ 				  options: {
+ 				    legend: {display: true},
+ 				    scales: {
+ 				      yAxes: [{
+ 				        ticks: {
+ 				          beginAtZero: true
+ 				        }
+ 				      }],
+ 				    }
+ 				  }
+ 				});
+	 	}
+	 	
+	 	
+	 	if(tabText == "게시물"){
+	 		
+	 		$('.galleryCount1').append('<th scope="row">갤러리 수</th>');
+	 		$('.galleryCount2').append('<th scope="row">갤러리 수</th>');
+	 		$('.galleryCount3').append('<th scope="row">갤러리 수</th>');
+	 		
+	 		$('.storyCount1').append('<th scope="row">스토리 수</th>');
+	 		$('.storyCount2').append('<th scope="row">스토리 수</th>');
+	 		$('.storyCount3').append('<th scope="row">스토리 수</th>');
+	 		
+	 		
+	 		if(ajaxData.length != 0){
+
+		 		
+		 		
+			  	  for(var i = 0; i < dateArr.length; i++){
+			  		  var v = dateArr[i];
+			  		  
+			  		  for(var y = 0; y < ajaxData.length; y++){
+			  			  var vv = ajaxData[y];
+			  			  
+			  			  if(v.dateDay == vv.dateDay){
+			  				vv.idx = v.idx;
+			  				dataArr2.push(vv);
+			  			  }
+			  		  }
+			  	  }
+			    
+				  	var aaArr = [...new Set([...dataArr2, ...dateArr])];
+				  	var aa = aaArr.filter(
+		  				(arr, index, callback) => index === callback.findIndex(t => t.idx === arr.idx));
+				  	
+				  	
+				 //정렬
+				  var geResult = aa.sort(function (a, b) {
+				  	    return a.idx - b.idx;
+				  });
+				 
+				 
+				 for(var i = 0; i < geResult.length; i++){
+					 var v = geResult[i];
+					 
+						if(i < 10){
+				 			$('.galleryCount1').append('<td>'+ v.photo +'</td>');
+				 			$('.storyCount1').append('<td>'+ v.story +'</td>');
+				 		
+				 		}else if(i <= 20 && i > 10){
+							  $('.galleryCount2').append('<td>'+ v.photo +'</td>');
+							  $('.storyCount2').append('<td>'+ v.story +'</td>');
+				 		}else{
+				 			  $('.galleryCount3').append('<td>'+ v.photo +'</td>');
+				 			  $('.storyCount3').append('<td>'+ v.story +'</td>');
+				 		}
 				
-		 		$('#galleryTotal').text('');
-		 		$('#storyTotal').text('');
+					 sum += v.photo;
+					 sum2 += v.story;
 					
-		 		let sum = 0;
-		 		let sum1 = 0;
+					 yValues.push(v.photo);
+					 yValuesTwo.push(v.story);
+				 }
+				 		
+		 			$('#galleryTotal').text(sum);
+		 			$('#storyTotal').text(sum2);
+				 
+	 		}else{
+	 			
+	 			
+	 			for(var i = 0; i < xValues.length; i++){
+	 				
+	 				if(i < 10){
+			 			  $('.galleryCount1').append('<td>0</td>');
+			 			  $('.storyCount1').append('<td>0</td>');
+			 		
+			 		}else if(i <= 20 && i > 10){
+						  $('.galleryCount2').append('<td>0</td>');
+						  $('.storyCount2').append('<td>0</td>');	
+			 		}else{
+			 			  $('.galleryCount3').append('<td>0</td>');	
+			 			  $('.storyCount3').append('<td>0</td>');	
+			 		}
+	 				
+	 				
+					 yValues.push(0);
+					 yValuesTwo.push(0);	
+	 			}
+	 			
+	 			$('#galleryTotal').text(0);
+	 			$('#storyTotal').text(0);
+	 		}
 
-		 		for (let i = 0; i < yValues.length; i++) {
-		 		    sum += yValues[i];
-		 		}
-				
-		 		for (let i = 0; i < yValuesTwo.length; i++) {
-		 		    sum1 += yValuesTwo[i];
-		 		}
-		 		
-		 		
-		 		
-		 		$('#galleryTotal').text(sum);
-		 		$('#storyTotal').text(sum1);
-		 		
-		 		
-		 		$('#galleryCount1').html('');
-		 		$('#galleryCount2').html('');
-		 		$('#galleryCount3').html('');
-		 		$('#storyCount1').html('');
-		 		$('#storyCount2').html('');
-		 		$('#storyCount3').html('');
-		 		
-		 		
- 				$('#galleryCount1').html('');
- 				$('#storyCount1').html('');
- 				$('#galleryCount2').html('');
- 				$('#storyCount2').html('');
- 				$('#galleryCount3').html('');
- 				$('#storyCount3').html('');
-
-		 		
-		 		$('#galleryCount1').append('<th scope="col">갤러리 수</th>');
-		 		$('#galleryCount2').append('<th scope="col">갤러리 수</th>');
-		 		$('#galleryCount3').append('<th scope="col">갤러리 수</th>');
-		 		$('#storyCount1').append('<th scope="col">스토리 수</th>');
-		 		$('#storyCount2').append('<th scope="col">스토리 수</th>');
-		 		$('#storyCount3').append('<th scope="col">스토리 수</th>');
-		 		
-		 		for(var i = 0; i < yValues.length; i++){
-		 			
-		 			if(i  <= 9){
-		 				$('#galleryCount1').append('<td>'+ yValues[i] +'</td>');
-		 				$('#storyCount1').append('<td>'+ yValuesTwo[i] +'</td>');
-		 			}else if(i <= 19){
-		 				$('#galleryCount2').append('<td>'+ yValues[i] +'</td>');
-		 				$('#storyCount2').append('<td>'+ yValuesTwo[i] +'</td>');
-		 			}else{
-		 				$('#galleryCount3').append('<td>'+ yValues[i] +'</td>');
-		 				$('#storyCount3').append('<td>'+ yValuesTwo[i] +'</td>');
-		 			}
-		 		}
-
-
+	 		
 			// 차트 세팅
 			  new Chart("galleryChartID", {
 					  type: "bar",
 					  data: {
 					    labels: xValues,
 					    datasets: [
-			                { backgroundColor: "rgba(30, 144, 255, 1)", data: yValues }
-			              , { backgroundColor: "rgba(24, 154, 155, 1)", borderColor:"red", data: yValuesTwo }
+			                { label: '갤러리 수', backgroundColor: "rgba(30, 144, 255, 1)", data: yValues }
+			              , { label: '스토리 수', backgroundColor: "rgba(24, 154, 155, 1)", borderColor:"red", data: yValuesTwo }
 			    ]
 					  },
 					  options: {
@@ -1732,61 +1783,18 @@ var today = new Date(utc + kstGap); // 한국 시간으로 date 객체 만들기
 					    }
 					  }
 					});
-					
-
-
-	    }, error: function (request, status, error){
-	    	alert("Error");
-	    }
-	  });
+	 		
+	 	}
+	  
   }
-
-  // 이전달로 이동
-  $('.go-prev').on('click', function() {
-      monthText = "이전달";
-//      calendarInit();
-
-		galleryAjax();
-			
-  });
-
-  // 다음달로 이동
-  $('.go-next').on('click', function() {
-        monthText = "다음달";
- //       calendarInit();
-        galleryAjax();
-  });
-
-  // 탭 클릭
-  // 회원과 방문객 현황
-  
-  $('.memberClass').on('click', function(){
-        monthText = "";
-        tabText = "회원";
-        calendarInit();
-    });
-
-  // 매출 현황
-    $('.salesClass').on('click', function(){
-        monthText = "";
-        tabText = "매출";
-        calendarInit();
-    });
-
-  //갤러리 현황
-    $('.galleryClass').on('click', function(){
-          monthText = "";
-          tabText = "게시물";
-//          calendarInit();
-          galleryAjax();
-    });
   
   
   
-//======================================= 회원 ===============================================================
+  
+  
+//======================================= 회원 정보 ===============================================================
   //회원 정보
   	$('.userClass').on('click', function(){
-  		console.log("회원 정보 확인123");
   		userAjax();
   	});
   
@@ -1808,8 +1816,6 @@ var today = new Date(utc + kstGap); // 한국 시간으로 date 객체 만들기
 		    },
 		    success: function(data){
 				
-		    	console.log("DATA CHECK : ", data)
-		    	
 				userData = data;
 				
 				memberSetting(data);
@@ -1824,6 +1830,16 @@ var today = new Date(utc + kstGap); // 한국 시간으로 date 객체 만들기
   	function memberSetting(data){
   		
   		$('#userListAppend').html('');
+  		
+  		
+  		if(data.length == 0){
+			innerHtml += '<tr>';
+			innerHtml += '<td class="text-center" colspan="6">회원이 없습니다.</td>';
+			innerHtml += '</tr>';
+			$('#userListAppend').append(innerHtml);  			
+  			return false;
+  		}
+  		
   		
 		for(var i = 0; i < data.length; i++){
 			var v = data[i];

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mybatis.mapper.adminmain">
+		
+	<select id="mainPaymentList" parameterType="AdminPaymentDTO" resultType="AdminPaymentDTO">
+		<![CDATA[
+		    SELECT ps.USERID AS seller
+		  	   , py.USERID AS consumer
+		  	   , py.PAYMENTNO
+		  	   , ps.PDNO
+		  	   , ps.PHOTONAME
+		  	   , py.PAYMENTTOTAL
+		  	   , py.PAYMENTDATE
+            FROM
+            (SELECT ups.USERNO AS pno, ups.USERID, sp.POSTNO, pd.PDNO, ph.PHOTONAME
+                   FROM POST sp
+                    JOIN USERS ups
+                     ON sp.USERNO = ups.USERNO
+                    JOIN PHOTO  ph
+                     ON sp.POSTNO = ph.POSTNO
+                    JOIN PRODUCT pd
+                     ON  ph.PHOTONO = pd.PHOTONO
+                    JOIN PDORDER pdo
+                     ON pd.PDNO = pdo.PDNO
+                    JOIN PAYMENT pay
+                     ON pdo.PAYMENTNO = pay.PAYMENTNO
+                     WHERE 1=1
+                     AND ROWNUM <= 5
+                     ORDER BY LPAD(pay.PAYMENTDATE, 10, 0) DESC
+                     
+                ) ps, ( SELECT sur.USERNO AS surno, sur.USERID, spy.PAYMENTNO, spy.PAYMENTTOTAL, spy.PAYMENTDATE
+                    FROM PAYMENT spy
+                      JOIN USERS sur
+                   ON spy.USERNO = sur.USERNO
+                   WHERE 1=1
+                   AND ROWNUM <= 5
+                    ORDER BY LPAD(spy.PAYMENTDATE, 10, 0) DESC
+                   ) py
+                   WHERE 1=1
+                   AND ROWNUM <= 5
+                   ORDER BY LPAD(py.PAYMENTDATE, 10, 0) DESC
+               ]]>
+	</select>
+	
+	<select id="mainNoticeList" parameterType="AdminNoticeDTO" resultType="AdminNoticeDTO">
+		<![CDATA[
+			SELECT n.*, u.USERID
+			 FROM NOTICE n 
+			  JOIN USERS u
+              ON n.USERNO = u.USERNO
+              WHERE 1=1
+              AND ROWNUM <= 5
+				ORDER BY LPAD(NOTICEDATE, 10, 0) DESC
+		]]>
+	</select>
+	
+	<select id="mainQnaList" parameterType="AdminQnaDTO" resultType="AdminQnaDTO">
+	  		<![CDATA[
+			SELECT q.*, u.USERID
+			 FROM QNA q 
+			  JOIN USERS u
+              ON q.USERNO = u.USERNO
+              WHERE 1=1
+              	AND ROWNUM <= 5
+				ORDER BY LPAD(QNADATE, 10, 0) DESC
+		]]>
+	</select>
+	
+	<select id="mainPaymentChart" parameterType="map" resultType="AdminPaymentDTO">
+		<![CDATA[
+			SELECT  
+					TO_CHAR(PAYMENTDATE, 'YYYYMMDD') AS dateDay
+				  , PAYMENTTOTAL * 0.1 AS persent 
+				  , PAYMENTTOTAL
+ 			 FROM PAYMENT
+ 			  WHERE
+	     	   PAYMENTDATE >= #{startDate} AND PAYMENTDATE < LAST_DAY(TO_DATE(#{endDate}, 'YYYYMMDD')) 
+	 		GROUP BY
+	    	 TO_CHAR(PAYMENTDATE, 'YYYYMMDD'), PAYMENTTOTAL
+	      ]]>
+	</select>
+	
+	<select id="mainUserChart" parameterType="map" resultType="AdminUsersDTO">
+	   	<![CDATA[ 
+			 SELECT
+		        TO_CHAR(USERDATE, 'YYYYMMDD') AS dateDay
+		    ,   COUNT(*) AS totalCount
+			 FROM USERS u 
+		        JOIN AUTHORITIES a
+		         ON u.USERNO = a.USERNO
+			 WHERE
+			     USERDATE >= #{startDate} AND USERDATE < LAST_DAY(TO_DATE(#{endDate}, 'YYYYMMDD')) 
+			 GROUP BY
+			    TO_CHAR(USERDATE, 'YYYYMMDD')
+		]]>
+	</select>
+	
+	<select id="mainGalleryChart" parameterType="map" resultType="AdminGalleryDTO">
+		<![CDATA[ 
+			 SELECT
+		        TO_CHAR(POSTDATE, 'YYYYMMDD') AS dateDay
+		    ,   COUNT(h.photono) AS photo
+		    ,   COUNT(s.sno) AS story
+		    FROM POST p
+		    LEFT JOIN PHOTO h
+		        ON p.POSTNO = h.POSTNO
+		    LEFT JOIN STORY s
+		        ON p.SNO = s.SNO
+			WHERE
+			     POSTDATE >= #{startDate} AND POSTDATE < LAST_DAY(TO_DATE(#{endDate}, 'YYYYMMDD')) 
+			GROUP BY
+			    TO_CHAR(POSTDATE, 'YYYYMMDD')
+	   ]]>
+	</select>
+</mapper>

@@ -1,5 +1,6 @@
 package com.pictory.springapp.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,15 +16,17 @@ public class AdminGalleryServiceImpl implements AdminGalleryService {
 	private AdminGalleryDAO galleryDAO;
 
 	@Override
-	public List<AdminGalleryDTO> galleryList(AdminGalleryDTO param) throws Exception {
+	public List<AdminGalleryDTO> gelleryChart(List<HashMap<String, Object>> param) throws Exception {
+		
 		try {
-			List<AdminGalleryDTO> galleryList = galleryDAO.selectList(param);
-			return galleryList;
+			List<AdminGalleryDTO> list = galleryDAO.galleryChart(param);
+			
+			return list;
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
 		
-		return null;
+		 return null;
 	}
 
 
@@ -33,3 +36,11 @@ public class AdminGalleryServiceImpl implements AdminGalleryService {
 	
 	
 }
+
+
+
+
+	
+	
+	
+

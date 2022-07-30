@@ -9,6 +9,9 @@ import lombok.Setter;
 import lombok.Getter;
 import lombok.Setter;
 
+import lombok.Getter;
+import lombok.Setter;
+
 @Getter
 @Setter
 public class AdminUsersDTO {
@@ -22,5 +25,9 @@ public class AdminUsersDTO {
 	private int userFwer;
 	private String userProfile;
 	private String userSelf;
+	private String userDate;
 	private int enabled;
+	private String dateDay; 
+	private int totalCount;
 }
+

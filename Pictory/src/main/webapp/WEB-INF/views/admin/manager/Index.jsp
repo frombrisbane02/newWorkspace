@@ -3,11 +3,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <title>Picktory-매출 통계 페이지 </title>
+    <title>Picktory-수익 및 정산 </title>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
@@ -300,20 +301,20 @@ class="panel-radios" type="checkbox" name="nav-checkbox">
                         <!--정렬 (가입일순 / 생년월일 / 주소(시) / )-->
                         <div class="dropdown" style="margin-left: 20px;">
                             <button type="button" class="btn btn-primary dropdown-toggle btn-sm" data-toggle="dropdown">
-                                정렬
+                                검색 키워드
                             </button>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">최신순</a>
-                                <a class="dropdown-item" href="#">구매자 아이디</a>
-                                <a class="dropdown-item" href="#">판매자 아이디</a>
-                                <a class="dropdown-item-text" href="#">구매/판매 목록</a>
+                                <!--   <a class="dropdown-item" href="#">최신순</a>	-->
+                                <a class="dropdown-item searchId" href="#" value="consumer">구매자 아이디</a>
+                                <a class="dropdown-item searchId" href="#" value="seller">판매자 아이디</a>
+                                <!--  <a class="dropdown-item-text" href="#">구매/판매 목록</a> -->
                             </div>
                         </div>
             
                            <!--search-->
                            <div>
-                            <input type="text" placeholder="검색">
-                            <button>검색</button>
+                            <input type="text" id="keyword" placeholder="검색">
+                            <button id="searchClick">검색</button>
                             </div>
                         <!--search-->
                     </div> 
@@ -331,8 +332,8 @@ class="panel-radios" type="checkbox" name="nav-checkbox">
 			                            <th class="col-1 text-center">주문<br> 날짜</th>
 									</tr>
 							</thead>
-							<tbody>
-							<c:if test="${empty records }" var="isEmpty">
+							<tbody class="tr_append">
+						<!--  	<c:if test="${empty records }" var="isEmpty">
 								<tr>
 									<td class="text-center" colspan="6">등록된 글이 없습니다.</td>
 								</tr>	
@@ -350,9 +351,9 @@ class="panel-radios" type="checkbox" name="nav-checkbox">
 				                            <td class="text-center">${record.paymentDate}</td>
 				                        </tr>
 				                    </c:forEach>
-				                </c:if>
+				                </c:if>	-->
 							<!-- 최근 구매/ 판매 목록 글 쐈을때의 예시 -->
-								 <tr>
+							<!--  	 <tr>
 		                            <td class="text-center">5</td>
 		                            <td class="text-center"><a href="#">BROKEROW</a></td>
 		                            <td class="text-center"><a href="memberOne.html">SAMURAI</a></td>
@@ -394,7 +395,7 @@ class="panel-radios" type="checkbox" name="nav-checkbox">
 		                            <td class="text-center">경복궁.jpg</td>
 		                            <td class="text-center">500원</td>
 		                            <td class="text-center">22-06-16</td>
-		                        </tr>
+		                        </tr>	-->
 							</tbody>
 						</table>
 						<!-- Recent Sales End -->
@@ -417,6 +418,9 @@ class="panel-radios" type="checkbox" name="nav-checkbox">
                       <div class="year-month"></div>
                       <a href="javascript:;" class="nav-btn go-next">next</a>
                     </div>
+					<div class="cal_wrap">
+                      <div class="dates"></div>
+                    </div>
                 </div>
                 <!--달력 끝-->
                 <!--주차별 매출 차트 시작-->
@@ -434,8 +438,8 @@ class="panel-radios" type="checkbox" name="nav-checkbox">
                             <h3 class="mb-4">총 매출 표</h3>
                             <table class="table table-hover">
                                 <thead>
-                                    <tr class="thID1">
-                                    <!--<th scope="col">회원수</th>
+                                    <tr class="thID1 removeClass">
+                                    <!--  	<th scope="col">일자</th>
                                         <th scope="col">1일</th>
                                         <th scope="col">2일</th>
                                         <th scope="col">3일</th>
@@ -445,12 +449,12 @@ class="panel-radios" type="checkbox" name="nav-checkbox">
                                         <th scope="col">7일</th>
                                         <th scope="col">8일</th>
                                         <th scope="col">9일</th>
-                                        <th scope="col">10일</th>-->
+                                        <th scope="col">10일</th>	-->
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr class="thID_1">
-                                    <!--     <th scope="row">회원수</th>
+                                      <tr class="thID_1 removeClass">
+                                  <!--      <th scope="row">회원수</th>
                                         <td>100</td>
                                         <td>200</td>
                                         <td>300</td>
@@ -460,11 +464,24 @@ class="panel-radios" type="checkbox" name="nav-checkbox">
                                         <td>100</td>
                                         <td>200</td>
                                         <td>300</td>
-                                        <td>300</td> -->
-                                    </tr>
+                                        <td>300</td>	--> 
+                                    </tr> 
+									<tr class="thID_11 removeClass">
+                                   <!--   <th scope="row">회원수2</th>
+                                        <td>100</td>
+                                        <td>200</td>
+                                        <td>300</td>
+                                        <td>100</td>
+                                        <td>200</td>
+                                        <td>300</td>
+                                        <td>100</td>
+                                        <td>200</td>
+                                        <td>300</td>
+                                        <td>300</td>	--> 
+                                    </tr>	
                                 </tbody>
                                 <thead>
-                                    <tr class="trID2">
+                                    <tr class="thID2 removeClass">
                                      <!--     <th scope="col">회원수</th>
                                         <th scope="col">11일</th>
                                         <th scope="col">12일</th>
@@ -479,7 +496,20 @@ class="panel-radios" type="checkbox" name="nav-checkbox">
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr class="thID_2">
+                                    <tr class="thID_2 removeClass">
+                                    <!--     <th scope="row">회원수</th>
+                                        <td>100</td>
+                                        <td>200</td>
+                                        <td>300</td>
+                                        <td>100</td>
+                                        <td>200</td>
+                                        <td>300</td>
+                                        <td>100</td>
+                                        <td>200</td>
+                                        <td>300</td>
+                                        <td>300</td>--> 
+                                    </tr>
+									<tr class="thID_21 removeClass">
                                     <!--     <th scope="row">회원수</th>
                                         <td>100</td>
                                         <td>200</td>
@@ -494,7 +524,7 @@ class="panel-radios" type="checkbox" name="nav-checkbox">
                                     </tr>
                                 </tbody>
                                 <thead>
-                                    <tr class="thID3">
+                                    <tr class="thID3 removeClass">
                                       <!--  <th scope="col">회원수</th>
                                         <th scope="col">21일</th>
                                         <th scope="col">22일</th>
@@ -509,7 +539,20 @@ class="panel-radios" type="checkbox" name="nav-checkbox">
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr class="thID_3">
+                                    <tr class="thID_3 removeClass">
+                                     <!--   <th scope="row">회원수</th>
+                                        <td>100</td>
+                                        <td>200</td>
+                                        <td>300</td>
+                                        <td>100</td>
+                                        <td>200</td>
+                                        <td>300</td>
+                                        <td>100</td>
+                                        <td>200</td>
+                                        <td>300</td>
+                                        <td>300</td> --> 
+                                    </tr>
+									<tr class="thID_31 removeClass">
                                      <!--   <th scope="row">회원수</th>
                                         <td>100</td>
                                         <td>200</td>
@@ -530,18 +573,22 @@ class="panel-radios" type="checkbox" name="nav-checkbox">
                     <!--총 매출 합계 시작-->
                     <div class="col-sm-12 col-xl-5">
                         <div class="bg-light rounded h-100 p-4">
-                            <h3 class="mb-4">현재 총 매출합계</h3>
+                            <h3 class="mb-4">총 매출합계</h3>
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
                                         <th scope="col"></th>
-                                        <th scope="col">현재 매출 합계</th>
+                                        <th scope="col">매출 합계</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <th scope="row">매출</th>
+                                        <th scope="row">총 매출</th>
                                         <td id="total_all"></td>
+                                    </tr>
+									<tr>
+                                        <th scope="row">Picktory 매출 (10%수수료)</th>
+                                        <td id="total_all2"></td>
                                     </tr>
                                      
                                 </tbody>
@@ -571,24 +618,26 @@ class="panel-radios" type="checkbox" name="nav-checkbox">
 </body>
 
 <script>
-   window.pagObj = $('#pagination').twbsPagination({
-        totalPages: [[$(dataListPage.totalPages)]], // 전체 페이지
-        startPage: parseInt([[$(dataListPage.number)]] + 1), // 시작(현재) 페이지
-        visiblePages: 10, // 최대로 보여줄 페이지
-        prev: "‹", // Previous Button Label
-        next: "›", // Next Button Label
-        first: '«', // First Button Label
-        last: '»', // Last Button Label
-        onPageClick: function (event, page) { // Page Click event
-            console.info("current page : " + page);
-        }
-    }).on('page', function (event, page) {
-        searchDataList(page);
-    });
+//   window.pagObj = $('#pagination').twbsPagination({
+//        totalPages: [[$(dataListPage.totalPages)]], // 전체 페이지
+//        startPage: parseInt([[$(dataListPage.number)]] + 1), // 시작(현재) 페이지
+//        visiblePages: 10, // 최대로 보여줄 페이지
+//        prev: "‹", // Previous Button Label
+//        next: "›", // Next Button Label
+//        first: '«', // First Button Label
+//        last: '»', // Last Button Label
+//        onPageClick: function (event, page) { // Page Click event
+//            console.info("current page : " + page);
+//        }
+//    }).on('page', function (event, page) {
+//        searchDataList(page);
+//    });
 
 </script>
 
 <script>
+
+const localhost = 'http://localhost:4040/springapp/admin';
 
 var monthDay = '';
 var dataText = "";
@@ -598,17 +647,13 @@ var currentMonth = "";
 var thisMonth = "";
 var monthText = "";
 
+// 차트
+var monthArr = [];
+
 var tabText = "회원";
 
-
-var date = new Date(); // 현재 날짜(로컬 기준) 가져오기
-var utc = date.getTime() + (date.getTimezoneOffset() * 60 * 1000); // uct 표준시 도출
-var kstGap = 9 * 60 * 60 * 1000; // 한국 kst 기준시간 더하기
-var today = new Date(utc + kstGap); // 한국 시간으로 date 객체 만들기(오늘)
-
-  //달력
   $(document).ready(function() {
-      calendarInit();
+		paymentListAjax();
   });
 
   //Sidebar Toggler
@@ -616,181 +661,8 @@ var today = new Date(utc + kstGap); // 한국 시간으로 date 객체 만들기
       $('.sidebar, .content').toggleClass("open");
       return false;
   });
-
-  //차트
-  function calendarInit(){
-    // 날짜 정보 가져오기
-    // var date = new Date(); // 현재 날짜(로컬 기준) 가져오기
-    // var utc = date.getTime() + (date.getTimezoneOffset() * 60 * 1000); // uct 표준시 도출
-    // var kstGap = 9 * 60 * 60 * 1000; // 한국 kst 기준시간 더하기
-    // var today = new Date(utc + kstGap); // 한국 시간으로 date 객체 만들기(오늘)
-        if(monthText == "이전달"){
-          thisMonth = new Date(currentYear, currentMonth - 1, 1);  
-        }else if(monthText == "다음달"){
-          thisMonth = new Date(currentYear, currentMonth + 1, 1);
-        }else{
-          thisMonth = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-        }        
-
-    // 달력에서 표기하는 날짜 객체
-        currentYear = thisMonth.getFullYear(); // 달력에서 표기하는 연
-        currentMonth = thisMonth.getMonth(); // 달력에서 표기하는 월
-    var currentDate = thisMonth.getDate(); // 달력에서 표기하는 일
-
-    var now = new Date();
-    var month_now = now.getMonth()+1
-    var year_now = now.getFullYear();
-
-
-    // 렌더링을 위한 데이터 정리
-    currentYear = thisMonth.getFullYear();
-    currentMonth = thisMonth.getMonth();
-    currentDate = thisMonth.getDate();
-    
-    // 이전 달의 마지막 날 날짜와 요일 구하기
-    var startDay = new Date(currentYear, currentMonth, 0);
-    var prevDate = startDay.getDate();
-    var prevDay = startDay.getDay();
-
-    // 이번 달의 마지막날 날짜와 요일 구하기
-    var endDay = new Date(currentYear, currentMonth + 1, 0);
-    var nextDate = endDay.getDate();
-    var nextDay = endDay.getDay();
-
-
-    var xValues = [];
-    var yValues = [];
-    var monthArr = [];
-
-
-    // 현재 월 표기
-     $('.year-month').text(currentYear + '.' + (currentMonth + 1));
-
-    // 렌더링 html 요소 생성
-    calendar = document.querySelector('.dates')
-    calendar.innerHTML = '';
-    $(".dates").hide();
-
-    // 지난달
-    for (var i = prevDate - prevDay + 1; i <= prevDate; i++) {
-        calendar.innerHTML = calendar.innerHTML + '<div class="day prev disable">' + i + '</div>'
-    }
-    // 이번달
-    for (var i = 1; i <= nextDate; i++) {
-        calendar.innerHTML = calendar.innerHTML + '<div class="day current">' + i + '</div>';
-        monthArr.push(i);
-    }
-
-    if(month_now == currentMonth + 1 && currentYear == year_now){
-      $('.go-next').hide();
-    }else{
-      $('.go-next').show();
-    }
-
-    // 다음달
-    for (var i = 1; i <= (7 - nextDay == 7 ? 0 : 7 - nextDay); i++) {        	
-        calendar.innerHTML = calendar.innerHTML + '<div class="day next disable">' + i + '</div>'
-    }
-
-    // 오늘 날짜 표기
-    if (today.getMonth() == currentMonth) {
-        todayDate = today.getDate();
-        var currentMonthDate = document.querySelectorAll('.dates .current');
-        currentMonthDate[todayDate -1].classList.add('today');
-    }
-
-    var objSetting = "";
-
-    if(tabText == "회원"){
-
-      // 기존 캔버스 삭제
-    $('.div_chart1').find('canvas').remove();
-        // 새로 다시 그림
-    $('.div_chart1').append('<canvas id="memberDayChart" style="width: 100%; max: width 1104px;"></canvas>');
-      bbcc = "memberDayChart";
-      
-    }else if(tabText == "매출"){
-
-      // 기존 캔버스 삭제
-    $('.div_chart2').find('canvas').remove();
-
-    // 새로 다시 그림
-    $('.div_chart2').append('<canvas id="salseChartID" style="width: 100%; max: width 1104px;"></canvas>');
-    bbcc = "salseChartID";
-
-    }else if(tabText == "게시물"){
-    // 기존 캔버스 삭제
-    $('.div_chart3').find('canvas').remove();
-
-    // 새로 다시 그림
-    $('.div_chart3').append('<canvas id="galleryChartID" style="width: 100%; max: width 1104px;"></canvas>');
-      bbcc = "galleryChartID";
-    }
-
-      var yValuesTwo = [];
-
-      for(var i = 1; i <= monthArr.length; i++){
-          var randomNumber = Math.floor( Math.random() * 5 + 2);
-          var randomNumber1 = Math.floor( Math.random() * 3 + 2);
-          xValues.push(i + "일");
-          yValues.push(randomNumber);
-          
-          if(tabText != "매출"){
-            yValuesTwo.push(randomNumber1);
-          }
-      }
-
-   
-      
-
-  // 차트 세팅
-      if(tabText == "회원" || tabText == "게시물"){
-
-        new Chart(bbcc, {
-			  type: "bar",
-			  data: {
-			    labels: xValues,
-			    datasets: [
-                     { backgroundColor: "rgba(30, 144, 255, 1)", data: yValues }
-                    ,{ backgroundColor: "rgba(24, 154, 155, 1)", borderColor:"red", data: yValuesTwo }
-          ]
-			  },
-			  options: {
-			    legend: {display: true},
-			    scales: {
-			      yAxes: [{
-			        ticks: {
-			          beginAtZero: true
-			        }
-			      }],
-			    }
-			  }
-			});
-
-
-    }else if(tabText == "매출"){
-
-      new Chart(bbcc, {
-			  type: "bar",
-			  data: {
-			    labels: xValues,
-			    datasets: [{ backgroundColor: "rgba(30, 144, 255, 1)", data: yValues }]
-			  },
-			  options: {
-			    legend: {display: true},
-			    scales: {
-			      yAxes: [{
-			        ticks: {
-			          beginAtZero: true
-			        }
-			      }],
-			    }
-			  }
-			});
-    }
-      
-  } // CALENDAR INIT FN END
-
+  
+  
   // 이전달로 이동
   $('.go-prev').on('click', function() {
       monthText = "이전달";
@@ -804,567 +676,424 @@ var today = new Date(utc + kstGap); // 한국 시간으로 date 객체 만들기
   });
 
   // 탭 클릭
-  // 회원과 방문객 현황
-  
+  // 최근 거래내역
   $('.memberClass').on('click', function(){
-        monthText = "";
-        tabText = "회원";
-        calendarInit();
+	  	paymentListAjax();
     });
 
-  // 매출 현황
+  // 차트 탭
     $('.salesClass').on('click', function(){
-        monthText = "";
-        tabText = "매출";
-        calendarInit();
+    	calendarInit();
     });
 
-  //갤러리 현황
-    $('.galleryClass').on('click', function(){
-          monthText = "";
-          tabText = "게시물";
-          calendarInit();
-    });  
 
-//=========================================================================
-
-
-// function calendarInit() {
-
-// // 날짜 정보 가져오기
-// var date = new Date(); // 현재 날짜(로컬 기준) 가져오기
-// var utc = date.getTime() + (date.getTimezoneOffset() * 60 * 1000); // uct 표준시 도출
-// var kstGap = 9 * 60 * 60 * 1000; // 한국 kst 기준시간 더하기
-// var today = new Date(utc + kstGap); // 한국 시간으로 date 객체 만들기(오늘)
-
-// var thisMonth = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-// // 달력에서 표기하는 날짜 객체
-
-
-// var currentYear = thisMonth.getFullYear(); // 달력에서 표기하는 연
-// var currentMonth = thisMonth.getMonth(); // 달력에서 표기하는 월
-// var currentDate = thisMonth.getDate(); // 달력에서 표기하는 일
-
-// // kst 기준 현재시간
-// // console.log(thisMonth);
-
-// // 캘린더 렌더링
-// renderCalender(thisMonth);
-
-// function renderCalender(thisMonth) {
-
-//   var aaArr = [];
-//   var now = new Date();
-//   var month_now = now.getMonth()+1
-//   var year_now = now.getFullYear();
-
-//     // 렌더링을 위한 데이터 정리
-//     currentYear = thisMonth.getFullYear();
-//     currentMonth = thisMonth.getMonth();
-//     currentDate = thisMonth.getDate();
-    
-//     // 이전 달의 마지막 날 날짜와 요일 구하기
-//     var startDay = new Date(currentYear, currentMonth, 0);
-//     var prevDate = startDay.getDate();
-//     var prevDay = startDay.getDay();
-
-//     // 이번 달의 마지막날 날짜와 요일 구하기
-//     var endDay = new Date(currentYear, currentMonth + 1, 0);
-//     var nextDate = endDay.getDate();
-//     var nextDay = endDay.getDay();
-
-//     // console.log(prevDate, prevDay, nextDate, nextDay);
-
-//     if(month_now == currentMonth + 1 && currentYear == year_now){
-//       $('.go-next').hide();
-//     }else{
-//       $('.go-next').show();
-//     }
-    
-//     // 현재 월 표기
-//     $('.year-month').text(currentYear + '.' + (currentMonth + 1));
-
-//     // 렌더링 html 요소 생성
-//     calendar = document.querySelector('.dates')
-//     calendar.innerHTML = '';
-//     $(".dates").hide();
-//     // 지난달
-//     for (var i = prevDate - prevDay + 1; i <= prevDate; i++) {
-//         calendar.innerHTML = calendar.innerHTML + '<div class="day prev disable">' + i + '</div>'
-//     }
-//     // 이번달
-//     for (var i = 1; i <= nextDate; i++) {
-//         calendar.innerHTML = calendar.innerHTML + '<div class="day current">' + i + '</div>';
-        
-//         aaArr.push(i);
-//     }
-
-//         if(dataText == "매출"){
-//           salseFn(aaArr.length);
-//         }else{
-//           memberInfoFn(aaArr.length);      
-//         }
-    
-    
+    //차트
+    function calendarInit(){
+  	  
+  	  monthArr = [];
+  	  
+      // 날짜 정보 가져오기
+       var date = new Date(); // 현재 날짜(로컬 기준) 가져오기
+       var utc = date.getTime() + (date.getTimezoneOffset() * 60 * 1000); // uct 표준시 도출
+       var kstGap = 9 * 60 * 60 * 1000; // 한국 kst 기준시간 더하기
+       var today = new Date(utc + kstGap); // 한국 시간으로 date 객체 만들기(오늘)
+       
+       
+       
+          if(monthText == "이전달"){
+            thisMonth = new Date(currentYear, currentMonth - 1, 1);  
+          }else if(monthText == "다음달"){
+            thisMonth = new Date(currentYear, currentMonth + 1, 1);
+          }else{
+            thisMonth = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+          }
       
-    
-//     // 다음달
-//     for (var i = 1; i <= (7 - nextDay == 7 ? 0 : 7 - nextDay); i++) {        	
-//         calendar.innerHTML = calendar.innerHTML + '<div class="day next disable">' + i + '</div>'
-//     }
+      // 달력에서 표기하는 날짜 객체
+          currentYear = thisMonth.getFullYear(); // 달력에서 표기하는 연
+          currentMonth = thisMonth.getMonth(); // 달력에서 표기하는 월
+      var currentDate = thisMonth.getDate(); // 달력에서 표기하는 일
 
-//     // 오늘 날짜 표기
-//     if (today.getMonth() == currentMonth) {
-//         todayDate = today.getDate();
-//         var currentMonthDate = document.querySelectorAll('.dates .current');
-//         currentMonthDate[todayDate -1].classList.add('today');
-//     }
-// }
-
-// // 이전달로 이동
-// $('.go-prev').on('click', function() {
-//     monthDay = '';
-//     thisMonth = new Date(currentYear, currentMonth - 1, 1);
-//     renderCalender(thisMonth);
-
-//     if(dataText == "매출"){
-//         salseFn($('.current').length);
-//       }else{
-//         memberInfoFn($('.current').length);
-//       }
-// });
-
-// // 다음달로 이동
-// $('.go-next').on('click', function() {
-//     thisMonth = new Date(currentYear, currentMonth + 1, 1);
-//     renderCalender(thisMonth);
-//     if(dataText == "매출"){
-//         salseFn($('.current').length);
-//       }else{
-//         memberInfoFn($('.current').length);
-//       }
-//   });
-// }
-
-// // 매출
-// $('.salesClass').on('click', function(){
-//       console.log('매출 클릭 확인');
-//       dataText = "매출";
-//       calendarInit();
-// });
-
-// // 게시물
-// $('.galleryClass').on('click', function(){
-//       console.log('게시물 클릭 확인');
-//       dataText = "게시물";
-//       calendarInit();
-// });
-
-// /*
-//     달력 렌더링 할 때 필요한 정보 목록 
-
-//     현재 월(초기값 : 현재 시간)
-//     금월 마지막일 날짜와 요일
-//     전월 마지막일 날짜와 요일
-// */
+      var now = new Date();
+      var month_now = now.getMonth()+1
+      var year_now = now.getFullYear();
 
 
+      // 렌더링을 위한 데이터 정리
+      currentYear = thisMonth.getFullYear();
+      currentMonth = thisMonth.getMonth();
+      currentDate = thisMonth.getDate();
+      
+      // 이전 달의 마지막 날 날짜와 요일 구하기
+      var startDay = new Date(currentYear, currentMonth, 0);
+      var prevDate = startDay.getDate();
+      var prevDay = startDay.getDay();
 
+      // 이번 달의 마지막날 날짜와 요일 구하기
+      var endDay = new Date(currentYear, currentMonth + 1, 0);
+      var nextDate = endDay.getDate();
+      var nextDay = endDay.getDay();
 
-// //============================================================================
+      // 현재 월 표기
+       $('.year-month').text(currentYear + '.' + (currentMonth + 1));
 
-// // },{
-// // 			      backgroundColor: "rgba(24, 154, 155, 1)",
-// // 			      borderColor:"red",
-// // 				    data: yValues1
+      // 렌더링 html 요소 생성
+      calendar = document.querySelector('.dates')
+      calendar.innerHTML = '';
+      $(".dates").hide();
 
+      // 지난달
+      for (var i = prevDate - prevDay + 1; i <= prevDate; i++) {
+          calendar.innerHTML = calendar.innerHTML + '<div class="day prev disable">' + i + '</div>'
+      }
+      // 이번달
+      for (var i = 1; i <= nextDate; i++) {
+          calendar.innerHTML = calendar.innerHTML + '<div class="day current">' + i + '</div>';
+          monthArr.push(i);
+      }
+     
 
-//   //매출
-//   function salseFn(monthDay){
-//     console.log('매출FN 확인');
-//     var toArr = [];
-// 		var yArr = [];
-// 		var yArr1 = [];
-		
-// 		$('.thID1').html('');
-// 		$('.thID2').html('');
-// 		$('.thID3').html('');
-		
-// 		$('.thID_1').html('');
-// 		$('.thID_2').html('');
-// 		$('.thID_3').html('');
-		
-// 		$('.thID_1_1').html('');
-// 		$('.thID_2_1').html('');
-// 		$('.thID_3_1').html('');
-		
-// 		$('.thID1').append('<th scope="col">일자</th>');
-// 		$('.thID2').append('<th scope="col">일자</th>');
-// 		$('.thID3').append('<th scope="col">일자</th>');
-// 		$('.thID_1').append('<th scope="col">회원</th>');
-// 		$('.thID_2').append('<th scope="col">회원</th>');
-// 		$('.thID_3').append('<th scope="col">회원</th>');
-// 		$('.thID_1_1').append('<th scope="col">방문객</th>');
-// 		$('.thID_2_1').append('<th scope="col">방문객</th>');
-// 		$('.thID_3_1').append('<th scope="col">방문객</th>');
-		
-		
-// 		for(var i = 1; i <= monthDay; i++){	
-			
-// 			var mm = Math.floor( Math.random() * 5 + 2);
-// 			var zz = Math.floor( Math.random() * 5 + 5);
-		
-// 			if(i <= 10){
-// 				$('.thID1').append('<th scope="col">'+ i +'일</th>');
-// 				$('.thID_1').append('<td>'+ mm +'</td>');
-// 				$('.thID_1_1').append('<td>'+ zz +'</td>');
-				
-// 			}	
-// 			if( i > 10 && i <= 20){
-// 				$('.thID2').append('<th scope="col">'+ i +'일</th>');
-// 				$('.thID_2').append('<td>'+ mm +'</td>');
-// 				$('.thID_2_1').append('<td>'+ zz +'</td>');
-// 			}
-			
-// 			if( i > 20){
-// 				$('.thID3').append('<th scope="col">'+ i +'일</th>');
-// 				$('.thID_3').append('<td>'+ mm +'</td>');
-// 				$('.thID_3_1').append('<td>'+ zz +'</td>');
-// 			}
-			
-// 			var bb = i + "일";
-// 			toArr.push(bb);
-// 			yArr.push(mm);
-// 			yArr1.push(zz);
-// 		}
-		
-// 		let sum = 0;
-// 		let sum1 = 0;
+      if(month_now == currentMonth + 1 && currentYear == year_now){
+        $('.go-next').hide();
+      }else{
+        $('.go-next').show();
+      }
 
-// 		for (let i = 0; i < yArr.length; i++) {
-// 		    sum += yArr[i];
-// 		}
-		
-// 		$('#total_all').text(sum);
-		
-// 		for (let i = 0; i < yArr1.length; i++) {
-// 		    sum1 += yArr1[i];
-// 		}
-		
-// 		$('#total_all1').text(sum1);
-		
-// 		var xValues = toArr;
-// 	    var yValues = yArr;
-// 	    var yValues1 = yArr1;
+      // 다음달
+      for (var i = 1; i <= (7 - nextDay == 7 ? 0 : 7 - nextDay); i++) {        	
+          calendar.innerHTML = calendar.innerHTML + '<div class="day next disable">' + i + '</div>'
+      }
 
-//             		// 기존 캔버스 삭제
-// 		 $('#memberDayChart').remove();
-//         // 새로 다시 그림
-//         $('#div_memberDayChart').append('<canvas id="memberDayChart" style="width: 100%; max: width 1104px;"></canvas>');
-//         bbcc = "memberDayChart";
-
-//         new Chart(bbcc, {
-// 			  type: "bar",
-// 			  data: {
-// 			    labels: xValues,
-// 			    datasets: [{
-// 			      backgroundColor: "rgba(30, 144, 255, 1)",
-// 			      data: yValues
-// 			    }]
-// 			  },
-// 			  options: {
-// 			    legend: {display: true},
-// 			    scales: {
-// 			      yAxes: [{
-// 			        ticks: {
-// 			          beginAtZero: true
-// 			        }
-// 			      }],
-// 			    }
-// 			  }
-// 			});
-//   }
+      // 오늘 날짜 표기
+      if (today.getMonth() == currentMonth) {
+          todayDate = today.getDate();
+          var currentMonthDate = document.querySelectorAll('.dates .current');
+          currentMonthDate[todayDate -1].classList.add('today');
+      }
+      
+  	var year = String(thisMonth.getFullYear());
+  	var month = String(thisMonth.getMonth() + 1);
+  	
+	  	month = month >= 10 ? month : '0' + month;
+	  	startDate = year + month + "01";
+  	 
+  	 var today = new Date(year, month, 0);
+  	 var year = today.getFullYear();
+  	 var month = ('0' + (today.getMonth() + 1)).slice(-2);
+  	 
+  	 
+  	 var day = ('0' + today.getDate()).slice(-2);
+  	 endDate = year + month + day;
+  	 
+  		paymentChartAjax()
+      
+    } // CALENDAR INIT FN END
 
   
-//   //회원
-// 	function memberInfoFn(monthDay){
-
-//       if(dataText == '게시물'){
-//         // 기존 캔버스 삭제
-//         $('#earningMonthChart').remove();
-//         // 새로 다시 그림
-//         $('#div_gallery').append('<canvas id="earningMonthChart" style="width: 100%; max: width 1104px;"></canvas>');
-//         bbcc = "earningMonthChart";
-
-//       }else{
-//         // 기존 캔버스 삭제
-//         $('#earningDayChart').remove();
-//         // 새로 다시 그림
-//         $('#div_earningDayChart').append('<canvas id="earningDayChart" style="width: 100%; max: width 1104px;"></canvas>');
-//         bbcc = "earningDayChart";
-//     }
-		
-
-		
-// 		var toArr = [];
-// 		var yArr = [];
-// 		var yArr1 = [];
-		
-// 		$('.thID1').html('');
-// 		$('.thID2').html('');
-// 		$('.thID3').html('');
-		
-// 		$('.thID_1').html('');
-// 		$('.thID_2').html('');
-// 		$('.thID_3').html('');
-		
-// 		$('.thID_1_1').html('');
-// 		$('.thID_2_1').html('');
-// 		$('.thID_3_1').html('');
-		
-// 		$('.thID1').append('<th scope="col">일자</th>');
-// 		$('.thID2').append('<th scope="col">일자</th>');
-// 		$('.thID3').append('<th scope="col">일자</th>');
-// 		$('.thID_1').append('<th scope="col">회원</th>');
-// 		$('.thID_2').append('<th scope="col">회원</th>');
-// 		$('.thID_3').append('<th scope="col">회원</th>');
-// 		$('.thID_1_1').append('<th scope="col">방문객</th>');
-// 		$('.thID_2_1').append('<th scope="col">방문객</th>');
-// 		$('.thID_3_1').append('<th scope="col">방문객</th>');
-		
-		
-// 		for(var i = 1; i <= monthDay; i++){	
-			
-// 			var mm = Math.floor( Math.random() * 5 + 2);
-// 			var zz = Math.floor( Math.random() * 5 + 5);
-		
-// 			if(i <= 10){
-// 				$('.thID1').append('<th scope="col">'+ i +'일</th>');
-// 				$('.thID_1').append('<td>'+ mm +'</td>');
-// 				$('.thID_1_1').append('<td>'+ zz +'</td>');
-				
-// 			}	
-// 			if( i > 10 && i <= 20){
-// 				$('.thID2').append('<th scope="col">'+ i +'일</th>');
-// 				$('.thID_2').append('<td>'+ mm +'</td>');
-// 				$('.thID_2_1').append('<td>'+ zz +'</td>');
-// 			}
-			
-// 			if( i > 20){
-// 				$('.thID3').append('<th scope="col">'+ i +'일</th>');
-// 				$('.thID_3').append('<td>'+ mm +'</td>');
-// 				$('.thID_3_1').append('<td>'+ zz +'</td>');
-// 			}
-			
-// 			var bb = i + "일";
-// 			toArr.push(bb);
-// 			yArr.push(mm);
-// 			yArr1.push(zz);
-// 		}
-		
-// 		let sum = 0;
-// 		let sum1 = 0;
-
-// 		for (let i = 0; i < yArr.length; i++) {
-// 		    sum += yArr[i];
-// 		}
-		
-// 		$('#total_all').text(sum);
-		
-// 		for (let i = 0; i < yArr1.length; i++) {
-// 		    sum1 += yArr1[i];
-// 		}
-		
-// 		$('#total_all1').text(sum1);
-		
-// 		var xValues = toArr;
-// 	    var yValues = yArr;
-// 	    var yValues1 = yArr1;
+  var ajaxData = "";
+  
+  	// 차트 데이터
+  	function paymentChartAjax(){
+    	
+    	var obj = [{"startDate" : startDate, "endDate" : endDate}];
+    	
+     	$.ajax({
+    	 	url: localhost + "/paymentChart.do",
+    	    type: "POST",
+    	    cache: false,
+            dataType: "json",
+            contentType: "application/json",
+    	    data: JSON.stringify(obj),
+    	    success: function(data){
+    	    	
+    	    	
+			      // 기존 캔버스 삭제
+			      $('.div_chart2').find('canvas').remove();
+			   	  // 새로 다시 그림
+			      $('.div_chart2').append('<canvas id="paymentChartID" style="width: 100%; max: width 1104px;"></canvas>');
+			   	  
+			   	  $('.removeClass').html('');
+    	    	
+    	    	ajaxData = data;
+    	    	
+  				chartSetting();
+    			
+    	    }, error: function (request, status, error){
+    	    	alert("Error");
+    	    }
+    	  });
+  	}
+    
+    // 차트 세팅
+    function chartSetting(){
+   
+    	
+	    var xValues = [];
+	    var yValues = [];
+	    var yValuesTwo = [];
+	 	  
+		var yearValue = endDate.substring(0, 4);
+		var monthValue = endDate.substring(4, 6);
+		var sum = 0;
+		var sum2 = 0;
+		var dateArr = [];
+	    var dataArr = [];
+	    var dataArr2 = [];
+	   
 	    
-// 		var barColors = [
-		 
-// 		];
-
-// 		new Chart(bbcc, {
-// 			  type: "bar",
-// 			  data: {
-// 			    labels: xValues,
-// 			    datasets: [{
-// 			      backgroundColor: "rgba(30, 144, 255, 1)",
-// 			      data: yValues
-			
-// 			    },{
-// 			      backgroundColor: "rgba(24, 154, 155, 1)",
-// 			      borderColor:"red",
-// 				  data: yValues1
-				
-// 			    }]
-// 			  },
-// 			  options: {
-// 			    legend: {display: true},
-// 			    scales: {
-// 			      yAxes: [{
-// 			        ticks: {
-// 			          beginAtZero: true
-// 			        }
-// 			      }],
-// 			    }
-// 			  }
-// 			});	
-// 	}
-
-</script>
-
-<script>
-//일일별 매출
-//var xValues = ["1일", "2일", "3일", "4일", "5일", "6일", "7일", "8일", "9일", "10일", "11일", "12일", "13일", "14일", "15일",
-//    "16일", "17일", "18일", "19일", "20일", "21일", "22일", "23일", "24일", "25일", "26일", "27일", "28일", "29일", "30일", "31일"];
-//var yValues = [150, 300, 550, 650, 600, 800, 950, 1200, 800, 300, 260, 790, 430, 460, 760, 320, 210, 970, 230, 760, 320, 
-//	210, 970, 230,760, 320, 210, 970, 230, 210, 970];
-//var barColors = [
- 
-//];
-
-//new Chart("earningDayChart", {
-//	  type: "bar",
-//	  data: {
-//	    labels: xValues,
-//	    datasets: [{
-//	      backgroundColor: "rgba(30, 144, 255, 1)",
-//	      data: yValues
-//	    }]
-//	  },
-//	  options: {
-//	    legend: {display: false},
-//	    scales: {
-//	      yAxes: [{
-//	        ticks: {
-//	          beginAtZero: true
-//	        }
-//	      }],
-//	    }
-//	  }
-//	});
-</script>
-
-<script>
-//주차별 매출
-// function zz(monthDay){
-		
-// 		// 기존 캔버스 삭제
-// 		 $('#memberDayChart').remove();
-// 		// 새로 다시 그림
-// 		 $('#div_memberDayChart').append('<canvas id="memberDayChart" style="width: 100%; max: width 1104px;"></canvas>');
-		
-// 		var toArr = [];
-// 		var yArr = [];
-	
-		
-// 		$('.thID1').html('');
-// 		$('.thID2').html('');
-// 		$('.thID3').html('');
-		
-// 		$('.thID_1').html('');
-// 		$('.thID_2').html('');
-// 		$('.thID_3').html('');
-	
-		
-// 		$('.thID1').append('<th scope="col">일자</th>');
-// 		$('.thID2').append('<th scope="col">일자</th>');
-// 		$('.thID3').append('<th scope="col">일자</th>');
-// 		$('.thID_1').append('<th scope="col">회원</th>');
-// 		$('.thID_2').append('<th scope="col">회원</th>');
-// 		$('.thID_3').append('<th scope="col">회원</th>');
-		
-		
-		
-// 		for(var i = 1; i <= monthDay; i++){	
-			
-// 			var mm = Math.floor( Math.random() * 5 + 2);
-			
-		
-// 			if(i <= 10){
-// 				$('.thID1').append('<th scope="col">'+ i +'일</th>');
-// 				$('.thID_1').append('<td>'+ mm +'</td>');
-		
-				
-// 			}	
-// 			if( i > 10 && i <= 20){
-// 				$('.thID2').append('<th scope="col">'+ i +'일</th>');
-// 				$('.thID_2').append('<td>'+ mm +'</td>');
-		
-// 			}
-			
-// 			if( i > 20){
-// 				$('.thID3').append('<th scope="col">'+ i +'일</th>');
-// 				$('.thID_3').append('<td>'+ mm +'</td>');
-		
-// 			}
-			
-// 			var bb = i + "일";
-// 			toArr.push(bb);
-// 			yArr.push(mm);
-	
-// 		}
-		
-// 		let sum = 0;
-
-
-// 		for (let i = 0; i < yArr.length; i++) {
-// 		    sum += yArr[i];
-// 		}
-		
-// 		$('#total_all').text(sum);
-		
-		
-// 		var xValues = toArr;
-// 	    var yValues = yArr;
-	 
+	    $('.thID1').append('<th scope="col">일자</th>');
+	    $('.thID2').append('<th scope="col">일자</th>');
+	    $('.thID3').append('<th scope="col">일자</th>');
 	    
-// 		var barColors = [
-		 
-// 		];
-
-// 		new Chart("memberDayChart", {
-// 			  type: "bar",
-// 			  data: {
-// 			    labels: xValues,
-// 			    datasets: [{
-// 			      backgroundColor: "rgba(30, 144, 255, 1)",
-// 			      data: yValues
-			
-// 			    }]
-// 			  },
-// 			  options: {
-// 			    legend: {display: false},
-// 			    scales: {
-// 			      yAxes: [{
-// 			        ticks: {
-// 			          beginAtZero: true
-// 			        }
-// 			      }],
-// 			    }
-// 			  }
-// 			});
+	    
+	    $('.thID_1').append('<th scope="row">총 매출</th>');
+	    $('.thID_2').append('<th scope="row">총 매출</th>');
+	    $('.thID_3').append('<th scope="row">총 매출</th>');
+	    
+	    $('.thID_11').append('<th scope="row">매출 (10%수수료)</th>');
+	    $('.thID_21').append('<th scope="row">매출 (10%수수료)</th>');
+	    $('.thID_31').append('<th scope="row">매출 (10%수수료)</th>');
+	    
+	    
 		
-// 	}
-</script>
+	    for(var i = 1; i <= monthArr.length; i++){
+	    	var dateValue = i >= 10 ? i : '0' + i;
+	    	
+	    	
+	    	if( i <= 10 ){
+	    		$('.thID1').append('<th scope="col">'+ dateValue +'</th>');
+	    	}else if(i >= 10 && i <= 20){
+	    		$('.thID2').append('<th scope="col">'+ dateValue +'</th>');
+	    	}else{
+	    		$('.thID3').append('<th scope="col">'+ dateValue +'</th>');
+	    	}
+	    	
+	    	
+	    	dateValue = String(dateValue);
+	    	var dateVal = yearValue + monthValue + dateValue;
+	    	
+	    	
+	    	var obj = {'dateDay' : dateVal, "paymentTotal" : 0,  "persent" : 0, "idx" : i};
+	    	
+	    	dateArr.push(obj);
+	    	xValues.push(dateValue);
+	    }
+    	
+	    
+	    for(var i = 0; i < ajaxData.length; i++){
+	    	var v = ajaxData[i];
+	    	var obj = { "paymentTotal" : v.paymentTotal, "persent" : v.persent, "dateDay" : v.dateDay };
+	    	dataArr.push(obj);
+	    }
+ 		
+ 		if(ajaxData.length != 0){
+	 		
+		  	  for(var i = 0; i < dateArr.length; i++){
+		  		  var v = dateArr[i];
+		  		  
+		  		  for(var y = 0; y < dataArr.length; y++){
+		  			  var vv = dataArr[y];
+		  			  
+		  			  if(v.dateDay == vv.dateDay){
+		  				vv.idx = v.idx;
+		  				dataArr2.push(vv);
+		  			  }
+		  		  }
+		  	  }
+		    
+			  	var aaArr = [...new Set([...dataArr2, ...dateArr])];
+			  	var aa = aaArr.filter(
+	  				(arr, index, callback) => index === callback.findIndex(t => t.idx === arr.idx));
+			  	
+			  	
+			 //정렬
+			  var geResult = aa.sort(function (a, b) {
+			  	    return a.idx - b.idx;
+			  });
+			 
+			 
+			 for(var i = 0; i < geResult.length; i++){
+				 var v = geResult[i];
+				 				 
+					if(i < 10){
+			 		    $('.thID_1').append('<td>'+ v.paymentTotal +'</td>');
+			 		    $('.thID_11').append('<td>'+ v.persent +'</td>');
+			 		
+			 		}else if(i <= 20 && i > 10){
+			 		    $('.thID_2').append('<td>'+ v.paymentTotal +'</td>');
+			 		    $('.thID_21').append('<td>'+ v.persent +'</td>');
+			 		}else{
+			 		    $('.thID_3').append('<td>'+ v.paymentTotal +'</td>');
+				 		$('.thID_31').append('<td>'+ v.persent +'</td>');
+			 		}
+			
+				 sum += v.paymentTotal;
+				 sum2 += v.persent;
+				
+				 yValues.push(v.paymentTotal);
+				 yValuesTwo.push(v.persent);
+			 }
+			 		
+	 			$('#total_all').text(sum);
+	 			$('#total_all2').text(sum2);
+			 
+ 		}else{
+ 			
+ 			
+ 			for(var i = 0; i < xValues.length; i++){
+ 				
+				if(i < 10){
+		 		    $('.thID_1').append('<td>0</td>');
+		 		    $('.thID_11').append('<td>0</td>');
+		 		
+		 		}else if(i <= 20 && i > 10){
+		 		    $('.thID_2').append('<td>0</td>');
+		 		    $('.thID_21').append('<td>0</td>');
+		 		}else{
+		 		    $('.thID_3').append('<td>0</td>');
+			 		$('.thID_31').append('<td>0</td>');
+		 		}
+ 				
+ 				
+				 yValues.push(0);
+				 yValuesTwo.push(0);	
+ 			}
+ 			
+ 			$('#total_all').text(sum);
+ 			$('#total_all2').text(sum2);
+ 		}
+    	
+    	
+		// 차트 세팅
+		  new Chart("paymentChartID", {
+				  type: "bar",
+				  data: {
+				    labels: xValues,
+				    datasets: [
+		                { label: '총 매출', backgroundColor: "rgba(30, 144, 255, 1)", data: yValues }
+		              , { label: 'Picktory 매출 (10%수수료)', backgroundColor: "rgba(24, 154, 155, 1)", borderColor:"red", data: yValuesTwo }
+		    ]
+				  },
+				  options: {
+				    legend: {display: true},
+				    scales: {
+				      yAxes: [{
+				        ticks: {
+				          beginAtZero: true
+				        }
+				      }],
+				    }
+				  }
+				});
+    }
+  	
+  
 
-<!-- <script>
-	function queryVisit(by) {
-		console.log(by.value);
-		$.ajax({
-			type: "GET",
-			url: "<c:url value="/admin/analysis/VisitSummary.do"/>" + "?by=" + by.value,
-			dataType: "json",
-			data : {
-		//obj 방식으로 쓴다 (키 : 밸류)
-			},
-			success : (data) => {
-				document.querySelector("#status").innerHTML =  data.visitData;
-			}
-		});
-	}
-</script> -->
+
+  
+  
+  	var choiceValue = "";
+  	
+    // 최근거래내역 정렬
+    $('.searchId').on('click', function(){
+    	choiceValue = $(this).attr('value');
+    	paymentSearchAjax();
+    });
+    
+    // 검색 클릭
+    $('#searchClick').on('click', function(){
+    	console.log("검색 클릭 클릭");
+    	paymentSearchAjax();
+    });
+  
+  
+  	var ajaxData = "";
+  
+  
+  	function paymentListAjax(){
+  	
+  	 	$.ajax({
+  		 	url: localhost + '/paymentList.do',
+  		    type: "POST",
+  		    cache: false,
+  	        dataType: "json",
+  	        contentType: "application/json",
+  	      	data: {
+  	      		
+  	      	},
+  		    success: function(data){
+  		    	
+  		    	ajaxData = data;
+  		    	paymentSetting();
+  		    	
+  		    }, error: function (request, status, error){
+  		    	alert("Error");
+  		    }
+  		});
+  	}
+  	
+  	
+  	// 검색
+  	function paymentSearchAjax(){
+  		
+  		var keyword =  $('#keyword').val();
+  		
+  		if(!keyword){
+  			alert("검색 키워드를 입력해주세요");
+  			return false;
+  		}
+  		
+		var obj = {"keyword" : keyword};
+  		
+  	 	$.ajax({
+  		 	url: localhost + '/paymentSearch.do',
+  		    type: "POST",
+  		    cache: false,
+  	        dataType: "json",
+  	        contentType: "application/json",
+  	      	data : JSON.stringify(obj),
+  		    success: function(data){
+
+  		    	
+  		    	
+  		    	ajaxData = data;
+  		    	paymentSetting();
+  		    	
+  		    	
+  		    }, error: function (request, status, error){
+  		    	alert("Error");
+  		    }
+  		});
+  	}
+  	
+  	
+  	
+  	function paymentSetting(){
+  		
+  		
+  		$('.tr_append').html('');
+  			
+  		for(var i = 0; i < ajaxData.length; i++){
+  			var v = ajaxData[i];
+  			
+  			var paymentHTML = "";
+  			
+  			
+  			var payDate = v.paymentDate.substring(0, 10);
+  			
+  			paymentHTML += '<tr>';
+  			paymentHTML += '<td class="text-center">1</td>';
+  		    paymentHTML += '<td class="text-center"><a href="#">'+ v.seller +'</a></td>';
+  		    paymentHTML += '<td class="text-center"><a href="#">'+ v.consumer +'</a></td>';
+  		    paymentHTML += '<td class="text-center">'+ v.paymentNo +'</td>';
+  		    paymentHTML += '<td class="text-center"><a href="#">'+ v.pdNo +'</a></td>';
+  		    paymentHTML += '<td class="text-center">'+ v.photoName +'</td>';
+  		    paymentHTML += '<td class="text-center">'+ v.paymentTotal +'원</td>';
+  		    paymentHTML += '<td class="text-center">'+ payDate +'</td>';
+  		    paymentHTML += '</tr>';
+        	$('.tr_append').append(paymentHTML);
+  		}  		
+  	}
+
+</script>
 </html>
  		
