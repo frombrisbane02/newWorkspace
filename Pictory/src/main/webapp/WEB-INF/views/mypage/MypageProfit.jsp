@@ -24,28 +24,18 @@
                   </tr>
                 </thead>
                 <tbody>
+                  <c:forEach var="sale" items="${sales}">
                   <tr>
-                    <th>22/06/2022</th>
-                    <td>나의 풍경 사진</td>
-                    <td>2,000</td>
-                    <td><span class="badge badge-info">Prepared</span></td>
+                    <th>${sale.soldDate}</th>
+                    <td>${sale.productName}</td>
+                    <td>${sale.profit}</td>
+                    <td><span class="badge badge-info">${sale.status eq 0 ? "prepared" : "received" }</span></td>
                   </tr>
-                  <tr>
-                    <th>28/06/2022</th>
-                    <td>행복한 가족</td>
-                    <td>2,500</td>
-                    <td><span class="badge badge-info">Prepared</span></td>
-                  </tr>
-                  <tr>
-                    <th>09/07/2022</th>
-                    <td>생일날 한강에서</td>
-                    <td>2,000</td>
-                    <td><span class="badge badge-warning">Received</span></td>
-                  </tr>
+                  </c:forEach>
                 </tbody>
                   <tr class="text-center">
                     <th>Total</th>
-                    <th>4,950<span> KRW</span></th>
+                    <th>${preparedTotal}<span> KRW</span></th>
                   </tr>
               </table>
             </div>

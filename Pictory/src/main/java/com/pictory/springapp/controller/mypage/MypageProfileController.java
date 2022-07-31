@@ -33,7 +33,7 @@ public class MypageProfileController {
 		String id = (String) session.getAttribute("userId");
 		
 		if (id == null) {
-			return "auth/Login";
+			return "auth/Login.tiles";
 		} else {
 			//서비스안의 회원정보보기 메서드 호출
 			MemberDTO dto = service.readMember(id);
@@ -76,13 +76,14 @@ public class MypageProfileController {
 		
 		
 		if (file != null) {
-			String uploadPath = req.getSession().getServletContext().getRealPath("/").concat("resources/img/mypage");
+			String uploadPath = req.getSession().getServletContext().getRealPath("/").concat("upload/img/");
 			String fileName = file.getOriginalFilename();
+			String httpPath = "http://localhost:4040/springapp/upload/img/";
 			String realFileName = id + "." + fileName.substring(fileName.lastIndexOf(".") + 1);
 			String imgUploadPath = uploadPath + File.separator + realFileName;
 			
 			file.transferTo(new File(imgUploadPath));
-			memberDTO.setUserProfile(realFileName);
+			memberDTO.setUserProfile(httpPath+realFileName);
 		}
 		
 		memberDTO.setUserId(id);
@@ -97,9 +98,12 @@ public class MypageProfileController {
 	
 	//페이지 이동 
 	@RequestMapping("Index.do")
-	public String profile() {
+	public String profile(HttpSession session) {
 		System.out.println("마이페이지 컨트롤러");
-		
+		String id = (String) session.getAttribute("userId");
+		if (id == null) {
+			return "auth/Login.tiles";
+		}
 		return "mypage/MypageIndex.tiles";
 	}
 	

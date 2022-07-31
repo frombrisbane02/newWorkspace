@@ -1,12 +1,7 @@
 package com.pictory.springapp.dto;
 
-import java.sql.SQLException;
-import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-
-import org.springframework.beans.factory.annotation.Autowired;
-
-import com.pictory.springapp.service.impl.MemberDAO;
 
 public interface MemberService<T> {
 	
@@ -29,4 +24,7 @@ public interface MemberService<T> {
 	public int updateMemberPassword(MemberDTO dto);
 	
 	
+	public List<SavePostDTO> selectLikePost(int memberNo);
+	
+	public List<SavePostDTO> selectByePost(int memberNo);	
 }

@@ -9,6 +9,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.pictory.springapp.dto.MemberDTO;
 import com.pictory.springapp.dto.MemberService;
+import com.pictory.springapp.dto.SavePostDTO;
 
 @Service("memberService")
 public class MemberServiceImpl implements MemberService<MemberDTO>{
@@ -210,5 +212,18 @@ public class MemberServiceImpl implements MemberService<MemberDTO>{
 		    } catch (IOException e) {
 		        e.printStackTrace();
 		    }
+		}
+
+		@Override
+		public List<SavePostDTO> selectLikePost(int memberNo) {
+					
+			List<SavePostDTO> dto = dao.selectLikePost(memberNo);
+			return dto;
+		}
+
+		@Override
+		public List<SavePostDTO> selectByePost(int memberNo) {
+			List<SavePostDTO> dto = dao.selectBuyPost(memberNo);
+			return null;
 		}
 }

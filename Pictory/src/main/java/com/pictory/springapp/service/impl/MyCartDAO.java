@@ -14,11 +14,15 @@ public class MyCartDAO {
 	@Autowired
 	private SqlSessionTemplate template;
 	
-	public List<MyCartDTO> selectMyProduct(String id) {
+	public List<MyCartDTO> selectMyCart(String id) {
 		
 		
 		List<MyCartDTO> list = template.selectList("selectMyCart", id);
 		System.out.println("dao에서 호출해 가져온 리스트 사이즈 MyCartDTO :"+list.size());
 		return list;
+	}
+	
+	public void deleteMyCart(int userNo) {
+		template.delete("deleteMyCart", userNo);
 	}
 }

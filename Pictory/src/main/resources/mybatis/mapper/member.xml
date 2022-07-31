@@ -18,7 +18,7 @@
 		<selectKey keyProperty="userNo" resultType="int" order="BEFORE">
 		SELECT SEQ_USERS.NEXTVAL FROM DUAL
 		</selectKey>
-		INSERT ALL
+			INSERT ALL
 			INTO users(userNo,userId,userPassword,userEmail,userName) VALUES (SEQ_USERS.CURRVAL,#{userId},#{userPassword},#{userEmail},#{userName})
 			INTO authorities(userNo,authorities,enabled) VALUES (SEQ_USERS.CURRVAL,default,default)
 			SELECT * FROM DUAL
@@ -52,17 +52,50 @@
 		where USERID = #{userId}
 	</update>
 	
-	<!-- 마이페이지 장바구니 목록 불러오기 쿼리: 아직 안됨 >> sql 에러뜸 해결필요 -->
-	<select id="selectMyCart" parameterType="int" resultType="MyCartDTO">
-		SELECT cart.USERNO, u.USERNICKNAME, product.PDNO, product.PHOTONO, product.PDPRICE, photo.PHOTOURL, photo.PHOTONAME
-		FROM CART cart
+	<!-- 마이페이지 장바구니 목록 불러오기 쿼리-->
+	<select id="selectMyCart" parameterType="String" resultType="MyCartDTO">
+		SELECT cart.USERNO, u.USERNICKNAME, product.PDNO, product.PHOTONO, product.PDPRICE, photo.PHOTONAME, photo.PHOTOURL
+		FROM CART cart 
 		INNER JOIN PRODUCT product 
 		ON cart.PDNO = product.PDNO 
 		INNER JOIN PHOTO photo
 		ON product.PHOTONO = photo.PHOTONO 
 		INNER JOIN USERS u 
 		ON cart.USERNO = u.USERNO 
+		WHERE u.USERID = #{userId}
+	</select>
+	
+	<!-- 장바구니 삭제용 쿼리-->
+	<delete id="deleteMyCart" parameterType="int">
+		DELETE FROM CART cart
 		WHERE cart.USERNO = #{userNo}
+	</delete>
+	
+	<!-- 좋아요 한 포스트 조회용 쿼리-->
+	<select id="selectLikePost" parameterType="int" resultType="SavePostDTO">
+		SELECT post.POSTNO AS NO, photo.PHOTONAME, photo.PHOTOURL, u.USERPROFILE AS postUserProfile, u.USERNICKNAME AS postUserNickName  
+		FROM LIKES l   
+		INNER JOIN POST post   
+		ON l.POSTNO  = post.POSTNO    
+		INNER JOIN PHOTO photo   
+		ON post.POSTNO  = photo.POSTNO   
+		INNER JOIN USERS u    
+		ON post.USERNO = u.USERNO    
+		WHERE l.USERNO  = #{userNo}
+	</select>
+	
+	<select id="selectBuyPost" parameterType="int" resultType="SavePostDTO">
+		SELECT payment.PAYMENTNO AS NO , photo.PHOTONAME, photo.PHOTOURL, u.USERPROFILE AS postUserProfile, u.USERNICKNAME AS postUserNickName  
+		FROM PAYMENT payment    
+		INNER JOIN PDORDER orders 
+		ON PAYMENT.PAYMENTNO  = orders.PAYMENTNO    
+		INNER JOIN PRODUCT product 
+		ON product.PDNO = orders.PDNO
+		INNER JOIN PHOTO photo 
+		ON PHOTO.PHOTONO = product.PHOTONO 
+		INNER JOIN USERS u    
+		ON PAYMENT.USERNO = u.USERNO    
+		WHERE u.USERNO  = #{userNo}
 	</select>
 	
 </mapper>

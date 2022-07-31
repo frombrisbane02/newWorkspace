@@ -3,6 +3,7 @@ package com.pictory.springapp.service.impl;
 import java.io.IOError;
 import java.io.IOException;
 import java.io.Reader;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.io.Resources;
@@ -14,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.pictory.springapp.dto.MemberDTO;
+import com.pictory.springapp.dto.SavePostDTO;
 
 @Repository
 public class MemberDAO {
@@ -87,6 +89,16 @@ public class MemberDAO {
 
 		SqlSession session= sqlMapper.openSession();
 		session.update("updateMemberPassword", dto);
+	}
+	
+	public List<SavePostDTO> selectLikePost(int userNo) {
+		List<SavePostDTO> dto = template.selectList("selectLikePost", userNo);
+		return dto;
+	}
+	
+	public List<SavePostDTO> selectBuyPost(int userNo) {
+		List<SavePostDTO> dto = template.selectList("selectBuyPost", userNo);
+		return dto;
 	}
 
 		

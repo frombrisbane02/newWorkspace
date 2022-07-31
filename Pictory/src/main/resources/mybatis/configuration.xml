@@ -25,6 +25,11 @@
 		<typeAlias type="com.pictory.springapp.dto.StoryDTO" alias="StoryDTO"/>
 		<typeAlias type="com.pictory.springapp.dto.AdminPaymentDTO" alias="AdminPaymentDTO"/>
 		<typeAlias type="com.pictory.springapp.dto.MessageDTO" alias="MessageDTO"/>
+		<typeAlias type="com.pictory.springapp.dto.SavePostDTO" alias="SavePostDTO"/>
+		<typeAlias type="com.pictory.springapp.dto.OrderDTO" alias="OrderDTO"/>
+		<typeAlias type="com.pictory.springapp.dto.PaymentDTO" alias="PaymentDTO"/>
+		<typeAlias type="com.pictory.springapp.dto.SalesDTO" alias="SalesDTO"/>
+		<typeAlias type="com.pictory.springapp.dto.AdminDTO" alias="AdminDTO" />
 	</typeAliases>
 	<environments default="development">
 	    <environment id="development">
@@ -55,5 +60,6 @@
 		<mapper resource="mybatis/mapper/adminmain.xml"/>
 		<mapper resource="mybatis/mapper/adminpayment.xml"/>
 		<mapper resource="mybatis/mapper/message.xml"/>
+		<mapper resource="mybatis/mapper/faq.xml"/>
 	</mappers>
 </configuration>

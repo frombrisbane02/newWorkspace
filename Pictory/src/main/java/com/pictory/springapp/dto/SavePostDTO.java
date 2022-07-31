@@ -9,14 +9,15 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class MyCartDTO {
-	private int userNo;
-	private String userNickName;
-	private int pdNo;
-	private int photoNo;
-	private int pdPrice;
-	private int commision;
-	private int totalPrice;
+public class SavePostDTO {
+
+	private int postNo;
+	
 	private String photoName;
-	private String photoUrl;
+	
+	private String postUserProfile;
+	
+	private String photoUrl;	
+	
+	private String postUserNickName;
 }

@@ -4,5 +4,31 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="mybatis.mapper.payment">	
+	
+	<select id="selectSequence" resultType="int">
+		select SEQ_PAYMENT.nextval from dual
+	</select>
+	
+	<insert id="insertPayment" parameterType="PaymentDTO">
+		INSERT INTO PICTORY.PAYMENT
+		(PAYMENTNO, USERNO, PAYMENTDATE, PAYMENTTOTAL)
+		VALUES(#{paymentNo}, #{userNo}, #{paymentDate}, #{paymentTotal})
 
+	</insert>
+	
+	<insert id="insertOrder" parameterType="OrderDTO">
+		INSERT INTO PICTORY.PDORDER
+		(PAYMENTNO, PDNO)
+		VALUES(#{paymentNo}, #{pdNo})
+	
+	</insert>
+	
+	<select id="selectMySales" parameterType="int" resultType="SalesDTO">
+		SELECT PRODUCT.PDNO AS productNo, payment.PAYMENTDATE AS soldDate, product.PDNAME AS productName, PRODUCT.PDPRICE AS profit, orders.STATUS AS status FROM PDORDER orders 
+		INNER JOIN PRODUCT product
+		ON orders.PDNO = product.PDNO 
+		INNER JOIN PAYMENT payment
+		ON payment.PAYMENTNO = orders.PAYMENTNO
+		WHERE payment.USERNO = #{userNo}
+	</select>
 </mapper>

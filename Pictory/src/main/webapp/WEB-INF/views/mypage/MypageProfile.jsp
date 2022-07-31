@@ -43,7 +43,7 @@
          <h3 class="mt-5">나의 프로필 변경</h3>
          <form action="/springapp/mypage/updateProfile.do" method="POST" enctype="multipart/form-data">
            <div class="product same-height text-center align-items-center">   
-             <div class="front"><img src="<c:url value="/resources/img/mypage/${memDTO.userProfile}"/>" alt="" class="img-fluid"></div>
+             <div class="front"><img src="${memDTO.userProfile}" alt="" class="img-fluid"></div>
              <div>  
                <input type="file" style="color:#595959" name="image">
              </div>
