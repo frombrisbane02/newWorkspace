@@ -1,6 +1,11 @@
 package com.pictory.springapp.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -60,10 +65,23 @@ public class MemberController<T> {
 	}
 	/////////회원가입
 	
-	@RequestMapping(value="Insert.do", method = RequestMethod.POST)
-	public String insert(MemberDTO dto) {
-		memberService.signUp(dto);
-		return "redirect:/";
+	@RequestMapping(value="Insert.do", method = RequestMethod.POST, produces="application/json;charset=UTF-8")
+	public String insert(MemberDTO dto, HttpServletRequest request) throws IOException {
+		System.out.println("회원가입 컨트롤러");
+		int mem = 0;
+		mem = memberService.signUp(dto);
+		if(mem!=0) {
+			System.out.println("성공mem:"+mem);
+			request.setAttribute("msg", "회원가입이 완료되었습니다.");
+			request.setAttribute("url", "/springapp/index.do");
+		}
+		else if (mem==0) {
+			System.out.println("mem:"+mem);
+			request.setAttribute("msg", "아이디 혹은 이메일 중복확인을 해주세요.");
+			request.setAttribute("url", "/springapp/member/Join.do");
+			
+		}
+		return "member/alert.tiles";
 	}
 
 }

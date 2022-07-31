@@ -15,6 +15,7 @@ public class MemberServiceImpl implements MemberService<MemberDTO>{
 	@Autowired
 	private MemberDAO dao;
 	
+	//로그인
 	@Override
 	public String isLogin(Map map) {
 	
@@ -28,10 +29,11 @@ public class MemberServiceImpl implements MemberService<MemberDTO>{
 		return dao.isExist(map);
 	}
 	//회원가입
-	
+	@Override
 	public int signUp(MemberDTO dto) {
 		int resultCnt=0;
 		resultCnt = dao.signUp(dto);
+		System.out.println("에러후 여기로 들어오나요???resultCnt:"+resultCnt);
 		return resultCnt;
 		
 	}

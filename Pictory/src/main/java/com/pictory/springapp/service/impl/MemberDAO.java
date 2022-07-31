@@ -47,9 +47,14 @@ public class MemberDAO {
 	}
 	
 	public int signUp(MemberDTO dto) {
-		
-		int succ=template.insert("memberInsert",dto);
-		System.out.println("회원가입succ:"+succ);
+		System.out.println("회원가입dao:"+dto);
+		int succ=0;
+		try {
+		succ=template.insert("memberInsert",dto);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
 		return succ;
 	}
 	/*

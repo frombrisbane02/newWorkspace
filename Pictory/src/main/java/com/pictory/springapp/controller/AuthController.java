@@ -49,7 +49,7 @@ public class AuthController {
 		return "auth/Login.tiles";
 		}
 		
-		if(flag.equals("ROLE_ADMIN")) {
+		if(flag.equals("ADMIN")) {
 			model.addAttribute("userId",map.get("userId"));
 			return "admin/Index.tiles";
 		

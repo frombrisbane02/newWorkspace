@@ -1,5 +1,7 @@
 package com.pictory.springapp.dto;
 
+import java.sql.Date;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -24,6 +26,7 @@ public class MemberDTO {
 	private String userFwer;
 	private String userProfile;
 	private String userSelf;
+	private Date userDate;
 	
 	//@Builder 어노테이션 사용하면 toString() 필요 없음
 	/*
