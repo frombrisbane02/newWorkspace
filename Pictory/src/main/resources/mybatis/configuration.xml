@@ -24,6 +24,7 @@
 		<typeAlias type="com.pictory.springapp.dto.GalleryDTO" alias="GalleryDTO"/>
 		<typeAlias type="com.pictory.springapp.dto.StoryDTO" alias="StoryDTO"/>
 		<typeAlias type="com.pictory.springapp.dto.AdminPaymentDTO" alias="AdminPaymentDTO"/>
+		<typeAlias type="com.pictory.springapp.dto.MessageDTO" alias="MessageDTO"/>
 	</typeAliases>
 	<environments default="development">
 	    <environment id="development">
@@ -53,5 +54,6 @@
 		<mapper resource="mybatis/mapper/gallery.xml"/>
 		<mapper resource="mybatis/mapper/adminmain.xml"/>
 		<mapper resource="mybatis/mapper/adminpayment.xml"/>
+		<mapper resource="mybatis/mapper/message.xml"/>
 	</mappers>
 </configuration>

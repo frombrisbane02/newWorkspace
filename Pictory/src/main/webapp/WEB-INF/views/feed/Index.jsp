@@ -3,7 +3,6 @@
 
 	
 	<link rel="shortcut icon" type="image/x-icon" href="img/favicon.png">
-	<link rel="apple-touch-icon" href="img/favicon.png">
 	
 	<link rel="stylesheet" href="<c:url value="/resources/css/feed/common.css"/>"/>
 	<link rel="stylesheet" href="<c:url value="/resources/css/feed/page2.css"/>"/>
@@ -29,9 +28,9 @@
 					<img src="<c:url value="/resources/img/feed/test_img02.jpg"/>" alt="" class="pro_img">
 					<div class="txt_area">
 						<h3>홍길동</h3>
-						<p class="sub_txt">홍길동입니다 반갑습니다</p>
+						
 						<p><img src="<c:url value="/resources/img/feed/test_icon01.png"/>" alt="">대한민국</p>
-						<p>고길동님과 둘리님이 팔로우중입니다.</p>
+						<!-- <p>고길동님과 둘리님이 팔로우중입니다.</p> 나중에 구현 -->
 					</div>
 				</div>
 
@@ -78,18 +77,37 @@
 				</div>
 			</div>
 			<div class="right_list">
-				<ul class="top_tab" role="tablist" >
-					<li class="tab_link tab_ac" data-tab="Artwork"><a data-toggle="tab" href="Artwork" aria-controls="artwork2" aria-selected="true" role="tab">Artwork <span>1</span></a></li>
-					<li class="tab_link" data-tab="Story"><a href="<c:url value="feed/Stroy.do" />" data-toggle="tab" href="Story" aria-controls="story2" aria-selected="false" role="tab">Story <span>1</span></a></li>
-					<li class="tab_link" data-tab="Likes"><a href="" data-toggle="tab" href="Likes" aria-controls="likes2" aria-selected="false" role="tab">Likes <span>1</span></a></li>
+				<ul class="top_tab" role="tablist" id="tab" >
+					<li class="tab_link" data-tab="tab1"><a href="Artwork">Artwork <span>갤러리 글수</span></a></li>
+					<li class="tab_link" data-tab="tab2"><a href="FeedStory">Story <span>스토리 글수</span></a></li>
+					<li class="tab_link" data-tab="tab3"><a href="Likes">Likes <span>좋아요 한 글</span></a></li>
 				</ul>
 				
-        			<div id="myTab2Content" class="tab-content">
+        			<div id="myTab2Content" class="tabContent">
           <!-- 데이터 뿌려주기 -->
         	</div>
+        
 			
 		</div>
 	</div>
 </form>
 </body>
+
 </html>
+
+ <script>
+	$(document).ready(function(){
+		//처음 시작할 땐 MypageProfile이 나와야한다.
+		$(".tabContent").load("<c:url value='/feed/Story.do'/>");
+		
+		//탭 클릭시마다 
+		$("#tab li a").on("click", function(e){
+			e.preventDefault();
+			
+			var page=$(this).attr("href");
+			console.log("<c:url value='/feed/"+page+".do'/>");
+			///
+			$(".tabContent").load("<c:url value='/feed/"+page+".do'/>");
+		});
+	});
+</script>

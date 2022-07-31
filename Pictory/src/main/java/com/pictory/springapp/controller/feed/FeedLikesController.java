@@ -19,7 +19,7 @@ public class FeedLikesController {
 		
 		
 	@RequestMapping("Likes.do")
-	public String alert() {
+	public String likes() {
 		System.out.println("좋아요 페이지 되나요?");
 		
 		return "feed/Likes.tiles";

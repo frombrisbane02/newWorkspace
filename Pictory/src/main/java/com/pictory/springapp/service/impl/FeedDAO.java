@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.pictory.springapp.dto.FeedDTO;
+import com.pictory.springapp.dto.StoryDTO;
 
 @Repository("feedDAO")
 public class FeedDAO {
@@ -23,5 +24,24 @@ public class FeedDAO {
 	
 		return null;
 	}
+	
+	
+	   public List<StoryDTO> virtualList() {
+		      
+		      return template.selectList("storyllist");
+		      
+		   }//virtualList
+
+		   
+
+		   public List<StoryDTO> virtualImages(int sNo) {
+
+		      System.out.println("****(dao)virtualImages까지는...왔니");
+		      List<StoryDTO> storyresult = template.selectList("storyimages",sNo);
+		      System.out.println("(dao)storyresult"+storyresult.toString());
+		      
+		      return storyresult;
+		      
+		   }//virtualImages
 }
 
