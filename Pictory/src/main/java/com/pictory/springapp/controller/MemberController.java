@@ -2,10 +2,12 @@ package com.pictory.springapp.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -34,7 +36,28 @@ public class MemberController<T> {
 	public String join() {	
 		return "member/Join.tiles";
 	}
+	@RequestMapping(value="kakaoLogin.do", method=RequestMethod.GET)
+	public String kakaoLogin(@RequestParam(value = "code", required = false) String code, Model model, HttpSession session) throws Exception {
+		System.out.println("#########" + code);
+		
+		String access_Token = memberService.getAccessToken(code);
+		
+		HashMap<String, Object> userInfo = memberService.getUserInfo(access_Token);
+		System.out.println("###access_Token#### : " + access_Token);
+		System.out.println("###nickname#### : " + userInfo.get("nickname"));
+		System.out.println("###email#### : " + userInfo.get("email"));
+		model.addAttribute("nickname",userInfo.get("nickname"));
+		session.setAttribute("access_token", access_Token);
+		return "auth/Login.tiles";
+	}
 	
+	@RequestMapping(value="kakaounlink.do")
+	public String unlink(HttpSession session) {
+		memberService.unlink((String)session.getAttribute("access_token"));
+		session.invalidate();
+		return "redirect:/";
+	}
+
 	/*<유효성 검사>*/
 	/*@RequestMapping("SignInProcess.do")
 	public String signinprocess(MemberDTO dto, Model model) {

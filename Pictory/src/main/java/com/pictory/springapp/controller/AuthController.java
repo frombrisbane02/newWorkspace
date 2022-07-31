@@ -29,13 +29,13 @@ public class AuthController {
 	public String joinagree() {
 		return "auth/JoinAgree.tiles";
 	}
-	
+	////////
 	@RequestMapping("Login.do")
 	public String login() {
 		System.out.println("로그인 컨트롤러");
 		return "auth/Login.tiles";
 	}
-	//로그인 처리]
+	//로그인 처리] 
 	@RequestMapping("LoginProcess.do")
 	public String process(@RequestParam Map map, Model model, SessionStatus status) {
 		//서비스 호출]

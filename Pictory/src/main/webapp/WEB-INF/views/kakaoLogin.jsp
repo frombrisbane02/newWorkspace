@@ -10,9 +10,8 @@
 	<c:choose>
 		<c:when test="${nickname!=null}">
 			<h3>'${nickname}' 님 환영합니다!</h3>
-			<h6>SNS계정(네이버,카카오)로그인을 하셨을 경우 최초 1회 PICTORY 아이디, 비밀번호로 로그인을 한번 더
-			진행해주시기 바랍니다.</h6>
-			<a href="http://localhost:5050/project/member/logout"
+			<br/>
+			<a href="http://localhost:4040/springapp/member/kakaounlink.do"
 				class="kakao btn d-flex justify-content-center align-items-center">
 				<!-- <img src="${pageContext.request.contextPath}/resources/img/kakao_login_medium_narrow.png"> -->
 				<span class="iconify" data-icon="ri:kakao-talk-fill" data-width="24"
@@ -22,7 +21,7 @@
 
 		<c:otherwise>
 			<a
-				href="https://kauth.kakao.com/oauth/authorize?client_id=864c0c83f5039090b5065e41a69f1f0f&redirect_uri=http://localhost:5050/project/member/kakaoLogin&response_type=code"
+				href="https://kauth.kakao.com/oauth/authorize?client_id=864c0c83f5039090b5065e41a69f1f0f&redirect_uri=http://localhost:4040/springapp/member/kakaoLogin.do&response_type=code"
 				class="kakao btn d-flex justify-content-center align-items-center">
 				<!-- <img src="${pageContext.request.contextPath}/resources/img/kakao_login_medium_narrow.png"> -->
 				<span class="iconify" data-icon="ri:kakao-talk-fill" data-width="24"
