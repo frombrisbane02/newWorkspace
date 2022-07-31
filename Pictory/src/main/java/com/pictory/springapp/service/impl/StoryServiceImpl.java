@@ -21,28 +21,13 @@ public class StoryServiceImpl implements StoryService<StoryDTO> {
 		return dao.virtualList();
 	}
 
-	/*
-	 * ====================0726
-	 * 
-	 * @Override public List<StoryDTO> virtualImages(List<StoryDTO> returnValue){
-	 * 
-	 * List<StoryDTO> storyImages = dao.virtualImages(returnValue);
-	 * System.out.println(storyImages);
-	 * 
-	 * // for(StoryDTO storyImages : storyImages) { //
-	 * System.out.println("storyImages에 담긴 sNo: "+ storyImages.getSNo()); //
-	 * System.out.println("storyImages에 담긴 Url: "+ storyImages.getPhotoUrl()); // //
-	 * }
-	 * 
-	 * return null; }
-	 */
 
 	// =====0728
 	@Override
-	public List<StoryDTO> virtualImages() {
+	public List<StoryDTO> virtualImages(int sNo) {
 		System.out.println("서비스 virtualImages...오니?");
 		
-		List<StoryDTO> storyImages = dao.virtualImages();
+		List<StoryDTO> storyImages = dao.virtualImages(sNo);
 		System.out.println(storyImages);
 	
 
