@@ -9,35 +9,22 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1 shrink-to-fit=no">
 <!-- Image Edit용 example 추가 -->
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js" integrity="sha256-xLD7nhI62fcsEZK2/v8LsBcb4lG7dgULkuXoXB/j91c=" crossorigin="anonymous"></script>
+
+
 <!--<script type="module" src="/public/init.js"></script>-->
-<script
-	src="https://cdn.scaleflex.it/plugins/js-cloudimage-responsive/4.8.5/js-cloudimage-responsive.min.js"></script>
-<script
-	src="https://cdn.scaleflex.it/filerobot/js-cloudimage-responsive/lazysizes.min.js"></script>
+<script src="https://cdn.scaleflex.it/plugins/js-cloudimage-responsive/4.8.5/js-cloudimage-responsive.min.js"></script>
+<script src="https://cdn.scaleflex.it/filerobot/js-cloudimage-responsive/lazysizes.min.js"></script>
 <!--vanilla js cdn-->
-<script
-	src="https://scaleflex.cloudimg.io/v7/plugins/filerobot-image-editor/latest/filerobot-image-editor.min.js"></script>
-<link
-	href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap"
-	rel="stylesheet" />
-<link rel="stylesheet"
-	href="https://cdn.scaleflex.it/plugins/js-cloudimage-responsive/4.8.5/js-cloudimage-responsive.min.css?vh=a076ef&func=proxy" />
-<link
-	href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap"
-	rel="stylesheet" />
+<script src="https://scaleflex.cloudimg.io/v7/plugins/filerobot-image-editor/latest/filerobot-image-editor.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdn.scaleflex.it/plugins/js-cloudimage-responsive/4.8.5/js-cloudimage-responsive.min.css?vh=a076ef&func=proxy" />
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet" />
 <!-- 
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/upload/style.css" /> -->
 
 
-<!--기본 bootstrap4용-->
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
-<script
-	src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
-<script
-	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
 <!--text에디터용-->
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
@@ -48,8 +35,14 @@
 	integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
 	crossorigin="anonymous" />
 <!-- 파일 업로드 프리뷰용 -->
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+
+<!--기본 bootstrap4용-->
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
 
 </head>
 <style>
@@ -216,7 +209,7 @@
 						<div class="inline" id="sThumnail">
 							<label for="storyThumbnail"> <img
 								src="${pageContext.request.contextPath}/resources/img/upload/addstory.jpg"
-								id="addedThumbnailimg" width="114px;" height="162px;">
+								id="addedThumbnailimg" width="100px;">
 							</label> <input id="storyThumbnail" name="storyThumbnail" type="file"
 								accept="image/*" hidden />
 						</div>
@@ -227,7 +220,7 @@
 							<input type="checkbox" id="story1" onclick="imageClicked(this)"
 								hidden /> <label for="story1"> <img
 								src="${pageContext.request.contextPath}/resources/img/upload/sell.jpg"
-								id="sThumnail+1" width="114" height="162">
+								id="sThumnail+1" width="100px;">
 							</label>
 						</div> 스토리이름1
 					</li>
@@ -238,7 +231,7 @@
 							<input type="checkbox" id="story2" onclick="imageClicked(this)"
 								hidden /> <label for="story2"> <img
 								src="${pageContext.request.contextPath}/resources/img/upload/sell.jpg"
-								id="sThumnail" width="114" height="162">
+								id="sThumnail" width="100px;" >
 							</label>
 						</div> 스토리이름2
 					</li>
@@ -296,30 +289,30 @@
 
 
 		<!--===================================Image Modal===================================-->
-		<form>
-			<div class="modal" id="editModal">
-				<div class="modal-dialog modal-xl">
-					<div class="modal-content" id="editContent">
-						<iframe style="width: 1050px; height: 800px;" frameborder="0"
-							scrolling="no" src="<c:url value="/gallery/post/loadEditor.do"/>"></iframe>
+		
+		<div class="modal fade" tabindex="-1" id="editModal">
+			<div class="modal-dialog modal-xl">
+				<div class="modal-content">
+					<div class="modal-body" id="editContent">
+					<iframe id="iframe" style="width: 1050px; height: 800px;" frameborder="0" scrolling="no" src="<c:url value="/gallery/post/loadModal.do"/>"></iframe>
 					</div>
 				</div>
 			</div>
-		</form>
+		</div>
+		
 
 
 
-	</div>
-	<!--container-->
-	</br>
-	</br>
-	</br>
-	</br>
-	</br>
+</div>
+<!--container-->
+</br>
+</br>
+</br>
+</br>
+</br>
 
 
-
-	<script>
+<script>
 
 
 
@@ -336,45 +329,10 @@
     document.querySelector('#textContent').style.textTransform = 'capitalize';
     document.querySelector('#textContent').value = ' ';
   }
-
-
   
   //==============================파일 프리뷰용 함수==================================
-	var base64Images=[];
+	//var base64Images=[];
 	$(function() {
-    // Multiple images preview in browser
-    /*
-    var imagesPreview = function(input, imgplace) {
-		
-        if (input.files) {
-        	
-        	
-	           var filesAmount = input.files.length;
-				
-				
-	            for (i = 0; i < filesAmount; i++) {
-	        	  
-	                    	var reader = new FileReader();
-		            		 
-		                     reader.onload = function(event) {
-		                     	console.log('i얼마일까요?',i);
-		                     	var html="<div class='container editpic' title='"+i+"'><img src='"+event.target.result+"' onclick=pickUrl(this) class='imageprev'><button type='button' onclick=imgClick(this,i) data-toggle='modal' data-target='#editModal' class='btn btn-sm btn-light editImagebtn'>이미지 보정</button></div>";
-		            			document.querySelector('div.mothercontainer').innerHTML+=html;
-		            			
-		            				
-		                     }
-		                     reader.readAsDataURL(input.files[i]);
-		             
-	            	
-	            	
-	           }//for
-				            
-        		
-            
-          
-        }*/
-        
-    
     
     function readAsDataURL(file){
         return new Promise(function(resolve,reject){
@@ -390,13 +348,6 @@
     }
 
     
-    
-    
-    /*
-    $('#uploadImage').on('change', function() {
-    	//change 이벤트 발생시 div container 만들고 그 안에 쭉쭉 append해서 영역 넘겨주기
-        imagesPreview(this, 'div.mothercontainer');
-    });*/
     document.getElementById("uploadImage").addEventListener("change", function(ev){
 	        let files = ev.currentTarget.files;
 	        let readers = [];
@@ -413,21 +364,63 @@
 	            // ["File1 Content", "File2 Content" ... "FileN Content"]
 	            //console.log(values);
 	             for (i = 0; i < values.length; i++) {
-	        		var html="<div class='container editpic' title='"+i+"'><img src='"+values[i]+"' onclick=pickUrl(this) class='imageprev'><button type='button' onclick='imgClick("+i+")'  data-toggle='modal' data-target='#editModal' class='btn btn-sm btn-light editImagebtn'>이미지 보정</button></div>";
+	        		var html="<div class='container editpic' title='"+i+"'><img src='"+values[i]+"' class='imageprev'><button type='button' onclick='imgClick("+i+")' class='btn btn-sm btn-light editImagebtn'>이미지 보정</button></div>";
     				document.querySelector('div.mothercontainer').innerHTML+=html;
     				base64.push(values[i]);
 	             }
-	        	});///then
+	        	});//then
     		}, false);
 	});
 //====================버튼 클릭했을때 imgsrc 가져오기 =====================================
     var base64=[];
 	function imgClick(index){
-		  
-		  //console.log('이미지소스:');
-		  console.log(base64[index]);
+		  //data-toggle='modal' data-target='#editModal'
+		  console.log('확인용 base64[index]: ',base64[index]);
 		  console.log('클릭한 인덱스:',index);
+		  
+		  
+		  $.ajax({
+			  url:"<c:url value='/gallery/post/EditImage.do'/>",
+			  data: "source="+encodeURIComponent(base64[index]),
+			  dataType:'json',
+			  method:'post'
+
+			}).done(function(data){
+			  console.log('성공:',data);
+
+			}).fail(function(e){console.log('에러:',e)});
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		//클릭시 인덱스 src 넘겨주면서 render하고 모달 여는 자스 짜기
+		//document.querySelector('#editModal').modal('show');
+		//$('#editModal').modal('show');
+				  
+		//var iframe = document.createElement('iframe');
+		//document.querySelector('#iframe').onload = function(){ alert('myframe is loaded'); };
+		console.log('iframe..여기 들어왔어..?');
+		document.querySelector('#iframe').src = "<c:url value='/gallery/post/loadEditor.do?source="+base64[index]+"'/>";
+		//iframe.style = 'width: 1050px; height: 800px;';
+		//iframe.frameborder='0';
+		//iframe.scrolling='no'
+		//document.querySelector('#editContent').appendChild(iframe);
 		
+		//document.body.appendChild(iframe);
+		
+		  //var iframe = "<iframe style='width: 1050px; height: 800px;' frameborder='0' scrolling='no' src='<c:url value='/gallery/post/loadEditor.do?source="+base64[index]+"'/>'></iframe>"
+		  
+		  //iframe 모달 자리 안에 넣어주기
+		  //document.querySelector('#editContent').innerHTML = iframe;
+		  
+		  //document.querySelector('#editModal').modal('show');
+		  $('#editModal').modal('show');
+		  
 	}
 	
 	
@@ -438,14 +431,14 @@
 //});
 
 
-//==========================popup==================================
+/* ==========================popup==================================
 $(document).ready(function(){
 	
 	$('#popupEditor').on("click", function(){
 		window.open('<c:url value="/gallery/post/loadEditor.do"/>','_black','toolbar=no, menubar=no, scrollbars=no, width=1000, height=800').focus();
 	});
 });
-  
+*/
   
 //==============================textarea 높이 자동조정==============================
 	  $(document).ready(function() {
@@ -524,8 +517,6 @@ function leavePage(){
   {history.back();}
   else {return false;}
 };
-
-
 
 </script>
 

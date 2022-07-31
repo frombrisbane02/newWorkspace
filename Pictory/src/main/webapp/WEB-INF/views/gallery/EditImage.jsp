@@ -7,17 +7,8 @@
     <script src="https://cdn.scaleflex.it/filerobot/js-cloudimage-responsive/lazysizes.min.js"></script>
   <!--vanilla js cdn-->
   	<script src="https://scaleflex.cloudimg.io/v7/plugins/filerobot-image-editor/latest/filerobot-image-editor.min.js"></script>
-	
+  	
 	<div class="container">
-		<!--파일찾기용 이미지 버튼-->
-		<div class="mt-2 ml-4">
-		<label for="add-image" class="btn btn-ouline-dark m-2" style="display:inline-block;">
-     		<img src="${pageContext.request.contextPath}/resources/img/upload/addImage.png" alt="업로드" id="img_plus" style="width: 20px;"/>
-     	</label>
-     	<!--style="display: none"(추가 코딩) 으로 숨긴다-->
-		<input name="image" id="add-image" type="file" accept="image/*" class="add-img" style="display: none"/>
-        
-		</div>
 		<!--아래 div에 이미지 보정 에디터가 디스플레이 된다-->
 		<div id="editor_container"></div>
 		<img id="display_image" alt="보정이미지 표시" style="display: none; margin-left: auto; margin-right: auto;" />
@@ -41,7 +32,7 @@
 
     <script>
       var file = document.querySelector('input[type="file"]');
-      console.log(file.getAttribute)
+      console.log(file.getAttribute);
 
       const reader = new FileReader();
       reader.addEventListener('loadend',()=>{
@@ -287,6 +278,18 @@
 
 		}
 	  }
+	
+	
+//=====================================================================
+//가지고온 source로 이미지 교체
+
+$(document).ready(function(){
+	
+	var source = ${source};
+	console.log('열었을때 가지고 온 source: ', source);
+	filerobotImageEditor.render({source: source});
+	
+});
 	
 	
 	

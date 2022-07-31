@@ -13,8 +13,8 @@
         
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
 
@@ -23,31 +23,35 @@
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
         <!-- Bootstrap icons-->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
-        <link rel="shortcut icon" type="image/x-icon" href="img/galleryview/favicon.png">
+        <link rel="shortcut icon" type="image/x-icon" href="img/favicon.png">
         <link rel="apple-touch-icon" href="img/galleryview/favicon.png">
         <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"/>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
         <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="css/styles.css" rel="stylesheet" />
-        <link rel="stylesheet" type="text/css" href="css/common.css">
-        <link rel="stylesheet" type="text/css" href="css/page1.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/styles.css"  />
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources//resources/css/common.css">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/page1.css">
 
-        <script src="js/gallerylist/modernizr.js"></script>
-        <script src="js/gallerylist/html5shiv.js"></script>
-        <script src="js/gallerylist/tab.js"></script>
+        <script src="${pageContext.request.contextPath}/resources/js/gallerylist/modernizr.js"></script>
+        <script src="${pageContext.request.contextPath}/resources/js/gallerylist/html5shiv.js"></script>
+        <script src="${pageContext.request.contextPath}/resources/js/gallerylist/tab.js"></script>
         <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
         <script src="http://code.jquery.com/jquery-1.8.1.min.js"></script>
 
     
-        <link rel="shortcut icon" type="image/x-icon" href="img/galleryview/favicon.png">
-        <link rel="apple-touch-icon" href="img/galleryview/favicon.png">
+        <link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/resources/img/galleryview/favicon.png">
+        <link rel="apple-touch-icon" href="${pageContext.request.contextPath}/resources/img/galleryview/favicon.png">
         <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"/>
-        <link rel="stylesheet" type="text/css" href="css/galleryview/common.css">
-        <link rel="stylesheet" type="text/css" href="css/galleryview/page1.css">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/galleryview/common.css">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/galleryview/page1.css">
         
-        <link rel="stylesheet" href="css/Navbar.css" />
     </head>
     <body class="d-flex flex-column h-100">
+    <div class="container">
+    	<div class="title">
+    		<h3>제목영역</h3>
+    	</div>
+    </div>
         <main class="flex-shrink-0">
             <!-- Navigation-->
             <!-- Header-->
@@ -108,12 +112,12 @@
                                     <div class="photo_area">
                                         <div class="swiper mySwiper">
                                             <div class="swiper-wrapper">
-                                                <div class="swiper-slide" style="background-image: url(img/galleryview/test_img03.jpg);"><a href=""><img src="img/galleryview/fake04.png" alt=""></a></div>
-                                                <div class="swiper-slide" style="background-image: url(img/galleryview/test_img04.jpg);"><a href=""><img src="img/galleryview/fake04.png" alt=""></a></div>
-                                                <div class="swiper-slide" style="background-image: url(img/galleryview/test_img05.jpg);"><a href=""><img src="img/galleryview/fake04.png" alt=""></a></div>
-                                                <div class="swiper-slide" style="background-image: url(img/galleryview/test_img06.jpg);"><a href=""><img src="img/galleryview/fake04.png" alt=""></a></div>
-                                                <div class="swiper-slide" style="background-image: url(img/galleryview/test_img07.jpg);"><a href=""><img src="img/galleryview/fake04.png" alt=""></a></div>
-                                                <div class="swiper-slide" style="background-image: url(img/galleryview/test_img08.jpg);"><a href=""><img src="img/galleryview/fake04.png" alt=""></a></div>
+                                                <div class="swiper-slide" style="background-image: url(${pageContext.request.contextPath}/resources/img/galleryview/test_img03.jpg);"><a href=""><img src="img/galleryview/fake04.png" alt=""></a></div>
+                                                <div class="swiper-slide" style="background-image: url(${pageContext.request.contextPath}/resources/img/galleryview/test_img04.jpg);"><a href=""><img src="img/galleryview/fake04.png" alt=""></a></div>
+                                                <div class="swiper-slide" style="background-image: url(${pageContext.request.contextPath}/resources/img/galleryview/test_img05.jpg);"><a href=""><img src="img/galleryview/fake04.png" alt=""></a></div>
+                                                <div class="swiper-slide" style="background-image: url(${pageContext.request.contextPath}/resources/img/galleryview/test_img06.jpg);"><a href=""><img src="img/galleryview/fake04.png" alt=""></a></div>
+                                                <div class="swiper-slide" style="background-image: url(${pageContext.request.contextPath}/resources/img/galleryview/test_img07.jpg);"><a href=""><img src="img/galleryview/fake04.png" alt=""></a></div>
+                                                <div class="swiper-slide" style="background-image: url(${pageContext.request.contextPath}/resources/img/galleryview/test_img08.jpg);"><a href=""><img src="img/galleryview/fake04.png" alt=""></a></div>
                                             </div>
                                             <div class="swiper-button-next"></div>
                                             <div class="swiper-button-prev"></div>
@@ -138,7 +142,7 @@
                     </div>
                 </div>
             </div>
-            <!-- Blog preview section-->
+            <!-- Blog preview section
             <section class="py-5">
                 <div class="container">
                     <kbd>댓글</kbd>
@@ -164,7 +168,7 @@
                         <hr/>
                         <div class="pro_area">
                             <div class="top_area">
-                                <a href="page2.html"><img src="img/galleryview/test_img02.jpg" alt="" class="pro_img_comment"></a>
+                                <a href="#"><img src="${pageContext.request.contextPath}/resources/img/galleryview/test_img02.jpg" alt="" class="pro_img_comment"></a>
                                 <div class="txt_area">
                                     <h3>내이름은 닉네임</h3>
                                     <p>헐........................너무 이뻐.................사고싶어.........</p>
@@ -177,7 +181,7 @@
                                     <div class="py-5 pt-1">
                                         <div class="top_area">
                                             <span class="material-symbols-outlined">subdirectory_arrow_right</span>
-                                            <a href="page2.html"><img src="img/galleryview/test_img02.jpg" alt="" class="pro_img_comment"></a>
+                                            <a href="#"><img src="${pageContext.request.contextPath}/resources/img/galleryview/test_img02.jpg" alt="" class="pro_img_comment"></a>
                                             <div class="txt_area">
                                                 <h3>내이름은 닉네임</h3>
                                                 <p>대박인듯.................................................</p>
@@ -191,7 +195,7 @@
                         <hr/>
                     </div>
                 </div>
-            </section>
+            </section>-->
         </main>
 
         <script>
@@ -207,6 +211,6 @@
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
-        <script src="js/scripts.js"></script>
+        <script src="${pageContext.request.contextPath}/resources/js/scripts.js"></script>
     </body>
 </html>

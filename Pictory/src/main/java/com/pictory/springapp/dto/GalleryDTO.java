@@ -68,7 +68,6 @@ public class GalleryDTO {
 	private int followTargetId;
 	
 	
-	
 	//map용(등록하는경우)
 	private int markerNo;
 	private String markerName;

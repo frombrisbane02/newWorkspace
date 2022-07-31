@@ -66,11 +66,22 @@ public class PostController {
 	
 	//===========================EDIT IMAGE 불러오기===============================
 	
-	
-	@RequestMapping("post/loadEditor.do")
-	public String loadModal(@RequestParam Map map, Model model) {
+	@RequestMapping("post/loadModal.do")
+	public String firstModal(@RequestParam String source, Model model) throws JsonProcessingException {
 		
-		System.out.println("컨트롤러 모달 로드");
+		System.out.println("가지고온 source: "+ source);
+		model.addAttribute("source", source);
+		
+		return "gallery/EditImage";
+	}
+	
+	@CrossOrigin
+	@RequestMapping(value="post/loadEditor.do",produces = "application/json;charset=UTF-8")
+	public String loadModal(@RequestParam String source, Model model,
+				HttpSession session, HttpServletRequest req) throws JsonProcessingException {
+		
+		System.out.println("가지고온 source: "+ source);
+		model.addAttribute("source", source);
 		
 		return "gallery/EditImage";
 	}
@@ -82,8 +93,8 @@ public class PostController {
 	
 	@CrossOrigin
 	@RequestMapping(value="post/EditImage.do",produces = "application/json;charset=UTF-8")
-	public @ResponseBody String image(@RequestParam String base64,@RequestParam
-									String filename, HttpSession session, Model model,
+	public @ResponseBody String image(@RequestParam String base64, @RequestParam String filename, 
+									HttpSession session, Model model,
 									HttpServletRequest req) throws JsonProcessingException {
 		//save를 누르면 정보가 여기로 들어옴
 		System.out.println("base64:"+base64);
@@ -128,8 +139,7 @@ public class PostController {
 		Map<String, Object> fileInfo = new HashMap<String, Object>();
 		fileInfo.put("photoSize", photoSize);
 		fileInfo.put("photoName", photoName);
-		fileInfo.put("photoUrl", "");
-		
+		fileInfo.put("photoUrl", photoUrl);
 		
 		
 		List<Map<String,Object>> fileInfos = new ArrayList<Map<String,Object>>();
