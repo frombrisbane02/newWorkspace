@@ -7,26 +7,6 @@
     <script src="https://cdn.scaleflex.it/filerobot/js-cloudimage-responsive/lazysizes.min.js"></script>
   <!--vanilla js cdn-->
   	<script src="https://scaleflex.cloudimg.io/v7/plugins/filerobot-image-editor/latest/filerobot-image-editor.min.js"></script>
-	<script>
-	
-	/*
-		//input type="file"버튼을 이미지로 변경하기 위한 이벤트 트리거 소스(수업 소스임-추가 코딩)
-		window.addEventListener('DOMContentLoaded', function() {
-			var file = document.querySelector('#add-image');
-			var img = document.querySelector('#img_plus');
-
-			//이미지 클릭시 type="file"요소에 클릭 이벤트가 발생하도록 트리거를 건다
-			img.onclick = function() {
-				var fileClick = new MouseEvent("click", {
-					bubbles : true,
-					cancelable : true,
-					view : window
-				});
-				//type="file"요소에 마우스 클릭 이벤트 발송
-				file.dispatchEvent(fileClick);
-			};
-		});*/
-	</script>
 	
 	<div class="container">
 		<!--파일찾기용 이미지 버튼-->

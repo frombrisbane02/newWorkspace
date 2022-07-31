@@ -72,11 +72,11 @@
 		<c:if test="${not isEmpty}">
 		     <c:forEach var="list" items="${lists}" varStatus="loop">
 			<li class="photo_area">
-				<a href="" class="photo_link">					
+				<a href="<c:url value="/gallery/GalleryView.do?postNo=${list.postNo}"/>" class="photo_link">					
 					<div class="img_area" style="background-image: url(${list.photoUrl});"><img src="${pageContext.request.contextPath}/resources/img/gallerylist/fake02.png" alt=""></div>	
 
 					<div class="txt_area">
-						<p><img src="${pageContext.request.contextPath}/resources/img/gallerylist/test_img02.jpg" alt="" class="pro_p">${list.userNickname}</p>
+						<p><img src="${list.userProfile}" alt="" class="pro_p">${list.userNickname}</p>
 						<p><img src="${pageContext.request.contextPath}/resources/img/gallerylist/test_icon06.png" alt="" class="pro_icon"><span>${list.postLikes}</span><img src="${pageContext.request.contextPath}/resources/img/gallerylist/test_icon07.png" alt="" class="pro_icon"><span>0</span></p>
 					</div>						
 				</a>

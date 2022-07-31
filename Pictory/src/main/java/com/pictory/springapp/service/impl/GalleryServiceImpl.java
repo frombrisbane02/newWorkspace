@@ -1,6 +1,7 @@
 package com.pictory.springapp.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,8 +18,9 @@ public class GalleryServiceImpl implements GalleryService<GalleryDTO> {
 	@Override
 	public List<GalleryDTO> galleryList() {
 		//필요 인자: 카테고리, 해시태그, 첫번째 이미지 url(썸네일용), 좋아요수, 댓글 수, 유저프사, 유저닉네임
-		List<GalleryDTO> resultList = dao.selectGalleryList();
 		
+		/*
+		List<GalleryDTO> resultList = dao.selectGalleryList();
 		System.out.println("DAO ResultList: "+resultList);
 		
 		for(GalleryDTO oneResult: resultList) {
@@ -28,11 +30,29 @@ public class GalleryServiceImpl implements GalleryService<GalleryDTO> {
 			System.out.println("좋아요숫자 :"+oneResult.getPostLikes());
 			System.out.println("글번호 :"+oneResult.getPostNo());
 			System.out.println("유저아이디 :"+oneResult.getUserId());
-			System.out.println("유저닉네임 :"+oneResult.getUserName());
+			System.out.println("유저닉네임 :"+oneResult.getUserNickname());
 			System.out.println("첫사진!!:"+oneResult.getPhotoUrl());
 			System.out.println("============================================");
 		}
+		*/
+		
 		return dao.selectGalleryList();
 	}
+	
+	@Override
+	public List<GalleryDTO> galleryPhoto(int postNo) {
+		System.out.println("Impl.1 클릭한 postNo: "+postNo);
+		
+		return dao.selectPhotoList(postNo);
+	}
+
+	@Override
+	public List<GalleryDTO> galleryView(int postNo) {
+		System.out.println("Impl.2 클릭한 postNo: "+postNo);
+		
+		return dao.selectGalleryView(postNo);
+	}
+
+
 
 }

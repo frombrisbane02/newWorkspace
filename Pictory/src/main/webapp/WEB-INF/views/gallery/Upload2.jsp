@@ -419,7 +419,6 @@
 	             }
 	        	});///then
     		}, false);
-		
 	});
 //====================버튼 클릭했을때 imgsrc 가져오기 =====================================
     var base64=[];
@@ -429,10 +428,6 @@
 		  console.log(base64[index]);
 		  console.log('클릭한 인덱스:',index);
 		
-	}
-	
-	function pickUrl(e){
-		console.log(e);
 	}
 	
 	
