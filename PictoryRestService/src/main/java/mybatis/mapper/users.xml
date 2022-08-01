@@ -31,7 +31,7 @@
 	</select>
 	
 	<insert id="usersInsert" parameterType="Map">
-		INSERT INTO users VALUES(SEQ_USERS.NEXTVAL, #{id}, 'KAKAO', #{email}, null, #{nickname}, default, default, #{profile}, null)
+		INSERT INTO users VALUES(SEQ_USERS.NEXTVAL, #{id}, 'KAKAO', #{email}, null, #{nickname}, default, default, #{profile}, null, SYSDATE)
 	</insert>
 	
 	<insert id="authoritiesInsert">
