@@ -7,26 +7,26 @@
 	
 	<select id="UsersIsJoin" parameterType="Map" resultType="int">
 		SELECT COUNT(*) FROM users 
-		WHERE 1=1
+		 WHERE 1=1
 		<if test="userId !=null">
-			AND userid=#{userId}
+		   AND userid=#{userId}
 		</if>	
 		<if test="userPassword !=null">
-			AND userpassword=#{userPassword}
+		   AND userpassword=#{userPassword}
 		</if>	
 		<if test="email !=null">
-			AND useremail=#{email}
+		   AND useremail=#{email}
 		</if>		
 	</select>
 	
 	<select id="selectOneUser" parameterType="Map" resultType="usersDto">
 		SELECT * FROM users
-		WHERE 1=1 
+		 WHERE 1=1 
 		<if test="userId !=null">
-			AND userid=#{userId}
+		   AND userid=#{userId}
 		</if>
 		<if test="email !=null">
-			AND useremail=#{email}
+		   AND useremail=#{email}
 		</if>	
 	</select>
 	

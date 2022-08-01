@@ -14,15 +14,15 @@ public class UsersDAO {
 	@Autowired
 	private SqlSessionTemplate template;
 	
-	public boolean isJoin(Map map) {
+	public boolean isJoin(Map<String, String> map) {
 		return (Integer)template.selectOne("UsersIsJoin",map)==1?true:false;
 	}
 	
-	public UsersDTO selectOne(Map map) {
+	public UsersDTO selectOne(Map<String, String> map) {
 		return template.selectOne("selectOneUser",map);
 	}
 	
-	public int insertUsers(Map map) {
+	public int insertUsers(Map<String, String> map) {
 		template.insert("usersInsert",map);
 		return template.insert("authoritiesInsert");
 	}

@@ -1,6 +1,7 @@
 package com.pictory.rest.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,19 @@ public class GalleryDAO {
 	public List<GalleryDTO> feedGalleryList(GalleryDTO dto) {
 		return template.selectList("feedGalleryList",dto);
 	}
+	
+	public List<GalleryDTO> galleryList(Map<String, String> map) {
+		return template.selectList("galleryList",map);
+	}
+	
+	public List<GalleryDTO> storyList(GalleryDTO dto) {
+		return template.selectList("storyList",dto);
+	}
+	
+	public List<GalleryDTO> storyPictureList(GalleryDTO dto) {
+		return template.selectList("storyPictureList",dto);
+	}
+	
 	
 
 }
