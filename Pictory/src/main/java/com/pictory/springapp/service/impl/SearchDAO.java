@@ -20,8 +20,15 @@ public class SearchDAO {
 	private SqlSessionTemplate template;
 
 	// 통합검색
-	public List<SearchDTO> select(Map map) {
-
+	public List<SearchDTO> searchSelect(Map map) {
+	
+		System.out.println("dao 들어왔냐"+map.get("searchName"));
+		List<SearchDTO> result=template.selectList("searchSelect", map);
+				for(SearchDTO oneResult : result) {
+					System.out.println("postno"+ oneResult.getPostNo());
+					System.out.println("userNickname"+ oneResult.getUserNickname());
+					
+					}
 		return template.selectList("searchSelect", map);
 	}
 

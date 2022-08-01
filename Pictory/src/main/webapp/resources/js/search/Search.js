@@ -26,11 +26,9 @@ jQuery(document).ready(function (e) {
 
 function sortChange(e){
     var gallery = ["인물","정물","풍경","기타"];
-    var story = ["일상","여행","자연","가족"];
     var people = ["최신순","조회순","구매순"];
 
     if(e.value == "gallery") var d = gallery;
-    else if(e.value == "story") var d = story;
     else if(e.value == "people") var d = people;
 
     target.options.length = 0;

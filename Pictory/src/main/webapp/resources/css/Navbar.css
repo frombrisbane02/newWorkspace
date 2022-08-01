@@ -47,7 +47,7 @@
    /* ==========================================================
               Navbar Styles
    ==========================================================*/
-   nav.navbar {
+   .content nav.navbar {
        background: #eeeeee;
        color: #2e2e2e;
        border-bottom: none;

@@ -28,13 +28,21 @@
 	<!-- 통합검색 쿼리문 -->
 	<select id="searchSelect" parameterType="Map" resultType="searchDTO">
 					
-		SELECT * FROM
-		(SELECT p.postTitle,p.postText,h.hashtag
-		FROM USERS u, POST p, HASHTAG h
-		WHERE u.userNo = p.userNo
-		AND p.postNo = h.postNo)
-		WHERE HASHTAG LIKE '%'|| #{searchName} || '%' OR POSTTITLE LIKE '%'|| #{searchName} || '%' OR POSTTEXT LIKE'%'|| #{searchName} || '%'
-					
+		SELECT po.postno,
+      		po.postcategory ,
+            po.posttitle,
+            u.usernickname,
+            u.userprofile,
+            u.userno,
+            po.posthits,
+            po.postlikes,
+            (SELECT ph.photourl FROM photo ph WHERE ph.postno=po.postno AND ROWNUM = 1) photourl,
+            (SELECT COUNT(ct.cno) FROM comment_tbl ct WHERE ct.postno=po.postno) commentCount
+        FROM post po INNER JOIN users u
+           ON po.userno = u.userno
+     
+		WHERE POSTTITLE LIKE '%'|| #{searchName} || '%' OR POSTTEXT LIKE'%'|| #{searchName} || '%'
+		ORDER BY po.postdate DESC			
 	</select>
 	
 	<!-- 포스트 최신순 검색 쿼리문 -->

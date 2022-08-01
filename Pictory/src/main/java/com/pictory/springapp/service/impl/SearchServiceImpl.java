@@ -18,7 +18,7 @@ public class SearchServiceImpl implements SearchService<SearchDTO> {
 
 	@Override
 	public List<SearchDTO> searchSelect(Map map) {
-		return dao.select(map);		
+		return dao.searchSelect(map);		
 	}
 
 }
