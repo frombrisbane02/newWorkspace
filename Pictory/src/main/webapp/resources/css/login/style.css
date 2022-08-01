@@ -459,7 +459,8 @@ label.valid {
 
 .social-login a {
   display: block;
-  width:300px;
+  width:350px;
+  height:24.8px;
   text-decoration: none;
   display: block;
   position: relative;

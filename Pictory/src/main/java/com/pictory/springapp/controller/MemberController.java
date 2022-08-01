@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 
@@ -25,6 +27,7 @@ import com.pictory.springapp.dto.MemberDTO;
 import com.pictory.springapp.dto.MemberService;
 import com.pictory.springapp.service.impl.MemberServiceImpl;
 
+@SessionAttributes("userId")
 @Controller
 @RequestMapping("/member")
 public class MemberController<T> {
@@ -37,18 +40,22 @@ public class MemberController<T> {
 		return "member/Join.tiles";
 	}
 	@RequestMapping(value="kakaoLogin.do", method=RequestMethod.GET)
-	public String kakaoLogin(@RequestParam(value = "code", required = false) String code, Model model, HttpSession session) throws Exception {
+	public String kakaoLogin(@RequestParam(value = "code", required = false) String code, Model model, HttpSession session, Map map, MemberDTO dto) throws Exception {
 		System.out.println("#########" + code);
 		
 		String access_Token = memberService.getAccessToken(code);
 		
 		HashMap<String, Object> userInfo = memberService.getUserInfo(access_Token);
 		System.out.println("###access_Token#### : " + access_Token);
-		System.out.println("###nickname#### : " + userInfo.get("nickname"));
+		System.out.println("###nickname#### : " + userInfo.get("userNickname"));
 		System.out.println("###email#### : " + userInfo.get("email"));
-		model.addAttribute("nickname",userInfo.get("nickname"));
+		System.out.println("###id#### : " + userInfo.get("userId"));
+		System.out.println("###proimg#### : " + userInfo.get("userProfile"));
+		model.addAttribute("nickname",userInfo.get("userNickname"));
 		session.setAttribute("access_token", access_Token);
-		return "auth/Login.tiles";
+		
+		
+		return memberService.kakaoLogIn(model, userInfo);
 	}
 	
 	@RequestMapping(value="kakaounlink.do")

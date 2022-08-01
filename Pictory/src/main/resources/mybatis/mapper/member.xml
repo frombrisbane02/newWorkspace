@@ -23,6 +23,17 @@
 			INTO authorities(userNo,authorities,enabled) VALUES (SEQ_USERS.CURRVAL,default,default)
 			SELECT * FROM DUAL
 	</insert>
+	
+	<!-- 카카오 회원가입 -->
+	<insert id="kakaoInsert" parameterType="Map">
+		<selectKey keyProperty="userNo" resultType="int" order="BEFORE">
+		SELECT SEQ_USERS.NEXTVAL FROM DUAL
+		</selectKey>
+			INSERT ALL
+			INTO users(userNo,userId,userPassword,userEmail,userName,userNickname,userProfile) VALUES (#{userNo},#{userId},#{userPassword},#{userEmail},#{userName},#{userNickname},#{userProfile})
+			INTO authorities(userNo,authorities,enabled) VALUES (SEQ_USERS.CURRVAL,default,1)
+			SELECT * FROM DUAL
+	</insert>
 	 
 	<!-- 마이페이지 회원정보 불러오기 쿼리 -->
 	<select id="readMember" parameterType="String" resultType="MemberDTO">

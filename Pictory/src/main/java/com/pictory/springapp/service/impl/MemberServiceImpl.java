@@ -14,6 +14,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -30,7 +31,7 @@ public class MemberServiceImpl implements MemberService<MemberDTO>{
 	//로그인
 	@Override
 	public String isLogin(Map map) {
-	
+		
 		return dao.isLogin(map);
 	}
 
@@ -173,21 +174,52 @@ public class MemberServiceImpl implements MemberService<MemberDTO>{
 
 				JsonParser parser = new JsonParser();
 				JsonElement element = parser.parse(result);
-
 				JsonObject properties = element.getAsJsonObject().get("properties").getAsJsonObject();
 				JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
-
+				System.out.println("#########account#####:"+kakao_account);
 				String nickname = properties.getAsJsonObject().get("nickname").getAsString();
 				String email = kakao_account.getAsJsonObject().get("email").getAsString();
-
-				userInfo.put("nickname", nickname);
-				userInfo.put("email", email);
-
+				String id = element.getAsJsonObject().get("id").getAsString();
+				String profileimg = properties.getAsJsonObject().get("profile_image").getAsString();
+				System.out.println("%%%%%%%id%%%%%:"+id);
+				System.out.println("%%%%%%%profile_image_url%%%%%:"+profileimg);
+				userInfo.put("userNickname", nickname);
+				userInfo.put("userEmail", email);
+				userInfo.put("userId", id);
+				userInfo.put("userProfile", profileimg);
+				userInfo.put("userPassword", "1234");
+				userInfo.put("userName", "KAKAO");
+				userInfo.put("userNo", "SEQ_USERS.CURRVAL");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 			return userInfo;
 		}
+		
+		public String kakaoLogIn(Model model ,Map<String, Object> userInfo){
+			String mem = dao.isLogin(userInfo);
+			System.out.println("!!!!!!!!!!!mem:"+mem);
+			
+			if(mem==null) {
+				System.out.println("카카오비회원");
+				int newUser = dao.kakaosignUp(userInfo);
+				if(newUser > 0) {
+					System.out.println("$$$$$$$$$$newUser:"+newUser);
+					dao.isLogin(userInfo);
+				}
+			}
+			
+			else if(mem.equals("USER")) {
+				System.out.println("카카오유저로 들어오면 여기");
+			}
+			model.addAttribute("userNo",userInfo.get("userNo"));
+			model.addAttribute("userId",userInfo.get("userId"));
+			model.addAttribute("userPassword",userInfo.get("userPassword"));
+	
+			
+			return "auth/Login.tiles";
+		}
+		
 
 		public void unlink(String access_Token) {
 			String reqURL = "https://kapi.kakao.com/v1/user/unlink";
@@ -208,7 +240,7 @@ public class MemberServiceImpl implements MemberService<MemberDTO>{
 		        while ((line = br.readLine()) != null) {
 		            result += line;
 		        }
-		        System.out.println(result);
+		        System.out.println("test"+result);
 		    } catch (IOException e) {
 		        e.printStackTrace();
 		    }

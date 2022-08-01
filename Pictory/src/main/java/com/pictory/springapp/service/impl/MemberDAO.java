@@ -37,7 +37,7 @@ public class MemberDAO {
 	private SqlSessionTemplate template;
 
 	public String isLogin(Map map) {
-		System.out.println("@@@@@@@isLogin@@@@@@MAP:"+map);
+		System.out.println("@@@@@@@isLogin@@@@@@:"+map);
 		return template.selectOne("memberIsLogin", map);
 	}
 	
@@ -53,6 +53,17 @@ public class MemberDAO {
 		int succ=0;
 		try {
 		succ=template.insert("memberInsert",dto);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return succ;
+	}
+	public int kakaosignUp(Map<String, Object> userInfo) {
+		System.out.println("회원가입userInfo:"+userInfo);
+		int succ=0;
+		try {
+		succ=template.insert("kakaoInsert",userInfo);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
