@@ -36,7 +36,7 @@
 		UPDATE NOTICE SET
 			NOTICETITLE = #{noticeTitle}
 		,	NOTICECONTENT = #{noticeContent}
-		,	NOTICEDATE = TO_DATE(SYSDATE, 'YYYY/MM/DD HH:MI:SS')
+		,	NOTICEDATE = TO_DATE(SYSDATE)
 		 WHERE 1=1
 		  AND NOTICENO = #{noticeNo}
 	</update>

@@ -9,5 +9,3 @@ public interface AdminPaymentService {
 	public List<AdminPaymentDTO> paymentChart(List<HashMap<String, Object>> params) throws Exception;
 
 }
-
-

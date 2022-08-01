@@ -15,6 +15,4 @@ public class AdminPaymentDTO {
 	private String paymentDate;
 	private int persent;
 	private String dateDay;
-	
-
 }

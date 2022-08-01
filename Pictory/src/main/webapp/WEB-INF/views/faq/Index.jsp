@@ -105,11 +105,17 @@
 						<label for="qnacategory"><h5><b>질문 카테고리를 골라주세요</b></h5></label>
 						<br>
 							<select name="qna" id="qna" style="border: #222222;" >
-								<optgroup label="카테고리를 골라주세요">
-								<option value="qna1">구매/판매 질문</option>
+							<!--	<optgroup label="카테고리를 골라주세요">
+							  	<option value="qna1">구매/판매 질문</option>
 								<option value="qna2">갤러리/스토리 질문</option>
 								<option value="qna3">운영자지원 질문</option>
-								<option value="qna4">기타</option>
+								<option value="qna4">기타</option>	-->
+								
+								<option value="1">구매/판매 질문</option>
+								<option value="2">갤러리/스토리 질문</option>
+								<option value="3">운영자지원 질문</option>
+								<option value="4">기타</option>
+								
 							</optgroup>
 							</select>
 					</div>
@@ -119,20 +125,20 @@
 									
 								<div class="form-group">
 								<h4 style="color:#484554;">제목</h4>
-								<input  type="text" class="form-control" name="title" placeholder="제목을 입력해주세요" >
+								<input  type="text" class="form-control" id="qnaTitle"  name="title" placeholder="제목을 입력해주세요" >
 								</div>
 		
 								
 								<div class="form-group">
 								<h4 style="color:#484554;">내용</h4>
-								<textarea class="form-control" rows="5" name="content" placeholder="내용을 입력해주세요"></textarea>
+								<textarea class="form-control" rows="5" id="qnaContent" name="content" placeholder="내용을 입력해주세요"></textarea>
 								</div>
 							</form>	
 						</div>					
 	
 					<div class="btn_area">
-						<input type="button" value="RESET" class="reset_btn">
-						<input type="button" value="APPLY" class="apply_btn">
+						<input type="button" value="RESET" class="reset_btn buttonClick">
+						<input type="button" value="APPLY" style="cursor:pointer;" class="apply_btn buttonClick">
 					</div>
 				</form>
 			</div>
@@ -140,8 +146,16 @@
 	</form>
 </body>
 <script>
+
+const localhost = 'http://localhost:4040/springapp/faq';
+
     $(window).load(function(){
         $('.filter_btn').click(function(){
+        	
+        	$('#qna option:eq(0)').prop('selected', true);
+        	$('#qnaTitle').val('');
+        	$('#qnaContent').val('');
+        	
             $('.filter_modal').addClass('mo_ac');
             return false;
         });
@@ -238,5 +252,67 @@
 		a.style.display = "none";
 	  }
 	}
+	
+		
+		
+	// 클릭 버튼
+	$('.buttonClick').on('click', function(){
+		var clickValue = $(this).val();
+		
+		if(clickValue == "APPLY"){
+			qnaInsertFn();
+		}else{
+			$('#qna option:eq(0)').prop('selected', true);
+			$('#qnaTitle').val('');
+			$('#qnaContent').val('');
+		}
+	});
+	
+	// QNA INSERT
+		function qnaInsertFn(){
+		
+			var qnaCatgory = $('#qna').val();
+			var qnaTitle = $('#qnaTitle').val();
+			var qnaContent = $('#qnaContent').val();
+			
+			if(qnaTitle == ""){
+				alert("제목을 입력해주세요");
+				return false;
+			}
+			
+			if(qnaContent == ""){
+				alert("내용을 입력해주세요");
+				return false;
+			}
+			
+			
+			var obj = { "userNo" : 1, "qnaCode" : 1 ,"qnaCatgory" : qnaCatgory, "qnaTitle" : qnaTitle, "qnaContent" : qnaContent };
+			var qnaArr = [obj];
+			
+			 $.ajax({
+				    url: localhost + '/qnaSave.do',
+				    type: "POST",
+				    cache: false,
+				    dataType: "json",
+				    contentType: "application/json",
+				    data: JSON.stringify(qnaArr),
+				    success: function(data){
+				    	    
+				    	if(data == true){
+				    		alert("문의 되었습니다.");
+				    		$('.filter_modal').removeClass('mo_ac');
+				    		return false;
+				    	}else{
+				    		alert("문의에 실패했습니다.");
+				    		return false;
+				    	}
+
+				    }, error: function (request, status, error){
+				    	alert("Error");
+				    }
+			  });
+		}
+		
+		
 	</script>
 </html>

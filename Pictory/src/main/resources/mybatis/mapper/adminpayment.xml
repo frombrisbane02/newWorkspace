@@ -7,14 +7,23 @@
 
 		<select id="paymentList" parameterType="AdminPaymentDTO" resultType="AdminPaymentDTO">
 		  SELECT ps.USERID AS seller
-		  	   , py.USERID AS consumer
-		  	   , py.PAYMENTNO
+		  	   , us.USERID AS consumer
 		  	   , ps.PDNO
 		  	   , ps.PHOTONAME
-		  	   , py.PAYMENTTOTAL
-		  	   , py.PAYMENTDATE
-            FROM
-            (SELECT ups.USERNO AS pno, ups.USERID, sp.POSTNO, pd.PDNO, ph.PHOTONAME
+               , ps.PAYMENTNO
+               , ps.payno
+               , ps.pno
+		  	   , ps.PAYMENTTOTAL
+		  	   , ps.PAYMENTDATE
+            FROM (SELECT ups.USERNO AS pno
+            		   , ups.USERID
+            		   , sp.POSTNO
+            		   , pd.PDNO
+            		   , ph.PHOTONAME
+            		   , pay.PAYMENTNO
+            		   , pay.USERNO AS payno
+            		   , pay.PAYMENTTOTAL
+            		   , pay.PAYMENTDATE
                    FROM POST sp
                     JOIN USERS ups
                      ON sp.USERNO = ups.USERNO
@@ -26,10 +35,9 @@
                      ON pd.PDNO = pdo.PDNO
                     JOIN PAYMENT pay
                      ON pdo.PAYMENTNO = pay.PAYMENTNO
-                ) ps, ( SELECT sur.USERNO AS surno, sur.USERID, spy.PAYMENTNO, spy.PAYMENTTOTAL, spy.PAYMENTDATE
-                    FROM PAYMENT spy
-                      JOIN USERS sur
-                   ON spy.USERNO = sur.USERNO ) py
+                ) ps 
+                 JOIN USERS us
+                  ON us.USERNO = ps.payno
 		</select>
 		
 		

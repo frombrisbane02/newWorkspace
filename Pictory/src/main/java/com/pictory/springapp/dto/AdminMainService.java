@@ -10,4 +10,5 @@ public interface AdminMainService {
 	public List<AdminPaymentDTO> adminPaymentChart(List<HashMap<String, Object>> params) throws Exception;
 	public List<AdminUsersDTO> adminUsersChart(List<HashMap<String, Object>> params) throws Exception;
 	public List<AdminGalleryDTO> adminGalleryChart(List<HashMap<String, Object>> params) throws Exception;
+	public List<AdminDTO> adminSalesOfWeek(List<HashMap<String, Object>> params) throws Exception;
 }

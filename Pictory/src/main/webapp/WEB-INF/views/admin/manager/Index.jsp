@@ -205,9 +205,9 @@
 							<i class="fa fa-chart-line fa-3x text-primary"></i>
 							<div class="ms-3">
 								<p class="mb-2">
-									이번 주 매출
+									이번 주 PICKTORY 매출
 								</p>
-								<h6 class="mb-0 text-right">$1234</h6>
+								<h6 class="mb-0 text-right" id="weekPay">0원</h6>
 							</div>
 						</div>
 					</div>
@@ -217,9 +217,9 @@
 							<i class="fa fa-chart-bar fa-3x text-primary"></i>
 							<div class="ms-3">
 								<p class="mb-2">
-									총 매출
+									총 PICKTORY 매출
 								</p>
-								<h6 class="mb-0 text-right">$56853</h6>
+								<h6 class="mb-0 text-right" id="totalPay">0원</h6>
 							</div>
 						</div>
 					</div>
@@ -229,9 +229,9 @@
 							<i class="fa fa-chart-area fa-3x text-primary"></i>
 							<div class="ms-3">
 								<p class="mb-2">
-									오늘 방문자 수
+									이번 주 가입한 회원 수
 								</p>
-								<h6 class="mb-0 text-right">42명</h6>
+								<h6 class="mb-0 text-right" id="weekUser" >0명</h6>
 							</div>
 						</div>
 					</div>
@@ -241,9 +241,9 @@
 							<i class="fa fa-chart-pie fa-3x text-primary"></i>
 							<div class="ms-3">
 								<p class="mb-2">
-									누적 총 방문자 수
+									총 회원 수
 								</p>
-								<h6 class="mb-0 text-right">2352명</h6>
+								<h6 class="mb-0 text-right" id="totalUser">0명</h6>
 							</div>
 						</div>
 					</div>
@@ -653,7 +653,7 @@ var monthArr = [];
 var tabText = "회원";
 
   $(document).ready(function() {
-		paymentListAjax();
+	  salesOfWeek();
   });
 
   //Sidebar Toggler
@@ -685,6 +685,73 @@ var tabText = "회원";
     $('.salesClass').on('click', function(){
     	calendarInit();
     });
+  
+  
+  
+	// 한 주
+	function weekDate(){
+	
+		var currentDay = new Date();  
+		var theYear = currentDay.getFullYear();
+		var theMonth = currentDay.getMonth();
+		var theDate  = currentDay.getDate();
+		var theDayOfWeek = currentDay.getDay();
+		 
+		var thisWeek = [];
+	 
+		for(var i = 0; i < 7; i++) {
+		  var resultDay = new Date(theYear, theMonth, theDate - (i + theDayOfWeek) + 7 );
+		  
+		  var yyyy = resultDay.getFullYear();
+		  var mm = Number(resultDay.getMonth()) + 1;
+		  var dd = resultDay.getDate();
+		 
+		  mm = String(mm).length === 1 ? '0' + mm : mm;
+		  dd = String(dd).length === 1 ? '0' + dd : dd;
+		 
+		  thisWeek[i] = yyyy + mm + dd;
+		}
+				
+		return thisWeek.sort();
+	}
+  
+  
+  
+	function salesOfWeek(){
+		var weekArr = [];
+		var week = weekDate();
+		var obj = {"startDate" : week[0], "endDate" : week[6]};
+		
+		weekArr.push(obj);
+		
+		 $.ajax({
+			 	url: localhost + '/salesofweek.do',
+			    type: "POST",
+			    cache: true,
+			    dataType: "json",
+			    contentType: "application/json",
+			    data: JSON.stringify(weekArr),
+			    success: function(data){
+			    	
+			    	
+			    	for(var i = 0; i < data.length; i++){
+			    		var v = data[i];
+			    		
+			    		$('#weekPay').text(v.payWeek + '원');
+			    		$('#totalPay').text(v.payTotal + '원');
+			    		$('#weekUser').text(v.userWeek + '명');
+			    		$('#totalUser').text(v.userTotal + '명');
+			    	}
+			    	
+			    	
+			    	paymentListAjax();
+			    	
+			    	
+			    }, error: function (request, status, error){
+			    	alert("Error");
+			    }
+		  });
+	}
 
 
     //차트
@@ -1022,7 +1089,10 @@ var tabText = "회원";
   	      	},
   		    success: function(data){
   		    	
+  		  		$('.tr_append').html('');
+  		    	
   		    	ajaxData = data;
+  		    	
   		    	paymentSetting();
   		    	
   		    }, error: function (request, status, error){
@@ -1053,7 +1123,7 @@ var tabText = "회원";
   	      	data : JSON.stringify(obj),
   		    success: function(data){
 
-  		    	
+  		  		$('.tr_append').html('');
   		    	
   		    	ajaxData = data;
   		    	paymentSetting();
@@ -1069,19 +1139,31 @@ var tabText = "회원";
   	
   	function paymentSetting(){
   		
+  		console.log("ajaxData : ", ajaxData);
   		
-  		$('.tr_append').html('');
+		if(ajaxData.length == 0){
+			var paymentHTML = "";
+			
+			paymentHTML += '<tr>';
+			paymentHTML += '<td class="text-center" colspan="12">최근 구매 / 판매 목록이 없습니다.</td>';
+			paymentHTML += '<tr>';
+			
+			$('.tr_append').append(paymentHTML);
+			return false;
+		}  		
+
   			
   		for(var i = 0; i < ajaxData.length; i++){
   			var v = ajaxData[i];
   			
   			var paymentHTML = "";
   			
-  			
   			var payDate = v.paymentDate.substring(0, 10);
   			
+  			var num = i + 1;
+  			
   			paymentHTML += '<tr>';
-  			paymentHTML += '<td class="text-center">1</td>';
+  			paymentHTML += '<td class="text-center">'+ num +'</td>';
   		    paymentHTML += '<td class="text-center"><a href="#">'+ v.seller +'</a></td>';
   		    paymentHTML += '<td class="text-center"><a href="#">'+ v.consumer +'</a></td>';
   		    paymentHTML += '<td class="text-center">'+ v.paymentNo +'</td>';

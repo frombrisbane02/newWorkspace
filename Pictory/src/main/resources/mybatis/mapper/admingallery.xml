@@ -3,9 +3,9 @@
 <!--  <mapper namespace="com.pictory.springapp.dto.AdminGalleryDTO"> -->
 <mapper namespace="mybatis.mapper.admingallery">
 
-	<select id="galleryChart" parameterType="map" resultType="AdminGalleryDTO">
+<!--  	<select id="galleryChart" parameterType="map" resultType="AdminGalleryDTO">
 	<![CDATA[ 
-	 SELECT
+	  SELECT
         TO_CHAR(POSTDATE, 'YYYYMMDD') AS dateDay
     ,   COUNT(h.photono) AS photo
     ,   COUNT(s.sno) AS story
@@ -15,9 +15,33 @@
     LEFT JOIN STORY s
         ON p.SNO = s.SNO
 	WHERE
-	     POSTDATE >= #{startDate} AND POSTDATE < LAST_DAY(TO_DATE(#{endDate}, 'YYYYMMDD')) 
+	     POSTDATE >= TO_DATE(#{startDate}) AND POSTDATE < TO_DATE(#{endDate})+1
 	GROUP BY
 	    TO_CHAR(POSTDATE, 'YYYYMMDD')
 	   ]]>
+	</select>	-->
+	
+	<select id="galleryChart" parameterType="map" resultType="AdminGalleryDTO">
+	<![CDATA[ 
+	  SELECT TO_CHAR(POSTDATE, 'YYYYMMDD') AS dateDay
+		  ,  COUNT(o.PHOTONO) AS photo
+		  ,  s.cnt AS story
+	    FROM POST p
+	    JOIN PHOTO o
+	        ON p.POSTNO = o.POSTNO
+	    , (SELECT COUNT(*) AS cnt 
+	        FROM STORY r 
+	         JOIN POST t 
+	          ON r.SNO = t.SNO 
+	          WHERE 1=1
+	          AND t.POSTDATE >= TO_DATE(#{startDate}, 'YYYYMMDD') AND t.POSTDATE < TO_DATE(#{endDate}, 'YYYYMMDD')+1
+	          GROUP BY TO_DATE(t.POSTDATE), 'YYYYMMDD') s
+	    WHERE 1=1
+	     AND p.POSTDATE >= TO_DATE(#{startDate}, 'YYYYMMDD') AND p.POSTDATE < TO_DATE(#{endDate}, 'YYYYMMDD')+1
+	    GROUP BY TO_CHAR(POSTDATE, 'YYYYMMDD'), s.cnt
+	   ]]>
 	</select>
+	
+	
+	
 </mapper>

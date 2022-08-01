@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.pictory.springapp.dto.AdminDTO;
 import com.pictory.springapp.dto.AdminGalleryDTO;
 import com.pictory.springapp.dto.AdminGalleryService;
 import com.pictory.springapp.dto.AdminMainService;
@@ -50,6 +51,25 @@ public class AdminContorller {
 	@RequestMapping("/Index.do")
 	public String adminMain() {
 		return "admin/Index";
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping(value="/salesofweek.do", method = {RequestMethod.POST}, produces="text/plain;charset=UTF-8")
+	public String adminSalesOfWeek(@RequestBody List<HashMap<String, Object>> params) throws Exception {
+		ObjectMapper obj = new ObjectMapper();
+		String jsonStr = "";
+		try {
+		
+			List<AdminDTO> list = mainService.adminSalesOfWeek(params);
+			jsonStr = obj.writeValueAsString(list);
+		
+			return jsonStr;
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return null;
 	}
 	
 	
@@ -374,7 +394,6 @@ public class AdminContorller {
 	@ResponseBody
 	@RequestMapping(value="/noticeUpdate.do", method = {RequestMethod.POST})
 	public boolean noticeUpdate(@RequestBody HashMap<String, Object> map) throws Exception {
-		System.out.println("CONTROLLER DATA CHECK : " + map);
 		try {
 			
 			boolean result = noticeService.getNoticeUpdate(map);

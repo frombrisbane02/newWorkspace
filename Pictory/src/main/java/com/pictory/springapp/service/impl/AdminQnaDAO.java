@@ -24,7 +24,6 @@ public class AdminQnaDAO {
 		try {
 			
 			List<AdminQnaDTO> list = session.selectList("qnaList", map);
-			
 			return list;
 			
 		}catch(Exception e) {

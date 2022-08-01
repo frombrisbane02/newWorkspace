@@ -4,6 +4,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -208,9 +209,9 @@
 							<i class="fa fa-chart-line fa-3x text-primary"></i>
 							<div class="ms-3">
 								<p class="mb-2">
-									이번 주 매출
+									이번 주 PICKTORY 매출
 								</p>
-								<h6 class="mb-0 text-right">$1234</h6>
+								<h6 class="mb-0 text-right" id="weekPay">0원</h6>
 							</div>
 						</div>
 					</div>
@@ -220,9 +221,9 @@
 							<i class="fa fa-chart-bar fa-3x text-primary"></i>
 							<div class="ms-3">
 								<p class="mb-2">
-									총 매출
+									총 PICKTORY 매출
 								</p>
-								<h6 class="mb-0 text-right">$56853</h6>
+								<h6 class="mb-0 text-right" id="totalPay">0원</h6>
 							</div>
 						</div>
 					</div>
@@ -232,9 +233,9 @@
 							<i class="fa fa-chart-area fa-3x text-primary"></i>
 							<div class="ms-3">
 								<p class="mb-2">
-									오늘 방문자 수
+									이번 주 가입한 회원 수
 								</p>
-								<h6 class="mb-0 text-right">42명</h6>
+								<h6 class="mb-0 text-right" id="weekUser">0명</h6>
 							</div>
 						</div>
 					</div>
@@ -244,9 +245,9 @@
 							<i class="fa fa-chart-pie fa-3x text-primary"></i>
 							<div class="ms-3">
 								<p class="mb-2">
-									누적 총 방문자 수
+									총 회원 수
 								</p>
-								<h6 class="mb-0 text-right">2352명</h6>
+								<h6 class="mb-0 text-right" id="totalUser">0명</h6>
 							</div>
 						</div>
 					</div>
@@ -713,8 +714,8 @@ class="panel-radios" type="checkbox" name="nav-checkbox">
              
               
               
-              <!-- 모달 Q & A 보기  -->
-        <div class="modal fade" id="exampleModalCenter1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	<!-- 모달 Q & A 보기  -->
+   <div class="modal fade" id="exampleModalCenter1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -988,7 +989,7 @@ var noticeAjaxData = "";
 var URLInfo = "/noticeList.do";
 
   $(document).ready(function() {
-		noticeListFn();
+	  salesOfWeek();
   });
   
   
@@ -1019,6 +1020,73 @@ var URLInfo = "/noticeList.do";
 	  orderby = $(this).attr('value');
 	  noticeListFn();
   });
+  
+  
+  
+	// 한 주
+	function weekDate(){
+	
+		var currentDay = new Date();  
+		var theYear = currentDay.getFullYear();
+		var theMonth = currentDay.getMonth();
+		var theDate  = currentDay.getDate();
+		var theDayOfWeek = currentDay.getDay();
+		 
+		var thisWeek = [];
+	 
+		for(var i = 0; i < 7; i++) {
+		  var resultDay = new Date(theYear, theMonth, theDate - (i + theDayOfWeek) + 7 );
+		  
+		  var yyyy = resultDay.getFullYear();
+		  var mm = Number(resultDay.getMonth()) + 1;
+		  var dd = resultDay.getDate();
+		 
+		  mm = String(mm).length === 1 ? '0' + mm : mm;
+		  dd = String(dd).length === 1 ? '0' + dd : dd;
+		 
+		  thisWeek[i] = yyyy + mm + dd;
+		}
+				
+		return thisWeek.sort();
+	}
+  
+  
+	function salesOfWeek(){
+		var weekArr = [];
+		var week = weekDate();
+		var obj = {"startDate" : week[0], "endDate" : week[6]};
+		
+		weekArr.push(obj);
+		
+		 $.ajax({
+			 	url: localhost + '/salesofweek.do',
+			    type: "POST",
+			    cache: true,
+			    dataType: "json",
+			    contentType: "application/json",
+			    data: JSON.stringify(weekArr),
+			    success: function(data){
+			    	
+			    	
+			    	for(var i = 0; i < data.length; i++){
+			    		var v = data[i];
+			    		
+			    		$('#weekPay').text(v.payWeek + '원');
+			    		$('#totalPay').text(v.payTotal + '원');
+			    		$('#weekUser').text(v.userWeek + '명');
+			    		$('#totalUser').text(v.userTotal + '명');
+			    	}
+			    	
+			    	
+			    		noticeListFn();
+			    	
+			    	
+			    }, error: function (request, status, error){
+			    	alert("Error");
+			    }
+		  });
+	}
+  
   
   // 데이터 AJAX
   function noticeListFn(){

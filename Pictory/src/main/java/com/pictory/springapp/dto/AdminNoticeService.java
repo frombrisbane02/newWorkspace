@@ -9,5 +9,3 @@ public interface AdminNoticeService {
 	boolean getNoticeUpdate(HashMap<String, Object> map) throws Exception;
 	boolean getNoticeDelete(int map) throws Exception;
 }
-
-

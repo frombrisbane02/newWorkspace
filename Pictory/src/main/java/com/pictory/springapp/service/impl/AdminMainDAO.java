@@ -9,6 +9,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.pictory.springapp.dto.AdminDTO;
 import com.pictory.springapp.dto.AdminGalleryDTO;
 import com.pictory.springapp.dto.AdminNoticeDTO;
 import com.pictory.springapp.dto.AdminPaymentDTO;
@@ -20,6 +21,30 @@ public class AdminMainDAO {
 	
 	@Autowired
 	private SqlSessionFactory sqlMapper;
+	
+	
+	public List<AdminDTO> adminSalesOfWeek(List<HashMap<String, Object>> params) throws Exception {
+		SqlSession session = sqlMapper.openSession();
+		try {
+			
+			Map<String, String> map = new HashMap<String, String>();
+			
+			for(int i = 0; i < params.size(); i++) {
+				map.put("startDate", (String) params.get(i).get("startDate"));
+				map.put("endDate", (String) params.get(i).get("endDate"));
+			}
+			
+			List<AdminDTO> list = session.selectList("salesofweek", map);
+		
+			return list;
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			session.close();
+		}
+	
+		return null;
+	}
 	
 	public List<AdminPaymentDTO> mainPaymentList() throws Exception {
 		
@@ -85,8 +110,6 @@ public class AdminMainDAO {
 				map.put("startDate", (String) params.get(i).get("startDate"));
 				map.put("endDate", (String) params.get(i).get("endDate"));
 			}
-			
-			System.out.println("MAP : " + map);
 			
 			List<AdminPaymentDTO> list = session.selectList("mainPaymentChart", map);
 			

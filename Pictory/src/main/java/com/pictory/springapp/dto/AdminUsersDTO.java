@@ -1,14 +1,5 @@
 package com.pictory.springapp.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-import lombok.Getter;
-import lombok.Setter;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -30,4 +21,3 @@ public class AdminUsersDTO {
 	private String dateDay; 
 	private int totalCount;
 }
-

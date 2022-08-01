@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.pictory.springapp.dto.AdminDTO;
 import com.pictory.springapp.dto.AdminGalleryDTO;
 import com.pictory.springapp.dto.AdminMainService;
 import com.pictory.springapp.dto.AdminNoticeDTO;
@@ -18,6 +19,24 @@ public class AdminMainServiceImpl implements AdminMainService{
 	
 	@Autowired
 	private AdminMainDAO mainDAO;
+	
+	@Override
+	public List<AdminDTO> adminSalesOfWeek(List<HashMap<String, Object>> params) throws Exception {
+		
+		try {
+			
+			List<AdminDTO> list = mainDAO.adminSalesOfWeek(params);
+			return list;
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		return null;
+	}
+	
+	
 
 	@Override
 	public List<AdminPaymentDTO> adminPaymentList() throws Exception {
@@ -110,5 +129,4 @@ public class AdminMainServiceImpl implements AdminMainService{
 		
 		return null;
 	}
-
 }

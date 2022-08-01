@@ -202,7 +202,7 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
 								<p class="mb-2">
 									이번 주 PICKTORY 매출
 								</p>
-								<h6 class="mb-0 text-right">$1234</h6>
+								<h6 class="mb-0 text-right" id="weekPay">0원</h6>
 							</div>
 						</div>
 					</div>
@@ -214,7 +214,7 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
 								<p class="mb-2">
 									총 PICKTORY 매출
 								</p>
-								<h6 class="mb-0 text-right">$56853</h6>
+								<h6 class="mb-0 text-right" id="totalPay">0원</h6>
 							</div>
 						</div>
 					</div>
@@ -226,7 +226,7 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
 								<p class="mb-2">
 									이번 주 가입한 회원 수
 								</p>
-								<h6 class="mb-0 text-right">42명</h6>
+								<h6 class="mb-0 text-right" id="weekUser">0명</h6>
 							</div>
 						</div>
 					</div>
@@ -238,7 +238,7 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
 								<p class="mb-2">
 									총 회원 수
 								</p>
-								<h6 class="mb-0 text-right">2352명</h6>
+								<h6 class="mb-0 text-right" id="totalUser">0명</h6>
 							</div>
 						</div>
 					</div>
@@ -604,25 +604,31 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
 		<tbody class="table-sm">
 			<tr>
 				<th class="w-25 bg-dark text-white text-center">번호</th>
-				<td class="text-white">${records.noticeNo}</td>
+				<td class="text-black" id="modalNo">${records.noticeNo}</td>
 			</tr>
 			<tr>
 				<th class="w-25 bg-dark text-white text-center">아이디</th>
-				<td class="text-white">${records.noticeId}</td>
+				<td class="text-black" id="modalId">${records.noticeId}</td>
 			</tr>
 			<tr>
 				<th class="w-25 bg-dark text-white text-center">등록일</th>
-				<td class="text-white">${records.noticeDate}</td>
+				<td class="text-black" id="modalDate">${records.noticeDate}</td>
 			</tr>
 			<tr>
 				<th class="w-25 bg-dark text-white text-center">제목</th>
-				<td class="text-white">${records.noticeTitle}</td>
+				<td class="text-black" id="modalTitle">${records.noticeTitle}</td>
+			</tr>
+			<tr class="removeNone" style="display:none">
+				<th class="w-25 bg-dark text-white text-center">내용</th>
+				<td class="text-black" id="qnaContent">${records.noticeTitle}</td>
 			</tr>
 			<tr>
-				<th class="bg-dark text-white text-center" colspan="2">내 용</th>
+				<th class="bg-dark text-white text-center qnaChangeTitle" colspan="2">내 용</th>
 			</tr>
 			<tr>
-				<td colspan="2" class="text-white">${records.noticeContent}</td>
+				<td colspan="2" class="text-black" >
+					<textarea class="form-control" rows="5" id="modalContent"></textarea>
+				</td>
 			</tr>
 		</tbody>
 	</table>
@@ -768,8 +774,84 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
 						</div>
 						
 						<!--============================ 예시 게시물 표현 끝 ============================-->
+
+
+<!-- 모달 Q & A 보기  -->
+   <div class="modal fade" id="exampleModalCenter12" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle12" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalCenterTitle">Q & A</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div>
+                
+                
+                <form method="post" action="">   
+                         <div class="container">
+	<table class="table table-bordered">
+		<tbody class="table-sm">
+			<tr>
+				<th class="w-25 bg-dark text-white text-center">번호</th>
+				<td class="text-black" id="modalQnaNo"></td>
+			</tr>
+			<tr>
+				<th class="w-25 bg-dark text-white text-center">아이디</th>
+				<td class="text-black" id="modalQnaId"></td>
+			</tr>
+			<tr>
+				<th class="w-25 bg-dark text-white text-center">등록일</th>
+				<td class="text-black" id="modalQnaDate"></td>
+			</tr>
+			<tr>
+				<th class="w-25 bg-dark text-white text-center">제목</th>
+				<td class="text-black" id="modalQnaTitle"></td>
+			</tr>
+			<tr>
+				<th class="bg-dark text-white text-center" colspan="2">내 용</th>
+			</tr>
+			<tr>
+				<td colspan="2" class="text-black text-center" id="modalQnaContent"></td>
+			</tr>
+			<tr>
+				<th class="bg-dark text-white text-center" colspan="2">답 변</th>
+			</tr>
+			<tr>
+				<td colspan="2" class="text-black">
+					<textarea id="modalQnaAnswer" placeholder="답변내용을 입력하세요" class="form-control" rows="5" name="content"></textarea>
+				</td>
+			</tr>
+			
+		</tbody>
+	</table>
+</div>
+</form>	
+				
+            </div> 
+        </div>
+        <div class="modal-footer">
+      <!--    <c:if test="${sessionScope.user_Id eq records.userId }">
+ 			<a href="<c:url value="/Controller/EditController.KOSMO?no=${records.qnaNo}&title=${records.qnaTitle}&content=${records.qnaContent}"/>"class="btn btn-primary" >답장</a>
+			<a href="<c:url value="/Controller/DeleteController.KOSMO?no=${records.qnaNo}"/>" class="btn btn-primary">삭제</a> 
+		</c:if>	-->
+		
+			<button type="button" id="modalQnaClick" class="btn btn-primary right">답장</button>
+			<button type="button" id="modalQnaDelete" class="btn btn-primary right modelDeleteBtn">삭제</button>
+          	<button type="button" class="btn btn-secondary right" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
 						
 <!--================================================= Q & A 끝 =================================================-->
+
+
+
 
 <!--================================================= 신고리스트 시작 =================================================-->
 						
@@ -923,9 +1005,10 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
 const localhost = 'http://localhost:4040/springapp/admin';
 
 	$(document).ready(function(){
-		paymentChartAjax();
+		
+		salesOfWeek();
 	});
-	
+		
 	// 한 주
 	function weekDate(){
 	
@@ -936,9 +1019,10 @@ const localhost = 'http://localhost:4040/springapp/admin';
 		var theDayOfWeek = currentDay.getDay();
 		 
 		var thisWeek = [];
-		 
-		for(var i = 1; i <= 7; i++) {
-		  var resultDay = new Date(theYear, theMonth, theDate + (i - theDayOfWeek));
+	 
+		for(var i = 0; i < 7; i++) {
+		  var resultDay = new Date(theYear, theMonth, theDate - (i + theDayOfWeek) + 7);
+		  
 		  var yyyy = resultDay.getFullYear();
 		  var mm = Number(resultDay.getMonth()) + 1;
 		  var dd = resultDay.getDate();
@@ -948,19 +1032,58 @@ const localhost = 'http://localhost:4040/springapp/admin';
 		 
 		  thisWeek[i] = yyyy + mm + dd;
 		}
-		 
-		
-		return thisWeek;
-		console.log(thisWeek);
+						
+		return thisWeek.sort();
 	}
 	
+	
+	
+	function salesOfWeek(){
+		var weekArr = [];
+		var week = weekDate();
+		var obj = {"startDate" : week[0], "endDate" : week[6]};
+		
+		weekArr.push(obj);
+		
+		 $.ajax({
+			 	url: localhost + '/salesofweek.do',
+			    type: "POST",
+			    cache: true,
+			    dataType: "json",
+			    contentType: "application/json",
+			    data: JSON.stringify(weekArr),
+			    success: function(data){
+			    	
+			    	
+			    	for(var i = 0; i < data.length; i++){
+			    		var v = data[i];
+			    		
+			    		$('#weekPay').text(v.payWeek + '원');
+			    		$('#totalPay').text(v.payTotal + '원');
+			    		$('#weekUser').text(v.userWeek + '명');
+			    		$('#totalUser').text(v.userTotal + '명');
+			    	}
+			    	
+			    	
+			    		paymentChartAjax();
+			    	
+			    	
+			    }, error: function (request, status, error){
+			    	alert("Error");
+			    }
+		  });
+	}
+	
+
+	
+
 	// 이번주 매출(차트)
 	function paymentChartAjax(){
-		
-		var weekArr = [];
+
 		var weekDay = weekDate();
-		
-		var obj = {"startDate" : weekDay[1], "endDate" : weekDay[7]};
+		var weekArr = []; 
+
+		var obj = {"startDate" : weekDay[0], "endDate" : weekDay[6]};
 		
 		weekArr.push(obj);
 		
@@ -972,7 +1095,7 @@ const localhost = 'http://localhost:4040/springapp/admin';
 			    contentType: "application/json",
 			    data: JSON.stringify(weekArr),
 			    success: function(data){
-			    		    
+			    	    
 			    	mainPaymentChartSetting(data);
 			    	
 			    }, error: function (request, status, error){
@@ -992,9 +1115,9 @@ const localhost = 'http://localhost:4040/springapp/admin';
 			 var dataArr2 = [];
 			 var yValues = [];
 			 var yValues2 = [];
-			
+
+			 for(var i = 0; i < weekLength.length; i++){
 			 
-			 for(var i = 1; i < weekLength.length; i++){
 				 var v = weekLength[i];
 				 var obj = {"dateDay" : v, "paymentTotal" : 0, "persent" : 0, "idx" : i};
 				 dateArr.push(obj);
@@ -1129,7 +1252,7 @@ const localhost = 'http://localhost:4040/springapp/admin';
 				var weekArr = [];
 				var weekDay = weekDate();
 				
-				var obj = {"startDate" : weekDay[1], "endDate" : weekDay[7]};
+				var obj = {"startDate" : weekDay[0], "endDate" : weekDay[6]};
 				
 				weekArr.push(obj);
 				
@@ -1141,9 +1264,7 @@ const localhost = 'http://localhost:4040/springapp/admin';
 				    contentType: "application/json",
 				    data: JSON.stringify(weekArr),
 				    success: function(data){
-				    		    
-				    	console.log("data : ", data);
-				    	
+				    
 				    	mainUsersChartSetting(data);
 				    	
 				    }, error: function (request, status, error){
@@ -1165,7 +1286,7 @@ const localhost = 'http://localhost:4040/springapp/admin';
 			 var yValues2 = [];
 			
 			 
-			 for(var i = 1; i < weekLength.length; i++){
+			 for(var i = 0; i < weekLength.length; i++){
 				 var v = weekLength[i];
 				 var obj = {"dateDay" : v, "totalCount" : 0, "idx" : i};
 				 dateArr.push(obj);
@@ -1253,9 +1374,14 @@ const localhost = 'http://localhost:4040/springapp/admin';
 				var weekArr = [];
 				var weekDay = weekDate();
 				
-				var obj = {"startDate" : weekDay[1], "endDate" : weekDay[7]};
+				
+				console.log("weekDay : ", weekDay);
+				
+				var obj = {"startDate" : weekDay[0], "endDate" : weekDay[6]};
 				
 				weekArr.push(obj);
+				
+				console.log("weekArr : ", weekArr);
 				
 				 $.ajax({
 					    url: localhost + '/mainGalleryChart.do',
@@ -1265,8 +1391,7 @@ const localhost = 'http://localhost:4040/springapp/admin';
 					    contentType: "application/json",
 					    data: JSON.stringify(weekArr),
 					    success: function(data){
-					    		   
-					    	console.log("data : ", data);
+					    	
 					    	galleryChartSetting(data);
 					    	
 					    }, error: function (request, status, error){
@@ -1277,9 +1402,7 @@ const localhost = 'http://localhost:4040/springapp/admin';
 		 
 		 
 		 function galleryChartSetting(data){
-			 
 	
-			 
 			 var sumArr1 = [];
 			 var sumArr2 = [];
 			 var yValues = [];
@@ -1290,16 +1413,20 @@ const localhost = 'http://localhost:4040/springapp/admin';
 				 for(var i = 0; i < data.length; i++){
 					 var v = data[i];
 					 
-					 sumArr1.push(v.photo);
-					 sumArr2.push(v.story);
+					 yValues = [v.photo, v.story];
+					 
+//					 sumArr1.push(v.photo);
+//					 sumArr2.push(v.story);
 				 }
 				 
 				 
-				 const sum1 = sumArr1.reduce((a,b) => (a+b));
-				 const sum2 = sumArr2.reduce((a,b) => (a+b));
+//				 const sum1 = sumArr1.reduce((a,b) => (a+b));
+//				 const sum2 = sumArr2.reduce((a,b) => (a+b));
+				
+//				 yValues = [sum1, sum2];
 				 
 				 
-				 yValues = [sum1, sum2];
+				 
 
 			 }else{
 				 
@@ -1400,6 +1527,11 @@ const localhost = 'http://localhost:4040/springapp/admin';
 			noticeAjax();
 	}
 	
+	
+	
+		var noticeAJaxData = "";
+		var qnaAJaxData = "";
+	
 		// 공 지 사 항
 		function noticeAjax(){
 			 $.ajax({
@@ -1410,7 +1542,9 @@ const localhost = 'http://localhost:4040/springapp/admin';
 				    contentType: "application/json",
 				    data: { },
 				    success: function(data){
-				    				    	
+				    	
+				    	noticeAJaxData = data;
+				    	
 				    	noticeListSetting(data);
 				    	
 				    }, error: function (request, status, error){
@@ -1438,18 +1572,20 @@ const localhost = 'http://localhost:4040/springapp/admin';
 					var noHTML = "";
 					var num = i + 1;
 					var noDate = v.noticeDate.substring(0, 10);
+					
 					noHTML += '<tr>';
-					noHTML += '<td class="text-center">'+ num +'</td>';
-					noHTML += '<td><a class="primary" data-toggle="modal" data-target="#exampleModalCenter1">[공지사항] '+ v.noticeTitle +'</a></td>';
+					noHTML += '<td class="text-center">'+ v.noticeNo +'</td>';
+					noHTML += '<td><a class="primary modalClick" data-notice_no='+ v.noticeNo +' data-modal_text="notice" data-toggle="modal" data-target="#exampleModalCenter1">'+ v.noticeTitle +'</a></td>';
 					noHTML += '<td><a class="primary" data-toggle="modal" data-target="#exampleModalCenter">'+ v.userId +'</a></td>';
 					noHTML += '<td class="text-center">'+ noDate +'</td>';
 					noHTML += '</tr>';
+					
+					$('#mainNoticeAppend').append(noHTML);
 				}				
 			}
 			
 				mainQnaAjax();
 		}
-		
 		
 		// Q & A
 		function mainQnaAjax(){
@@ -1461,7 +1597,9 @@ const localhost = 'http://localhost:4040/springapp/admin';
 				    contentType: "application/json",
 				    data: { },
 				    success: function(data){
-				    				    	
+				    	
+				    	
+				    	qnaAJaxData = data;
 				    	
 				    	mainQnaSetting(data);
 				    	
@@ -1486,13 +1624,14 @@ const localhost = 'http://localhost:4040/springapp/admin';
 			}else{
 				
 				for(var i = 0; i < data.length; i++){
+					var v = data[i];
 					var qnaHTML = "";
 					var num = i + 1;
 					var qnDate = v.qnaDate.substring(0, 10);
 					
 					qnaHTML += '<tr>';
 				    qnaHTML +=  '<td class="text-center">'+ num +'</td>';
-				    qnaHTML += 	'<td class="text-center"><a class="primary" data-toggle="modal" data-target="#exampleModalCenter1">'+ v.qnaTitle +'</a></td>';
+				    qnaHTML += 	'<td class="text-center"><a class="primary modalClick" data-qna_no='+ v.qnaNo +' data-modal_text="qna" data-toggle="modal" data-target="#exampleModalCenter12">'+ v.qnaTitle +'</a></td>';
 				    qnaHTML += 	'<td class="text-center">'+ v.userId +'</a></td>';
 				    qnaHTML += 	'<td class="text-center">'+ qnDate +'</td>';
 				    qnaHTML += '</tr>';
@@ -1500,6 +1639,52 @@ const localhost = 'http://localhost:4040/springapp/admin';
 				}
 			}
 		}
+		
+		// MODAL CLICK
+		$(document).on('click','.modalClick', function(){
+			var modalText = $(this).data('modal_text');
+			var noticeNo = $(this).data('notice_no');
+			var qnaNo = $(this).data('qna_no');
+	
+			if(modalText == 'notice'){
+				
+				for(var i = 0; i < noticeAJaxData.length; i++){
+					var v = noticeAJaxData[i];
+				
+					if(v.noticeNo == noticeNo){
+						
+						var modalDate = v.noticeDate.substring(0, 10);
+						
+						$('#modalNo').text(v.noticeNo);
+						$('#modalId').text(v.userId);
+						$('#modalDate').text(modalDate);
+						$('#modalTitle').text(v.noticeTitle);
+						$('#modalContent').val(v.noticeContent);
+						
+					}
+				}
+				
+			}else{
+						
+				for(var i = 0; i < qnaAJaxData.length; i++){
+					var v = qnaAJaxData[i];
+					
+										
+					if(qnaNo == v.qnaNo){
+						var qnaDate = v.qnaDate.substring(0, 10);
+						$('#modalQnaNo').text(v.qnaNo);
+						$('#modalQnaId').text(v.userId);
+						$('#modalQnaDate').text(qnaDate);
+						$('#modalQnaTitle').text(v.qnaTitle);
+						$('#modalQnaContent').text(v.qnaContent);
+					}				
+				}	
+			}
+			
+		
+			
+		});
+		
 
 </script>
 

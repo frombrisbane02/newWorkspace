@@ -7,4 +7,3 @@ public interface AdminQnaService {
 	List<AdminQnaDTO> qnaList(HashMap<String, Object> map) throws Exception;
 	boolean qnaDelete(int qnaNo) throws Exception;
 }
-

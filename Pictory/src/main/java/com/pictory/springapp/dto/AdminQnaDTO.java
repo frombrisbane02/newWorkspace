@@ -1,7 +1,6 @@
 package com.pictory.springapp.dto;
 
 import lombok.Getter;
-
 import lombok.Setter;
 
 @Getter
