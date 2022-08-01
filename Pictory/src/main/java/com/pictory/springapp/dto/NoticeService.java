@@ -12,4 +12,7 @@ public interface NoticeService<T> {
 	
 	List<T> noticeSelectList(Map map);
 	
+	T selectOne(Map map);
+	
 }
+

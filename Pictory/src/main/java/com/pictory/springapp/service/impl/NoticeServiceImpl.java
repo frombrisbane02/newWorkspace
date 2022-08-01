@@ -27,6 +27,15 @@ public class NoticeServiceImpl implements NoticeService<NoticeDTO>{
 			// TODO Auto-generated method stub
 			return dao.noticeSelectList(map);
 		}
+
+
+		public NoticeDTO selectOne(Map map) {
+			NoticeDTO record=dao.selectOne(map);
+			//줄바꿈 처리
+			
+			return record;
+			
+		}
 		
 		
 	

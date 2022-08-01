@@ -28,7 +28,7 @@
 	<!-- 통합검색 쿼리문 -->
 	
 	<select id="noticeSelectList" parameterType="Map" resultType="NoticeDTO">
-		SELECT NOTICENO
+		<!--  SELECT NOTICENO
             , USERNO
             , NOTICECODE
             , NOTICETITLE
@@ -36,11 +36,13 @@
             , NOTICEDATE
             , NOTICECATEGORY
 		FROM NOTICE
-		ORDER BY NOTICENO DESC
+		ORDER BY NOTICENO DESC-->
+		
+		SELECT n.*, USERID FROM NOTICE n JOIN USERS u ON n.USERNO=u.USERNO ORDER BY NOTICENO DESC
 	</select>
 	
-	<select id="noticeTotalRecordCount" resultType="int">
-		SELECT * FROM NOTICE
+	<select id="noticeSelectOne" parameterType="Map" resultType="NoticeDTO">
+		SELECT n.*, USERID FROM NOTICE n JOIN USERS u ON n.USERNO=u.USERNO WHERE NOTICENO=#{noticeNo}
 	</select>
 	
 	

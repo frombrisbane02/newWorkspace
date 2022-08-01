@@ -16,13 +16,14 @@ import lombok.Setter;
 @AllArgsConstructor
 public class NoticeDTO {
 	
-	private int noticeno;
-	private int userno;
-	private int noticecode;
-	private String noticetitle;
-	private String noticecontent;
-	private Date noticedate;
-	private int noticecategory;
+	private String userId;
+	private int noticeNo;
+	private int userNo;
+	private int noticeCode;
+	private String noticeTitle;
+	private String noticeContent;
+	private Date noticeDate;
+	private int noticeCategory;
 	
 	
 	

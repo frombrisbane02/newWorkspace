@@ -3,8 +3,8 @@
 
 
 	<link rel="stylesheet" href="<c:url value="/resources/css/notice/common.css"/>"/>
-	<link rel="stylesheet" href="<c:url value="/resources/css/notice/page2.css"/>"/>
-	<link rel="stylesheet" href="<c:url value="/resources/css/faq/notice.css"/>"/>
+	<link rel="stylesheet" href="<c:url value="${pageContext.request.contextPath}/resources/css/notice/page2.css"/>"/>
+	<link rel="stylesheet" href="<c:url value="${pageContext.request.contextPath}/resources/css/faq/notice.css"/>"/>
 
     <script src="${pageContext.request.contextPath}/resources/js/notice/modernizr.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/notice/html5shiv.js"></script>
@@ -68,63 +68,17 @@
 							<c:forEach var="record" items="${list}" varStatus="loop">
 								<tr>
 									<td>${record.noticeNo}</td>				
-									<td class="text-left">${record.noticeTitle}</td>
-									<td>${record.userNo}</td>	
+									<td class="text-center"><a href="${pageContext.request.contextPath}/notice/NoticeView.do?noticeNo=${record.noticeNo}">[공지사항] ${record.noticeTitle}</a></td>
+									<td>${record.userId}</td>	
 									<td>${record.noticeDate}</td>	
 								</tr>
 							</c:forEach>
 						</c:if>
-					
-					
-			<!-- 예시 게시물 표현 시작-->
-			                 <tr>
-			                      <td class="text-center">5</td>
-			                      <td><a href="${pageContext.request.contextPath}/notice/NoticeView.do">공지사항입니다</a></td>
-			                      <td><a href="memberOne.html">Picktory</a></td>
-			                      <td class="text-center">22-06-22</td>
-			                </tr>
-			                
-			                <tr>
-			                      <td class="text-center">5</td>
-			                      <td><a href="${pageContext.request.contextPath}/notice/NoticeView.do">공지사항입니다</a></td>
-			                      <td><a href="memberOne.html">Picktory</a></td>
-			                      <td class="text-center">22-06-22</td>
-			                </tr>
-			                
-			               <tr>
-			                      <td class="text-center">5</td>
-			                      <td><a href="${pageContext.request.contextPath}/notice/NoticeView.do">공지사항입니다</a></td>
-			                      <td><a href="memberOne.html">Picktory</a></td>
-			                      <td class="text-center">22-06-22</td>
-			                </tr>
-			                
-			                <tr>
-			                      <td class="text-center">5</td>
-			                      <td><a href="${pageContext.request.contextPath}/notice/NoticeView.do">공지사항입니다</a></td>
-			                      <td><a href="memberOne.html">Picktory</a></td>
-			                      <td class="text-center">22-06-22</td>
-			                </tr>
-			                
-			                <tr>
-			                      <td class="text-center">5</td>
-			                      <td><a href="${pageContext.request.contextPath}/notice/NoticeView.do">공지사항입니다</a></td>
-			                      <td><a href="memberOne.html">Picktory</a></td>
-			                      <td class="text-center">22-06-22</td>
-			                </tr>
-			                
-			                <tr>
-			                      <td class="text-center">5</td>
-			                      <td><a href="${pageContext.request.contextPath}/notice/NoticeView.do">공지사항입니다</a></td>
-			                      <td><a href="memberOne.html">Picktory</a></td>
-			                      <td class="text-center">22-06-22</td>
-			                </tr>
-		    <!-- 예시 게시물 표현 끝-->
+
 		    
               	</tbody>
               </table>
-              <div>
-              <button class="btn btn-primary btn-sm" style="float: right;" type="button" onclick="location.href='${pageContext.request.contextPath}/admin/notice/UserNoticeWrite.do' ">작성</button>
-              </div>
+              
             <!-- Widgets End -->
             
             <ul id="dyn_ul" class="pagination" style="justify-content: center;">

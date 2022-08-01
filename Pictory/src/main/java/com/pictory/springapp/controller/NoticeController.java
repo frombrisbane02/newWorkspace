@@ -1,5 +1,6 @@
 package com.pictory.springapp.controller;
 
+
 import java.util.List;
 import java.util.Map;
 
@@ -52,26 +53,33 @@ public class NoticeController {
 			List<NoticeDTO> list=noticeService.noticeSelectList(map);	
 			
 			for(NoticeDTO dto : list) {
-				System.out.println(dto.getNoticecategory());
-				System.out.println(dto.getNoticecode());
-				System.out.println(dto.getNoticecontent());
-				System.out.println(dto.getNoticeno());
-				System.out.println(dto.getNoticetitle());
-				System.out.println(dto.getUserno());
-				System.out.println(dto.getNoticedate());
+				System.out.println(dto.getNoticeCategory());
+				System.out.println(dto.getNoticeCode());
+				System.out.println(dto.getNoticeContent());
+				System.out.println(dto.getNoticeNo());
+				System.out.println(dto.getNoticeTitle());
+				System.out.println(dto.getUserNo());
+				System.out.println(dto.getNoticeDate());
 			}
 			
 			//데이타 저장]		
 			model.addAttribute("list",list);
 			
 			//뷰정보 반환]
-			return "notice/Index";
+			return "notice/Index.tiles";
 		}/////////////list
 		
 	
 	//내용 뿌리기
 		@RequestMapping("NoticeView.do")
-		public String noticeView(){
+		public String noticeView(
+				@RequestParam Map map,Model model){
+			//서비스 호출]
+			System.out.println("넝어논아:"+map.get("noticeNo"));
+			NoticeDTO record= noticeService.selectOne(map);
+			
+			//데이타 저장]		
+			model.addAttribute("record", record);
 			System.out.println("공지사항 상세내용 안들어올래?");
 			return "notice/NoticeView.tiles";
 		}

@@ -137,8 +137,8 @@
 						</div>					
 	
 					<div class="btn_area">
-						<input type="button" value="RESET" class="reset_btn buttonClick">
-						<input type="button" value="APPLY" style="cursor:pointer;" class="apply_btn buttonClick">
+						<input type="button" value="취소" class="reset_btn buttonClick">
+						<input type="button" value="작성" style="cursor:pointer;" class="apply_btn buttonClick">
 					</div>
 				</form>
 			</div>

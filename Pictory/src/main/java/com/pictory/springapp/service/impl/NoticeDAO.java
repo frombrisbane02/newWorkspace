@@ -56,6 +56,7 @@ public class NoticeDAO {
 	}
 	
 	public NoticeDTO selectOne(Map map) {		
+		
 		return template.selectOne("noticeSelectOne", map);
 	}
 
