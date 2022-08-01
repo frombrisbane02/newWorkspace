@@ -54,12 +54,12 @@
     background: -webkit-linear-gradient(to right, #304352, #d7d2cc);
     background: linear-gradient(to right, #304352, #d7d2cc);
     min-height: 100vh;
-    font-family: "Jua", sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   }
 
   h1,
   .nav-link{
-    font-family: 'Noto Serif KR', serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   }
   
   .nav-pills .nav-link {

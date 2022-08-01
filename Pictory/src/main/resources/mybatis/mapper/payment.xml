@@ -23,6 +23,7 @@
 	
 	</insert>
 	
+	<!-- 정산 조회용 쿼리 -->
 	<select id="selectMySales" parameterType="int" resultType="SalesDTO">
 		SELECT PRODUCT.PDNO AS productNo, payment.PAYMENTDATE AS soldDate, product.PDNAME AS productName, PRODUCT.PDPRICE AS profit, orders.STATUS AS status FROM PDORDER orders 
 		INNER JOIN PRODUCT product

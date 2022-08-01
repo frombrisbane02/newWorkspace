@@ -20,7 +20,7 @@ public class MypageSaveController {
 	@Autowired
 	private MemberService memberService;
 	
-	@RequestMapping("Save.do")
+	@RequestMapping("Like.do")
 	public String save(HttpSession session, Model model) {
 		System.out.println("마이페이지 저장소 컨트롤러");
 		
@@ -29,7 +29,7 @@ public class MypageSaveController {
 		List<SavePostDTO> dto = memberService.selectLikePost(member.getUserNo());
 		model.addAttribute("likePostList", dto);
 		
-		return "mypage/MypageSave.tiles";
+		return "mypage/MypageLike.tiles";
 	}
 	
 	@RequestMapping("Buy.do")
@@ -39,9 +39,9 @@ public class MypageSaveController {
 		String id = (String) session.getAttribute("userId");
 		MemberDTO member = memberService.readMember(id);
 		List<SavePostDTO> dto = memberService.selectLikePost(member.getUserNo());
-		model.addAttribute("likePostList", dto);
+		model.addAttribute("BuyPostList", dto);
 		
-		return "mypage/MypageSave.tiles";
+		return "mypage/MypageBuy.tiles";
 	}
 
 }

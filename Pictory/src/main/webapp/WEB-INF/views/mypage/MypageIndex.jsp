@@ -25,7 +25,10 @@
             <a id="home2-tab" data-toggle="tab" href="Profile" role="tab" aria-controls="profile2" aria-selected="true" class="nav-link text-uppercase font-weight-bold mr-sm-3 rounded-0 active">Profile</a>
           </li>
           <li class="nav-item flex-sm-fill">
-            <a id="save2-tab" data-toggle="tab" href="Save" role="tab" aria-controls="save2" aria-selected="false" class="nav-link text-uppercase font-weight-bold mr-sm-3 rounded-0">Saved</a>
+            <a id="Like2-tab" data-toggle="tab" href="Like" role="tab" aria-controls="like2" aria-selected="false" class="nav-link text-uppercase font-weight-bold mr-sm-3 rounded-0">Like</a>
+          </li>
+          <li class="nav-item flex-sm-fill">
+            <a id="Buy2-tab" data-toggle="tab" href="Buy" role="tab" aria-controls="Buy2" aria-selected="false" class="nav-link text-uppercase font-weight-bold mr-sm-3 rounded-0">Storage</a>
           </li>
           <li class="nav-item flex-sm-fill">
             <a id="cart2-tab" data-toggle="tab" href="Cart" role="tab" aria-controls="cart2" aria-selected="false" class="nav-link text-uppercase font-weight-bold mr-sm-3 rounded-0">Cart</a>

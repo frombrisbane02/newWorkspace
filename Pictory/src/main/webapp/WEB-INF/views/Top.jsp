@@ -9,8 +9,6 @@
     <meta charset="UTF-8">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}" />
-	<meta name="_csrf" content="${_csrf.token}"/>
 	<title>Navbar.html</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/Navbar.css" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
@@ -18,6 +16,7 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
 </head>
 
 <script>
@@ -73,10 +72,6 @@
                         </li>
                         <li class="nav-item">
                             <a href="<c:url value="/auth/Login.do"/>">Login</a>
-                        </li>
-                        <!-- 쳇봇 나중에 lightframe으로 하단에서 접근 할 수 있도록 변경할 예정, 임시로 nav에 만들었습니다. -->
-                        <li class="nav-item">
-                            <a href="<c:url value="/Chatbot.do"/>">Chatbot</a>
                         </li>
                         <!-- Dropdown -->   
                         <li class="dropdown">Service

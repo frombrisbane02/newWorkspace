@@ -7,7 +7,7 @@
 	<section>
      <div class="container py-5 mt-5">
       
-          <div class="row d-flex justify-content-center">
+          <div class="row d-flex justify-content-center" style="width:100%">
             <div class="col-md-8 col-lg-6 col-xl-4">
       
               <div class="card" id="chat1" style="border-radius: 15px;">
@@ -29,7 +29,7 @@
 	                  </div>
                   </div>
                   <div class="form-outline">
-                    <input class="form-control" id="query" style="font-size: 12px;"></input>
+                    <input class="form-control" id="query" style="font-size: 12px;"/>
                     <label class="form-label" for="textAreaExample" style="font-size: 12px;">메세지를 입력하세요</label>
                   </div>
                 </div>
@@ -70,8 +70,3 @@ $("#query").on('keypress',function(e) {
     }
 });
 </script>
-
-
-
-
- 		
