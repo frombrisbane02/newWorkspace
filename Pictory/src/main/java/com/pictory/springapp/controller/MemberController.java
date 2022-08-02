@@ -48,10 +48,11 @@ public class MemberController<T> {
 		HashMap<String, Object> userInfo = memberService.getUserInfo(access_Token);
 		System.out.println("###access_Token#### : " + access_Token);
 		System.out.println("###nickname#### : " + userInfo.get("userNickname"));
-		System.out.println("###email#### : " + userInfo.get("email"));
+		System.out.println("###email#### : " + userInfo.get("userEmail"));
 		System.out.println("###id#### : " + userInfo.get("userId"));
 		System.out.println("###proimg#### : " + userInfo.get("userProfile"));
 		model.addAttribute("nickname",userInfo.get("userNickname"));
+		
 		session.setAttribute("access_token", access_Token);
 		
 		

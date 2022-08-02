@@ -76,35 +76,24 @@
 			</div>	
 			<input type="submit" value="Log In" id="login" class="btn btn-block"> 
 			<br> 
+			<input type="button" class="btn btn-block btn-primary" id="signup" onclick="location.href='<c:url value="/auth/JoinAgree.do"/>';" value="Sign Up">
+			<span class="d-block text-center my-4 text-muted">
+			&mdash;	or &mdash;</span>
 		</form>
 		</c:if>
 		
 		<c:if test="${not isLogin }">
 		<div class="alert alert-success">
-		  <strong>Success!</strong> ${sessionScope.userId}님 즐감하세요!
+		  <strong>Success!</strong> ${userId}님 즐감하세요!
 		</div>
+		 <a class="nav-link" href="<c:url value="/auth/Logout.do"/>">로그아웃</a></li>
 		</c:if>
-		<c:if test="${not isLogin }">
-		<a class="nav-link" href="<c:url value="/auth/Logout.do"/>">로그아웃</a></li>
-		</c:if>
-		<form action="<c:url value="/auth/JoinAgree.do"/>">
-		<input type="submit" value="Sign Up" id="signup" class="btn btn-block btn-primary">
-		</form>
-			<span class="d-block text-center my-4 text-muted">
-			&mdash;	or &mdash;</span>
-			
 			<div class="social-login">
 			<!-- kakao/naver Login -->
 			<jsp:include page="/WEB-INF/views/kakaoLogin.jsp" />
 			</div>
-		
-
-	
-	
-	
-</div>
-</div>
-
+		</div>
+	</div>
 </div>
 </section>
 </div>
