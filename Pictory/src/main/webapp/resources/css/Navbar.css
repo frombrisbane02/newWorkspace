@@ -7,6 +7,7 @@
    
    
    #nava {
+   		text-transform: capitalize;
        -webkit-transition: all 0.3s;
        -o-transition: all 0.3s;
        transition: all 0.3s;
@@ -220,7 +221,7 @@
    }
 
    #navbarSupportedContent > ul > form > div > input{
-    margin-left: 120px;
+    
     margin-top: 15px;
    }
 

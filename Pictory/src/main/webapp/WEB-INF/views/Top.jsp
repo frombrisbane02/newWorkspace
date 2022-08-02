@@ -70,9 +70,17 @@
                         <li class="nav-item">
                             <a href="<c:url value="/gallery/post/Upload1.do"/>">Upload</a>
                         </li>
+                        
+                        <% if(session.getAttribute("userId")==null){ %>
                         <li class="nav-item">
                             <a href="<c:url value="/auth/Login.do"/>">Login</a>
                         </li>
+                        <%}else{ %>
+                        <li class="nav-item">
+                            <a href="<c:url value="/auth/Logout.do"/>">Logout</a>
+                        </li>
+                        <%} %>
+                        
                         <!-- Dropdown -->   
                         <li class="dropdown">Service
                             <div class="dropdown-content">
@@ -85,10 +93,15 @@
                             <img src="${pageContext.request.contextPath}/resources/img/userIcon.png"
                                     style="width:30px; height:30px" />
                             <div class="dropdown-content">
-                               <a href="<c:url value="/mypage/Index.do"/>" id="nava">My PICTORY</a> 
-                                <a href="#" id="nava">Notification</a>
-                                <a href="#" id="nava">Message</a>
+                               <a href="<c:url value="/mypage/Index.do"/>" id="nava">My PICTORY</a>
+                               <a href="#" id="nava">Message</a>
                             </div>
+                        </li>
+                        
+                        <li class="nav-item">
+                        	<img src="${pageContext.request.contextPath}/resources/img/notification.png"
+                                    style="width:30px; height:30px" />
+                            <a href="#"></a>
                         </li>
 
                         <!-- Navbar Form -->

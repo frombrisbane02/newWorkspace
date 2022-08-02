@@ -79,7 +79,6 @@ body {
 .nav {
     display: flex;
     font: 13px;
-    text-transform: uppercase;
     margin: 0; 
     padding: 0;
 	padding-left: 80px;
