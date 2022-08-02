@@ -85,7 +85,8 @@ public class StoryController {
       for(StoryDTO dto:storyimages) {
     	 Map<String,String> map = new HashMap<>();
     	 map.put("image_url", dto.getPhotoUrl());
-         map.put("image_title",String.format("이미지 제목%d",dto.getPhotoName()));
+         //map.put("image_title",String.format("이미지 제목%d",dto.getPhotoName()));
+    	 map.put("image_title","");
          map.put("image_id",String.format("%sID",dto.getPhotoNo()));
     	 lists.add(map);
       }

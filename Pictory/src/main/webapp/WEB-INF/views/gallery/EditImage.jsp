@@ -13,7 +13,7 @@
 		<div id="editor_container"></div>
 		<img id="display_image" alt="보정이미지 표시" style="display: none; margin-left: auto; margin-right: auto;" />
 	</div>
-	
+
    
     <script>
       const ciResponsive = new window.CIResponsive({
@@ -285,14 +285,19 @@
 
 $(document).ready(function(){
 	
-	var source = ${source};
-	console.log('열었을때 가지고 온 source: ', source);
-	filerobotImageEditor.render({source: source});
+	//var source = ${source};
+	//console.log('열었을때 가지고 온 source: ', source);
+	//filerobotImageEditor.render({source: source});
 	
 });
+
+//08.02 추가
+<%String base64=request.getParameter("base64");%>
+<img src="<%=base64 %>" alt="이미지"/>
 	
 	
 	
 	  </script>
+
   </body>
 </html>

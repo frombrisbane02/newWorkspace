@@ -33,6 +33,7 @@
       		po.postcategory,
             po.posttitle,
             po.postText,
+            po.postDate,
             u.usernickname,
             u.userprofile,
             u.userno,

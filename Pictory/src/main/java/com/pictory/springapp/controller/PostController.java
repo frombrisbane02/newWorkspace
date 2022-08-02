@@ -65,7 +65,7 @@ public class PostController {
 	}
 	
 	//===========================EDIT IMAGE 불러오기===============================
-	
+	/*
 	@RequestMapping("post/loadModal.do")
 	public String firstModal(@RequestParam String source, Model model) throws JsonProcessingException {
 		
@@ -76,17 +76,19 @@ public class PostController {
 	}
 	
 	@CrossOrigin
-	@RequestMapping(value="post/loadEditor.do",produces = "application/json;charset=UTF-8")
-	public String loadModal(@RequestParam String source, Model model,
+	@RequestMapping(value="post/loadEditor.do",produces = "text/html;charset=utf-8")
+	public String loadModal(@RequestParam String img, Model model,
 				HttpSession session, HttpServletRequest req) throws JsonProcessingException {
 		
-		System.out.println("가지고온 source: "+ source);
-		model.addAttribute("source", source);
+		System.out.println("가지고온 source: "+ img);
+		model.addAttribute("source", img);
 		
-		return "gallery/EditImage";
+		return "gallery/sample.tiles";
+		
+		//return "gallery/EditImage";
 	}
 
-	
+	*/
 	
 	//===========================EDIT IMAGE===============================
 	//보정 이미지 한장한장 save 누를때마다 컨트롤러로 넘겨서 업로드 처리 및 db에 인서트할 값 필요 + 본문에 첨부
@@ -130,7 +132,7 @@ public class PostController {
 		//필요값: photoSize, photoName
 		int photoSize = ((int)Math.ceil(dest.length()/1024.0));
 		String photoName = filename;
-		String photoUrl = "http://localhost:4040/springapp/upload/img/"+userId+"/"+photoName;
+		String photoUrl = "http://192.168.0.27:4040/springapp/upload/img/"+userId+"/"+photoName;
 		
 		
 		System.out.println("IEC) 사진크기: "+photoSize+"KB");
@@ -202,7 +204,7 @@ public class PostController {
 		//PRODUCT - pdNo, photoNo, pdPrice, pdSalesNo, pdDate
 		String photoName = uploadImage.getOriginalFilename();
 		int photoSize = (int)Math.ceil(uploadImage.getSize()/1024.0);
-		String photoUrl = "http://localhost:4040/springapp/upload/img/"+String.valueOf(map.get("userId"))+"/"+photoName;
+		String photoUrl = "http://192.168.0.27:4040/springapp/upload/img/"+String.valueOf(map.get("userId"))+"/"+photoName;
 		
 		map.put("photoName", photoName);
 		map.put("photoSize", photoSize);
@@ -263,7 +265,7 @@ public class PostController {
 			
 			String photoName = file.getOriginalFilename();
 			int photoSize = (int)Math.ceil(file.getSize()/1024.0);
-			String photoUrl = "http://localhost:4040/springapp/upload/img/"+String.valueOf(map.get("userId"))+"/"+photoName;
+			String photoUrl = "http://192.168.0.27:4040/springapp/upload/img/"+String.valueOf(map.get("userId"))+"/"+photoName;
 			
 			
 			fileList.put("photoName", photoName);

@@ -96,8 +96,6 @@
 	<br>
 	<br>
 	<br>
-	<br>
-	<br>
 	<div class="container">
 		<c:if test="${postSellorNot eq 'sell'}">
 			<form action="<c:url value="/gallery/post/SellUpload.do"/>"
@@ -133,10 +131,10 @@
 
 		<!--===================================이미지 프리뷰 ===================================-->
 		<div class="mothercontainer">
-			<!--<div class="container border-light">
+		<!--<div class="container border-light">
 	      <div class="imgpre">
 	      </div>
-	 </div>-->
+	 	</div>-->
 		</div>
 
 		<br> <br>
@@ -289,13 +287,22 @@
 
 
 		<!--===================================Image Modal===================================-->
+		<div class="modalArea" id="modalArea">
+		
+		</div>
 		
 		<div class="modal fade" tabindex="-1" id="editModal">
 			<div class="modal-dialog modal-xl">
 				<div class="modal-content">
-					<div class="modal-body" id="editContent">
-					<iframe id="iframe" style="width: 1050px; height: 800px;" frameborder="0" scrolling="no" src="<c:url value="/gallery/post/loadModal.do"/>"></iframe>
-					</div>
+				<div class="modal-body">
+					<iframe src="" name="iframe2"></iframe>
+		        </div>
+				<form method="post" name="frm">
+				   <input type="hidden" name="base64"/>
+				 </form>
+					<!--<div class="modal-body" id="editContent">
+					 <iframe id="iframe" style="width: 1050px; height: 800px;" frameborder="0" scrolling="no" src="<c:url value="/gallery/post/loadModal.do"/>"></iframe> 
+					</div>-->
 				</div>
 			</div>
 		</div>
@@ -313,8 +320,6 @@
 
 
 <script>
-
-
 
   //text editor용 함수(※이거 값 저장해서 edit시에 갖고와야함)
   function f1(){document.querySelector('#textContent').style.fontWeight = 'bold';}
@@ -378,23 +383,22 @@
 		  console.log('확인용 base64[index]: ',base64[index]);
 		  console.log('클릭한 인덱스:',index);
 		  
-		  
+		
 		  $.ajax({
-			  url:"<c:url value='/gallery/post/EditImage.do'/>",
-			  data: "source="+encodeURIComponent(base64[index]),
-			  dataType:'json',
+			  url:"<c:url value='/gallery/post/loadEditor.do'/>",
+			  data: "img=hellow",	
+			  dataType:'html',
 			  method:'post'
 
 			}).done(function(data){
 			  console.log('성공:',data);
+			  document.querySelector('#iframe').src=data;
 
 			}).fail(function(e){console.log('에러:',e)});
-		  
-		  
-		  
-		  
-		  
-		  
+			
+			//var form=document.querySelector('#imgsend');
+			//form.img.value=base64[index];
+			//form.submit();
 		  
 		  
 		  
@@ -405,7 +409,7 @@
 		//var iframe = document.createElement('iframe');
 		//document.querySelector('#iframe').onload = function(){ alert('myframe is loaded'); };
 		console.log('iframe..여기 들어왔어..?');
-		document.querySelector('#iframe').src = "<c:url value='/gallery/post/loadEditor.do?source="+base64[index]+"'/>";
+		//document.querySelector('#iframe').src = "<c:url value='/gallery/post/loadEditor.do?source="+base64[index]+"'/>";
 		//iframe.style = 'width: 1050px; height: 800px;';
 		//iframe.frameborder='0';
 		//iframe.scrolling='no'
@@ -419,7 +423,7 @@
 		  //document.querySelector('#editContent').innerHTML = iframe;
 		  
 		  //document.querySelector('#editModal').modal('show');
-		  $('#editModal').modal('show');
+		  //$('#editModal').modal('show');
 		  
 	}
 	
@@ -435,7 +439,7 @@
 $(document).ready(function(){
 	
 	$('#popupEditor').on("click", function(){
-		window.open('<c:url value="/gallery/post/loadEditor.do"/>','_black','toolbar=no, menubar=no, scrollbars=no, width=1000, height=800').focus();
+		window.open('<c:url value="/gallery/post/loadEditor.do"/>','_black','toolbar=no, menubar=no,scrollbars=no, width=1000, height=800').focus();
 	});
 });
 */
@@ -519,6 +523,21 @@ function leavePage(){
 };
 
 </script>
+
+
+<script>
+ $('#jsButton').click(function(){
+	document.frm.base64.value="base64이미지데이타";
+   	document.frm.target="iframe2";
+   	document.frm.action="index.jsp";
+   	document.frm.submit();
+   $('#jsModal').modal({backdrop:'static'});
+ });
+</script>
+
+<form id="imgsend" action="<c:url value='/gallery/post/loadEditor.do'/>" method="post">
+	<input type="hidden" name="img" />
+</form>
 
 
 
