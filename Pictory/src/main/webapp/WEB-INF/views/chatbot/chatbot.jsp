@@ -18,6 +18,7 @@
                   <p class="mb-0 fw-bold">CHATORY</p>
                   <i class="fas fa-times" aria-hidden="true"></i>
                 </div>
+
                 <div class="card-body">
       			  <div class="chat-container" style="width:100%;margin:0px" >
 	                  <div class="d-flex flex-row justify-content-start mb-4">
@@ -54,13 +55,7 @@ $("#query").on('keypress',function(e) {
         }
         //chat-container에 사용자의 응답 추가
         $('.chat-container').append(
-        	          '<div class="d-flex flex-row justify-content-end mb-4">'+
-	                    '<div class="p-3 border" style="border-radius: 15px; background-color: #fbfbfb;">'+
-	                      '<p class="small mb-0">'
-	                      +query+
-	                      '</p>'+
-	                    '</div>'+  
-	                    +'</div>');
+        '<div class="d-flex flex-row justify-content-end mb-4"><div class="p-3 border" style="border-radius: 15px; background-color: #fbfbfb;"><p class="small mb-0">'+query+'</p></div></div>');
                
         $('#query').val('');
         //스크롤바 아래로

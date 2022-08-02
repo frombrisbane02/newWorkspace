@@ -48,7 +48,7 @@ public class MypageCartController {
 		MemberDTO member = memberService.readMember(id);
 		cartService.deleteMyCart(member.getUserNo());
 		
-		return "mypage/MypageCart.tiles";
+		return "mypage/MypageIndex.tiles";
 	}
 	
 	@RequestMapping(value = "CartPayment.do", method = {RequestMethod.POST}) 

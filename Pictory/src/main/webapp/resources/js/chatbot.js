@@ -3,7 +3,7 @@ function sendMessage(message,session_id) {
         
         $.ajax(
         {
-            url:"http://192.168.0.23:9999/message",
+            url:"http://192.168.0.4:9999/message",
             
             //json으로 보낼때
             data:JSON.stringify({"message": message,"session_id":session_id}),
@@ -20,8 +20,8 @@ function sendMessage(message,session_id) {
            console.log('받은 메시지:',data)
           $('.chat-container').append(`
 	    	  <div class="d-flex flex-row justify-content-start mb-4">
-	            <img src=""/>"
-	              alt="avatar 1" style="width: 65px; height: 100%;">
+	           <img src="http://localhost:4040/springapp/upload/img/chatbot.png"
+	                      alt="avatar 1" style="width: 65px; height: 100%;">
 	            <div class="p-3 ms-3" style="border0-radius: 15px; background-color: rgba(57, 192, 237,.2);">
 	              <p class="small mb-0">${data.message}</p>
 	            </div>

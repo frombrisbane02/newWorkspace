@@ -22,11 +22,12 @@ public class MypageSaveController {
 	
 	@RequestMapping("Like.do")
 	public String save(HttpSession session, Model model) {
-		System.out.println("마이페이지 저장소 컨트롤러");
+		System.out.println("마이페이지 내가 좋아요 한 사진 컨트롤러");
 		
 		String id = (String) session.getAttribute("userId");
 		MemberDTO member = memberService.readMember(id);
 		List<SavePostDTO> dto = memberService.selectLikePost(member.getUserNo());
+		System.out.println(dto);
 		model.addAttribute("likePostList", dto);
 		
 		return "mypage/MypageLike.tiles";
@@ -34,11 +35,12 @@ public class MypageSaveController {
 	
 	@RequestMapping("Buy.do")
 	public String buy(HttpSession session, Model model) {
-		System.out.println("마이페이지 저장소 컨트롤러");
+		System.out.println("마이페이지 내가 산 사진 컨트롤러");
 		
 		String id = (String) session.getAttribute("userId");
 		MemberDTO member = memberService.readMember(id);
-		List<SavePostDTO> dto = memberService.selectLikePost(member.getUserNo());
+		List<SavePostDTO> dto = memberService.selectBuyPost(member.getUserNo());
+		System.out.println(dto);
 		model.addAttribute("BuyPostList", dto);
 		
 		return "mypage/MypageBuy.tiles";

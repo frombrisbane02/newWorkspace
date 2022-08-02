@@ -10,7 +10,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MyCartDTO {
-	private int userNo;
+	private String userId;
 	private String userNickName;
 	private int pdNo;
 	private int photoNo;

@@ -70,6 +70,7 @@
 </body>
 
 <script>
+/*
 	$(window).scroll(function(){
 		if ($(this).scrollTop() > 300){
 			$('.btn_gotop').show();
@@ -81,7 +82,7 @@
 		$('html, body').animate({scrollTop:0},400);
 		return false;
 	});
-	/*
+	
 	function show () {
 		  document.querySelector(".background").className = "background show";
 		}

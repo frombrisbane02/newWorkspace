@@ -245,17 +245,18 @@ public class MemberServiceImpl implements MemberService<MemberDTO>{
 		        e.printStackTrace();
 		    }
 		}
-
+		
+		//용- 내가 좋아요 한 것들 조회
 		@Override
 		public List<SavePostDTO> selectLikePost(int memberNo) {
 					
 			List<SavePostDTO> dto = dao.selectLikePost(memberNo);
 			return dto;
 		}
-
+		//용- 내가 구매 한 것들 조회
 		@Override
-		public List<SavePostDTO> selectByePost(int memberNo) {
+		public List<SavePostDTO> selectBuyPost(int memberNo) {
 			List<SavePostDTO> dto = dao.selectBuyPost(memberNo);
-			return null;
+			return dto;
 		}
 }

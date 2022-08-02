@@ -14,10 +14,9 @@ public class MyCartDAO {
 	@Autowired
 	private SqlSessionTemplate template;
 	
-	public List<MyCartDTO> selectMyCart(String id) {
+	public List<MyCartDTO> selectMyCart(String userId) {
 		
-		
-		List<MyCartDTO> list = template.selectList("selectMyCart", id);
+		List<MyCartDTO> list = template.selectList("selectMyCart", userId);
 		System.out.println("dao에서 호출해 가져온 리스트 사이즈 MyCartDTO :"+list.size());
 		return list;
 	}

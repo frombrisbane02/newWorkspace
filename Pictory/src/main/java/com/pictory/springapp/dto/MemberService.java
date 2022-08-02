@@ -23,8 +23,9 @@ public interface MemberService<T> {
 	//회원 비밀번호 수정
 	public int updateMemberPassword(MemberDTO dto);
 	
-	
+	//좋아요 포스트 조회
 	public List<SavePostDTO> selectLikePost(int memberNo);
 	
-	public List<SavePostDTO> selectByePost(int memberNo);	
+	//구매한 포스트 조회	
+	public List<SavePostDTO> selectBuyPost(int memberNo);	
 }

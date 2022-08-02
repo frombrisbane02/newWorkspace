@@ -40,9 +40,7 @@ public class PaymentServiceImpl implements PaymentService {
 	@Override
 	public void calculate(int userNo, List<Integer> productNo) {
 		
-		
-	
-		
+			
 	}
 
 

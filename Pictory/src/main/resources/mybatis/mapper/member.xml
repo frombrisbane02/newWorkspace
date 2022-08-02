@@ -64,17 +64,17 @@
 	</update>
 	
 	<!-- 마이페이지 장바구니 목록 불러오기 쿼리-->
-	<select id="selectMyCart" parameterType="String" resultType="MyCartDTO">
-		SELECT cart.USERNO, u.USERNICKNAME, product.PDNO, product.PHOTONO, product.PDPRICE, photo.PHOTONAME, photo.PHOTOURL
-		FROM CART cart 
-		INNER JOIN PRODUCT product 
-		ON cart.PDNO = product.PDNO 
-		INNER JOIN PHOTO photo
-		ON product.PHOTONO = photo.PHOTONO 
-		INNER JOIN USERS u 
-		ON cart.USERNO = u.USERNO 
-		WHERE u.USERID = #{userId}
-	</select>
+   <select id="selectMyCart" parameterType="String" resultType="MyCartDTO">
+      SELECT cart.USERNO, u.USERNICKNAME, product.PDNO, product.PHOTONO, product.PDPRICE, photo.PHOTONAME, photo.PHOTOURL
+      FROM CART cart 
+      INNER JOIN PRODUCT product 
+      ON cart.PDNO = product.PDNO 
+      INNER JOIN PHOTO photo
+      ON product.PHOTONO = photo.PHOTONO 
+      INNER JOIN USERS u 
+      ON cart.USERNO = u.USERNO 
+      WHERE u.USERId = #{userId}
+   </select>
 	
 	<!-- 장바구니 삭제용 쿼리-->
 	<delete id="deleteMyCart" parameterType="int">
@@ -95,6 +95,7 @@
 		WHERE l.USERNO  = #{userNo}
 	</select>
 	
+	<!-- 내가 산 사진 조회용 쿼리 -->
 	<select id="selectBuyPost" parameterType="int" resultType="SavePostDTO">
 		SELECT payment.PAYMENTNO AS NO , photo.PHOTONAME, photo.PHOTOURL, u.USERPROFILE AS postUserProfile, u.USERNICKNAME AS postUserNickName  
 		FROM PAYMENT payment    
