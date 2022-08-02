@@ -75,8 +75,8 @@
 		<![CDATA[
 			SELECT  
 					TO_CHAR(PAYMENTDATE, 'YYYYMMDD') AS dateDay
-				  , PAYMENTTOTAL * 0.1 AS persent 
-				  , PAYMENTTOTAL
+				  , SUM(PAYMENTTOTAL) * 0.1 AS persent 
+				  , SUM(PAYMENTTOTAL) AS paymentTotal
  			 FROM PAYMENT
  			  WHERE
 	     	   PAYMENTDATE >= #{startDate} AND PAYMENTDATE < LAST_DAY(TO_DATE(#{endDate}, 'YYYYMMDD')) 

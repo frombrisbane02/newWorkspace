@@ -89,7 +89,7 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
 		
 		<div class="sidebar pe-4 pb-3">
 			<nav class="navbar bg-light navbar-light">
-				<a href="/springapp/Index.do" class="navbar-brand mx-4 mb-3">
+				<a href="/springapp/index.do" class="navbar-brand mx-4 mb-3">
 					<h3 class="text-primary">
 						<i class="fa fa-hashtag me-2"></i>PICKTORY
 					</h3>
@@ -515,16 +515,16 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
 				
 				<div class="container-fluid pt-4 px-4">
 					<div class="row g-4">
-						 <div class="col-sm-12 col-md-4 col-xl-4">
+						 <div class="col-sm-12 col-md-6 col-xl-6">
 							<div class="h-100 bg-light rounded p-4">
 							<h6 class="mb-0">공 지 사 항</h6>
 							<br>
 								<table class="table table-hover text-center">
                 <thead>
                   <tr class="table-secondary text-center">
-                      <th class="col-1">NO</th>
+                      <th class="col-2">글번호</th>
                       <th class="col-5">제목</th>
-                      <th class="col-2">ID</th>
+                      <th class="col-2">아이디</th>
                       <th class="col-3">작성일</th>
                       
                     </tr>
@@ -708,16 +708,16 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
 						
 <!--================================================= Q & A 시작 =================================================-->
 						
-						<div class="col-sm-12 col-md-6 col-xl-4">
+						<div class="col-sm-12 col-md-6 col-xl-6">
 							<div class="h-100 bg-light rounded p-4">
 							<h6 class="mb-0">Q & A</h6>
 							<br>
 								<table class="table table-hover text-center">
                 <thead>
                   <tr class="table-secondary text-center">
-                      <th class="col-1">NO</th>
+                      <th class="col-2">글번호</th>
                       <th class="col-5">제목</th>
-                      <th class="col-2">ID</th>
+                      <th class="col-2">아이디</th>
                       <th class="col-3">작성일</th>
                       
                     </tr>
@@ -855,71 +855,7 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
 
 <!--================================================= 신고리스트 시작 =================================================-->
 						
-						<div class="col-sm-12 col-md-6 col-xl-4">
-							<div class="h-100 bg-light rounded p-4">
-							<h6 class="mb-0">신 고 리 스 트</h6>
-							<br>
-								<table class="table table-hover text-center">
-                <thead>
-                  <tr class="table-secondary text-center">
-                      <th class="col-1">NO</th>
-                      <th class="col-5">제목</th>
-                      <th class="col-2">ID</th>
-                      <th class="col-3">작성일</th>
-                      
-                    </tr>
-                </thead>
-                <tbody class="table-sm">
-					<c:if test="${empty records }" var="isEmpty">
-						<tr>
-							<td class="text-center" colspan="6">등록된 글이 없습니다.</td>
-						</tr>	
-					</c:if>
-					<c:if test="${not isEmpty }">
-						<c:forEach var="record" items="${records}">
-							<tr>
-                                <td class="text-center">5</td>
-                                <td class="text-center"><a class="primary" data-toggle="modal" data-target="#exampleModalCenter4">신고합니다</a></td>
-                                <td class="text-center"><a href="memberOne.html">Picktory</a></td>
-                                <td class="text-center">22-06-22</td>
-                          </tr>
-						</c:forEach>
-					</c:if>
-					
-			<!--============================ 예시 게시물 표현 시작 ============================-->
-			                 <tr>
-			                      <td class="text-center">5</td>
-			                      <td><a class="primary" data-toggle="modal" data-target="#exampleModalCenter4">신고합니다</a></td>
-			                      <td><a href="memberOne.html">Picktory</a></td>
-			                      <td class="text-center">22-06-22</td>
-			                </tr>
-			                
-			                <tr>
-			                      <td class="text-center">5</td>
-			                      <td><a class="primary" data-toggle="modal" data-target="#exampleModalCenter4">신고합니다</a></td>
-			                      <td><a href="memberOne.html">Picktory</a></td>
-			                      <td class="text-center">22-06-22</td>
-			                </tr>
-			                
-			               <tr>
-			                      <td class="text-center">5</td>
-			                      <td><a class="primary" data-toggle="modal" data-target="#exampleModalCenter4">신고합니다</a></td>
-			                      <td><a href="memberOne.html">Picktory</a></td>
-			                      <td class="text-center">22-06-22</td>
-			                </tr>
-			                <tr>
-			                      <td class="text-center">5</td>
-			                      <td><a class="primary" data-toggle="modal" data-target="#exampleModalCenter4">신고합니다</a></td>
-			                      <td><a href="memberOne.html">Picktory</a></td>
-			                      <td class="text-center">22-06-22</td>
-			                </tr>
-			                			                
-		    <!--============================ 예시 게시물 표현 끝 ============================-->
-		    
-              	</tbody>
-              </table>
-							</div>
-						</div>
+						
 						
 <!--================================================= 신고리스트 끝 =================================================-->
 
@@ -1512,8 +1448,8 @@ const localhost = 'http://localhost:4040/springapp/admin';
 				
 				payHTML += '<tr>';
 				payHTML += '<td class="text-center">'+ num +'</td>';
-				payHTML += '<td class="text-center"><a class="primary" data-toggle="modal" data-target="#exampleModalCenter">'+ v.consumer +'</a></td>';
-				payHTML += '<td class="text-center"><a class="primary" data-toggle="modal" data-target="#exampleModalCenter">'+ v.seller +'</a></td>';
+				payHTML += '<td class="text-center">'+ v.consumer +'</td>';
+				payHTML += '<td class="text-center">'+ v.seller +'</td>';
 				payHTML += '<td class="text-center">'+ v.paymentNo +'</td>';
 				payHTML += '<td class="text-center"><a href="memberOne.html">'+ v.pdNo +'</a></td>';
 				payHTML += '<td class="text-center">'+ v.photoName +'</td>';
@@ -1576,7 +1512,7 @@ const localhost = 'http://localhost:4040/springapp/admin';
 					noHTML += '<tr>';
 					noHTML += '<td class="text-center">'+ v.noticeNo +'</td>';
 					noHTML += '<td><a class="primary modalClick" data-notice_no='+ v.noticeNo +' data-modal_text="notice" data-toggle="modal" data-target="#exampleModalCenter1">'+ v.noticeTitle +'</a></td>';
-					noHTML += '<td><a class="primary" data-toggle="modal" data-target="#exampleModalCenter">'+ v.userId +'</a></td>';
+					noHTML += '<td>'+ v.userId +'</td>';
 					noHTML += '<td class="text-center">'+ noDate +'</td>';
 					noHTML += '</tr>';
 					

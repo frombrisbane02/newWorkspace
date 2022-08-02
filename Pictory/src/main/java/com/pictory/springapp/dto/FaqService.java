@@ -6,3 +6,4 @@ import java.util.List;
 public interface FaqService {
 	public boolean faqSave(List<HashMap<String, Object>> params) throws Exception;
 }
+

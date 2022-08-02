@@ -259,7 +259,7 @@ const localhost = 'http://localhost:4040/springapp/faq';
 	$('.buttonClick').on('click', function(){
 		var clickValue = $(this).val();
 		
-		if(clickValue == "APPLY"){
+		if(clickValue == "작성"){
 			qnaInsertFn();
 		}else{
 			$('#qna option:eq(0)').prop('selected', true);

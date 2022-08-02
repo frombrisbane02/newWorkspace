@@ -101,7 +101,7 @@
 		<!-- Sidebar Start -->
 		<div class="sidebar pe-4 pb-3">
 			<nav class="navbar bg-light navbar-light">
-				<a href="Index.do" class="navbar-brand mx-4 mb-3">
+				<a href="/springapp/index.do" class="navbar-brand mx-4 mb-3">
 					<h3 class="text-primary">
 						<i class="fa fa-hashtag me-2"></i>PICKTORY
 					</h3>
@@ -1164,8 +1164,8 @@ var tabText = "회원";
   			
   			paymentHTML += '<tr>';
   			paymentHTML += '<td class="text-center">'+ num +'</td>';
-  		    paymentHTML += '<td class="text-center"><a href="#">'+ v.seller +'</a></td>';
-  		    paymentHTML += '<td class="text-center"><a href="#">'+ v.consumer +'</a></td>';
+  		    paymentHTML += '<td class="text-center">'+ v.seller +'</a></td>';
+  		    paymentHTML += '<td class="text-center">'+ v.consumer +'</a></td>';
   		    paymentHTML += '<td class="text-center">'+ v.paymentNo +'</td>';
   		    paymentHTML += '<td class="text-center"><a href="#">'+ v.pdNo +'</a></td>';
   		    paymentHTML += '<td class="text-center">'+ v.photoName +'</td>';
