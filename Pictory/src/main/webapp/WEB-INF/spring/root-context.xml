@@ -10,7 +10,7 @@
 	<context:property-placeholder location="classpath:configuration.properties"/>
 	<!-- 설정을 위한 빈 등록 -->
 	<bean id="hikariConfig" 
-	    p:maximumPoolSize="200"
+		p:maximumPoolSize="200"
 		p:driverClassName="${DB_DRIVER}"
 		p:jdbcUrl="${DB_URL}"
 		p:username="${DB_USERNAME}"

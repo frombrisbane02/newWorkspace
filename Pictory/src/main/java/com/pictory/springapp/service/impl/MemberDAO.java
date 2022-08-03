@@ -6,6 +6,8 @@ import java.io.Reader;
 import java.util.List;
 import java.util.Map;
 
+import javax.xml.transform.Templates;
+
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -15,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.pictory.springapp.dto.MemberDTO;
+import com.pictory.springapp.dto.PostDTO;
 import com.pictory.springapp.dto.SavePostDTO;
 
 @Repository
@@ -85,7 +88,6 @@ public class MemberDAO {
 
 	
 	public MemberDTO readMember(String id) {
-		// TODO Auto-generated method stub
 		SqlSession session= sqlMapper.openSession();
 		MemberDTO memberDTO = session.selectOne("readMember", id);
 		return memberDTO;
@@ -97,7 +99,6 @@ public class MemberDAO {
 	}
 	
 	public void updateMemberPassword(MemberDTO dto) {
-
 		SqlSession session= sqlMapper.openSession();
 		session.update("updateMemberPassword", dto);
 	}
@@ -109,6 +110,16 @@ public class MemberDAO {
 	
 	public List<SavePostDTO> selectBuyPost(int userNo) {
 		List<SavePostDTO> dto = template.selectList("selectBuyPost", userNo);
+		return dto;
+	}
+	
+	public PostDTO selectPost(int postNo ) {
+		PostDTO dto = template.selectOne("selectPost", postNo);
+		return dto;
+	}
+	
+	public MemberDTO selectMember(int userNo) {
+		MemberDTO dto = template.selectOne("selectMember", userNo);
 		return dto;
 	}
 

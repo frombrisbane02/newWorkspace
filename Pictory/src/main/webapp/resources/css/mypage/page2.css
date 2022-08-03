@@ -31,7 +31,7 @@
 	overflow: hidden;
 }
 
-.cont_list .img_area {
+.img_area {
 	background-size: cover;
 	background-position: center center;
 	width: 100%;

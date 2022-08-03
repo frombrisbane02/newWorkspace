@@ -17,7 +17,7 @@
                       <li class="photo_area">
                         <a href="" class="photo_link">					
                           <div class="img_area" style="background-image: url(${buyPost.photoUrl});">
-                          	<img src="${buyPost.photoUrl}" alt="">
+                          	<img src="${pageContext.request.contextPath}/resources/img/gallerylist/fake02.png" alt="">
                           </div>	
                           <div class="txt_area">
                             <p>

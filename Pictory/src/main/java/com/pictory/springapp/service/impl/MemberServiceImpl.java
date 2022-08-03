@@ -21,6 +21,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.pictory.springapp.dto.MemberDTO;
 import com.pictory.springapp.dto.MemberService;
+import com.pictory.springapp.dto.PostDTO;
 import com.pictory.springapp.dto.SavePostDTO;
 
 @Service("memberService")
@@ -257,6 +258,13 @@ public class MemberServiceImpl implements MemberService<MemberDTO>{
 		@Override
 		public List<SavePostDTO> selectBuyPost(int memberNo) {
 			List<SavePostDTO> dto = dao.selectBuyPost(memberNo);
+			for(SavePostDTO post : dto) {
+				PostDTO p = dao.selectPost(post.getNo());
+				MemberDTO m = dao.selectMember(p.getUserNo());
+				post.setPostUserNickName(m.getUserNickname());
+				post.setPostUserProfile(m.getUserProfile());
+			}
+			
 			return dto;
 		}
 }

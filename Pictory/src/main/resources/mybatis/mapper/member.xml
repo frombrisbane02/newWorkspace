@@ -97,7 +97,7 @@
 	
 	<!-- 내가 산 사진 조회용 쿼리 -->
 	<select id="selectBuyPost" parameterType="int" resultType="SavePostDTO">
-		SELECT payment.PAYMENTNO AS NO , photo.PHOTONAME, photo.PHOTOURL, u.USERPROFILE AS postUserProfile, u.USERNICKNAME AS postUserNickName  
+		SELECT PHOTO.POSTNO AS NO , photo.PHOTONAME, photo.PHOTOURL, u.USERPROFILE AS postUserProfile, u.USERNICKNAME AS postUserNickName  
 		FROM PAYMENT payment    
 		INNER JOIN PDORDER orders 
 		ON PAYMENT.PAYMENTNO  = orders.PAYMENTNO    
@@ -107,7 +107,17 @@
 		ON PHOTO.PHOTONO = product.PHOTONO 
 		INNER JOIN USERS u    
 		ON PAYMENT.USERNO = u.USERNO    
-		WHERE u.USERNO  = #{userNo}
+		WHERE u.USERNO  = #{userNo}   
+	</select>
+	
+	<select id="selectPost" parameterType="int" resultType="PostDTO">
+		SELECT * FROM POST
+		WHERE POSTNO = #{postNo}
+	</select>
+	
+		<select id="selectMember" parameterType="int" resultType="MemberDTO">
+		SELECT * FROM USERS
+		WHERE USERNO = #{userNo}
 	</select>
 	
 </mapper>

@@ -4,7 +4,12 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 <link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/mypage/mypage.css"/>">
 <link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/mypage/page2.css"/>">
-
+  <!-- 결제 관련 라이브러리 -->
+    <!-- jQuery -->
+ 	<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+    <!-- iamport.payment.js -->
+    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.8.js"></script>
+    
 <body>
   <form>
   <div class="container py-5">
@@ -51,8 +56,11 @@
 
  
  <script>
+ 
 	$(document).ready(function(){
 		//처음 시작할 땐 MypageProfile이 나와야한다.
+		IMP.init("imp58485321"); // 예: imp00000000
+		
 		$(".tab-content").load("<c:url value='/mypage/Profile.do'/>");
 		
 		//탭 클릭시마다 

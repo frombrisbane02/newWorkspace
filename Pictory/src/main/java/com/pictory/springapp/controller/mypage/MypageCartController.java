@@ -62,5 +62,11 @@ public class MypageCartController {
 		
 		return "mypage/MypageCart.tiles"; 
 	}
+	
+	@RequestMapping(value = "Payment.do", method = {RequestMethod.POST}) 
+	public void paymentWebHook(HttpSession session) {
+		
+
+	}
 
 }

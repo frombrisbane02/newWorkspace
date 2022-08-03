@@ -60,11 +60,54 @@
                		<a href="<c:url value='/mypage/CartDelete.do'/>" >장바구니 비우기</a>
                	</button>
                
-                <input type="submit" class="btn btn-primary" style="color:#eeeeee" value="구매"/>
+                <input type="button" class="btn btn-primary" style="color:#eeeeee" value="구매" onclick="purchase()"/>
              </div>
              </form>
            </div>
        </div>
      </div>
 
- 
+ <script>
+
+	
+ 	function purchase(){
+ 		// console.log('클릭이벤트 발생');
+
+ 		 IMP.request_pay({ // param
+ 	          pg: "html5_inicis",
+ 	          pay_method: "card",
+ 	          merchant_uid: "ORD20qwe31-33424seeee",
+ 	          name: "노르웨이 회전 의자", // 홈페이지 이름
+ 	          amount: 64900, // 결제 금액
+ 	          buyer_email: "gildong@gmail.com", // 사용자 정보
+ 	          buyer_name: "홍길동",
+ 	          buyer_tel: "010-4242-4242",
+ 	          buyer_addr: "서울특별시 강남구 신사동",
+ 	          buyer_postcode: "01181"
+ 	      }, function (rsp) { // callback
+ 	         if (rsp.success) { // 결제 성공 시: 결제 승인 또는 가상계좌 발급에 성공한 경우
+ 	        	 console.log(rsp)
+ 	            // jQuery로 HTTP 요청
+ 	            
+ 	            
+ 	            jQuery.ajax({
+ 	                url: "http://localhost:4040/mypage/Payment.do", // 예: https://www.myservice.com/payments/complete
+ 	                method: "POST",
+ 	                headers: { "Content-Type": "application/json" },
+ 	                data: {
+ 	                    imp_uid: rsp.imp_uid,
+ 	                    merchant_uid: rsp.merchant_uid
+ 	                }
+ 	            }).done(function (data) {
+ 	              // 가맹점 서버 결제 API 성공시 로직
+ 	                	 console.log(data)
+ 	                	 
+ 	                	 
+ 	                	 
+ 	            })
+ 	          } else {
+ 	            alert("결제에 실패하였습니다. 에러 내용: " +  rsp.error_msg);
+ 	          }
+ 	      });
+ 	    } 	
+ </script>

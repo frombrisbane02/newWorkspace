@@ -25,9 +25,15 @@
 	
 	<!-- 정산 조회용 쿼리 -->
 	<select id="selectMySales" parameterType="int" resultType="SalesDTO">
-		SELECT PRODUCT.PDNO AS productNo, payment.PAYMENTDATE AS soldDate, product.PDNAME AS productName, PRODUCT.PDPRICE AS profit, orders.STATUS AS status FROM PDORDER orders 
+	    SELECT PRODUCT.PDNO AS productNo, payment.PAYMENTDATE AS soldDate
+		, post.POSTTITLE  AS productName, PRODUCT.PDPRICE AS profit, orders.PDSTATUS  AS status 
+		FROM PDORDER orders 
 		INNER JOIN PRODUCT product
-		ON orders.PDNO = product.PDNO 
+		ON orders.PDNO = product.PDNO
+		INNER JOIN PHOTO photo
+		ON photo.PHOTONO  = product.PHOTONO 
+		INNER JOIN POST post
+		ON post.POSTNO = photo.POSTNO 
 		INNER JOIN PAYMENT payment
 		ON payment.PAYMENTNO = orders.PAYMENTNO
 		WHERE payment.USERNO = #{userNo}
