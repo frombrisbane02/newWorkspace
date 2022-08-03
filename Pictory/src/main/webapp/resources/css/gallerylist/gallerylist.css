@@ -395,7 +395,7 @@
 }
 
 .filter_modal .modal_white input[type="checkbox"]:checked + .check_btn {
-	background: url(../img/test_icon15.png) no-repeat center center;
+	background: url(../img/gallerylist/test_icon15.png) no-repeat center center;
 	background-size: cover; 
 }
 

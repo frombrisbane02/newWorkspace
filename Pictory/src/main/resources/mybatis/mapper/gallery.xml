@@ -34,14 +34,25 @@
             po.posttitle,
             po.postText,
             po.postDate,
+            po.postSellorNot,
             u.usernickname,
             u.userprofile,
             u.userno,
+            u.userId,
             po.posthits,
-            po.postlikes,
+            po.postLikes,
             (SELECT COUNT(ct.cno) FROM comment_tbl ct WHERE ct.postno=po.postno) commentCount
         FROM post po INNER JOIN users u
            ON po.userno = u.userno
     	WHERE po.postNo=#{postNo}
+	</select>
+	
+	<select id="userInfo" resultType="GalleryDTO" parameterType="_integer">
+		SELECT (SELECT COUNT(p.postNo) FROM post p, users u WHERE p.userno=u.userno and u.userno=(SELECT p.userno FROM POST p WHERE p.postNo=#{postNo})) postCount,
+			   (SELECT ph.photourl FROM photo ph WHERE ph.postno=p.postno AND ROWNUM = 1) photoUrl,
+			   postNo
+		 FROM post p INNER JOIN users u ON p.userno = u.userno
+		 WHERE u.userno=(SELECT p.userno FROM POST p WHERE p.postNo=#{postNo})
+     	ORDER BY p.postdate DESC
 	</select>
 </mapper>

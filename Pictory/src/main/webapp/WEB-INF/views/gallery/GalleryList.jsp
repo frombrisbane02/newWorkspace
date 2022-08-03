@@ -1,22 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<jsp:include page="/WEB-INF/views/Top.jsp"/>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=0,maximum-scale=1">
 	<title>Gallery</title>
-
-	<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+	<!-- 
+	<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-
+ -->
 	<link rel="shortcut icon" type="image/x-icon" href="img/favicon.png">
 	<link rel="apple-touch-icon" href="img/favicon.png">
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/faq/common.css">
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/galleryview/common.css">
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/gallerylist/gallerylist.css">
 
+	<script src="http://code.jquery.com/jquery-1.8.1.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/gallerylist/modernizr.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/gallerylist/html5shiv.js"></script>
-	<script src="http://code.jquery.com/jquery-1.8.1.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/gallerylist/tab.js"></script>
 
 <br>

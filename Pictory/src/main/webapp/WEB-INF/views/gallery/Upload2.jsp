@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<jsp:include page="/WEB-INF/views/Top.jsp"/>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,13 +15,13 @@
 
 
 <!--<script type="module" src="/public/init.js"></script>-->
-<script src="https://cdn.scaleflex.it/plugins/js-cloudimage-responsive/4.8.5/js-cloudimage-responsive.min.js"></script>
-<script src="https://cdn.scaleflex.it/filerobot/js-cloudimage-responsive/lazysizes.min.js"></script>
+
 <!--vanilla js cdn-->
-<script src="https://scaleflex.cloudimg.io/v7/plugins/filerobot-image-editor/latest/filerobot-image-editor.min.js"></script>
+<!--  
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="https://cdn.scaleflex.it/plugins/js-cloudimage-responsive/4.8.5/js-cloudimage-responsive.min.css?vh=a076ef&func=proxy" />
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet" />
+-->
 <!-- 
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/upload/style.css" /> -->
 
@@ -35,7 +36,7 @@
 	integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
 	crossorigin="anonymous" />
 <!-- 파일 업로드 프리뷰용 -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
 
 
 <!--기본 bootstrap4용-->
@@ -213,6 +214,8 @@
 						</div>
 					</li>
 					<!--<c:if test="">foreach로 스토리 가져와서 뿌려주기!!!!!!!!!</c:if>-->
+					
+			<c:if test="">
 					<li class="list-group-item overflow-x: auto; border-0">
 						<div>
 							<input type="checkbox" id="story1" onclick="imageClicked(this)"
@@ -220,19 +223,12 @@
 								src="${pageContext.request.contextPath}/resources/img/upload/sell.jpg"
 								id="sThumnail+1" width="100px;">
 							</label>
-						</div> 스토리이름1
+						</div>
+						<p>스토리이름1</p>
 					</li>
+			</c:if>
 
-
-					<li class="list-group-item overflow-x: auto; border-0">
-						<div>
-							<input type="checkbox" id="story2" onclick="imageClicked(this)"
-								hidden /> <label for="story2"> <img
-								src="${pageContext.request.contextPath}/resources/img/upload/sell.jpg"
-								id="sThumnail" width="100px;" >
-							</label>
-						</div> 스토리이름2
-					</li>
+					
 				</ul>
 			</div>
 			<div id="story_field" class="form-group"></div>
@@ -286,30 +282,6 @@
 
 
 
-		<!--===================================Image Modal===================================-->
-		<div class="modalArea" id="modalArea">
-		
-		</div>
-		
-		<div class="modal fade" tabindex="-1" id="editModal">
-			<div class="modal-dialog modal-xl">
-				<div class="modal-content">
-				<div class="modal-body">
-					<iframe src="" name="iframe2"></iframe>
-		        </div>
-				<form method="post" name="frm">
-				   <input type="hidden" name="base64"/>
-				 </form>
-					<!--<div class="modal-body" id="editContent">
-					 <iframe id="iframe" style="width: 1050px; height: 800px;" frameborder="0" scrolling="no" src="<c:url value="/gallery/post/loadModal.do"/>"></iframe> 
-					</div>-->
-				</div>
-			</div>
-		</div>
-		
-
-
-
 </div>
 <!--container-->
 </br>
@@ -317,6 +289,12 @@
 </br>
 </br>
 </br>
+
+
+<form method="post" name="frm">
+    <input type="hidden" name="base64" />
+    <input type="hidden" name="base64Index" />
+</form>
 
 
 <script>
@@ -369,15 +347,35 @@
 	            // ["File1 Content", "File2 Content" ... "FileN Content"]
 	            //console.log(values);
 	             for (i = 0; i < values.length; i++) {
-	        		var html="<div class='container editpic' title='"+i+"'><img src='"+values[i]+"' class='imageprev'><button type='button' onclick='imgClick("+i+")' class='btn btn-sm btn-light editImagebtn'>이미지 보정</button></div>";
+	        		var html="<div class='container editpic' title='"+i+"'><img id='pictoryImage"+i+"' src='"+values[i]+"' class='imageprev'><button type='button' onclick='showModal("+i+")'  class='btn btn-sm btn-light'>이미지 보정</button></div>";
     				document.querySelector('div.mothercontainer').innerHTML+=html;
     				base64.push(values[i]);
 	             }
 	        	});//then
     		}, false);
 	});
-//====================버튼 클릭했을때 imgsrc 가져오기 =====================================
+//====================버튼 클릭했을때 POPUP=====================================
+	
+	 function showModal(index){
+		console.log('index:',index);
+		console.log('base64:',base64[index]);
+		
+		childWin=window.open('http://localhost:4040/springapp/editImage/EditImage.jsp','_black','toolbar=no, menubar=no,scrollbars=no, width=1000, height=800').focus();
+	   	
+		document.frm.base64.value=base64[index];
+		document.frm.base64Index.value=index;
+	   	document.frm.target="_black";
+	   	document.frm.action="http://localhost:4040/springapp/editImage/EditImage.jsp";
+	   	document.frm.submit();
+	   	
+	   
+	   	//childWin.document.querySelector('#childBase64').value=base64[index];
+}
+	
+	
+	
     var base64=[];
+  //onclick='imgClick("+i+")'
 	function imgClick(index){
 		  //data-toggle='modal' data-target='#editModal'
 		  console.log('확인용 base64[index]: ',base64[index]);
@@ -395,54 +393,8 @@
 			  document.querySelector('#iframe').src=data;
 
 			}).fail(function(e){console.log('에러:',e)});
-			
-			//var form=document.querySelector('#imgsend');
-			//form.img.value=base64[index];
-			//form.submit();
-		  
-		  
-		  
-		//클릭시 인덱스 src 넘겨주면서 render하고 모달 여는 자스 짜기
-		//document.querySelector('#editModal').modal('show');
-		//$('#editModal').modal('show');
-				  
-		//var iframe = document.createElement('iframe');
-		//document.querySelector('#iframe').onload = function(){ alert('myframe is loaded'); };
-		console.log('iframe..여기 들어왔어..?');
-		//document.querySelector('#iframe').src = "<c:url value='/gallery/post/loadEditor.do?source="+base64[index]+"'/>";
-		//iframe.style = 'width: 1050px; height: 800px;';
-		//iframe.frameborder='0';
-		//iframe.scrolling='no'
-		//document.querySelector('#editContent').appendChild(iframe);
-		
-		//document.body.appendChild(iframe);
-		
-		  //var iframe = "<iframe style='width: 1050px; height: 800px;' frameborder='0' scrolling='no' src='<c:url value='/gallery/post/loadEditor.do?source="+base64[index]+"'/>'></iframe>"
-		  
-		  //iframe 모달 자리 안에 넣어주기
-		  //document.querySelector('#editContent').innerHTML = iframe;
-		  
-		  //document.querySelector('#editModal').modal('show');
-		  //$('#editModal').modal('show');
 		  
 	}
-	
-	
-//======================모달에 EditImage.jsp 로드==============================
-//$(document).ready(function(){
-//	$('#editContent').load();
-//	
-//});
-
-
-/* ==========================popup==================================
-$(document).ready(function(){
-	
-	$('#popupEditor').on("click", function(){
-		window.open('<c:url value="/gallery/post/loadEditor.do"/>','_black','toolbar=no, menubar=no,scrollbars=no, width=1000, height=800').focus();
-	});
-});
-*/
   
 //==============================textarea 높이 자동조정==============================
 	  $(document).ready(function() {
@@ -452,92 +404,80 @@ $(document).ready(function(){
 	    }); 
 	  });
   
-  
-//이전 페이지 데이터 받아와서 넘겨주기
-function sellornot(){
+	  
+	//이전 페이지 데이터 받아와서 넘겨주기
+	function sellornot(){
+		
+		console.log("${postSellorNot}");
+	    var sellornot = document.querySelector("#postSellorNot");
+	    if("${postSellorNot}"=="sell"){
+	    	sellornot.value = 1;
+	    }
+	    else{sellornot.value=2;}
+	}
 	
-	console.log("${postSellorNot}");
-    var sellornot = document.querySelector("#postSellorNot");
-    if("${postSellorNot}"=="sell"){
-    	sellornot.value = 1;
-    }
-    else{sellornot.value=2;}
-}
+	
+	//해시태그 추가시 배열에 저장 후 보여주기
+	var hashtags=[];
+	function addHash(){
+	    
+	    var hashtag = document.querySelector("#putHashtag").value;
+	    console.log(hashtag);
+	    //tags[] 배열에 저장(컨트롤러 보낼용도)
+	    hashtags.push(hashtag);
+	    console.log(hashtags);
+	    var ul = document.querySelector("#hashtaglist");
+	
+	    var li = document.createElement('li');
+	    li.innerHTML="#"+hashtag+" ";
+	    li.style.display = "none";
+	    li.style.display = "inline";
+	
+	    ul.appendChild(li);
+	    document.querySelector("#putHashtag").value="";
+	    
+	    hashtags.join;
+	    document.querySelector('#hashtags').value=hashtags;
+	
+	};
+	
+	
+	//스토리 Thumbnail 업로드시 img 태그에 append
+	function readURL(input) {
+	 if (input.files && input.files[0]) {
+	  var reader = new FileReader();
+	  
+	  reader.onload = function (e) {
+	   $('#addedThumbnailimg').attr('src', e.target.result);  
+	  }
+	  
+	  reader.readAsDataURL(input.files[0]);
+	  }
+	 
+	//이미지 띄우고 나서 밑에 스토리타이틀, 스토리설명 추가하기 한번만!!!!!
+	 if(!document.querySelector('#storyTitle')){ //storyTitle 없으면!
+	 var html = "<label>Story Title</label><input type='text' class='w-100 form-control' id='storyTitle' placeholder='스토리 제목을 입력하세요' name='storyTitle'></div><br><div class='form-group'><label>Story Description</label><textarea class='w-100 form-control' id='storyDescription' name='storyDescription'  placeholder='스토리 설명을 입력하세요. (100자 이내)' style='min-height:100px; max-height:100px;'></textarea>";
+	 document.querySelector("#story_field").insertAdjacentHTML('afterbegin',html);
+	 }
+	}
+	 
+	// 이벤트를 바인딩해서 input에 파일이 올라올때 (input에 change를 트리거할때) 위의 함수를 this context로 실행합니다.
+	$("#storyThumbnail").change(function(){
+	   readURL(this);
+	});
+	
+	
+	//leave button 눌렀을때 alert 띄우기
+	function leavePage(){
+	  if (confirm("저장된 사진 및 내용이 모두 사라집니다."))
+	  {history.back();}
+	  else {return false;}
+	};
 
-
-//해시태그 추가시 배열에 저장 후 보여주기
-var hashtags=[];
-function addHash(){
-    
-    var hashtag = document.querySelector("#putHashtag").value;
-    console.log(hashtag);
-    //tags[] 배열에 저장(컨트롤러 보낼용도)
-    hashtags.push(hashtag);
-    console.log(hashtags);
-    var ul = document.querySelector("#hashtaglist");
-
-    var li = document.createElement('li');
-    li.innerHTML="#"+hashtag+" ";
-    li.style.display = "none";
-    li.style.display = "inline";
-
-    ul.appendChild(li);
-    document.querySelector("#putHashtag").value="";
-    
-    hashtags.join;
-    document.querySelector('#hashtags').value=hashtags;
-
-};
-
-
-//스토리 Thumbnail 업로드시 img 태그에 append
-function readURL(input) {
- if (input.files && input.files[0]) {
-  var reader = new FileReader();
-  
-  reader.onload = function (e) {
-   $('#addedThumbnailimg').attr('src', e.target.result);  
-  }
-  
-  reader.readAsDataURL(input.files[0]);
-  }
- 
-//이미지 띄우고 나서 밑에 스토리타이틀, 스토리설명 추가하기 한번만!!!!!
- if(!document.querySelector('#storyTitle')){ //storyTitle 없으면!
- var html = "<label>Story Title</label><input type='text' class='w-100 form-control' id='storyTitle' placeholder='스토리 제목을 입력하세요' name='storyTitle'></div><br><div class='form-group'><label>Story Description</label><textarea class='w-100 form-control' id='storyDescription' name='storyDescription'  placeholder='스토리 설명을 입력하세요. (100자 이내)' style='min-height:100px; max-height:100px;'></textarea>";
- document.querySelector("#story_field").insertAdjacentHTML('afterbegin',html);
- }
-}
- 
-// 이벤트를 바인딩해서 input에 파일이 올라올때 (input에 change를 트리거할때) 위의 함수를 this context로 실행합니다.
-$("#storyThumbnail").change(function(){
-   readURL(this);
-});
-
-
-//leave button 눌렀을때 alert 띄우기
-function leavePage(){
-  if (confirm("저장된 사진 및 내용이 모두 사라집니다."))
-  {history.back();}
-  else {return false;}
-};
 
 </script>
 
 
-<script>
- $('#jsButton').click(function(){
-	document.frm.base64.value="base64이미지데이타";
-   	document.frm.target="iframe2";
-   	document.frm.action="index.jsp";
-   	document.frm.submit();
-   $('#jsModal').modal({backdrop:'static'});
- });
-</script>
-
-<form id="imgsend" action="<c:url value='/gallery/post/loadEditor.do'/>" method="post">
-	<input type="hidden" name="img" />
-</form>
 
 
 

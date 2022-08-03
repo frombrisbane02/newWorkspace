@@ -16,6 +16,8 @@ public interface GalleryService<T> {
 	//클릭한 postNo로 가져오기
 	List<GalleryDTO> galleryView(int postNo);
 
+	List<GalleryDTO> galleryInfo(int postNo);
+
 	
 	
 }

@@ -14,8 +14,8 @@ import lombok.ToString;
 @ToString
 public class PostDTO {
 	
+	//TBL_POST
 	private int postNo;
-	private int userNo;
 	private String postTitle;
 	private int postHits;
 	private int postSellorNot;
@@ -23,7 +23,28 @@ public class PostDTO {
 	private String postText;
 	private int postLikes;
 	private Date postDate;
+
+	
+
+	//TBL_STORY
+	private int sNo;
+	private String storyThumbnail;
+	private String storyTitle;
+	private String storyDescription;
+
+	
+	//TBL_USERS
+	private int userNo;
 	private String userId;
+	private String userPassword;
+	private String userEmail;
+	private String userName;
+	private String userNickname;
+	private int userFing;
+	private int userFwer;
+	private String userProfile;
+	private String userSelf;
+	private Date userDate;
 	
 	//파일 서버 업로드용
 	private MultipartFile upload;
@@ -50,10 +71,6 @@ public class PostDTO {
 	private int pdSalesNo;
 	private Date pdDate;
 	
-	//Story(등록하는경우)
-	private int sNo;
-	private String storyTitle;//20자
-	private String storyDescription;//100자  
 
 	/*comment(이거 분리할지..)
 	private int cNo;

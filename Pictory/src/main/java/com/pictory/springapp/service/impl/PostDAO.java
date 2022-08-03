@@ -26,6 +26,7 @@ public class PostDAO {
 	
 	@Autowired
 	private SqlSessionTemplate template;
+
 	
 
 	public int postInsert(Map map) {
@@ -193,6 +194,17 @@ public class PostDAO {
 		template.insert("productInsert",map);
 		
 		return 1;
+	}
+
+	public List<PostDTO> getStoryList(Map userId) {
+		// story를 위해 sno, 스토리 타이틀, 스토리 제목 갖고와야함
+		List<PostDTO> lists = template.selectList("getStoryList",userId);
+		for(PostDTO list : lists) {
+			System.out.println("가지고온 sno: "+list.getSNo());
+			System.out.println("가지고온 stitle: "+list.getStoryTitle());
+			System.out.println("가지고온 썸네일: "+list.getStoryThumbnail());
+		}
+		return null;
 	}
 
 

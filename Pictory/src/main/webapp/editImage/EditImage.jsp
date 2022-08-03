@@ -1,19 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
- 
+<%
+ 	String base64=request.getParameter("base64");
+	String base64Index=request.getParameter("base64Index");
+ %>
   <!-- example 추가 -->
     <script src="https://cdn.scaleflex.it/plugins/js-cloudimage-responsive/4.8.5/js-cloudimage-responsive.min.js"></script>
     <script src="https://cdn.scaleflex.it/filerobot/js-cloudimage-responsive/lazysizes.min.js"></script>
   <!--vanilla js cdn-->
   	<script src="https://scaleflex.cloudimg.io/v7/plugins/filerobot-image-editor/latest/filerobot-image-editor.min.js"></script>
-  	
-	<div class="container">
+  	<body style="margin-top:100px">
+    <input type="hidden" id="childBase64"/>
+    
+    <div class="container">
 		<!--아래 div에 이미지 보정 에디터가 디스플레이 된다-->
 		<div id="editor_container"></div>
-		<img id="display_image" alt="보정이미지 표시" style="display: none; margin-left: auto; margin-right: auto;" />
+		
 	</div>
-
+	
    
     <script>
       const ciResponsive = new window.CIResponsive({
@@ -32,7 +37,7 @@
 
     <script>
       var file = document.querySelector('input[type="file"]');
-      console.log(file.getAttribute);
+      //console.log(file.getAttribute);
 
       const reader = new FileReader();
       reader.addEventListener('loadend',()=>{
@@ -47,10 +52,10 @@
 	
 	  const { TABS, TOOLS } = FilerobotImageEditor;
 	  const config = {
-	  source: 'https://images.unsplash.com/photo-1658959305360-b942374cb042?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80',
+	  source: '<%=base64%>',
 	  language:'ko',
 	  onSave: (editedImageObject, designState) =>{//저장 버튼 클릭시 콜백 함수
-		//editedImageObject이 보정된 이미지에 대한 정보가 담긴 객체임
+		//editedImageObject이 보정된 이미지에 대한 정보가 담긴 객체
 		console.log('saved', editedImageObject, designState);
 		var src=editedImageObject.imageBase64.split(',')
 		var data=src[1];
@@ -61,27 +66,29 @@
 		console.log('editedImageObject.fullName:',editedImageObject.fullName)
 		console.log('editedImageObject.mimeType:',editedImageObject.mimeType)
 		
+		//보정한이미지로 부모 교체
+		opener.document.getElementById('pictoryImage<%=base64Index%>').src=editedImageObject.imageBase64;
+		
 		
 		//아래는 보정한 이미지를 스프링 서버로 업로드하는 코드
 		$.ajax({
-		  //url:"http://192.168.0.5:4040/springapp/gallery/image.do",
-		  url:"<c:url value='/gallery/post/EditImage.do'/>",
+		  url:"http://localhost:4040/springapp/post/EditImage.do",
+		  //url:"<c:url value='/gallery/post/EditImage.do'/>",
 		  data:"base64="+encodeURIComponent(data)+"&filename="+editedImageObject.fullName,
 		  dataType:'json',
 		  method:'post'
 
 		}).done(function(data){
-		  console.log('성공:',data);
+		 
 		  //보정이미지 표시
-		  document.querySelector("#display_image").style.display='';
-		  document.querySelector("#display_image").src=editedImageObject.imageBase64
+		 
 		  
 		  /*
 		  var editimg = document.createElement("img");
 		  editimg.src = editedImageObject.imageBase64;
 		  var div = document.querySelector(".imgpre");
 		  div.appendChild(editimg);
-		  */
+		  
 		    
 		  //자동 다운로드 코드 구현
 		  var a= document.createElement('a');		 
@@ -90,9 +97,9 @@
 		  a.setAttribute("download", editedImageObject.fullName);      
 		  a.click();
 		  //0.1초후에 자동 다운로드를 위해 생성한 a태그 삭제
-		  setTimeout(function(){document.body.removeChild(a)},100);
+		  setTimeout(function(){document.body.removeChild(a)},100);*/
 
-		}).fail(function(e){console.log('에러:',e)});
+		});
 	  },
 		
 	  annotationsCommon: {
@@ -261,8 +268,11 @@
 		filerobotImageEditor.terminate();
 	  },
 	});
-
-
+	
+	
+	filerobotImageEditor.render({source:'<%=base64%>'});
+	
+     /*
 	//파일 교환 위한 추가코드
 	document.querySelector('#add-image').onchange=function(){
 		//보정이미지를 표시하는 IMG태그 숨기기
@@ -278,22 +288,12 @@
 
 		}
 	  }
+	*/
 	
 	
-//=====================================================================
-//가지고온 source로 이미지 교체
+	
 
-$(document).ready(function(){
 	
-	//var source = ${source};
-	//console.log('열었을때 가지고 온 source: ', source);
-	//filerobotImageEditor.render({source: source});
-	
-});
-
-//08.02 추가
-<%String base64=request.getParameter("base64");%>
-<img src="<%=base64 %>" alt="이미지"/>
 	
 	
 	

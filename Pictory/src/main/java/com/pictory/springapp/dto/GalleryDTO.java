@@ -24,6 +24,9 @@ public class GalleryDTO {
 	private int postLikes;
 	private Date postDate;
 	
+	
+	//글 총합 저장용
+	private int postCount;
 
 	//TBL_STORY
 	private int sNo;

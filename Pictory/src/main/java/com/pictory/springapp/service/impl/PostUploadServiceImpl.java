@@ -123,6 +123,14 @@ public class PostUploadServiceImpl implements PostUploadService<PostDTO> {
 		
 		return 1;
 	}
+	
+	
+	@Override
+	public List<PostDTO> selectStoryList(Map userId) {
+		// 스토리 리스트 뿌려주기
+		return dao.getStoryList(userId);
+	}
+
 
 
 
@@ -155,6 +163,7 @@ public class PostUploadServiceImpl implements PostUploadService<PostDTO> {
 	public int postUpdate(Map map) {
 		return dao.postUpdate(map);
 	}
+
 
 
 	

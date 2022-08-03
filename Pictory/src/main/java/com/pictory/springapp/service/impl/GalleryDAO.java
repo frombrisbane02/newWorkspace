@@ -50,6 +50,12 @@ public class GalleryDAO {
 	}
 
 
+	public List<GalleryDTO> selectUserInfo(int postNo) {
+		//작가 정보 뿌려주기 위한 서비스 호출
+		return template.selectList("userInfo",postNo);
+	}
+
+
 
 
 }

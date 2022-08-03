@@ -53,15 +53,22 @@ public class PostController {
 	@GetMapping("post/Upload1.do")
 	public String upload1Page() {
 		//상단바 업로드 버튼 클릭시 업로드1 페이지로 넘겨주기
-		return "gallery/Upload1.tiles";
+		return "gallery/Upload1";
 	}
 	
 	/*upload1에서 누를시 upload2 페이지로 넘어감*/
 	@GetMapping("post/Upload2.do")
-	public String upload2Page(@RequestParam Map map, Model model) {
+	public String upload2Page(@RequestParam Map map, Model model, @ModelAttribute("userId") String userId) {
 		model.addAttribute("postSellorNot",map.get("sellornot"));
+		System.out.println("userID 업로드 넘어올때 들어오나요?"+ userId);
 		
-		return "gallery/Upload2.tiles";
+		//map.put("userId", userId);
+		
+		//스토리 리스트 있으면 뿌려주기 위한 서비스 호출
+		//List<PostDTO> stories = postUploadService.selectStoryList(map);
+		
+		
+		return "gallery/Upload2";
 	}
 	
 	//===========================EDIT IMAGE 불러오기===============================
@@ -212,8 +219,8 @@ public class PostController {
 		
 		postUploadService.sellPostInsert(map);
 		
-		
-		return "gallery/GalleryList.tiles";
+		return "forward:/gallery/GalleryList.do";
+		//return "gallery/GalleryList.tiles";
 	}
 	
 //=============================================절취선========================================================
@@ -294,8 +301,8 @@ public class PostController {
 		//부모테이블인 post Upload부터 하기(넘길때 본문정보 담긴 map, List 같이 넘기기)
 		postUploadService.postInsert(map,fileInfo);
 	
-	
 		//전부 업로드하고 갤러리 목록으로 ㄱㄱ
-		return "gallery/GalleryList.tiles";
+		return "forward:/gallery/GalleryList.do";
+		//return "gallery/GalleryList.tiles";
 	}
 }
