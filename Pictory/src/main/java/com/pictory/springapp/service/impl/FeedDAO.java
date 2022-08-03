@@ -28,7 +28,7 @@ public class FeedDAO {
 	
 	   public List<StoryDTO> virtualList() {
 		      
-		      return template.selectList("storyllist");
+		      return template.selectList("feedstorylist");
 		      
 		   }//virtualList
 
@@ -37,7 +37,7 @@ public class FeedDAO {
 		   public List<StoryDTO> virtualImages(int sNo) {
 
 		      System.out.println("****(dao)virtualImages까지는...왔니");
-		      List<StoryDTO> storyresult = template.selectList("storyimages",sNo);
+		      List<StoryDTO> storyresult = template.selectList("feedstoryimages",sNo);
 		      System.out.println("(dao)storyresult"+storyresult.toString());
 		      
 		      return storyresult;

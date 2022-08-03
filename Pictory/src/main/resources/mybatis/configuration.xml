@@ -31,7 +31,7 @@
 		<typeAlias type="com.pictory.springapp.dto.SalesDTO" alias="SalesDTO"/>
 		<typeAlias type="com.pictory.springapp.dto.AdminDTO" alias="AdminDTO" />
 		<typeAlias type="com.pictory.springapp.dto.PostDTO" alias="PostDTO"/>
-		<typeAlias type="com.pictory.springapp.dto.AdminDTO" alias="FeedDTO" />
+		<typeAlias type="com.pictory.springapp.dto.FeedDTO" alias="FeedDTO" />
 	</typeAliases>
 	<environments default="development">
 	    <environment id="development">

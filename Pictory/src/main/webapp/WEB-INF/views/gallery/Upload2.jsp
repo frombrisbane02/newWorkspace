@@ -13,19 +13,6 @@
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js" integrity="sha256-xLD7nhI62fcsEZK2/v8LsBcb4lG7dgULkuXoXB/j91c=" crossorigin="anonymous"></script>
 
-
-<!--<script type="module" src="/public/init.js"></script>-->
-
-<!--vanilla js cdn-->
-<!--  
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="https://cdn.scaleflex.it/plugins/js-cloudimage-responsive/4.8.5/js-cloudimage-responsive.min.css?vh=a076ef&func=proxy" />
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet" />
--->
-<!-- 
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/upload/style.css" /> -->
-
-
 <!--text에디터용-->
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
@@ -35,12 +22,8 @@
 	href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
 	integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
 	crossorigin="anonymous" />
-<!-- 파일 업로드 프리뷰용 -->
-
-
 
 <!--기본 bootstrap4용-->
-
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
@@ -64,11 +47,15 @@
 
 .imageprev {
 	display: block;
-	width: 100%;
+	width: auto;
 	height: auto;
+	max-width:1000px;
+	height: auto;
+	margin-left: auto;
+	margin-right: auto;
 }
 
-.editImagebtn {
+.editpic > button {
 	position: absolute;
 	bottom: 0;
 	background: rgb(0, 0, 0);
@@ -86,7 +73,7 @@
 	border: 0;
 }
 
-.editpic:hover .editImagebtn {
+.editpic:hover > button {
 	opacity: 1;
 }
 </style>
@@ -132,13 +119,9 @@
 
 		<!--===================================이미지 프리뷰 ===================================-->
 		<div class="mothercontainer">
-		<!--<div class="container border-light">
-	      <div class="imgpre">
-	      </div>
-	 	</div>-->
 		</div>
 
-		<br> <br>
+		<br><br>
 		<!-- ===================================text 영역=================================== -->
 		<div class="form-group border-secondary border justify-item-center">
 			<div class="text-center">

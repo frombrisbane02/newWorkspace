@@ -71,35 +71,11 @@ public class PostController {
 		return "gallery/Upload2";
 	}
 	
-	//===========================EDIT IMAGE 불러오기===============================
-	/*
-	@RequestMapping("post/loadModal.do")
-	public String firstModal(@RequestParam String source, Model model) throws JsonProcessingException {
-		
-		System.out.println("가지고온 source: "+ source);
-		model.addAttribute("source", source);
-		
-		return "gallery/EditImage";
-	}
 	
-	@CrossOrigin
-	@RequestMapping(value="post/loadEditor.do",produces = "text/html;charset=utf-8")
-	public String loadModal(@RequestParam String img, Model model,
-				HttpSession session, HttpServletRequest req) throws JsonProcessingException {
-		
-		System.out.println("가지고온 source: "+ img);
-		model.addAttribute("source", img);
-		
-		return "gallery/sample.tiles";
-		
-		//return "gallery/EditImage";
-	}
-
-	*/
 	
 	//===========================EDIT IMAGE===============================
 	//보정 이미지 한장한장 save 누를때마다 컨트롤러로 넘겨서 업로드 처리 및 db에 인서트할 값 필요 + 본문에 첨부
-	
+
 	@CrossOrigin
 	@RequestMapping(value="post/EditImage.do",produces = "application/json;charset=UTF-8")
 	public @ResponseBody String image(@RequestParam String base64, @RequestParam String filename, 
