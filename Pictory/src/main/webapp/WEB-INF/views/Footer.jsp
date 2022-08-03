@@ -54,7 +54,7 @@
 </style>
 
 	<!-- 쳇봇 버튼 -->
-	<div style="position:fixed; bottom:35px; right:30px; z-index:99;"> 
+	<div style="position:fixed; bottom:8.3rem; right:-0.6rem; z-index:99;"> 
 		<a href='#'>
 		  <img src="<c:url value="http://localhost:4040/springapp/upload/img/chatbot.png"/>" style="width:100px" id="show"> 
 		</a>

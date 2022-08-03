@@ -17,6 +17,8 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/ScrollButton.css" />
+    
 </head>
 
 <script>
@@ -38,6 +40,7 @@
         });
     });
 </script>
+
 
 
 <body>
@@ -117,5 +120,28 @@
         </nav>
     </div>
     
+   <!-- 스크롤 버튼 -->
+	<div class="topBtn"><img src="<c:url value="http://localhost:4040/springapp/resources/img/scrollup.png"/>"></div>
+      <div class="bottomBtn"><img src="<c:url value="http://localhost:4040/springapp/resources/img/scrolldown.png"/>"></div>
+    
+    
 </body>
+
+<script>
+var $topBtn = document.querySelector(".topBtn");
+var $bottomBtn = document.querySelector(".bottomBtn");
+
+
+
+
+$topBtn.addEventListener("click", function(){
+    window.scrollTo(document.body.scrollHeight,0);
+    
+});
+
+$bottomBtn.addEventListener("click", function(){
+    window.scrollTo(0,document.body.scrollHeight);
+    
+});
+</script>
 </html>
