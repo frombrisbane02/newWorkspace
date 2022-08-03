@@ -42,15 +42,21 @@ public class StoryController {
       List<StoryDTO> storyList = new ArrayList<StoryDTO>();
       List<StoryDTO> returnValue = storyService.virtualList();
       
-      System.out.println("returnValue: "+returnValue.toString());
+      //System.out.println("returnValue: "+returnValue.toString());
       
       for(StoryDTO storyOne : returnValue) {
-         System.out.println("storyone에 담긴 sNo: "+ storyOne.getSNo());
-         System.out.println("storyone에 담긴 title: "+ storyOne.getStoryTitle());
-         System.out.println("storyone에 담긴 desc: "+ storyOne.getStoryDescription());
-         System.out.println("storyone에 담긴 Thumb: "+ storyOne.getStoryThumbnail());
-         System.out.println("storyone에 담긴 UserId: "+ storyOne.getUserId());
-         System.out.println("storyone에 담긴 Nick: "+ storyOne.getUserNickname());
+//         System.out.println("storyone에 담긴 sNo: "+ storyOne.getSNo());
+//         System.out.println("storyone에 담긴 title: "+ storyOne.getStoryTitle());
+//         System.out.println("storyone에 담긴 desc: "+ storyOne.getStoryDescription());
+//         System.out.println("storyone에 담긴 Thumb: "+ storyOne.getStoryThumbnail());
+//         System.out.println("storyone에 담긴 UserId: "+ storyOne.getUserId());
+//         System.out.println("storyone에 담긴 Nick: "+ storyOne.getUserNickname());
+          storyOne.getSNo();
+          storyOne.getStoryTitle();
+          storyOne.getStoryDescription();
+          storyOne.getStoryThumbnail();
+          storyOne.getUserId();
+          storyOne.getUserNickname();
       }
       model.addAttribute("returnValue", returnValue);
       return "story/StoryIndex.tiles";
@@ -76,11 +82,11 @@ public class StoryController {
    @CrossOrigin
    @RequestMapping(value="virtualrest.do",produces = "application/json;charset=UTF-8")
    public @ResponseBody String virtualrest(HttpServletRequest req) throws JsonProcessingException {
-      System.out.println("스토리 가상"+ req.getParameter("sNo"));
+      //System.out.println("스토리 가상"+ req.getParameter("sNo"));
   
       List<Map<String,String>> lists=new Vector<>();
      
-      System.out.println("이미지 for문 끝");
+      //System.out.println("이미지 for문 끝");
       List<StoryDTO> storyimages = storyService.virtualImages(Integer.parseInt(req.getParameter("sNo")));
       for(StoryDTO dto:storyimages) {
     	 Map<String,String> map = new HashMap<>();
@@ -95,8 +101,11 @@ public class StoryController {
       resultMap.put("preference", null);
      // resultMap.put("data", lists);
       
-      System.out.println(resultMap.get("preference"));
-      System.out.println("data ="+resultMap.get("data"));
+      //System.out.println(resultMap.get("preference"));
+      //System.out.println("data ="+resultMap.get("data"));
+      resultMap.get("preference");
+      resultMap.get("data");
+      
       
       return mapper.writeValueAsString(resultMap);
    }//

@@ -1,9 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
-<html lang="ko">
-<head>
+
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=0,maximum-scale=1">
 	<title>Gallery</title>
@@ -13,15 +11,14 @@
 
 	<link rel="shortcut icon" type="image/x-icon" href="img/favicon.png">
 	<link rel="apple-touch-icon" href="img/favicon.png">
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/upload/common.css">
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/faq/common.css">
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/gallerylist/gallerylist.css">
 
 	<script src="${pageContext.request.contextPath}/resources/js/gallerylist/modernizr.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/gallerylist/html5shiv.js"></script>
 	<script src="http://code.jquery.com/jquery-1.8.1.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/gallerylist/tab.js"></script>
-</head>
-<body>
+
 <br>
 <br>
 <br>
@@ -29,16 +26,16 @@
 	<div class="gall_list">
 		<div class="top_filter">
 			<div class="filter_left">
-				<a href="" class="filter_btn"><img src="img/test_icon12.png" alt="">Filter</a>
+				<a href="" class="filter_btn"><img src="<c:url value="/resources/img/story/test_icon12.png"/>"alt="">Filter</a>
 				<p class="count"><span>384</span> results found</p>
 			</div>
 			<!-- sort area 삭제함 -->
 		</div>
-		<ul class="fil_sel_list" style="list-style-type: none;">
+		<ul class="fil_sel_list">
 		<!-- 여기 선택한 필터 리스트 목록 갖고와서 foreach로 뿌리면서 엑스<도 기능하고, 엑스 눌렀을때 체크 해제되게 기능구현  -->
 		
 			<li>
-				<a href=""><img src="img/test_icon16.png" alt=""></a>
+				<a href=""><img src="<c:url value="/resources/img/story/test_icon16.png"/>" alt=""></a>
 				<p>Clean all</p>
 			</li>
 
@@ -100,7 +97,7 @@
 
 	<div class="filter_modal">
 		<div class="modal_white">
-			<a href="" class="close_modal"><img src="img/test_icon13.png" alt=""></a>
+			<a href="" class="close_modal"><img src="<c:url value="/resources/img/story/test_icon13.png"/>" alt=""></a>
 			<h3>Filter content just for you</h3>
 			<form action="">
 				<div class="fil_wrap">

@@ -34,5 +34,6 @@ public class StoryDTO {
 	private int photoNo;
 	private String photoName;
 	private String photoUrl;
-
+	
+	private String postCategory;
 }
