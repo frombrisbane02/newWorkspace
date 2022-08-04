@@ -29,6 +29,37 @@ public class AdminQnaServiceImpl implements AdminQnaService {
 		
 		return null;
 	}
+	
+	
+	@Override
+	public boolean qnaAnswer(List<HashMap<String, Object>> params) throws Exception {
+		
+		try {
+			
+			boolean result = qnaDAO.qnaAnswer(params);
+			return result;
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+			return false;
+	}
+	
+	@Override
+	public boolean qnaAnswerUpdate(List<HashMap<String, Object>> params) throws Exception {
+		try {
+			
+			boolean result = qnaDAO.qnaAnswerUpdate(params);
+			return result;
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		return false;
+	}
 
 	@Override
 	public boolean qnaDelete(int qnaNo) throws Exception {

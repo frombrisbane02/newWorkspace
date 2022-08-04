@@ -8,7 +8,7 @@
 <html lang="en">
 
 <head>
-    <title>Picktory-수익 및 정산 </title>
+    <title>Pictory-수익 및 정산 </title>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
@@ -103,7 +103,7 @@
 			<nav class="navbar bg-light navbar-light">
 				<a href="/springapp/index.do" class="navbar-brand mx-4 mb-3">
 					<h3 class="text-primary">
-						<i class="fa fa-hashtag me-2"></i>PICKTORY
+						<i class="fa fa-hashtag me-2"></i>PICTORY
 					</h3>
 				</a>
 				<div class="d-flex align-items-center ms-4 mb-4">
@@ -115,7 +115,7 @@
 						</div>
 					</div>
 					<div class="ms-3">
-						<h6 class="mb-0">Picktory</h6>
+						<h6 class="mb-0">${sessionScope.userId}</h6>
 						<span>관리자</span>
 					</div>
 				</div>
@@ -186,7 +186,7 @@
 							data-bs-toggle="dropdown"> <img
 							class="rounded-circle me-lg-2" src="${pageContext.request.contextPath}/resources/img/admin/test_img05.jpg" alt=""
 							style="width: 40px; height: 40px;"> <span
-							class="d-none d-lg-inline-flex">Picktory</span>
+							class="d-none d-lg-inline-flex">${sessionScope.userId}</span>
 						</a>
 						<div
 							class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
@@ -205,7 +205,7 @@
 							<i class="fa fa-chart-line fa-3x text-primary"></i>
 							<div class="ms-3">
 								<p class="mb-2">
-									이번 주 PICKTORY 매출
+									이번 주 PICTORY 매출
 								</p>
 								<h6 class="mb-0 text-right" id="weekPay">0원</h6>
 							</div>
@@ -217,7 +217,7 @@
 							<i class="fa fa-chart-bar fa-3x text-primary"></i>
 							<div class="ms-3">
 								<p class="mb-2">
-									총 PICKTORY 매출
+									총 PICTORY 매출
 								</p>
 								<h6 class="mb-0 text-right" id="totalPay">0원</h6>
 							</div>
@@ -587,7 +587,7 @@ class="panel-radios" type="checkbox" name="nav-checkbox">
                                         <td id="total_all"></td>
                                     </tr>
 									<tr>
-                                        <th scope="row">Picktory 매출 (10%수수료)</th>
+                                        <th scope="row">Pictory 매출 (10%수수료)</th>
                                         <td id="total_all2"></td>
                                     </tr>
                                      
@@ -1037,7 +1037,7 @@ var tabText = "회원";
 				    labels: xValues,
 				    datasets: [
 		                { label: '총 매출', backgroundColor: "rgba(30, 144, 255, 1)", data: yValues }
-		              , { label: 'Picktory 매출 (10%수수료)', backgroundColor: "rgba(24, 154, 155, 1)", borderColor:"red", data: yValuesTwo }
+		              , { label: 'Pictory 매출 (10%수수료)', backgroundColor: "rgba(24, 154, 155, 1)", borderColor:"red", data: yValuesTwo }
 		    ]
 				  },
 				  options: {

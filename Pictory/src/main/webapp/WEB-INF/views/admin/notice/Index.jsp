@@ -8,7 +8,7 @@
 <html lang="en">
 
 <head>
-    <title>Picktory-공지사항 및 Q&A </title>
+    <title>Pictory-공지사항 및 Q&A </title>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
@@ -104,9 +104,9 @@
 		<!-- Sidebar Start -->
 		<div class="sidebar pe-4 pb-3">
 			<nav class="navbar bg-light navbar-light">
-				<a href="Index.do" class="navbar-brand mx-4 mb-3">
+				<a href="/springapp/index.do" class="navbar-brand mx-4 mb-3">
 					<h3 class="text-primary">
-						<i class="fa fa-hashtag me-2"></i>PICKTORY
+						<i class="fa fa-hashtag me-2"></i>PICTORY
 					</h3>
 				</a>
 				<div class="d-flex align-items-center ms-4 mb-4">
@@ -118,7 +118,7 @@
 						</div>
 					</div>
 					<div class="ms-3">
-						<h6 class="mb-0">Picktory</h6>
+						<h6 class="mb-0">${sessionScope.userId}</h6>
 						<span>관리자</span>
 					</div>
 				</div>
@@ -189,7 +189,7 @@
 							data-bs-toggle="dropdown"> <img
 							class="rounded-circle me-lg-2" src="${pageContext.request.contextPath}/resources/img/admin/test_img05.jpg" alt=""
 							style="width: 40px; height: 40px;"> <span
-							class="d-none d-lg-inline-flex">Picktory</span>
+							class="d-none d-lg-inline-flex">${sessionScope.userId}</span>
 						</a>
 						<div
 							class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
@@ -281,12 +281,9 @@ class="panel-radios" type="checkbox" name="nav-checkbox">
 <label class="panel-label"
       for="panel-2-ctrl">Q & A</label>
 </li><!--INLINE-BLOCK FIX
---><li id="li-for-panel-3" class="reportTab tabClick" data-tab_title="신고">
-<label class="panel-label"
-      for="panel-3-ctrl">신고 리스트</label>
-</li><!--INLINE-BLOCK FIX
+--><!--INLINE-BLOCK FIX
 -->
-</li><!--INLINE-BLOCK FIX
+<!--INLINE-BLOCK FIX
 --><!--INLINE-BLOCK FIX
 -->
 
@@ -641,10 +638,10 @@ class="panel-radios" type="checkbox" name="nav-checkbox">
                 <thead>
                   <tr class="table-secondary text-center">
                       <th class="col-1">번호</th>
-                      <th class="col-6">제목</th>
+                      <th class="col-5">제목</th>
                       <th class="col-1">아이디</th>
                       <th class="col-1">작성일</th>
-                      
+                      <th class="col-1">답변확인</th>
                     </tr>
                 </thead>
                 <tbody class="table-sm" id="qnaTbody">
@@ -733,32 +730,33 @@ class="panel-radios" type="checkbox" name="nav-checkbox">
 		<tbody class="table-sm">
 			<tr>
 				<th class="w-25 bg-dark text-white text-center">번호</th>
-				<td class="text-black" id="modalQnaNo"></td>
+				<td class="text-black modalQnaNo modalQnaRemove" id="modalQnaNo"></td>
 			</tr>
 			<tr>
 				<th class="w-25 bg-dark text-white text-center">아이디</th>
-				<td class="text-black" id="modalQnaId"></td>
+				<td class="text-black modalQnaRemove" id="modalQnaId"></td>
 			</tr>
 			<tr>
 				<th class="w-25 bg-dark text-white text-center">등록일</th>
-				<td class="text-black" id="modalQnaDate"></td>
+				<td class="text-black modalQnaRemove" id="modalQnaDate"></td>
 			</tr>
 			<tr>
 				<th class="w-25 bg-dark text-white text-center">제목</th>
-				<td class="text-black" id="modalQnaTitle"></td>
+				<td class="text-black modalQnaRemove" id="modalQnaTitle"></td>
 			</tr>
 			<tr>
 				<th class="bg-dark text-white text-center" colspan="2">내 용</th>
 			</tr>
 			<tr>
-				<td colspan="2" class="text-black" id="modalQnaContent"></td>
+				<td colspan="2" class="text-black modalQnaRemove" id="modalQnaContent"></td>
 			</tr>
 			<tr>
 				<th class="bg-dark text-white text-center" colspan="2">답 변</th>
 			</tr>
 			<tr>
 				<td colspan="2" class="text-black">
-					<textarea id="modalQnaAnswer" placeholder="답변내용을 입력하세요" class="form-control" rows="5" name="content"></textarea>
+					<textarea id="modalQnaAnswer" placeholder="답변내용을 입력하세요" class="form-control modalQnaRemove"  rows="5" name="content"></textarea>
+					<input type="text" id="adminUserId" style="display:none" value="${sessionScope.userId}" />
 				</td>
 			</tr>
 			
@@ -843,7 +841,7 @@ class="panel-radios" type="checkbox" name="nav-checkbox">
 							<tr>
                                 <td class="text-center">5</td>
                                 <td class="text-center"><a class="primary" data-toggle="modal" data-target="#exampleModalCenter2">신고합니다</a></td>
-                                <td class="text-center"><a href="memberOne.html">Picktory</a></td>
+                                <td class="text-center"><a href="memberOne.html">Pictory</a></td>
                                 <td class="text-center">22-06-22</td>
                           </tr>
 						</c:forEach>
@@ -853,42 +851,42 @@ class="panel-radios" type="checkbox" name="nav-checkbox">
 			                 <tr>
 			                      <td class="text-center">5</td>
 			                      <td><a class="primary" data-toggle="modal" data-target="#exampleModalCenter2">신고합니다</a></td>
-			                      <td><a href="memberOne.html">Picktory</a></td>
+			                      <td><a href="memberOne.html">Pictory</a></td>
 			                      <td class="text-center">22-06-22</td>
 			                </tr>
 			                
 			                <tr>
 			                      <td class="text-center">5</td>
 			                      <td><a class="primary" data-toggle="modal" data-target="#exampleModalCenter2">신고합니다</a></td>
-			                      <td><a href="memberOne.html">Picktory</a></td>
+			                      <td><a href="memberOne.html">Pictory</a></td>
 			                      <td class="text-center">22-06-22</td>
 			                </tr>
 			                
 			               <tr>
 			                      <td class="text-center">5</td>
 			                      <td><a class="primary" data-toggle="modal" data-target="#exampleModalCenter2">신고합니다</a></td>
-			                      <td><a href="memberOne.html">Picktory</a></td>
+			                      <td><a href="memberOne.html">Pictory</a></td>
 			                      <td class="text-center">22-06-22</td>
 			                </tr>
 			                
 			                <tr>
 			                      <td class="text-center">5</td>
 			                      <td><a class="primary" data-toggle="modal" data-target="#exampleModalCenter2">신고합니다</a></td>
-			                      <td><a href="memberOne.html">Picktory</a></td>
+			                      <td><a href="memberOne.html">Pictory</a></td>
 			                      <td class="text-center">22-06-22</td>
 			                </tr>
 			                
 			                <tr>
 			                      <td class="text-center">5</td>
 			                      <td><a class="primary" data-toggle="modal" data-target="#exampleModalCenter2">신고합니다</a></td>
-			                      <td><a href="memberOne.html">Picktory</a></td>
+			                      <td><a href="memberOne.html">Pictory</a></td>
 			                      <td class="text-center">22-06-22</td>
 			                </tr>
 			                
 			                <tr>
 			                      <td class="text-center">5</td>
 			                      <td><a class="primary" data-toggle="modal" data-target="#exampleModalCenter2">신고합니다</a></td>
-			                      <td><a href="memberOne.html">Picktory</a></td>
+			                      <td><a href="memberOne.html">Pictory</a></td>
 			                      <td class="text-center">22-06-22</td>
 			                </tr>
 		    <!-- 예시 게시물 표현 끝-->
@@ -977,6 +975,7 @@ class="panel-radios" type="checkbox" name="nav-checkbox">
 const localhost = 'http://localhost:4040/springapp/admin';
 var tabText = '공지';
 var orderby = "ASC";
+var userId = $('#adminUserId').val();
 
 //Sidebar Toggler
 $('.sidebar-toggler').click(function () {
@@ -988,15 +987,18 @@ var noticeAjaxData = "";
 var URLInfo = "/noticeList.do";
 
   $(document).ready(function() {
+	  
+		if(!userId){
+			alert("로그인을 해주세요\n로그인 페이지로 이동합니다");
+			window.location.href = "http://localhost:4040/springapp/auth/Logout.do";
+			return false;
+		}
+	  
+	  
 		noticeListFn();
   });
   
-  
-  $('#modalQnaClick').on('click', function(){
-	 	alert("준비중입니다");
-	 	return false;
-  });
-  
+    
   //탭 클릭
   $(document).on('click', '.tabClick', function(){
 	 
@@ -1020,9 +1022,72 @@ var URLInfo = "/noticeList.do";
 	  noticeListFn();
   });
   
+  
+  var qnaNo = "";
+  
+  //Q&A 답변클릭
+  $('#modalQnaClick').on('click',function(){
+	  	qnaNo = $(this).val();
+	  	var qnaTextValue = $(this).text();
+	 	
+	  	if(qnaTextValue == "답변"){
+	  		URLInfo = "/qnaAnswer.do";
+	  	}else{
+	  		URLInfo = "/qnaAnswerUpdate.do";
+	  	}
+	  	
+	 	qnaAnswerFn();
+  });
+  
+  //Q&A 답변
+  function qnaAnswerFn(){
+	  
+	     var answerText = $('#modalQnaAnswer').val();
+		
+		if(!answerText){
+			alert("답변을 입력해주세요");
+			return false;
+		}
+		
+		
+		// 모달창 삭제
+		$('#modalQnaClick').attr('data-dismiss', "modal");
+		
+		var obj = [{"qnaNo" : qnaNo, "answerText" : answerText}];
+	
+		 $.ajax({
+			    url: localhost + URLInfo,
+			    type: "POST",
+			    cache: false,
+			    dataType: "json",
+			    contentType: "application/json",
+			    data: JSON.stringify(obj),
+			    success: function(data){
+			    	
+			    	if(data == true){
+			    		alert("등록 되었습니다");
+			    		$('#modalQnaAnswer').val('');
+			    		URLInfo = "/qnaList.do";
+			    		noticeListFn();
+			    		return false;
+			    	}else{
+			    		alert("등록에 실패했습니다");
+			    		return false;
+			    	}
+			    		    	
+//			    	noticeAjaxData = data;		    	
+//			    	$('#tr_notice').html('');
+//			    	$('#qnaTbody').html('');		    	
+//			    	noticeSettingFn();
+			    	
+			    }, error: function (request, status, error){
+			    	alert("Error");
+			    }
+		  });
+  }
+  
   // 데이터 AJAX
   function noticeListFn(){
-	  
 	  
 	  if(tabText == "공지"){
 		  var noticeKeyword = $('#noticeKeyword').val();
@@ -1055,9 +1120,6 @@ var URLInfo = "/noticeList.do";
 		    }
 	  });
   }
-  
-  
-  
   
   // 리스트 세팅
   function noticeSettingFn(){
@@ -1098,13 +1160,20 @@ var URLInfo = "/noticeList.do";
 			  var qnaHTML = '';
 			  var v = noticeAjaxData[i];
 			  
+				if(v.answerText){
+					var anCheck = "O";
+				}else{
+					var anCheck = "X";
+				}
+			  
 			  var qnDate = v.qnaDate.substring(0, 10);
 			 	  qnaHTML += '<tr>'
 				  qnaHTML += '<td class="text-center">'+ v.qnaNo +'</td>'
 				  qnaHTML += '<td class="text-center"><a class="primary modalClick" data-modal_no='+ v.qnaNo +' data-toggle="modal" data-target="#exampleModalCenter1">'+ v.qnaTitle +'</a></td>'
 				  qnaHTML += '<td class="text-center">'+ v.userId +'</a></td>'
 				  qnaHTML += '<td class="text-center">'+ qnDate +'</td>'
-				  qnaHTML += '</tr>'				  
+				  qnaHTML += '<td class="text-center">'+ anCheck +'</td>'
+				  qnaHTML += '</tr>'
 				  $('#qnaTbody').append(qnaHTML);
 		  }		  
 	  }
@@ -1129,10 +1198,25 @@ var URLInfo = "/noticeList.do";
 			  }
 		  }  
 	  }else if(tabText == 'qna'){
+		  
+		  
+//		  $('.modalQnaRemove').text('');
+		  $('.modalQnaRemove').val('');
+		  
+		  console.log("noticeAjaxData : ", noticeAjaxData);
+		  
 		  for(var i = 0; i < noticeAjaxData.length; i++){
 			  var v = noticeAjaxData[i];
 			  var qnDate = v.qnaDate.substring(0, 10);
 			  if(modalNo == v.qnaNo){
+				  if(v.answerText){
+					  $('#modalQnaAnswer').val(v.answerText);
+					  $('#modalQnaClick').text('수정');
+				  }else{
+					  $('#modalQnaAnswer').val('');
+					  $('#modalQnaClick').text('답변');
+				  }
+				  
 				  $('#modalQnaNo').text(v.qnaNo);
 				  $('#modalQnaId').text(v.userId);
 				  $('#modalQnaDate').text(qnDate);
@@ -1227,7 +1311,7 @@ var URLInfo = "/noticeList.do";
 	 	  
 	  var noticeTitle = $("#noInsertTitle").val();
 	  var noticeContent = $("#noInsertContent").val();
-	  var obj = [{"userNo" : 2, "noticeTitle" : noticeTitle, "noticeContent" : noticeContent}];
+	  var obj = [{"userNo" : 1, "noticeTitle" : noticeTitle, "noticeContent" : noticeContent}];
 	  
 	  // 모달창 삭제
 	  $('#noticeInsertBtn').attr('data-dismiss', "modal");

@@ -94,6 +94,7 @@
 				<br><br><h4>질문을 찾지 못하였습니까</h4>
 				<br><p>Q&A로 넘어가시죠</p>
 				<a href="" class="filter_btn">Filter</a>
+				<input type="text" id="faqUserId" style="display:none" value="${sessionScope.userId}" />
 			</div>
 	</div>
 	<div class="filter_modal">
@@ -101,15 +102,15 @@
 				<a href="" class="close_modal"><img src="<c:url value="/resources/img/faq/test_icon13.png"/>" alt=""></a>
 				<h3 style="text-align: center;">Q & A (1:1 질문)</h3>
 				<form action="">
-					<div class="fil_wrap">
+				<!--	<div class="fil_wrap">
 						<label for="qnacategory"><h5><b>질문 카테고리를 골라주세요</b></h5></label>
 						<br>
 							<select name="qna" id="qna" style="border: #222222;" >
-							<!--	<optgroup label="카테고리를 골라주세요">
+								<optgroup label="카테고리를 골라주세요">
 							  	<option value="qna1">구매/판매 질문</option>
 								<option value="qna2">갤러리/스토리 질문</option>
 								<option value="qna3">운영자지원 질문</option>
-								<option value="qna4">기타</option>	-->
+								<option value="qna4">기타</option>	
 								
 								<option value="1">구매/판매 질문</option>
 								<option value="2">갤러리/스토리 질문</option>
@@ -118,7 +119,7 @@
 								
 							</optgroup>
 							</select>
-					</div>
+					</div>	-->
 					<div class="container">
 						<br>
 							<form method="post" action="">   
@@ -137,7 +138,7 @@
 						</div>					
 	
 					<div class="btn_area">
-						<input type="button" value="취소" class="reset_btn buttonClick">
+						<input type="button" value="취소" style="cursor:pointer;" class="reset_btn buttonClick">
 						<input type="button" value="작성" style="cursor:pointer;" class="apply_btn buttonClick">
 					</div>
 				</form>
@@ -244,7 +245,7 @@ const localhost = 'http://localhost:4040/springapp/faq';
 	  });
 	});
 
-		function myFunction3() {
+	function myFunction3() {
 	  var a = document.getElementById("four");
 	  if (a.style.display === "none") {
 		a.style.display = "block";
@@ -253,8 +254,6 @@ const localhost = 'http://localhost:4040/springapp/faq';
 	  }
 	}
 	
-		
-		
 	// 클릭 버튼
 	$('.buttonClick').on('click', function(){
 		var clickValue = $(this).val();
@@ -270,8 +269,15 @@ const localhost = 'http://localhost:4040/springapp/faq';
 	
 	// QNA INSERT
 		function qnaInsertFn(){
-		
-			var qnaCatgory = $('#qna').val();
+	
+			var userId = $('#faqUserId').val();
+	
+			if(!userId){
+				alert("로그인을 해주세요\n로그인 페이지로 이동합니다");
+				window.location.href = "http://localhost:4040/springapp/auth/Logout.do";
+				return false;
+			}
+			
 			var qnaTitle = $('#qnaTitle').val();
 			var qnaContent = $('#qnaContent').val();
 			
@@ -285,8 +291,7 @@ const localhost = 'http://localhost:4040/springapp/faq';
 				return false;
 			}
 			
-			
-			var obj = { "userNo" : 1, "qnaCode" : 1 ,"qnaCatgory" : qnaCatgory, "qnaTitle" : qnaTitle, "qnaContent" : qnaContent };
+			var obj = {"userId" : userId, "qnaTitle" : qnaTitle, "qnaContent" : qnaContent};
 			var qnaArr = [obj];
 			
 			 $.ajax({

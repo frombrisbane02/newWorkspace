@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mybatis.mapper.adminqna">
 	 
-	 <select id="qnaList" parameterType="hashMap" resultType="AdminQnaDTO">
+<!--  	 <select id="qnaList" parameterType="hashMap" resultType="AdminQnaDTO">
 	 	<![CDATA[
 			SELECT q.*, u.USERID
 			 FROM QNA q 
@@ -12,11 +12,41 @@
                 AND UPPER(QNATITLE) LIKE UPPER('%' || #{qnaKeyword} || '%')
 				ORDER BY LPAD(QNADATE, 10, 0) ${orderby}, QNANO ${orderby}
 		]]>
+	 </select>	-->
+	 
+	 <select id="qnaList" parameterType="hashMap" resultType="AdminQnaDTO">
+	 	<![CDATA[
+	 	  SELECT q.*, an.ANSWERTEXT, an.ANSWERDATE,u.USERID	 	  
+			 FROM QNA q 
+			  JOIN USERS u
+              ON q.USERNO = u.USERNO
+              LEFT JOIN ANSWER an
+              ON q.QNANO = an.QNANO
+              WHERE 1=1
+                AND UPPER(q.QNATITLE) LIKE UPPER('%' || #{qnaKeyword} || '%')
+				ORDER BY LPAD(q.QNADATE, 10, 0) ${orderby}, q.QNANO ${orderby}
+		]]>
 	 </select>
+	 
+
+	 
+	 
+	 <insert id="adminQnaAnswer" parameterType="map">
+	 	INSERT INTO ANSWER(
+	 			QNANO
+			,	ANSWERTEXT
+	 	)VALUES(
+	 			#{qnaNo}
+	 		,	#{answerText}
+	 	)
+	 </insert>
+	 
+	 <update id="adminQnaAnswerUpdate" parameterType="map">
+		UPDATE ANSWER SET ANSWERTEXT = #{answerText} WHERE QNANO = #{qnaNo}
+	 </update>
 	 
 	 <delete id="qnaDelete" parameterType="int">
 	 	DELETE FROM QNA WHERE 1=1 AND QNANO = #{qnaNo}
 	 </delete>
-
-
+	 
 </mapper>

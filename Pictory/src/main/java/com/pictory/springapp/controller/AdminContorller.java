@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pictory.springapp.dto.AdminDTO;
 import com.pictory.springapp.dto.AdminGalleryDTO;
@@ -62,6 +63,9 @@ public class AdminContorller {
 		try {
 		
 			List<AdminDTO> list = mainService.adminSalesOfWeek(params);
+				
+			System.out.println("LIST : " + list);
+		
 			jsonStr = obj.writeValueAsString(list);
 		
 			return jsonStr;
@@ -438,6 +442,42 @@ public class AdminContorller {
 		
 		return null;
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="/qnaAnswer.do", method = {RequestMethod.POST})
+	public boolean qnaAnswer(@RequestBody List<HashMap<String, Object>> params) throws Exception {
+		try {
+			
+		boolean result = qnaService.qnaAnswer(params);
+		
+		System.out.println("CONTROLLER CHECK : " + result);
+		
+		
+		return result;
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+			
+		}
+		return false;
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping(value="/qnaAnswerUpdate.do", method = {RequestMethod.POST})
+	public boolean qnaAnswerUpdate(@RequestBody List<HashMap<String, Object>> params) throws Exception {
+		try{
+			
+			boolean result = qnaService.qnaAnswerUpdate(params);
+			return result;
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return false;
+	}
+	
 	
 	@ResponseBody
 	@RequestMapping(value="/qnaDelete.do", method = {RequestMethod.POST})

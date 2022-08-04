@@ -19,11 +19,9 @@ public class FaqDTO {
 	private String userId;
 	private int qnaNo;
 	private int userNo;
-	private int qnaCode;
 	private String qnaTitle;
 	private String qnaContent;
 	private Date qnaDate;
-	private int qnaCategory;
 	
 	
 	

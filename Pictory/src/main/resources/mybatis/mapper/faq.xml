@@ -6,18 +6,18 @@
 		INSERT INTO QNA(
 			QNANO
 		,	USERNO
-		,	QNACODE
 		,	QNATITLE
 		,	QNACONTENT
-		,	QNACATEGORY
-		)VALUES(
+		)VALUES
+		
+		<foreach collection="list" item="item" separator=",">
+		(
 			(SELECT NVL(MAX(QNANO), 0)+1 FROM QNA)
-		,	#{userNo}
-		,	#{qnaCode}
-		,	#{qnaTitle}
-		,	#{qnaContent}
-		,	#{qnaCatgory}
+		,	#{item.userNo}
+		,	#{item.qnaTitle}
+		,	#{item.qnaContent}
 		)
+		</foreach>
 	</insert>
 	
 </mapper>

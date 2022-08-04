@@ -1,7 +1,9 @@
 package com.pictory.springapp.service.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -33,6 +35,57 @@ public class AdminQnaDAO {
 		}
 		
 		return null;
+	}
+	
+	
+	@Transactional
+	public boolean qnaAnswer(List<HashMap<String, Object>> params) throws Exception {
+		SqlSession session = sqlMapper.openSession();
+		try {
+			
+			boolean result = false;
+			int check = 0;
+			
+			check = session.insert("adminQnaAnswer", params.get(0));
+			
+			if(check > 0) {
+				result = true;
+			}
+			
+			return result;
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			session.close();
+		}
+		
+			return false;
+	}
+	
+	
+	@Transactional
+	public boolean qnaAnswerUpdate(List<HashMap<String, Object>> params) throws Exception {
+		SqlSession session = sqlMapper.openSession();
+		try {
+			
+			boolean result = false;
+		
+			int check = session.update("adminQnaAnswerUpdate", params.get(0));
+			
+			if(check > 0) {
+				result = true;
+			}
+
+			return result;
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			session.close();
+		}
+		
+			return false;
 	}
 	
 	@Transactional

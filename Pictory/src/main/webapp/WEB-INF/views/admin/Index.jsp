@@ -91,9 +91,10 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
 			<nav class="navbar bg-light navbar-light">
 				<a href="/springapp/index.do" class="navbar-brand mx-4 mb-3">
 					<h3 class="text-primary">
-						<i class="fa fa-hashtag me-2"></i>PICKTORY
+						<i class="fa fa-hashtag me-2"></i>PICTORY
 					</h3>
 				</a>
+				
 				<div class="d-flex align-items-center ms-4 mb-4">
 					<div class="position-relative">
 						<img class="rounded-circle" src="${pageContext.request.contextPath}/resources/img/admin/test_img05.jpg" alt=""
@@ -103,10 +104,12 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
 						</div>
 					</div>
 					<div class="ms-3">
-						<h6 class="mb-0">Picktory</h6>
+						<h6 class="mb-0">${sessionScope.userId}</h6>
 						<span>관리자</span>
+						<input type="text" id="mainUserId" style="display:none" value="${sessionScope.userId}" />
 					</div>
 				</div>
+				
 				<div class="navbar-nav w-100">
 						<a href="${pageContext.request.contextPath}/admin/Index.do" class="nav-item nav-link active">
 						<i class="fa fa-tachometer-alt me-2"></i>관리자 메인</a>
@@ -177,7 +180,7 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
 							data-bs-toggle="dropdown"> <img
 							class="rounded-circle me-lg-2" src="${pageContext.request.contextPath}/resources/img/admin/test_img05.jpg" alt=""
 							style="width: 40px; height: 40px;"> <span
-							class="d-none d-lg-inline-flex">Picktory</span>
+							class="d-none d-lg-inline-flex">${sessionScope.userId}</span>
 						</a>
 						<div
 							class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
@@ -200,7 +203,7 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
 							<i class="fa fa-chart-line fa-3x text-primary"></i>
 							<div class="ms-3">
 								<p class="mb-2">
-									이번 주 PICKTORY 매출
+									이번 주 PICTORY 매출
 								</p>
 								<h6 class="mb-0 text-right" id="weekPay">0원</h6>
 							</div>
@@ -212,7 +215,7 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
 							<i class="fa fa-chart-bar fa-3x text-primary"></i>
 							<div class="ms-3">
 								<p class="mb-2">
-									총 PICKTORY 매출
+									총 PICTORY 매출
 								</p>
 								<h6 class="mb-0 text-right" id="totalPay">0원</h6>
 							</div>
@@ -266,7 +269,7 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
 						<div class="bg-light text-center rounded p-4">
 							<div
 								class="d-flex align-items-center justify-content-between mb-4">
-								<h6 class="mb-0">이번 주 PICKTORY 매출</h6>
+								<h6 class="mb-0">이번 주 PICTORY 매출</h6>
 							
 							</div>
 							<canvas id="visitChart" style="width: 100%; max-width: 1104px"></canvas>
@@ -941,9 +944,29 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
 const localhost = 'http://localhost:4040/springapp/admin';
 
 	$(document).ready(function(){
+		faquserinfoFn();
 		
-		salesOfWeek();
 	});
+	
+	
+	
+	// 로그인 확인 세션스코프
+	function faquserinfoFn(){
+	
+		var userId = $('#mainUserId').val();
+		
+		console.log("userId : ", userId);
+		
+		if(!userId){
+			alert("로그인을 해주세요\n로그인 페이지로 이동합니다");
+			window.location.href = "http://localhost:4040/springapp/auth/Logout.do";
+			return false;
+		}
+		
+			salesOfWeek();
+	}
+	
+	
 		
 	// 한 주
 	function weekDate(){
@@ -975,22 +998,26 @@ const localhost = 'http://localhost:4040/springapp/admin';
 	
 	
 	function salesOfWeek(){
+		
 		var weekArr = [];
 		var week = weekDate();
-		var obj = {"startDate" : week[0], "endDate" : week[6]};
 		
+		var obj = {"startDate" : week[0], "endDate" : week[6]};
+	
 		weekArr.push(obj);
 		
 		 $.ajax({
+			 //컨트롤러 주소값
 			 	url: localhost + '/salesofweek.do',
 			    type: "POST",
-			    cache: true,
+			    //비동기
+			    cache: false,
 			    dataType: "json",
 			    contentType: "application/json",
+			    //string으로 ..
 			    data: JSON.stringify(weekArr),
 			    success: function(data){
-			    	
-			    	
+				    			    
 			    	for(var i = 0; i < data.length; i++){
 			    		var v = data[i];
 			    		
@@ -1020,7 +1047,7 @@ const localhost = 'http://localhost:4040/springapp/admin';
 		var weekArr = []; 
 
 		var obj = {"startDate" : weekDay[0], "endDate" : weekDay[6]};
-		
+	
 		weekArr.push(obj);
 		
 		 $.ajax({
@@ -1042,8 +1069,7 @@ const localhost = 'http://localhost:4040/springapp/admin';
 	}
 		 
 		 function mainPaymentChartSetting(data){
-			 
-			 
+			
 			 var weekLength = weekDate();
 			 
 			 var dateArr = [];
@@ -1082,19 +1108,17 @@ const localhost = 'http://localhost:4040/springapp/admin';
 						dataArr2.push(v);
 					}
 			  	}
-			}
-			 
+			}			 
 			  	var aaArr = [...new Set([...dataArr2, ...dateArr])];
+			 	
 			  	var aa = aaArr.filter(
 	  				(arr, index, callback) => index === callback.findIndex(t => t.idx === arr.idx));
-			  	
-			  	
+			  
 			 //정렬
 			  var geResult = aa.sort(function (a, b) {
 			  	    return a.idx - b.idx;
 			  	});
-			 
-			 
+			
 				for(var i = 0; i < geResult.length; i++){
 					var v = geResult[i];
 					yValues.push(v.paymentTotal);
@@ -1444,8 +1468,7 @@ const localhost = 'http://localhost:4040/springapp/admin';
 				
 				var payDate = v.paymentDate.substring(0, 10);
 				var num = i + 1;
-				
-				
+			
 				payHTML += '<tr>';
 				payHTML += '<td class="text-center">'+ num +'</td>';
 				payHTML += '<td class="text-center">'+ v.consumer +'</td>';
@@ -1456,6 +1479,7 @@ const localhost = 'http://localhost:4040/springapp/admin';
 				payHTML += '<td class="text-center">'+ v.paymentTotal +'원</td>';
 				payHTML += '<td class="text-center">'+ payDate +'</td>';
 				payHTML += '</tr>';
+			
 				$('#mainPaymentAppend').append(payHTML);
 			}
 		}
@@ -1511,7 +1535,7 @@ const localhost = 'http://localhost:4040/springapp/admin';
 					
 					noHTML += '<tr>';
 					noHTML += '<td class="text-center">'+ v.noticeNo +'</td>';
-					noHTML += '<td><a class="primary modalClick" data-notice_no='+ v.noticeNo +' data-modal_text="notice" data-toggle="modal" data-target="#exampleModalCenter1">'+ v.noticeTitle +'</a></td>';
+					noHTML += '<td><a class="primary modalClick" data-notice_no='+ v.noticeNo +' data-modal_text="notice" data-toggle="modal" data-target="#exampleModalCenter1">[공지사항] '+ v.noticeTitle +'</a></td>';
 					noHTML += '<td>'+ v.userId +'</td>';
 					noHTML += '<td class="text-center">'+ noDate +'</td>';
 					noHTML += '</tr>';
@@ -1616,12 +1640,8 @@ const localhost = 'http://localhost:4040/springapp/admin';
 					}				
 				}	
 			}
-			
-		
-			
 		});
 		
-
 </script>
 
 </html>

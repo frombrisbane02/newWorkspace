@@ -135,7 +135,7 @@
 		]]>
 	</select>
 	
-	<select id="mainQnaList" parameterType="AdminQnaDTO" resultType="AdminQnaDTO">
+<!--  	<select id="mainQnaList" parameterType="AdminQnaDTO" resultType="AdminQnaDTO">
 	  		<![CDATA[
 			SELECT q.*, u.USERID
 			 FROM QNA q 
@@ -145,19 +145,37 @@
               	AND ROWNUM <= 5
 				ORDER BY LPAD(QNADATE, 10, 0) DESC
 		]]>
+	</select>	-->
+	
+	<select id="mainQnaList" parameterType="AdminQnaDTO" resultType="AdminQnaDTO">
+	  		<![CDATA[
+	    SELECT  a.*
+		 FROM ( SELECT 
+					  ROWNUM RNUM
+					, b.*   
+				 FROM (
+						SELECT q.*, u.USERID
+                         FROM QNA q 
+                          JOIN USERS u
+                           ON q.USERNO = u.USERNO
+                          WHERE 1=1
+						   ORDER BY LPAD(q.QNADATE, 10, 0) DESC ) b
+        ) a
+        WHERE RNUM >= 1 AND RNUM <= 5
+		]]>
 	</select>
 	
 	<select id="mainPaymentChart" parameterType="map" resultType="AdminPaymentDTO">
 		<![CDATA[
 			SELECT  
 					TO_CHAR(PAYMENTDATE, 'YYYYMMDD') AS dateDay
-				  , PAYMENTTOTAL * 0.1 AS persent 
-				  , PAYMENTTOTAL
+				  , SUM(PAYMENTTOTAL) * 0.1 AS persent 
+				  , SUM(PAYMENTTOTAL) AS paymentTotal
  			 FROM PAYMENT
  			  WHERE
 	     	   PAYMENTDATE >= #{startDate} AND PAYMENTDATE < LAST_DAY(TO_DATE(#{endDate}, 'YYYYMMDD')) 
 	 		GROUP BY
-	    	 TO_CHAR(PAYMENTDATE, 'YYYYMMDD'), PAYMENTTOTAL
+	    	 TO_CHAR(PAYMENTDATE, 'YYYYMMDD')
 	      ]]>
 	</select>
 	
