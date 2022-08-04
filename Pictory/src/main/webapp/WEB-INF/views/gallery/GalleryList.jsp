@@ -40,24 +40,10 @@
 			</li>
 
 			<li>
-				<a href=""><img src="img/test_icon16.png" alt=""></a>
+				<a href=""><img src="<c:url value="/resources/img/story/test_icon16.png"/>" alt=""></a>
 				<p>CATEGORY 1</p>
 			</li>
 
-			<li>
-				<a href=""><img src="img/test_icon16.png" alt=""></a>
-				<p>CATEGORY 2</p>
-			</li>
-
-			<li>
-				<a href=""><img src="img/test_icon16.png" alt=""></a>
-				<p>CATEGORY 4</p>
-			</li>
-
-			<li>
-				<a href=""><img src="img/test_icon16.png" alt=""></a>
-				<p>COLOR 2</p>
-			</li>
 		</ul>
 		
 
@@ -105,43 +91,52 @@
 					<div class="select_area">
 						<div class="sel_box">
 							<div class="check_wrap">
-								<input type="checkbox" id="filter1-1" checked="checked">
+								<input type="checkbox" id="landscape" >
 								<div class="check_btn"></div>
 							</div>
-							<label for="filter1-1">CATEGORY 1</label>
+							<label for="landscape">풍경(landscape)</label>
 						</div>
 
 						<div class="sel_box">
 							<div class="check_wrap">
-								<input type="checkbox" id="filter1-2" checked="checked">
+								<input type="checkbox" id="figure" >
 								<div class="check_btn"></div>
 							</div>
-							<label for="filter1-2">CATEGORY 2</label>
+							<label for="figure">인물(figure)</label>
 						</div>
 
 						<div class="sel_box">
 							<div class="check_wrap">
-								<input type="checkbox" id="filter1-3">
+								<input type="checkbox" id="animal">
 								<div class="check_btn"></div>
 							</div>
-							<label for="filter1-3">CATEGORY 3</label>
+							<label for="animal">동물(animal)</label>
 						</div>
 
 						<div class="sel_box">
 							<div class="check_wrap">
-								<input type="checkbox" id="filter1-4" checked="checked">
+								<input type="checkbox" id="food" >
 								<div class="check_btn"></div>
 							</div>
-							<label for="filter1-4">CATEGORY 4</label>
+							<label for="food">음식(food)</label>
 						</div>
 
 						<div class="sel_box">
 							<div class="check_wrap">
-								<input type="checkbox" id="filter1-5">
+								<input type="checkbox" id="object">
 								<div class="check_btn"></div>
 							</div>
-							<label for="filter1-5">CATEGORY 5</label>
+							<label for="object">사물(object)</label>
 						</div>
+						
+						<div class="sel_box">
+							<div class="check_wrap">
+								<input type="checkbox" id="etc">
+								<div class="check_btn"></div>
+							</div>
+							<label for="etc">기타(etc)</label>
+						</div>
+						
 					</div>
 				</div>
 
@@ -150,42 +145,50 @@
 					<div class="select_area">
 						<div class="sel_box">
 							<div class="check_wrap">
-								<input type="checkbox" id="filter2-1">
+								<input type="checkbox" id="black">
 								<div class="check_btn"></div>
 							</div>
-							<label for="filter2-1">COLOR 1</label>
+							<label for="black">BLACK</label>
 						</div>
 
 						<div class="sel_box">
 							<div class="check_wrap">
-								<input type="checkbox" id="filter2-2" checked="checked">
+								<input type="checkbox" id="white" >
 								<div class="check_btn"></div>
 							</div>
-							<label for="filter2-2">COLOR 2</label>
+							<label for="white">WHITE</label>
 						</div>
 
 						<div class="sel_box">
 							<div class="check_wrap">
-								<input type="checkbox" id="filter2-3">
+								<input type="checkbox" id="red">
 								<div class="check_btn"></div>
 							</div>
-							<label for="filter2-3">COLOR 3</label>
+							<label for="red">RED</label>
 						</div>
 
 						<div class="sel_box">
 							<div class="check_wrap">
-								<input type="checkbox" id="filter2-4">
+								<input type="checkbox" id="blue">
 								<div class="check_btn"></div>
 							</div>
-							<label for="filter2-4">COLOR 4</label>
+							<label for="blue">BLUE</label>
 						</div>
 
 						<div class="sel_box">
 							<div class="check_wrap">
-								<input type="checkbox" id="filter2-5">
+								<input type="checkbox" id="green">
 								<div class="check_btn"></div>
 							</div>
-							<label for="filter2-5">COLOR 5</label>
+							<label for="green">GREEN</label>
+						</div>
+						
+						<div class="sel_box">
+							<div class="check_wrap">
+								<input type="checkbox" id="pink">
+								<div class="check_btn"></div>
+							</div>
+							<label for="pink">PINK</label>
 						</div>
 					</div>
 				</div>	
@@ -255,6 +258,16 @@
 				return false;
 			});
 		});
+		
+		
+		
+		function is_checked(){
+			const checkbox = document.getElementById('check_btn');
+			
+			const is_checked = checkbox.checked;
+			document.getElementById('result').innerText = is_checked;
+		}
+		
 	</script>
 </body>
 </html>

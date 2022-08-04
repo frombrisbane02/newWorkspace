@@ -387,7 +387,7 @@
 .filter_modal .modal_white .check_btn {
 	width: 22px; 
 	height: 22px; 
-	background: url(../img/gallerylist/test_icon14.png) no-repeat center center;
+	background: url("../../../resources/img/gallerylist/test_icon14.png") no-repeat center center;
 	background-size: cover; 
 	position: absolute; 
 	top: 0; 
@@ -395,7 +395,7 @@
 }
 
 .filter_modal .modal_white input[type="checkbox"]:checked + .check_btn {
-	background: url(../img/gallerylist/test_icon15.png) no-repeat center center;
+	background: url("../../../resources/img/gallerylist/test_icon15.png") no-repeat center center;
 	background-size: cover; 
 }
 
