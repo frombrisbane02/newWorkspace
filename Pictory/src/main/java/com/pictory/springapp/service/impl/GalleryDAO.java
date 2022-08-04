@@ -56,6 +56,31 @@ public class GalleryDAO {
 	}
 
 
+	public List<GalleryDTO> selectCommentList(int postNo) {
+		// 댓글 목록 뿌려주기 위함
+		
+		List<GalleryDTO> comments = template.selectList("getComments", postNo);
+		for(GalleryDTO oneComment : comments) {
+			System.out.println("===================================");
+			System.out.println("dao: 댓글no: "+ oneComment.getCNo());
+			System.out.println("dao: 댓글clevel: "+ oneComment.getCLevel());
+			System.out.println("dao: 댓글text: "+ oneComment.getCText());
+			System.out.println("dao: 댓글date: "+ oneComment.getCDate());
+			System.out.println("dao: 댓글parentno: "+ oneComment.getParentCNo());
+			System.out.println("===================================");
+			
+		}
+		
+		return template.selectList("getComments", postNo);
+	}
+
+
+	public List<GalleryDTO> getHashList() {
+		// 해시태그 갖고오기
+		return template.selectList("hashlist");
+	}
+
+
 
 
 }

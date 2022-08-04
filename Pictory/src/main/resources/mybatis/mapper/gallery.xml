@@ -9,19 +9,25 @@
 	
 	<!-- 필요 인자: 카테고리, 해시태그, 첫번째 이미지 url(썸네일용), 좋아요수, 댓글 수 -->
 	<select id="galleryList" resultType="GalleryDTO">		
-		SELECT po.postno,
-      		po.postcategory ,
+        SELECT po.postno,
+      		po.postcategory,
             po.posttitle,
             u.usernickname,
             u.userprofile,
             u.userno,
             po.posthits,
-            po.postlikes,
+            (SELECT COUNT(l.postNo) FROM LIKES l WHERE l.postno=po.postno) postLikes,
             (SELECT ph.photourl FROM photo ph WHERE ph.postno=po.postno AND ROWNUM = 1) photourl,
             (SELECT COUNT(ct.cno) FROM comment_tbl ct WHERE ct.postno=po.postno) commentCount
         FROM post po INNER JOIN users u
            ON po.userno = u.userno
-     ORDER BY po.postdate DESC
+     	ORDER BY po.postdate DESC
+	</select>
+	
+	<select id="hashlist" resultType="GalleryDTO">
+		SELECT h.hashtag, p.postno
+		FROM HASHTAG h, POST p
+		WHERE h.postno=p.postno
 	</select>
 	
 	<select id="photoList" resultType="GalleryDTO" parameterType="_integer">
@@ -53,6 +59,16 @@
 			   postNo
 		 FROM post p INNER JOIN users u ON p.userno = u.userno
 		 WHERE u.userno=(SELECT p.userno FROM POST p WHERE p.postNo=#{postNo})
-     	ORDER BY p.postdate DESC
+     	ORDER BY p.postNo DESC
 	</select>
+	
+	<!-- PostNo 가지고 댓글 목록(답글 포함) 가져오기 -->
+	<select id="getComments" resultType="GalleryDTO" parameterType="_integer">
+		SELECT c.cNo, c.userNo, c.cText, c.cLevel, c.cDate,c.parentCNo, u.userProfile, u.userNickname
+		FROM USERS u, COMMENT_TBL c
+		WHERE c.postNo=#{postNo} AND u.userNO=c.userNo
+		ORDER BY c.cLevel
+	</select>
+	
+	
 </mapper>

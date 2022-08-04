@@ -35,8 +35,9 @@ public class GalleryController {
 		//상단바 갤러리 클릭시 List에 뿌려줄 정보 저장해서 뿌리기
 		
 		List<GalleryDTO> lists = galleryService.galleryList();
+		List<GalleryDTO> hashs = galleryService.hashList();
 		model.addAttribute("lists",lists);
-		
+		model.addAttribute("hashs",hashs);
 		return "gallery/GalleryList";
 	}
 	
@@ -76,11 +77,18 @@ public class GalleryController {
 			System.out.println("소리코의 가지고온 viewLists에서 꺼내오기"+viewList.getUserId());
 		}
 		
-		//2.2- 작가의 다른 정보 위해 각 포스트 몇개인지 총합, 각 포스트 썸네일, 포스트 no 가져와야함
+		//3. 작가의 다른 정보 위해 각 포스트 몇개인지 총합, 각 포스트 썸네일, 포스트 no 가져와야함
 		List<GalleryDTO> infoLists = galleryService.galleryInfo(postNo);
 		
+		//4. 수정 삭제용 세션 아이디 저장
+		System.out.println("소리코의 sessionId: 갖고오니..?;;"+map.get("userId"));
+		model.addAttribute("sessionId",map.get("userId"));
 		
-		//3. Model에 정보 저장 후 돌아가기
+		//5. 댓글 코멘트 갖고 오기(postNo 넘기고!)
+		List<GalleryDTO> comments = galleryService.getComments(postNo);
+		
+		//6. Model에 정보 저장 후 돌아가기
+		model.addAttribute("comments",comments);
 		model.addAttribute("photoUrls",photoLists);
 		model.addAttribute("viewLists",viewLists);
 		model.addAttribute("infoLists", infoLists);
@@ -91,10 +99,6 @@ public class GalleryController {
 		model.addAttribute("postLikes",viewLists.get(0).getPostLikes());
 		model.addAttribute("postHits",viewLists.get(0).getPostHits());
 		model.addAttribute("postSellorNot",viewLists.get(0).getPostSellorNot());
-		
-		//4. 수정 삭제용 세션 아이디 저장
-		System.out.println("소리코의 sessionId: 갖고오니..?;;"+map.get("userId"));
-		model.addAttribute("sessionId",map.get("userId"));
 		
 		
 		

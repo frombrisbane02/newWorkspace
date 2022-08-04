@@ -42,6 +42,18 @@ public class GalleryServiceImpl implements GalleryService<GalleryDTO> {
 		return dao.selectUserInfo(postNo);
 	}
 
+	@Override
+	public List<GalleryDTO> getComments(int postNo) {
+		// 코멘트 가져오기
+		return dao.selectCommentList(postNo);
+	}
+
+	@Override
+	public List<GalleryDTO> hashList() {
+		// 해시태그 가져오기
+		return dao.getHashList();
+	}
+
 
 
 }

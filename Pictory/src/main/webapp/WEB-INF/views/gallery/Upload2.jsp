@@ -93,13 +93,16 @@
 			<form action="<c:url value="/gallery/post/NotSellUpload.do"/>"
 				method="POST" enctype="multipart/form-data">
 		</c:if>
+		
+		
 
 
-		<input type="hidden" class="form-control" value="${postSellorNot}"
-			name="postSellorNot" id="postSellorNot"> <input type="hidden"
-			class="form-control" value="" name="hashtags" id="hashtags">
-		<input type="hidden" class="form-control" value="" name="fileInfos"
-			id="fileInfos">
+		<input type="hidden" class="form-control" value="${postSellorNot}" name="postSellorNot" id="postSellorNot">
+		<input type="hidden" class="form-control" value="" name="hashtags" id="hashtags">
+		<input type="hidden" class="form-control" value="" name="fileInfos" id="fileInfos">
+		
+		
+		
 		<div class="form-group">
 			<select id="postCategory" name="postCategory"
 				class="custom-select form-control">
@@ -118,7 +121,7 @@
 
 
 		<!--===================================이미지 프리뷰 ===================================-->
-		<div class="mothercontainer">
+		<div class="mothercontainer" id="mothercontainer">
 		</div>
 
 		<br><br>
@@ -152,24 +155,22 @@
 		<br> <br>
 		<!-- ===================================파일 업로드=================================== -->
 		<div class="form-group text-center">
-			<label for="uploadImage" class="btn btn-ouline-dark m-2"
-				style="display: inline-block;"> <c:if
-					test="${postSellorNot eq 'sell'}">
-					<img
-						src="${pageContext.request.contextPath}/resources/img/upload/btnimage.jpg"
-						style="width: 57.33px;" /></label> <input name="uploadImage"
-				id="uploadImage" type="file" accept="image/*"
-				class="form-control btn btn-ouline-dark m-2" hidden />
+			<label for="uploadImage" class="btn btn-ouline-dark m-2" style="display: inline-block;">
+				<c:if test="${postSellorNot eq 'sell'}">
+					<img src="${pageContext.request.contextPath}/resources/img/upload/btnimage.jpg"
+						style="width: 57.33px;" />
+			</label>
+			<input name="uploadImage" id="uploadImage" type="file" accept="image/*" class="form-control btn btn-ouline-dark m-2" hidden />
 			</c:if>
+			
+			
 			<c:if test="${postSellorNot eq 'notsell'}">
-				<img
-					src="${pageContext.request.contextPath}/resources/img/upload/btnimage.jpg"
-					style="width: 57.33px;" />
-				</label>
-				<input name="uploadImage" id="uploadImage" type="file"
-					accept="image/*" class="form-control btn btn-ouline-dark m-2"
-					multiple hidden />
+				<img src="${pageContext.request.contextPath}/resources/img/upload/btnimage.jpg" style="width: 57.33px;" />
+			</label>
+			<input name="uploadImage" id="uploadImage" type="file" accept="image/*" class="form-control btn btn-ouline-dark m-2" multiple hidden />
 			</c:if>
+			
+			
 			<!-- ===================================지도=================================== -->
 			<button id="uploadMap" type="button" data-toggle="modal"
 				data-target="#mapModal" class="btn btn-outline-dark m-2">map</button>
@@ -330,7 +331,7 @@
 	            // ["File1 Content", "File2 Content" ... "FileN Content"]
 	            //console.log(values);
 	             for (i = 0; i < values.length; i++) {
-	        		var html="<div class='container editpic' title='"+i+"'><img id='pictoryImage"+i+"' src='"+values[i]+"' class='imageprev'><button type='button' onclick='showModal("+i+")'  class='btn btn-sm btn-light'>이미지 보정</button></div>";
+	        		var html="<div class='container editpic' title='"+i+"'><img data-index='"+i+"' id='pictoryImage"+i+"' src='"+values[i]+"' class='imageprev'><button type='button' onclick='showModal("+i+")' class='btn btn-sm btn-light'>이미지 보정</button></div>";
     				document.querySelector('div.mothercontainer').innerHTML+=html;
     				base64.push(values[i]);
 	             }
@@ -343,23 +344,19 @@
 		console.log('index:',index);
 		console.log('base64:',base64[index]);
 		
-		childWin=window.open('http://localhost:4040/springapp/editImage/EditImage.jsp','_black','toolbar=no, menubar=no,scrollbars=no, width=1000, height=800').focus();
+		childWin=window.open('http://localhost:4040/springapp/editImage/EditImage.jsp','childpop','_blank','toolbar=no, menubar=no,scrollbars=no, width=1000, height=800').focus();
 	   	
 		document.frm.base64.value=base64[index];
 		document.frm.base64Index.value=index;
-	   	document.frm.target="_black";
+	   	document.frm.target="childpop";
 	   	document.frm.action="http://localhost:4040/springapp/editImage/EditImage.jsp";
 	   	document.frm.submit();
-	   	
-	   
-	   	//childWin.document.querySelector('#childBase64').value=base64[index];
 }
 	
 	
 	
     var base64=[];
-  //onclick='imgClick("+i+")'
-	function imgClick(index){
+/*	function imgClick(index){
 		  //data-toggle='modal' data-target='#editModal'
 		  console.log('확인용 base64[index]: ',base64[index]);
 		  console.log('클릭한 인덱스:',index);
@@ -377,7 +374,7 @@
 
 			}).fail(function(e){console.log('에러:',e)});
 		  
-	}
+	}*/
   
 //==============================textarea 높이 자동조정==============================
 	  $(document).ready(function() {
@@ -456,8 +453,33 @@
 	  {history.back();}
 	  else {return false;}
 	};
-
-
+	
+	
+	//보정한 이미지의 인덱스, 파일명, 크기, url 저장한거 받아서 넘기기
+	//파일 save 누르면 하나씩 저장되고 모델에 넣음
+	/*
+	var fileInfos=[];
+	$( ".mothercontainer" ).on('change', function() {
+		if(${fileInfo} != null){
+		var fileInfo =${fileInfo.photoSize}, ${fileInfo.photoName}, ${fileInfo.photoUrl},${fileInfo.photoIndex};
+		fileInfos.push(fileInfo);
+		
+		fileInfos.join();
+		document.querySelector('#fileInfos').value=fileInfos;
+		
+		console.log('fileInfos^.^..',fileInfos);
+		}
+	});*/
+	
+	var inputFile = document.querySelector('#uploadImage');
+	inputFile.onchange = function(){
+		
+		for(var i = 0;i < inputFile.files.length; i++){
+           console.log('파일~!~!:'+inputFile.files[i]);
+        }
+		
+	}
+	
 </script>
 
 

@@ -60,7 +60,7 @@ public class GalleryDTO {
 	
 	
 	//TBL_COMMENT
-	private int commentCount;
+	private int commentCount; //count용
 	private int cNo;
 	private String cText;
 	private int cLevel;

@@ -63,10 +63,8 @@ public class PostController {
 		System.out.println("userID 업로드 넘어올때 들어오나요?"+ userId);
 		
 		//map.put("userId", userId);
-		
 		//스토리 리스트 있으면 뿌려주기 위한 서비스 호출
 		//List<PostDTO> stories = postUploadService.selectStoryList(map);
-		
 		
 		return "gallery/Upload2";
 	}
@@ -79,12 +77,13 @@ public class PostController {
 	@CrossOrigin
 	@RequestMapping(value="post/EditImage.do",produces = "application/json;charset=UTF-8")
 	public @ResponseBody String image(@RequestParam String base64, @RequestParam String filename, 
-									HttpSession session, Model model,
+									@RequestParam int base64Index ,HttpSession session, Model model,
 									HttpServletRequest req) throws JsonProcessingException {
 		//save를 누르면 정보가 여기로 들어옴
 		System.out.println("base64:"+base64);
 		String userId = (String)session.getAttribute("userId");
 		System.out.println("IEC) userId 가지고 왔나요? :"+ userId);
+		System.out.println("IEC) index 넘버 가지고 왔나요? "+ base64Index);
 		
 		
 		//서버의 물리적 경로 얻어서 파일 업로드 처리 먼저
@@ -115,7 +114,7 @@ public class PostController {
 		//필요값: photoSize, photoName
 		int photoSize = ((int)Math.ceil(dest.length()/1024.0));
 		String photoName = filename;
-		String photoUrl = "http://192.168.0.27:4040/springapp/upload/img/"+userId+"/"+photoName;
+		String photoUrl = "http://localhost:4040/springapp/upload/img/"+userId+"/"+photoName;
 		
 		
 		System.out.println("IEC) 사진크기: "+photoSize+"KB");
@@ -125,7 +124,8 @@ public class PostController {
 		fileInfo.put("photoSize", photoSize);
 		fileInfo.put("photoName", photoName);
 		fileInfo.put("photoUrl", photoUrl);
-		
+		fileInfo.put("photoIndex", base64Index);
+		model.addAttribute(fileInfo);
 		
 		List<Map<String,Object>> fileInfos = new ArrayList<Map<String,Object>>();
 		fileInfos.add(fileInfo);
@@ -145,8 +145,7 @@ public class PostController {
 	public String addMap(HttpSession session, Model model) {
 		
 		String userId = (String)session.getAttribute("userId");
-		System.out.println("EditImage이동전! 아이디!!: "+userId);
-		//id저장하고 이동? 엥 근데 난 이동할 필요가 없는거 같기두하궁..
+		System.out.println("EditImage이동전 아이디!!: "+userId);
 		
 		return "gallery/UploadMap";
 	}
@@ -187,12 +186,14 @@ public class PostController {
 		//PRODUCT - pdNo, photoNo, pdPrice, pdSalesNo, pdDate
 		String photoName = uploadImage.getOriginalFilename();
 		int photoSize = (int)Math.ceil(uploadImage.getSize()/1024.0);
-		String photoUrl = "http://192.168.0.27:4040/springapp/upload/img/"+String.valueOf(map.get("userId"))+"/"+photoName;
+		String photoUrl = "http://localhost:4040/springapp/upload/img/"+String.valueOf(map.get("userId"))+"/"+photoName;
 		
+		//파일 정보 저장
 		map.put("photoName", photoName);
 		map.put("photoSize", photoSize);
 		map.put("photoUrl", photoUrl);
 		
+		//파일 업로드
 		postUploadService.sellPostInsert(map);
 		
 		return "forward:/gallery/GalleryList.do";
@@ -206,6 +207,11 @@ public class PostController {
 			@RequestParam("storyThumbnail") MultipartFile sThumbnail,
 			@RequestParam(value="hashtags") List<String> hashtag,
 			@RequestParam("uploadImage") List<MultipartFile> uploadImage, HttpServletRequest req) throws IllegalStateException, IOException {
+		
+		for(MultipartFile oneImage:uploadImage) {
+			System.out.println("image 원본 파일 순서대로 내놔봐: "+oneImage.getOriginalFilename());
+		}
+		
 		
 		System.out.println(userId);
 		System.out.println("가져온 맵: "+map);
@@ -248,7 +254,7 @@ public class PostController {
 			
 			String photoName = file.getOriginalFilename();
 			int photoSize = (int)Math.ceil(file.getSize()/1024.0);
-			String photoUrl = "http://192.168.0.27:4040/springapp/upload/img/"+String.valueOf(map.get("userId"))+"/"+photoName;
+			String photoUrl = "http://localhost:4040/springapp/upload/img/"+String.valueOf(map.get("userId"))+"/"+photoName;
 			
 			
 			fileList.put("photoName", photoName);
@@ -272,7 +278,6 @@ public class PostController {
 		System.out.println("list에 담긴 hashtags: "+hashtag.toString());
 		System.out.println("map의 storyTitle"+map.get("storyTitle"));
 		System.out.println("map의 storyDescription"+map.get("storyDescription"));
-		
 		
 		//부모테이블인 post Upload부터 하기(넘길때 본문정보 담긴 map, List 같이 넘기기)
 		postUploadService.postInsert(map,fileInfo);

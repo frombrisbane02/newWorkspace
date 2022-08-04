@@ -16,7 +16,14 @@ public interface GalleryService<T> {
 	//클릭한 postNo로 가져오기
 	List<GalleryDTO> galleryView(int postNo);
 
+	//작가 정보 가져오기
 	List<GalleryDTO> galleryInfo(int postNo);
+
+	//Comment 가져오기
+	List<GalleryDTO> getComments(int postNo);
+
+	//갤러리 리스트 해시태그 가져오기
+	List<GalleryDTO> hashList();
 
 	
 	

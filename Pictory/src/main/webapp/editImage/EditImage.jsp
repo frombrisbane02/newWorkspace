@@ -6,19 +6,19 @@
 	String base64Index=request.getParameter("base64Index");
  %>
   <!-- example 추가 -->
+  
     <script src="https://cdn.scaleflex.it/plugins/js-cloudimage-responsive/4.8.5/js-cloudimage-responsive.min.js"></script>
     <script src="https://cdn.scaleflex.it/filerobot/js-cloudimage-responsive/lazysizes.min.js"></script>
   <!--vanilla js cdn-->
   	<script src="https://scaleflex.cloudimg.io/v7/plugins/filerobot-image-editor/latest/filerobot-image-editor.min.js"></script>
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   	<body style="margin-top:100px">
     <input type="hidden" id="childBase64"/>
     
     <div class="container">
-		<!--아래 div에 이미지 보정 에디터가 디스플레이 된다-->
+		<!--아래 div에 이미지 보정 / 에디터가 디스플레이 된다-->
 		<div id="editor_container"></div>
-		
 	</div>
-	
    
     <script>
       const ciResponsive = new window.CIResponsive({
@@ -56,50 +56,82 @@
 	  language:'ko',
 	  onSave: (editedImageObject, designState) =>{//저장 버튼 클릭시 콜백 함수
 		//editedImageObject이 보정된 이미지에 대한 정보가 담긴 객체
-		console.log('saved', editedImageObject, designState);
-		var src=editedImageObject.imageBase64.split(',')
-		var data=src[1];
-		console.log('src[1]:',src[1])
-		//var data = atob(src[1])
-		console.log('data:',data)
-		console.log('editedImageObject.imageBase64:',editedImageObject.imageBase64)
-		console.log('editedImageObject.fullName:',editedImageObject.fullName)
-		console.log('editedImageObject.mimeType:',editedImageObject.mimeType)
 		
-		//보정한이미지로 부모 교체
+		//console.log('saved', editedImageObject, designState);
+		//console.log('src[1]:',src[1]);
+		//console.log('data:',data);
+		//console.log('editedImageObject.imageBase64:',editedImageObject.imageBase64);
+		console.log('editedImageObject.fullName:',editedImageObject.fullName);
+		console.log('editedImageObject.mimeType:',editedImageObject.mimeType);
+		
+		//1. 보정한 이미지를 담아 본문 내 이미지 교체
 		opener.document.getElementById('pictoryImage<%=base64Index%>').src=editedImageObject.imageBase64;
 		
+		//2. 보정한 이미지 파일 객체로 변경하기
+		var src=editedImageObject.imageBase64.split(',');
+		var fullName = editedImageObject.fullName.trim();
+		var data = src[1];
+        var mime = src[0].match(/:(.*?);/)[1].trim();
+        console.log('mime type::',mime)
+        //var mime = editedImageObject.mimeType;
+        var bstr = atob(data);
+        var n = bstr.length;
+        var u8arr = new Uint8Array(n);
+        
+        console.log('data: ',data);
+		console.log('n: ',n);
+		console.log('u8arr: ',u8arr);
+		console.log('fullName:',fullName);
+	        
+       	while(n--){
+       		u8arr[n] = bstr.charCodeAt(n);
+       	}
+       //console.log('new File!!: ',new File([u8arr], fullName, {type:mime}));
+       const editedImage = new File([u8arr], fullName, {type:mime});
+       console.log('editedImage 새거 읽어오니? %O',editedImage);
+       
+       //3. 파일 객체 전달하기(아이디 uploadImages)
+       //달려있던 multiple 파일 중 target 잡아서 삭제하고 새로 달아주기
+     
+       //3.1) 들어온 인덱스의 파일 갈아끼우기
+		//어떻게 할거냐면, for문을 돌면서 files 다 꺼내와서 dataTransfer에 다 저장을 하는데
+		//만약에 index가 base64index면 새로운 파일 객체를 넣어주는거임 ㅇㅋ?
 		
-		//아래는 보정한 이미지를 스프링 서버로 업로드하는 코드
-		$.ajax({
-		  url:"http://localhost:4040/springapp/post/EditImage.do",
-		  //url:"<c:url value='/gallery/post/EditImage.do'/>",
-		  data:"base64="+encodeURIComponent(data)+"&filename="+editedImageObject.fullName,
-		  dataType:'json',
-		  method:'post'
+        const base64Index = <%=base64Index%>;
+        const targetFile = opener.document.getElementById('uploadImage').files[base64Index];
+        console.log('target파일 잘 가져왔니???:%O',targetFile);
+        const files = opener.document.getElementById('uploadImage').files;
+        console.log('file배열인데 다 가지고 왔니?? %O',files);
+        const dataTransfer = new DataTransfer();
+		console.log('dataTransfer가 왜없니?;; %O', dataTransfer);
+		
+        Array.from(files).forEach(file => {
+        	if(file==targetFile){
+        		dataTransfer.items.add(editedImage)
+        		}
+        	else{
+        		 dataTransfer.items.add(file)
+        	}
+        });
+        
+        
+        console.log('file배열 다시 찍어봐도 되겠니?? %O',files);
+	
+        //원본 마지막에 저장하기 하면...흠 이거 나중에 판매용땜에 생각해봐야함
+        //여기다가 새로 생긴 타겟파일 추가해야함    
+        opener.document.getElementById('uploadImage').files = dataTransfer.files;
+	    
 
-		}).done(function(data){
-		 
-		  //보정이미지 표시
-		 
-		  
-		  /*
-		  var editimg = document.createElement("img");
-		  editimg.src = editedImageObject.imageBase64;
-		  var div = document.querySelector(".imgpre");
-		  div.appendChild(editimg);
-		  
-		    
-		  //자동 다운로드 코드 구현
-		  var a= document.createElement('a');		 
-		  a.setAttribute("style", 'display:none');
-		  a.setAttribute("href", editedImageObject.imageBase64);
-		  a.setAttribute("download", editedImageObject.fullName);      
-		  a.click();
-		  //0.1초후에 자동 다운로드를 위해 생성한 a태그 삭제
-		  setTimeout(function(){document.body.removeChild(a)},100);*/
-
-		});
+		
+	  //자동 다운로드 코드 구현
+	  var a= document.createElement('a');		 
+	  a.setAttribute("style", 'display:none');
+	  a.setAttribute("href", editedImageObject.imageBase64);
+	  a.setAttribute("download", editedImageObject.fullName);      
+	  a.click();
+	  //0.1초후에 자동 다운로드를 위해 생성한 a태그 삭제
+	  setTimeout(function(){document.body.removeChild(a)},100);
+		
 	  },
 		
 	  annotationsCommon: {
@@ -289,13 +321,6 @@
 		}
 	  }
 	*/
-	
-	
-	
-
-	
-	
-	
 	
 	  </script>
 
