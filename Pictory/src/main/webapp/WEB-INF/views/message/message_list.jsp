@@ -10,7 +10,7 @@
 <meta charset="UTF-8">
 <title>Want 사진자랑하기</title>
 
-<jsp:include page="../message/DmIndex.jsp"></jsp:include>
+
 
 
 

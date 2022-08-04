@@ -20,6 +20,13 @@ import com.pictory.springapp.dto.MessageDTO;
 @Controller
 @RequestMapping ("/message/")
 public class MessageController {
+	
+	@RequestMapping("Dm.do")
+	public String likes() {
+		System.out.println("DM 되나요?");
+		
+		return "feed/Dm.tiles";
+	}
 
 	@Autowired
 	private MessageDAO messageDao;
@@ -39,7 +46,7 @@ public class MessageController {
 
 		request.setAttribute("list", list);
 
-		return "message_list";
+		return "message_list.do";
 	}
 
 	// 메세지 목록

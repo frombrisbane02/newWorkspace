@@ -21,16 +21,16 @@
 	<script src="${pageContext.request.contextPath}/resources/js/gallerylist/tab.js"></script>
 </head>
 <body>
-<h3>테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 </h3>
+<h3>테스트${feedList.userProfile } 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 테스트 </h3>
 
 
 <ul class="gall_list_wrap">
 		<!-- li~li까지 데이터 저장후 받아와서 foreach로 뿌리기 -->
-		<c:if test="${empty lists}" var="isEmpty">
+		<c:if test="${empty feedList}" var="isEmpty">
 			    <li> There is NO POST YET</li>
 		</c:if>
 		<c:if test="${not isEmpty}">
-		     <c:forEach var="list" items="${lists}" varStatus="loop">
+		     <c:forEach var="list" items="${feedList}" varStatus="loop">
 			<li class="photo_area">
 				<a href="<c:url value="/gallery/GalleryView.do?postNo=${list.postNo}"/>" class="photo_link">					
 					<div class="img_area" style="background-image: url(${list.photoUrl});"><img src="${pageContext.request.contextPath}/resources/img/gallerylist/fake02.png" alt=""></div>	

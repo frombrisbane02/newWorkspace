@@ -1,15 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<jsp:include page="/WEB-INF/views/Top.jsp"/>
 	
 	<link rel="shortcut icon" type="image/x-icon" href="img/favicon.png">
 	
 	<link rel="stylesheet" href="<c:url value="/resources/css/feed/common.css"/>"/>
-	<link rel="stylesheet" href="<c:url value="/resources/css/feed/page2.css"/>"/>
-	<link rel="stylesheet" href="<c:url value="/resources/css/feed/dm.css"/>"/>
+	<link rel="stylesheet" href="<c:url value="/resources/css/feed/page2.css"/> "/>
+	<link rel="stylesheet" href="<c:url value="/resources/css/feed/dm.css"/> "/>
 
     <script src="${pageContext.request.contextPath}/resources/js/feed/html5shiv.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/feed/modernizr.js"></script>
+    
     
 
 	
@@ -25,9 +26,9 @@
 		<div class="main_area">
 			<div class="left_pro">
 				<div class="top_pro">
-					<img src="<c:url value="/resources/img/feed/test_img02.jpg"/>" alt="" class="pro_img">
+					<img src="<c:url value="${feedInfo.userProfile}"/>" alt="" class="pro_img">
 					<div class="txt_area">
-						<h3>홍길동</h3>
+						<h3><c:url value="${feedInfo.userNickname}"/></h3>
 						
 						<p><img src="<c:url value="/resources/img/feed/test_icon01.png"/>" alt="">대한민국</p>
 						<!-- <p>고길동님과 둘리님이 팔로우중입니다.</p> 나중에 구현 -->
@@ -36,26 +37,26 @@
 
 				<ul class="count_list">
 					<li>
-						<h3>50</h3>
+						<h3>${feedInfo.postNo }</h3>
 						<p>게시글</p>
 					</li>
 					<li>
-						<h3>214K</h3>
+						<h3>${feedInfo.postLikes}</h3>
 						<p>좋아요</p>
 					</li>
 					<li>
-						<h3>2</h3>
+						<h3>${feedInfo.userFing}</h3>
 						<p>팔로잉</p>
 					</li>
 					<li>
-						<h3>30</h3>
+						<h3>${feedInfo.userFwer}</h3>
 						<p>팔로워</p>
 					</li>
 				</ul>
 
 				<ul class="btn_area">
 					<li><a href="" class="black_icon"><img src="<c:url value="/resources/img/feed/test_icon02.png"/>">Following</a></li>
-					<li><a href="<c:url value="/message/message_list.do"/>" class="white_icon" id="addClass"><span></span>DM</a></li>
+					<li><a href="" class="white_icon" id="addClass"><span></span>DM</a></li>
 					
 				</ul>
 
@@ -66,12 +67,12 @@
 
 				<div class="about_me">
 					<h3 class="sub_tit">About me</h3>
-					<p>안녕하세요 저는 홍길동입니다. <br>내 사진 예쁘지 많이 사줘 <br>멋져멋져 내사진 멋져 오오오오오</p>
+					<p>${feedInfo.userSelf}</p>
 				</div>
 
 				<div class="contacts">
 					<h3 class="sub_tit">Contacts</h3>
-					<p><img src="<c:url value="/resources/img/feed/test_icon04.png"/>" alt="">www.hong.co.kr</p>
+					<p><img src="<c:url value="/resources/img/feed/test_icon04.png"/>" alt="">이거는 뭘까요</p>
 					<p><img src="<c:url value="/resources/img/feed/test_icon05.png"/>" alt="">010-0000-0000</p>
 					<p><img src="<c:url value="/resources/img/feed/test_icon01.png"/>" alt="">서울시 서울구 서울동 12-345</p>
 				</div>
@@ -86,6 +87,9 @@
         			<div id="myTab2Content" class="tabContent">
           <!-- 데이터 뿌려주기 -->
         	</div>
+        <div id="dmContent" class="dmList">
+          <!-- 데이터 뿌려주기 -->
+        	</div>
         
 			
 		</div>
@@ -97,8 +101,8 @@
 
  <script>
 	$(document).ready(function(){
-		//처음 시작할 땐 MypageProfile이 나와야한다.
-		$(".tabContent").load("<c:url value='/feed/Story.do'/>");
+		
+		$(".tabContent").load("<c:url value='/feed/Artwork.do'/>");
 		
 		//탭 클릭시마다 
 		$("#tab li a").on("click", function(e){
@@ -110,4 +114,21 @@
 			$(".tabContent").load("<c:url value='/feed/"+page+".do'/>");
 		});
 	});
-</script>
+
+	</script>
+	<script>
+	$(document).ready(function(){
+		
+		
+		//탭 클릭시마다 
+		$("#addClass").on("click", function(e){
+			e.preventDefault();
+			$(".dmList").load("<c:url value='/message/Dm.do'/>");
+			$('#sidebar_secondary').addClass('popup-box-on')
+		});
+			///
+			 $("#removeClass").click(function () {
+				  $('#sidebar_secondary').removeClass('popup-box-on');
+				    });
+		});
+	</script>

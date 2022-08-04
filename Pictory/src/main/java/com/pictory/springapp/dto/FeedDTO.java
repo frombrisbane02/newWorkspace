@@ -2,14 +2,17 @@ package com.pictory.springapp.dto;
 
 import java.sql.Date;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
 @Getter
 @Setter
 @ToString
-
+@NoArgsConstructor
+@AllArgsConstructor
 public class FeedDTO {
 	//List에 필요한 변수들(POST, PHOTO, USER 테이블)
 		//목록: 카테고리, 제목, 해시태그, 첫번째 이미지(썸네일용), 좋아요수, 댓글 수, 닉네임

@@ -39,7 +39,7 @@ public class MessageDAO {
 				mto.setOther_nick(mto.getSendNick());
 			}
 		}
-
+		sqlSession.close();
 		return list;
 	}
 
@@ -55,7 +55,7 @@ public class MessageDAO {
 
 		// 해당 방의 메세지들 중 받는 사람이 현재사용자의 nick인 메세지를 모두 읽음 처리한다
 		sqlSession.update("message_read_chk", to);
-
+		sqlSession.close();
 		return clist;
 	}
 	
@@ -74,7 +74,7 @@ public class MessageDAO {
 				to.setDmRoom(room);
 			}
 		}
-		
+		sqlSession.close();
 		int flag = sqlSession.insert("messageSendInlist",to);
 		return flag;
 	}
