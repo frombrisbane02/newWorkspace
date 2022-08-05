@@ -28,10 +28,12 @@ public class SearchController {
 			List<SearchDTO> hashs = searchService.hashList();
 			//List<SearchDTO> categorys = searchService.categorySelect();
 			for(SearchDTO oneResult : lists) {
+				System.out.println("컨트롤러 for문 입장");
 				System.out.println("컨트롤러postno"+ oneResult.getPostNo());
 				System.out.println("컨트롤러userNickname"+ oneResult.getUserNickname());
 				
 				}
+			System.out.println("##################search컨트롤러lists############:"+lists);
 			model.addAttribute("lists",lists);
 			model.addAttribute("hashs",hashs);
 			//model.addAttribute("categorys",categorys);

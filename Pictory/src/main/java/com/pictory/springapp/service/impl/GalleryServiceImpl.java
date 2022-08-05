@@ -1,5 +1,6 @@
 package com.pictory.springapp.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.pictory.springapp.Constants;
 import com.pictory.springapp.dto.GalleryDTO;
 import com.pictory.springapp.dto.GalleryService;
+import com.pictory.springapp.dto.LikeDTO;
 
 @Service("galleryService")
 public class GalleryServiceImpl implements GalleryService<GalleryDTO> {
@@ -84,7 +86,36 @@ public class GalleryServiceImpl implements GalleryService<GalleryDTO> {
 		loginInfo.setUserProfile(resource+loginInfo.getUserProfile());
 		return loginInfo;
 	}
+	@Override
+	public void likeUp(int postNo, int userNo) {
+		
+	}
 
-
+	@Override
+	public void likeDown(int postNo, int userNo) {
+		
+	}
+	
+	@Override
+	public Integer userNum(Map map) {
+		return dao.userNum(map);
+	}
+	
+	
+	
+	@Override
+	public Integer findLike(int postNo, String userId) {
+		
+		System.out.println("###갤러리서비스임플###");
+		Map<String, Object> map = new HashMap<>();
+		map.put("postNo", postNo);
+		map.put("userId", userId);
+		
+		System.out.println("###서비스일픔postNo:"+postNo);
+		System.out.println("###서비스일픔userId:"+userId);
+		int counts= dao.findLike(map);
+		System.out.println("###counts###:"+counts);
+		return counts;
+	}
 
 }

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -27,6 +28,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.pictory.springapp.Constants;
 import com.pictory.springapp.dto.GalleryDTO;
 import com.pictory.springapp.dto.GalleryService;
+import com.pictory.springapp.dto.LikeDTO;
 import com.pictory.springapp.dto.PostDTO;
 import com.pictory.springapp.dto.PostUploadService;
 
@@ -72,6 +74,8 @@ public class GalleryController {
 		
 		System.out.println("===========view 반환===========");
 		System.out.println("클릭한 postNo: "+postNo);
+		//System.out.println("클릭한 postNo: "+userNo);
+
 		
 		Map postMap = new HashMap<>();
 		postMap.put("postNo", postNo);
@@ -140,6 +144,37 @@ public class GalleryController {
 		
 		return "gallery/GalleryView";
 	}
+//	@ModelAttribute("userId") 
+//	@GetMapping("/getlike.do")
+//	public Object getlike(HttpSession session,Model model,String userId,@ModelAttribute("postNo")int postNo) {
+//		System.out.println("###getlike###컨트롤러 페이지");
+//		LikeDTO dto = new LikeDTO();
+//		Map<String, Object> map = new HashMap<>();
+//		map.put("userId", "userId");
+//		int userNo=galleryService.userNum(map);
+//		model.addAttribute("userNo",userNo);
+//		System.out.println("###flag.userNo###:"+userNo);
+//		System.out.println("###post###:"+postNo);
+//		System.out.println("###userId###:"+userId);
+//		
+//		List<GalleryDTO> postNum = galleryService.galleryView(postNo);
+//		model.addAttribute("postNo", postNo);
+//		map.put("userNo", "userNo");
+//		map.put("postNo", "postNo");
+//		
+//		dto.setPostNo(postNo);
+//		dto.setUserNo(userNo);
+//	
+//		System.out.println("####userNo####:"+userNo);
+//		System.out.println("####postNo####:"+postNo);
+//		
+//		int like = galleryService.findLike(map, postNo, userNo);
+//		model.addAttribute("likes", map);
+//		model.addAttribute("like",like);
+//		session.setAttribute("like",like);
+//		System.out.println("###like###:"+like);
+//		return map;
+//	}
 	
 	@CrossOrigin
 	@RequestMapping(value="post/SubmitComment.do",produces = "application/json;charset=UTF-8")
@@ -156,22 +191,40 @@ public class GalleryController {
 		System.out.println("JSON 타입이 뭔데 씨발아");
 		return "{\"upload\":\"sucsses\"}";
 	}
-	
-	@CrossOrigin
-	@RequestMapping(value="post/Likes.do",produces = "application/json;charset=UTF-8")
-	public @ResponseBody String likes(@RequestParam(value="userId", required=false) String userId,
-									@RequestParam(value="postNo", required=false) int postNo,
-									HttpSession session, Model model,
-									HttpServletRequest req) throws JsonProcessingException{
-		
-		System.out.println("여기 넘어오니?!?!?!! post 받았니?!?!?!!!");
-		System.out.println("컨트롤러에서 받은 userId:"+userId);
-		System.out.println("컨트롤러에서 받은 postNo:"+postNo);
-		
 
-		System.out.println("JSON 타입이 뭔데 씨발아");
-		return "{\"upload\":\"sucsses\"}";
+	   @CrossOrigin
+	   @RequestMapping(value="post/Likes.do",produces = "application/json;charset=UTF-8")
+	   @ResponseBody 
+	   public String likes(@RequestParam(value="userId", required=false) String userId,
+	                           @RequestParam(value="postNo", required=false) int postNo,
+	                           HttpSession session, Model model,
+	                           HttpServletRequest req) throws JsonProcessingException{
+	 
+	      System.out.println("컨트롤러에서 받은 userId:"+userId);
+	      System.out.println("컨트롤러에서 받은 postNo:"+postNo);
+	      int like = galleryService.findLike(postNo, userId);
+	      System.out.println("like:"+like);
+	      
+	      return "{\"upload\":\"sucsses\"}";
+	   }
+	 
+	@CrossOrigin
+	@RequestMapping(value="likeUp.do",produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public void likeup(@RequestParam("postNo")int postNo,@RequestParam("userNo")int userNo) {
+		System.out.println("likeUp컨트롤러 연결 성공");
+		System.out.println(postNo);
+		System.out.println(userNo);
+		galleryService.likeUp(postNo,userNo);
 	}
+	@CrossOrigin
+	@RequestMapping(value="likeDown.do",produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public void likeDown(@RequestParam("postNo")int postNo,@RequestParam("userNo")int userNo) {
+		System.out.println("좋아요 싫어요!");
+		galleryService.likeDown(postNo,userNo);
+	}
+	
 	
 	
 	   @RequestMapping("filter.do")
@@ -193,30 +246,6 @@ public class GalleryController {
 			return "gallery/GalleryList";
 	   }
 	 
-	   
-	
-//	
-//	   @RequestMapping("filter.do")
-//	   public String filter(Model model,@RequestParam String[] postCategory){
-//		   
-//		   String result = postCategory[0];
-//		   for(int i=1 ; i <postCategory.length ; i++ ) {
-//			   
-//			   System.out.println(postCategory[i]);
-//			   result +="," +postCategory[i];
-//		   }
-//		   model.addAttribute("postCategory", result);
-//		   
-//		   System.out.println("======filter.do 도착(종근)");
-//		   
-//	
-//			List<GalleryDTO> lists = galleryService.galleryFilter(result);
-//			//model.addAttribute("lists",lists);
-//			
-//
-//			return "gallery/GalleryList";
-//	   }
-	   
 	   
 	
 	

@@ -11,6 +11,7 @@
 	
 	<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+ -->
 	<link rel="shortcut icon" type="image/x-icon" href="img/favicon.png">
 	<link rel="apple-touch-icon" href="img/favicon.png">
 	<link rel="stylesheet" type="text/css" href="http://localhost:4040/springapp/resources/css/galleryview/common.css">
@@ -67,17 +68,13 @@
 					</a>
 	
 					<ul class="hover_btn">
-						<li><a id="aprevent${list.postNo}" href="${list.postNo}"><img src="${pageContext.request.contextPath}/resources/img/gallerylist/test_icon06.png" alt="">Like</a></li>
 						<!-- 판매글이면 카트 버튼이 있어야함 근데 걔가 카트를 넣었다? 그러면 다른 걸로 뿌려야함 -->
+						<li><a id="aprevent${list.postNo}" href="${list.postNo}"><img src="${pageContext.request.contextPath}/resources/img/gallerylist/test_icon06.png" alt="">Like</a></li>
 						<c:if test="${list.postSellorNot==1}">
 						<li><a href="${list.postNo}">Cart</a></li>
 						</c:if>
-						
-					
-					</ul>
-					
-					
-					<div class="hover_txt">
+               </ul>
+                  	<div class="hover_txt">
 						<h3>${list.postTitle}</h3>
 						
 						<p class="sub_txt">
@@ -260,6 +257,9 @@
 			</form>
 		</div>
 	</div>
+	 			  <form>
+			         <input id="getuserId" type="hidden" value="${userId}"/>
+			      </form>
 	<script>
 	   // 카테고리 value 영어로 받아와서 한글로 바꿔서 출력하기
 	   /*
@@ -321,7 +321,61 @@
 		var filter = filterList.join()
 		
 		
+		$(".hover_btn>li:first>a").click(function(e){  
+       
+         const postNo = $(this).attr('href');
+         const userId = document.getElementById('getuserId').value;
+         
+         console.log('postNo :', postNo);
+         console.log('userId :', userId);
+         
+         $.ajax({
+                 type:"POST",
+                 url:"<c:url value='post/Likes.do'/>",
+                 data: "postNo="+postNo+"&userId="+userId
+                 }).done(function(data){
+                    
+                   console.log("성공입니다><",data);
+                   
+                  
+              }).fail(function(request,status,error){
+                alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+              
+                 console.log('개씨발 망했어요ㅠ');
+              });
+         
+         e.preventDefault();
+         console.log('막았니?');
+         
+      });
 		
+	/* 	
+			/////////좋아요 ajax
+		function(e){
+			e.preventDefault();
+		function likefunc(postNo,userNo){
+		
+				alert("####postNo:"+postNo);
+				alert(userNo);
+				$.ajax({
+					url:"<c:url value='/gallery/likeUp.do'/>",
+					type:"POST",
+					data:{
+						"postNo":postNo,
+						"userNo":userNo
+					},
+					success:function(data){
+						alert("success");
+					},
+					error:function(){
+						alert("error");
+					}
+					
+						});
+					}//likefunc
+			
+		}	 */
+				
 		
 		//=============filter 배열에 저장 후 보여주기================
 		

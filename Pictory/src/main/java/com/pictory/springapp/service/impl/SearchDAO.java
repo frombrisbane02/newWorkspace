@@ -29,6 +29,7 @@ public class SearchDAO {
 		System.out.println("dao 들어왔냐"+map.get("searchName"));
 		List<SearchDTO> result=template.selectList("searchSelect", map);
 				for(SearchDTO oneResult : result) {
+					System.out.println("DAO포문 입장");
 					System.out.println("postno"+ oneResult.getPostNo());
 					System.out.println("userNickname"+ oneResult.getUserNickname());
 					oneResult.setPhotoUrl(resource+oneResult.getPhotoUrl());

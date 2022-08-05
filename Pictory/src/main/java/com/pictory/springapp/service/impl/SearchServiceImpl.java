@@ -20,7 +20,9 @@ public class SearchServiceImpl implements SearchService<SearchDTO> {
 	
 	@Override
 	public List<SearchDTO> searchSelect(Map map) {
-		return dao.searchSelect(map);		
+		List<SearchDTO> succ = dao.searchSelect(map);
+		System.out.println("서비스로 돌아왔어요");
+		return succ;		
 	}
 
 	public List<SearchDTO> hashList() {

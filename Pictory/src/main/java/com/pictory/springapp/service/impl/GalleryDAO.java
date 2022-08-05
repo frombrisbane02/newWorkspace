@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import com.pictory.springapp.Constants;
 import com.pictory.springapp.dto.GalleryDTO;
+import com.pictory.springapp.dto.LikeDTO;
 
 @Repository("galleryDAO")
 public class GalleryDAO {
@@ -71,6 +72,8 @@ public class GalleryDAO {
 		return template.selectList("galleryView",postNo);
 	}
 
+	
+
 
 	public List<GalleryDTO> selectUserInfo(int postNo) {
 		//작가 정보 뿌려주기 위한 서비스 호출
@@ -129,6 +132,25 @@ public class GalleryDAO {
 		
 		return template.selectOne("getLoginInfo", userId);
 	}
+
+
+
+	public int userNum(Map map) {
+		return template.selectOne("findUserNo", map);
+	}
+
+
+	public int findLike(Map<String, Object> map) {
+		System.out.println("###갤러리dao###");
+		int succ=0;
+		System.out.println("###DAO###:"+map);
+		succ=template.selectOne("findLike", map);
+		System.out.println("###succ###:"+succ);
+		return succ;
+		
+	}
+
+
 
 
 

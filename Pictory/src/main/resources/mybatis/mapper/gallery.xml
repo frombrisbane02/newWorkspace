@@ -109,4 +109,21 @@
 		WHERE userId=#{userId}
 	</select>
 	
+	
+	<select id="findUserNo" parameterType="Map" resultType="int">
+		SELECT userNo FROM users WHERE userId=#{userId}
+		
+	</select>
+	
+	<select id="findLike" resultType="int" parameterType="Map">
+		SELECT count(*) FROM likes WHERE userNo = (SELECT userNo FROM users WHERE userId=#{userId}) AND postNo=#{postNo}
+	</select>
+	<insert id="likeUp">
+		INSERT INTO likes VALUES(#{userNo},#{postNo})
+	</insert>
+	<delete id="likeDown">
+		DELETE FROM LIKES WHERE userNo=#{userNo} AND postNo=#{postNo}
+	</delete>
+	
+	
 </mapper>
