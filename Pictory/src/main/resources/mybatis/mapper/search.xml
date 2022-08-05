@@ -28,40 +28,40 @@
 	<!-- 통합검색 쿼리문 -->
 	<select id="searchSelect" parameterType="Map" resultType="searchDTO">
 					
-		SELECT po.postno,
-      		po.postcategory ,
-            po.posttitle,
-            u.usernickname,
-            u.userprofile,
-            u.userno,
-            po.posthits,
-            po.postlikes,
-            (SELECT ph.photourl FROM photo ph WHERE ph.postno=po.postno AND ROWNUM = 1) photourl,
-            (SELECT COUNT(ct.cno) FROM comment_tbl ct WHERE ct.postno=po.postno) commentCount
-        FROM post po INNER JOIN users u
-           ON po.userno = u.userno
-     
-		WHERE POSTTITLE LIKE '%'|| #{searchName} || '%' OR POSTTEXT LIKE'%'|| #{searchName} || '%'
-		ORDER BY po.postdate DESC			
+		SELECT * from 
+			(SELECT po.postno,
+			            po.postcategory,
+			            po.posttitle,
+			               po.POSTTEXT,
+			            u.usernickname,
+			            u.userprofile,
+			            u.userno,
+			            po.posthits,
+			            (SELECT COUNT(*) FROM likes lk WHERE lk.postno=po.postno) postlikes,
+			            (SELECT ph.photourl FROM photo ph WHERE ph.postno=po.postno AND ROWNUM = 1) photourl,
+			            (SELECT COUNT(*) FROM likes lk WHERE lk.userno=1 AND lk.postno=po.postno) likecnt,
+			            (SELECT COUNT(ct.cno) FROM comment_tbl ct WHERE ct.postno=po.postno) commentcnt,
+			               (SELECT hashtag FROM hashtag hs WHERE hs.postno=po.postno AND HASHTAG LIKE '%'|| #{searchName} || '%') hashtag,
+			            s.sno,
+			            s.storytitle,
+			            s.storythumbnail
+			        FROM post po INNER JOIN users u
+			           ON po.userno = u.userno
+			   LEFT OUTER JOIN story s
+			         ON po.sno = s.sno) a
+			where  a.POSTTITLE LIKE '%'|| #{searchName} || '%' 
+			    OR a.POSTTEXT LIKE '%'|| #{searchName} || '%'  
+			    OR a.hashtag LIKE '%'|| #{searchName} || '%' 
+        
+
+		
 	</select>
 	
 	<!-- 포스트 최신순 검색 쿼리문 -->
 	<select id="searchPostRecent" parameterType="Map" >
-		SELECT * FROM POST ORDER BY POSTDATE DESC ;	
+		SELECT * FROM POST ORDER BY POSTNO DESC
 	</select>
 	
-	<!-- 총 검색건수 -->
-	<select id="totalSearchCount" parameterType="Map">
-		SELECT COUNT(*) FROM
-		(
-		SELECT * FROM
-		(SELECT p.postTitle,p.postText,h.hashtag
-		FROM USERS u, POST p, HASHTAG h
-		WHERE u.userNo = p.userNo
-		AND p.postNo = h.postNo)
-		WHERE HASHTAG LIKE '%'|| #{searchName} || '%' OR POSTTITLE LIKE '%'|| #{searchName} || '%' OR POSTTEXT LIKE'%'|| #{searchName} || '%'
-		)
-	</select>
 	
 	<!-- 카테고리별 조회 -->
 	<select id="categorySelect" parameterType="Map">
