@@ -20,7 +20,7 @@
  <div class="img_area" style="background-image: url(<c:url value="/resources/img/gallerylist/test_img12.jpg"/>);">
  -->
 
-<form method="post" action="<c:url value="/feed/Index.do"/>" accept-charset="UTF-8">
+<form method="post" action="<c:url value="/feed/Index.do?userNo=${feedInfo.userNo}"/>" accept-charset="UTF-8">
 	<div class="gray_box">
 		<div class="top_bg" style="background-image: url(<c:url value="/resources/img/feed/test_img01.jpg"/>);"></div>
 		<div class="main_area">
@@ -95,7 +95,9 @@
 		</div>
 	</div>
 </form>
+
 </body>
+
 
 </html>
 

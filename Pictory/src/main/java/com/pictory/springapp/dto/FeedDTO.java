@@ -26,6 +26,8 @@ public class FeedDTO {
 		private int postLikes;
 		private Date postDate;
 		
+		
+		private int postCount;
 
 		//TBL_STORY
 		private int sNo;

@@ -7,10 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.pictory.springapp.dto.FeedDTO;
-import com.pictory.springapp.dto.FeedService;
 import com.pictory.springapp.dto.FeedStoryService;
-import com.pictory.springapp.dto.MemberDTO;
-import com.pictory.springapp.dto.StoryDTO;
+
 
 
 

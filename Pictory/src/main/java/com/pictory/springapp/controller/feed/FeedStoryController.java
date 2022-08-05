@@ -1,4 +1,4 @@
-package com.pictory.springapp.controller.feed;
+	package com.pictory.springapp.controller.feed;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,6 +25,7 @@ import com.pictory.springapp.dto.FeedDTO;
 import com.pictory.springapp.dto.FeedStoryService;
 
 
+	
 
 @SessionAttributes("userId")
 @Controller
@@ -34,20 +35,19 @@ public class FeedStoryController {
 	
 	@Autowired
 	private FeedStoryService<FeedDTO> feedStoryService;
-	
 
 	   
 	   
 	@RequestMapping("/feed/FeedStory.do")
-	   public String index(Model model) {
+	   public String index(HttpSession session , Model model) {
 	     System.out.println("여기로 들어와야지");
-		
+	     String id = (String) session.getAttribute("userId");
 	      List<FeedDTO> returnValue = feedStoryService.virtualList();
 	      
 	      System.out.println("스토리 제목:"+returnValue.get(1));
 	      
 	      model.addAttribute("returnValue", returnValue);
-	      return "feed/FeedStory.tiles";
+	      return "feed/FeedStory";
 	   }
 	   
 	   

@@ -2,8 +2,13 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-	
- 
+	<link rel="shortcut icon" type="image/x-icon" href="img/favicon.png">
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/feed/page2.css">
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/feed/dm.css">
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/feed/common.css">
+
+    <script src="${pageContext.request.contextPath}/resources/js/feed/html5shiv.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/feed/modernizr.js"></script>
 
 	
 	
@@ -26,8 +31,8 @@
 					 
 					<c:if test="${not isEmpty}">
 						<c:forEach var="record" items="${returnValue}" varStatus="loop">
-						<h3>${sessionScope.userId }
-							${record.userId }	</h3>
+						
+							<c:if test = "${(sessionScope.userId) ==  (record.userId)}"  >
 						<li>
 							<a href="<c:url value="/story/virtualprocess.do?sNo=${record.SNo}"/>">
 								<div class="img_area" style="background-image: url(<c:url value="${record.storyThumbnail}"/>);">
@@ -57,7 +62,7 @@
 								</div>
 							</a>
 						</li>
-					
+						</c:if>
 						</c:forEach>
 					</c:if>
 					

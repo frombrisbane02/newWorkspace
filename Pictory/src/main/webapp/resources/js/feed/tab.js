@@ -1,16 +1,15 @@
-$(window).load(function(){
 
-	$('.tab_link').click(function () {
-        var tab_id = $(this).attr('data-tab');
- 
-        $('.tab_link').removeClass('tab_ac');
-        $('.tab_cont').removeClass('tab_ac');
- 
-        $(this).addClass('tab_ac');
-        $("#" + tab_id).addClass('tab_ac');
-
-        return false;
-
-	});
-
-});
+	$(document).ready(function(){
+		
+		$(".tabContent").load("<c:url value='/feed/Artwork.do'/>");
+		
+		//탭 클릭시마다 
+		$("#tab li a").on("click", function(e){
+			e.preventDefault();
+			
+			var page=$(this).attr("href");
+			console.log("<c:url value='/feed/"+page+".do'/>");
+			///
+			$(".tabContent").load("<c:url value='/feed/"+page+".do'/>");
+		});
+		});
