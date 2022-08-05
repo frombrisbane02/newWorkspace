@@ -101,13 +101,26 @@
     </div>
     
     <!-- 결제하면 결제용 영역 장바구니, 가격, 결제 버튼 들어가게 만들어주기 -->
-    <c:if test="${postSellorNot==1}">
-    <div class="container">
-	    <span class="material-symbols-outlined">shopping_cart</span>장바구니
-	  	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	  	<span class="material-symbols-outlined">shopping_cart</span>결제하기
-    </div>
-    </c:if>
+	<c:if test="${postSellorNot==1 && not empty product}">
+		<div class="container">
+			<div class="pdTitleArea">
+				<h3>제목어떡할거임</h3>
+			</div>
+			<div class="">
+					<p>${product.pdPrice}원</p>
+			</div>
+			<div class="pdArea m-2" style="display: inline-block;">
+				<a href="<c:url value="/mypage/.do?pdNo=${product.pdNo}"/>">
+				<img src="${pageContext.request.contextPath}/resources/img/galleryview/btncart.jpg" style="width:100px;"/>
+				</a>
+			</div>
+			<div class="pdArea m-2" style="display: inline-block;">
+				<a href="<c:url value="/mypage/.do?pdNo=${product.pdNo}" />">
+				<img src="${pageContext.request.contextPath}/resources/img/galleryview/btncartplus.jpg" style="width:100px;"/>
+				</a>
+			</div>
+		</div>
+	</c:if>
     
     
     <!-- Features section-->
@@ -116,15 +129,26 @@
             <div class="container px-2 my-2">
                 <div class="row gx-5">
                     <div class="d-inline-flex">
-                        <span class="material-symbols-outlined">favorite</span>좋아요&nbsp;<span>${postLikes}</span>
+                        <span class="material-symbols-outlined">favorite</span>&nbsp;좋아요&nbsp;<span>${postLikes}</span>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <span class="material-symbols-outlined">visibility</span>조회수&nbsp;<span>${postHits}</span>
+                        <span class="material-symbols-outlined">visibility</span>&nbsp;조회수&nbsp;<span>${postHits}</span>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     </div>
                 </div>
             </div>
         </section>
     </div>
+ <!-- 작가의 다른 작품 보기 영역!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+   <div>
+   
+   </div>
+    
+    
+    
+    
+    
+    
+    
 
 <!-- 댓글 영역!!!!!!!!!!!!!!!! -->
 
@@ -143,11 +167,15 @@
 		                   <div class="row">
 		                       <div class="col-md-12">
 		                           <div class="commentmedia">
-		                               <img class="mr-3 rounded-circle" alt="userProfile" src="${comments.userProfile}"/>
+		                               <a class="pr-3" href="<c:url value="/feed/Artwork.do?userNo=${comments.userNo}"/>">
+		                               	<img class="mr-3 rounded-circle" alt="userProfile" src="${comments.userProfile}"/>
+		                               </a>
 		                               <div class="media-body">
 		                                   <div class="row">
 		                                       <div class="col-8 d-flex">
+		                                       <a class="pr-3" href="<c:url value="/feed/Artwork.do?userNo=${comments.userNo}"/>">
 		                                           <h5>${comments.userNickname}</h5>
+		                                       </a>
 		                                           <span>${comments.CDate}</span>
 		                                       </div>
 		                                       <div class="col-4">
@@ -159,11 +187,11 @@
 	                 	</c:if>
 										<c:if test="${(comments.parentCNo)==(comments.CNo)}">
 					                        <div class="commentmedia mt-4">
-					                            <a class="pr-3" href="#"><img class="rounded-circle" alt="reply" src="${comments.userProfile}"/></a>
+					                            <a class="pr-3" href="<c:url value="/feed/Artwork.do?userNo=${comments.userNo}"/>"><img class="rounded-circle" alt="reply" src="${comments.userProfile}"/></a>
 					                            <div class="media-body">
 					                                <div class="row">
 					                                    <div class="col-12 d-flex">
-					                                        <h5>${comments.userNickname}</h5>
+					                                        <a class="pr-3" href="<c:url value="/feed/Artwork.do?userNo=${comments.userNo}"/>"><h5>${comments.userNickname}</h5></a>
 					                                		   <span>${comments.CDate}</span>
 					                                    </div>
 					                                </div>${comments.CText}

@@ -31,16 +31,11 @@ public class GalleryDAO {
 		
 		List<GalleryDTO> rawLists = template.selectList("galleryList");
 		
-		System.out.println("==========변경전===========");
 		
 		for(GalleryDTO rawList : rawLists) {
-			System.out.println("==========변경 후===========");
-			System.out.println("RAW:"+rawList.getPhotoUrl());
 			
 			rawList.setPhotoUrl(resource+rawList.getPhotoUrl());
-			
-			System.out.println("==========DAO===========");
-			System.out.println("RAW:"+rawList.getPhotoUrl());
+			rawList.setUserProfile(resource+rawList.getUserProfile());
 		}
 		
 		System.out.println("SET COMPLETED?: "+rawLists.get(0));
@@ -73,7 +68,12 @@ public class GalleryDAO {
 
 	public List<GalleryDTO> selectUserInfo(int postNo) {
 		//작가 정보 뿌려주기 위한 서비스 호출
-		return template.selectList("userInfo",postNo);
+		List<GalleryDTO> userInfos = template.selectList("userInfo",postNo);
+		for(GalleryDTO userInfo : userInfos) {
+			userInfo.setUserProfile(resource+userInfo.getUserProfile());
+		}
+		
+		return userInfos;
 	}
 
 
@@ -82,23 +82,28 @@ public class GalleryDAO {
 		
 		List<GalleryDTO> comments = template.selectList("getComments", postNo);
 		for(GalleryDTO oneComment : comments) {
-			System.out.println("===================================");
-			System.out.println("dao: 댓글no: "+ oneComment.getCNo());
-			System.out.println("dao: 댓글clevel: "+ oneComment.getCLevel());
-			System.out.println("dao: 댓글text: "+ oneComment.getCText());
-			System.out.println("dao: 댓글date: "+ oneComment.getCDate());
-			System.out.println("dao: 댓글parentno: "+ oneComment.getParentCNo());
-			System.out.println("===================================");
-			
+			oneComment.setUserProfile(resource+oneComment.getUserProfile());
 		}
 		
-		return template.selectList("getComments", postNo);
+		return comments;
 	}
 
 
 	public List<GalleryDTO> getHashList() {
 		// 해시태그 갖고오기
 		return template.selectList("hashlist");
+	}
+
+
+	public GalleryDTO getProductInfo(int postNo) {
+		// 상품정보 가져오기
+		GalleryDTO pdInfo = template.selectOne("getProductInfo",postNo);
+		System.out.println("pdInfo 다 갖고왔니?"+pdInfo);
+		return null;
+	}
+	
+	public int isSellorNot(int postNo) {
+		return template.selectOne("isSellorNot",postNo);
 	}
 
 

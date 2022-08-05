@@ -70,5 +70,16 @@
 		ORDER BY c.cLevel
 	</select>
 	
+	<select id="isSellorNot" resultType="int" parameterType="_integer">
+		SELECT COUNT(postSellorNot)
+        FROM POST p
+        WHERE p.postno=#{postNo} AND p.postSellorNot=1
+	</select>
+	<select id="getProductInfo" resultType="GalleryDTO" parameterType="_integer">
+		SELECT *
+		FROM PRODUCT
+		WHERE photoNo = (SELECT ph.photono FROM PHOTO ph WHERE ph.postno=#{postNo})
+	</select>
+	
 	
 </mapper>

@@ -351,25 +351,7 @@
 	
 	
     var base64=[];
-/*	function imgClick(index){
-		  //data-toggle='modal' data-target='#editModal'
-		  console.log('확인용 base64[index]: ',base64[index]);
-		  console.log('클릭한 인덱스:',index);
-		  
-		
-		  $.ajax({
-			  url:"<c:url value='/gallery/post/loadEditor.do'/>",
-			  data: "img=hellow",	
-			  dataType:'html',
-			  method:'post'
 
-			}).done(function(data){
-			  console.log('성공:',data);
-			  document.querySelector('#iframe').src=data;
-
-			}).fail(function(e){console.log('에러:',e)});
-		  
-	}*/
   
 //==============================textarea 높이 자동조정==============================
 	  $(document).ready(function() {

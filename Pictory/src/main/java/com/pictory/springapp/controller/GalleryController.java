@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartResolver;
 
+import com.pictory.springapp.Constants;
 import com.pictory.springapp.dto.GalleryDTO;
 import com.pictory.springapp.dto.GalleryService;
 import com.pictory.springapp.dto.PostDTO;
@@ -29,6 +30,10 @@ public class GalleryController {
 	
 	@Autowired
 	private GalleryService<GalleryDTO> galleryService;
+	
+	//url 저장용 상수
+	String resource = Constants.RESOURCE.toString();
+	
 	
 	@GetMapping("GalleryList.do")
 	public String galleryList(Model model) {
@@ -67,7 +72,7 @@ public class GalleryController {
 		List<GalleryDTO> photoLists = galleryService.galleryPhoto(postNo);
 		for(GalleryDTO photoUrls : photoLists) {
 			System.out.println("컨트롤러 postUrls:"+ photoUrls.getPhotoUrl());
-			
+			photoUrls.setPhotoUrl(resource+photoUrls.getPhotoUrl());
 		}
 		
 		//2. 나머지 본문 정보 전부 갖고오기
@@ -87,7 +92,15 @@ public class GalleryController {
 		//5. 댓글 코멘트 갖고 오기(postNo 넘기고!)
 		List<GalleryDTO> comments = galleryService.getComments(postNo);
 		
-		//6. Model에 정보 저장 후 돌아가기
+		//6. 판매하는 경우 상품 정보 다 갖고오기(어차피 하나임 ㅇㅇ)
+		//if count해서 product 테이블 있나 보고 ..
+		if(galleryService.isSellorNot(postNo)==1) {
+			GalleryDTO product = galleryService.getProductInfo(postNo);
+			model.addAttribute("product", product);
+		}
+		
+		
+		//7. Model에 정보 저장 후 돌아가기
 		model.addAttribute("comments",comments);
 		model.addAttribute("photoUrls",photoLists);
 		model.addAttribute("viewLists",viewLists);
@@ -99,7 +112,6 @@ public class GalleryController {
 		model.addAttribute("postLikes",viewLists.get(0).getPostLikes());
 		model.addAttribute("postHits",viewLists.get(0).getPostHits());
 		model.addAttribute("postSellorNot",viewLists.get(0).getPostSellorNot());
-		
 		
 		
 		return "gallery/GalleryView";

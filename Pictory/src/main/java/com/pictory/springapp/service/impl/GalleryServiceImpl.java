@@ -58,6 +58,17 @@ public class GalleryServiceImpl implements GalleryService<GalleryDTO> {
 		return dao.getHashList();
 	}
 
+	@Override
+	public GalleryDTO getProductInfo(int postNo) {
+		// 갤러리뷰 상품정보(있는 경우) 가져오기
+		return dao.getProductInfo(postNo);
+	}
+	
+	@Override
+	public int isSellorNot(int postNo){
+		return dao.isSellorNot(postNo);
+	}
+
 
 
 }
