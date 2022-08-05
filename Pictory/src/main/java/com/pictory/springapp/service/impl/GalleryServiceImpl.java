@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.pictory.springapp.Constants;
 import com.pictory.springapp.dto.GalleryDTO;
 import com.pictory.springapp.dto.GalleryService;
 
@@ -14,6 +15,9 @@ public class GalleryServiceImpl implements GalleryService<GalleryDTO> {
 	
 	@Autowired
 	private GalleryDAO dao;
+	
+	//url 저장용 상수
+	String resource = Constants.RESOURCE.toString();
 
 	@Override
 	public List<GalleryDTO> galleryList() {

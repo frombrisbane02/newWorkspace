@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.pictory.springapp.Constants;
 import com.pictory.springapp.dto.PostDTO;
 import com.pictory.springapp.dto.PostUploadService;
 
@@ -17,6 +18,9 @@ public class PostUploadServiceImpl implements PostUploadService<PostDTO> {
 	//PostDAO주입)
 	@Autowired
 	private PostDAO dao;
+	
+	//url 저장용 상수
+	String resource = Constants.RESOURCE.toString();
 	
 	
 	// 파일 디렉토리 만들기, 파일 업로드하기

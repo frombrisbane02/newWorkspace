@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.pictory.springapp.Constants;
 import com.pictory.springapp.dto.PostDTO;
 
 @Repository("postDAO")
@@ -27,6 +28,8 @@ public class PostDAO {
 	@Autowired
 	private SqlSessionTemplate template;
 
+	//url 저장용 상수
+	String resource = Constants.RESOURCE.toString();
 	
 
 	public int postInsert(Map map) {
@@ -99,7 +102,7 @@ public class PostDAO {
 		catch(Exception e) {e.getStackTrace();}
 		
 		
-		return "http://localhost:4040/springapp/upload/img/"+String.valueOf(map.get("userId"));
+		return resource+String.valueOf(map.get("userId"));
 	}
 	
 	
@@ -132,7 +135,7 @@ public class PostDAO {
 		}//try
 		catch(Exception e) {e.getStackTrace();}
 		
-		return "http://localhost:4040/springapp/upload/img/"+String.valueOf(map.get("userId"))+"/"+uploadImage.getOriginalFilename();
+		return resource+String.valueOf(map.get("userId"))+"/"+uploadImage.getOriginalFilename();
 	}
 
 	public String uploadStoryThumbnail(Map map, MultipartFile storyThumbnail) {
@@ -144,9 +147,9 @@ public class PostDAO {
 		try {storyThumbnail.transferTo(dest);}
 		catch (Exception e) {e.printStackTrace();}
 		
-		System.out.println("http://localhost:4040/springapp/upload/img/"+String.valueOf(map.get("userId"))+"/"+storyThumbnail.getOriginalFilename());
+		System.out.println(resource+String.valueOf(map.get("userId"))+"/"+storyThumbnail.getOriginalFilename());
 		
-		return "http://localhost:4040/springapp/upload/img/"+String.valueOf(map.get("userId"))+"/"+storyThumbnail.getOriginalFilename();
+		return resource+String.valueOf(map.get("userId"))+"/"+storyThumbnail.getOriginalFilename();
 	}
 
 	public int storyInsert(Map map) {

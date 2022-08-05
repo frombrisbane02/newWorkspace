@@ -157,30 +157,25 @@
 		<div class="form-group text-center">
 			<label for="uploadImage" class="btn btn-ouline-dark m-2" style="display: inline-block;">
 				<c:if test="${postSellorNot eq 'sell'}">
-					<img src="${pageContext.request.contextPath}/resources/img/upload/btnimage.jpg"
-						style="width: 57.33px;" />
+					<img src="${pageContext.request.contextPath}/resources/img/upload/btnimage.jpg" style="width:50px;"/>
 			</label>
 			<input name="uploadImage" id="uploadImage" type="file" accept="image/*" class="form-control btn btn-ouline-dark m-2" hidden />
 			</c:if>
 			
-			
 			<c:if test="${postSellorNot eq 'notsell'}">
-				<img src="${pageContext.request.contextPath}/resources/img/upload/btnimage.jpg" style="width: 57.33px;" />
+				<img src="${pageContext.request.contextPath}/resources/img/upload/btnimage.jpg" style="width:50px;"/>
 			</label>
-			<input name="uploadImage" id="uploadImage" type="file" accept="image/*" class="form-control btn btn-ouline-dark m-2" multiple hidden />
+			<input name="uploadImage" id="uploadImage" type="file" accept="image/*" class="form-control m-2" multiple hidden />
 			</c:if>
 			
 			
 			<!-- ===================================지도=================================== -->
-			<button id="uploadMap" type="button" data-toggle="modal"
-				data-target="#mapModal" class="btn btn-outline-dark m-2">map</button>
+			<label for="addMap" class="btn btn-ouline-dark m-2" style="display: inline-block;">
+				<img src="${pageContext.request.contextPath}/resources/img/upload/btnmap.jpg" style="width:50px;"/>
+			</label>
+			<input type="hidden" name="addMap" id="addMap"  class="form-control m-2" hidden />
+			
 
-
-			<!-- ===================================이미지 보정=================================== -->
-
-
-			<button id="popupEditor" type="button"
-				class="btn btn-outline-dark m-2">POPUP</button>
 		</div>
 
 		<!-- =================================== 판매안할때 스토리 생성 추가=================================== -->
@@ -191,7 +186,7 @@
 					<li class="list-group-item overflow-x: auto; border-0">
 						<div class="inline" id="sThumnail">
 							<label for="storyThumbnail"> <img
-								src="${pageContext.request.contextPath}/resources/img/upload/addstory.jpg"
+								src="${pageContext.request.contextPath}/resources/img/upload/btnaddStory.jpg"
 								id="addedThumbnailimg" width="100px;">
 							</label> <input id="storyThumbnail" name="storyThumbnail" type="file"
 								accept="image/*" hidden />

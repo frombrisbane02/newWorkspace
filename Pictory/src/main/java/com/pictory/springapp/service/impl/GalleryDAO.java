@@ -9,6 +9,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.pictory.springapp.Constants;
 import com.pictory.springapp.dto.GalleryDTO;
 
 @Repository("galleryDAO")
@@ -19,6 +20,9 @@ public class GalleryDAO {
 	
 	@Autowired
 	private SqlSessionTemplate template;
+	
+	//url 저장용 상수
+	String resource = Constants.RESOURCE.toString();
 
 	
 	//상단바-갤러리 클릭시 조회용
