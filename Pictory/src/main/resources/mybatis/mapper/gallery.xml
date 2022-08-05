@@ -82,22 +82,17 @@
 	</select>
 	
 	
-	
-	
-	<select id="filter" resultType="GalleryDTO" parameterType="List">
 
-	       SELECT po.postno,
+	<select id="filter" resultType="GalleryDTO" parameterType="List">
+	  SELECT po.postno,
       		po.postcategory,
             po.posttitle,
-            po.postText,
-            po.postDate,
-            po.postSellorNot,
             u.usernickname,
             u.userprofile,
             u.userno,
-            u.userId,
             po.posthits,
-            po.postLikes,
+            (SELECT COUNT(l.postNo) FROM LIKES l WHERE l.postno=po.postno) postLikes,
+            (SELECT ph.photourl FROM photo ph WHERE ph.postno=po.postno AND ROWNUM = 1) photoUrl,
             (SELECT COUNT(ct.cno) FROM comment_tbl ct WHERE ct.postno=po.postno) commentCount
         FROM post po INNER JOIN users u
            ON po.userno = u.userno
@@ -105,10 +100,7 @@
     	<foreach collection="array" item="item" open="(" close=")" separator=",">
     	   #{item}
     	</foreach>
-    	
-	
-	
-	<!--  select postcategory from post where postcategory=#{'value'}-->
+    	ORDER BY po.postdate DESC
 	</select>
 	
 </mapper>

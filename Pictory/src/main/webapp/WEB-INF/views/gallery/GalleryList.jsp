@@ -8,10 +8,9 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=0,maximum-scale=1">
 	<title>Gallery</title>
-	<!-- 
+	
 	<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
- -->
 	<link rel="shortcut icon" type="image/x-icon" href="img/favicon.png">
 	<link rel="apple-touch-icon" href="img/favicon.png">
 	<link rel="stylesheet" type="text/css" href="http://localhost:4040/springapp/resources/css/galleryview/common.css">
@@ -68,7 +67,7 @@
 					</a>
 	
 					<ul class="hover_btn">
-						<li><a href=""><img src="${pageContext.request.contextPath}/resources/img/gallerylist/test_icon06.png" alt="">Like</a></li>
+						<li><a href="" ><img src="${pageContext.request.contextPath}/resources/img/gallerylist/test_icon06.png" alt="">Like</a></li>
 						<li><a href="">Save</a></li>
 					</ul>
 					

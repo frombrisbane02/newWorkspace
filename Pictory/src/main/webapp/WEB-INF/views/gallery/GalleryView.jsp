@@ -35,9 +35,6 @@
 	margin-right: auto;
 }
 	
-	 html, body {
-        height: 100%
-    }
 
     body {
         display: grid;
@@ -51,10 +48,7 @@
         flex-direction: column;
         min-width: 0;
         word-wrap: break-word;
-        background-color: #fff;
-        background-clip: border-box;
-        border: 1px solid #d2d2dc;
-        border-radius: 11px;
+        border-style: none;
         
     }
 
@@ -93,7 +87,7 @@
                         <img class="postImages" src="${photo.photoUrl}" />
                     </c:forEach>
                 </div>
-                <div class="textArea">
+                <div class="textArea text-center" style="margin-top: 50px;">
                     <p>${list.postText}</p>
                 </div>
             </c:forEach>
@@ -101,23 +95,27 @@
     </div>
     
     <!-- 결제하면 결제용 영역 장바구니, 가격, 결제 버튼 들어가게 만들어주기 -->
-	<c:if test="${postSellorNot==1 && not empty product}">
-		<div class="container">
-			<div class="pdTitleArea">
-				<h3>제목어떡할거임</h3>
-			</div>
-			<div class="">
-					<p>${product.pdPrice}원</p>
-			</div>
-			<div class="pdArea m-2" style="display: inline-block;">
-				<a href="<c:url value="/mypage/.do?pdNo=${product.pdNo}"/>">
-				<img src="${pageContext.request.contextPath}/resources/img/galleryview/btncart.jpg" style="width:100px;"/>
-				</a>
-			</div>
-			<div class="pdArea m-2" style="display: inline-block;">
-				<a href="<c:url value="/mypage/.do?pdNo=${product.pdNo}" />">
-				<img src="${pageContext.request.contextPath}/resources/img/galleryview/btncartplus.jpg" style="width:100px;"/>
-				</a>
+	<c:if test="${not empty isSellorNot}">
+		<div class="card" style="width: 600px; margin-top: 100px;">
+			<div class="card-body">
+				<div class="pdTitleArea text-left">
+					<h5 class="card-title">${postTitle}</h5>
+				</div>
+				<div class="card-title text-right">
+						<h6 id="pdPrice">${pdPrice}원</h6>
+				</div>
+				<div class="row">
+					<div class="pdArea m-2 col-xs-6" style="display:inline-block;">
+						<a href="<c:url value="/mypage/.do?pdNo=${pdNo}"/>">
+						<img src="${pageContext.request.contextPath}/resources/img/galleryview/btncart.jpg" style="width:100px;"/>
+						</a>
+					</div>
+					<div class="pdArea m-2 col-xs-6" style="display:inline-block;">
+						<a href="<c:url value="/mypage/.do?pdNo=${pdNo}" />">
+						<img src="${pageContext.request.contextPath}/resources/img/galleryview/btncartplus.jpg" style="width:100px;"/>
+						</a>
+					</div>
+				</div>
 			</div>
 		</div>
 	</c:if>
@@ -139,9 +137,7 @@
         </section>
     </div>
  <!-- 작가의 다른 작품 보기 영역!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
-   <div>
-   
-   </div>
+
     
     
     
@@ -151,7 +147,20 @@
     
 
 <!-- 댓글 영역!!!!!!!!!!!!!!!! -->
+<div class="container mycomment text-center">
+   	<form id="commentform">
+   		<div class="">
+   			<textarea name="commentarea" id="commentarea" style="min-height: 100px; max-height: 100px; width:1000px;"></textarea>
+   		</div>
+   		<div class="">
+   			<input type="button" value="댓글 등록" onclick="commentAjaxCall('${userId}',${postNo});" style="width: 1000px;"/>
+   		</div>
+   	</form> 
+</div>
 
+
+
+<!-- 기존 댓글 영역!!!!!!!!!!!!!!!! -->
 <div class="container mb-5 mt-5">
 	<div class="card commentcard">
 		<div class="row">
@@ -180,18 +189,20 @@
 		                                       </div>
 		                                       <div class="col-4">
 		                                           <div class="pull-right reply">
-		                                               <a href="#"><span><i class="fa fa-reply"></i>답글</span></a>
+		                                               <a href="#"><span><i class="fa fa-reply"></i></span></a>
 		                                           </div>
 		                                       </div>
 		                                   </div>${comments.CText}
 	                 	</c:if>
-										<c:if test="${(comments.parentCNo)==(comments.CNo)}">
+										<c:if test="${comments.parentCNo==comments.CNo}">
 					                        <div class="commentmedia mt-4">
 					                            <a class="pr-3" href="<c:url value="/feed/Artwork.do?userNo=${comments.userNo}"/>"><img class="rounded-circle" alt="reply" src="${comments.userProfile}"/></a>
 					                            <div class="media-body">
 					                                <div class="row">
 					                                    <div class="col-12 d-flex">
-					                                        <a class="pr-3" href="<c:url value="/feed/Artwork.do?userNo=${comments.userNo}"/>"><h5>${comments.userNickname}</h5></a>
+					                                        <a class="pr-3" href="<c:url value="/feed/Artwork.do?userNo=${comments.userNo}"/>">
+					                                        	<h5>${comments.userNickname}</h5>
+					                                        </a>
 					                                		   <span>${comments.CDate}</span>
 					                                    </div>
 					                                </div>${comments.CText}
@@ -210,8 +221,67 @@
 	</div>
 </div>
 
+<br>
+<br>
+<br>
+<br>
+<br>
+
 
 
 
 </body>
+<script>
+
+window.onload = function(){
+	
+	if(document.querySelector('#pdPrice')){
+	var money = document.querySelector('#pdPrice').innerHTML;
+	
+	 var regx = new RegExp(/(-?\d+)(\d{3})/);
+     var bExists = money.indexOf(".", 0);//0번째부터 .을 찾는다.
+     var strArr = money.split('.');
+     while (regx.test(strArr[0])) {//문자열에 정규식 특수문자가 포함되어 있는지 체크
+         //정수 부분에만 콤마 달기 
+         strArr[0] = strArr[0].replace(regx, "$1,$2");//콤마추가하기
+     }
+     if (bExists > -1) {
+    	 money = strArr[0] + "." + strArr[1];
+     } else { 
+    	 money = strArr[0];
+     }
+     console.log(money);
+     
+     document.querySelector('#pdPrice').innerHTML = money;
+	}
+}
+
+function commentAjaxCall(userId,postNo){
+	
+	console.log('userId 들어왔니? %O', userId);
+	console.log('postNo 들어왔니?',typeof(postNo));
+	
+	var commentText = document.querySelector('#commentarea').value;
+	console.log('제가..댓글 뭐라고 썼죠?:',commentText);
+	
+	 $.ajax({
+	        type:'POST',
+	        url : "<c:url value='/gallery/post/SubmitComment.do'/>",
+	        data:$("#commentarea").serialize()
+	 	}).done(function(data){
+	 		if(data=="success")
+            {
+                getCommentList();
+                $("#comment").val("");
+            }
+	 	});
+	       
+	
+	
+}
+
+
+
+
+</script>
 </html>

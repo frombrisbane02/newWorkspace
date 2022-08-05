@@ -78,8 +78,15 @@ public class GalleryDAO {
 
 	
 	public List<GalleryDTO> selectFilter(String[] postCategory) {
-		System.out.println("종근===갤러리 dao");
-		return template.selectList("filter",postCategory);
+		//System.out.println("종근===갤러리 dao");
+		
+		List<GalleryDTO> filters = template.selectList("filter",postCategory);
+		for(GalleryDTO filter : filters) {
+			filter.setPhotoUrl(resource+filter.getPhotoUrl());
+			filter.setUserProfile(resource+filter.getUserProfile());
+		}
+		
+		return filters;
 	}
 
 	public List<GalleryDTO> selectCommentList(int postNo) {
@@ -104,7 +111,7 @@ public class GalleryDAO {
 		// 상품정보 가져오기
 		GalleryDTO pdInfo = template.selectOne("getProductInfo",postNo);
 		System.out.println("pdInfo 다 갖고왔니?"+pdInfo);
-		return null;
+		return pdInfo;
 	}
 	
 	public int isSellorNot(int postNo) {
