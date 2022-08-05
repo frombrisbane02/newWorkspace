@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.pictory.springapp.Constants;
 import com.pictory.springapp.dto.StoryDTO;
 import com.pictory.springapp.dto.StoryService;
 
@@ -33,6 +34,9 @@ public class StoryController {
    
    @Autowired
    private StoryService<StoryDTO> storyService;
+   
+   //url 저장용 상수
+ 	String resource = Constants.RESOURCE.toString();
 
    
    //종근 - 스토리 컨트롤러
@@ -90,7 +94,7 @@ public class StoryController {
       List<StoryDTO> storyimages = storyService.virtualImages(Integer.parseInt(req.getParameter("sNo")));
       for(StoryDTO dto:storyimages) {
     	 Map<String,String> map = new HashMap<>();
-    	 map.put("image_url", dto.getPhotoUrl());
+    	 map.put("image_url", resource+dto.getPhotoUrl());
          //map.put("image_title",String.format("이미지 제목%d",dto.getPhotoName()));
     	 map.put("image_title","");
          map.put("image_id",String.format("%sID",dto.getPhotoNo()));

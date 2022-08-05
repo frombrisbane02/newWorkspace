@@ -276,7 +276,7 @@ function commentAjaxCall(userId,postNo,userNickname,userProfile){
 	 			$("#commentarea").val("");
                 
 	 			//댓글 바꿔주기
-	 			var commentHTML = "<div class='row'><div class='col-md-12'><div class='commentmedia'><a class='pr-3' href='#'><img class='mr-3 rounded-circle' alt='userProfile' src='"+userProfile+"'/></a><div class='media-body'><div class='row'><div class='col-8 d-flex'><a class='pr-3'><h5>"+userNickname+"</h5></a><span>"+2022-08-05+"</span></div></div>"+commentText;
+	 			var commentHTML = "<div class='row'><div class='col-md-12'><div class='commentmedia'><a class='pr-3' href='#'><img class='mr-3 rounded-circle' alt='userProfile' src='"+userProfile+"'/></a><div class='media-body'><div class='row'><div class='col-8 d-flex'><a class='pr-3'><h5>"+userNickname+"</h5></a><span>날짜자리</span></div></div>"+commentText;
 				document.querySelector('.motherComment').insertAdjacentHTML('beforeend',commentHTML);
 	 			
 				console.log(commentHTML);

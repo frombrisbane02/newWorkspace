@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.pictory.springapp.Constants;
 import com.pictory.springapp.dto.StoryDTO;
 
 @Repository("storyDAO")
@@ -19,10 +20,20 @@ public class StoryDAO<T> {
    @Autowired
    private SqlSessionTemplate template;
    
+   //url 저장용 상수
+ 	String resource = Constants.RESOURCE.toString();
+   
    
    public List<StoryDTO> virtualList() {
-      
-      return template.selectList("storyllist");
+	   List<StoryDTO> lists = template.selectList("storyllist");
+	   
+	   for(StoryDTO list: lists) {
+		   list.setStoryThumbnail(resource+list.getStoryThumbnail());
+		   list.setUserProfile(resource+list.getUserProfile());
+	   }
+	   
+	   
+      return lists;
       
    }//virtualList
 
@@ -33,6 +44,10 @@ public class StoryDAO<T> {
       //System.out.println("****(dao)virtualImages까지는...왔니");
       List<StoryDTO> storyresult = template.selectList("storyimages",sNo);
       //System.out.println("(dao)storyresult"+storyresult.toString());
+      for(StoryDTO list: storyresult) {
+		   list.setStoryThumbnail(resource+list.getStoryThumbnail());
+		  
+	   }
       storyresult.toString();
       
       return storyresult;

@@ -67,7 +67,7 @@
 					</a>
 	
 					<ul class="hover_btn">
-						<li><a href="" ><img src="${pageContext.request.contextPath}/resources/img/gallerylist/test_icon06.png" alt="">Like</a></li>
+						<li><a href="" onclick="likefunc(${list.postNo},${list.userNo});"><img src="${pageContext.request.contextPath}/resources/img/gallerylist/test_icon06.png" alt="">Like</a></li>
 						<li><a href="">Save</a></li>
 					</ul>
 					
@@ -256,6 +256,11 @@
 	</div>
 
 	<script>
+
+	
+	
+	
+	
 		$(window).load(function(){
 			$('.filter_btn').click(function(){
 				$('.filter_modal').addClass('mo_ac');

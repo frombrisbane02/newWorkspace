@@ -148,6 +148,8 @@ public class GalleryController {
 		
 		System.out.println("여기 넘어오니?!?!?!! post 받았니?!?!?!!!");
 		//model.addAttribute("fileInfos",fileInfos);
+		//DB저장하기
+		
 
 		System.out.println("JSON 타입이 뭔데 씨발아");
 		return "{\"upload\":\"sucsses\"}";
@@ -172,6 +174,8 @@ public class GalleryController {
 
 			return "gallery/GalleryList";
 	   }
+	 
+	   
 	
 //	
 //	   @RequestMapping("filter.do")
