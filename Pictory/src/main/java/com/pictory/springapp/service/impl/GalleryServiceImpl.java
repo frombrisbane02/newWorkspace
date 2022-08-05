@@ -45,6 +45,14 @@ public class GalleryServiceImpl implements GalleryService<GalleryDTO> {
 		//작가 정보 뿌려주기위한 글
 		return dao.selectUserInfo(postNo);
 	}
+	
+
+	@Override
+	public List<GalleryDTO> galleryFilter(String[] postCategory) {
+		System.out.println("종근===갤러리 서비스 임풀");
+		return dao.selectFilter(postCategory);
+	}
+
 
 	@Override
 	public List<GalleryDTO> getComments(int postNo) {

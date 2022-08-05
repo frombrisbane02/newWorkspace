@@ -18,6 +18,11 @@ public interface GalleryService<T> {
 
 	//작가 정보 가져오기
 	List<GalleryDTO> galleryInfo(int postNo);
+	
+	//List<GalleryDTO> galleryFilter(String postCategory);
+	List<GalleryDTO> galleryFilter(String[] postCategory);
+	
+
 
 	//Comment 가져오기
 	List<GalleryDTO> getComments(int postNo);

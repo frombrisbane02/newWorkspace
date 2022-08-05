@@ -3,6 +3,7 @@ package com.pictory.springapp.controller;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Vector;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -118,6 +119,48 @@ public class GalleryController {
 	}
 	
 	
+	   @RequestMapping("filter.do")
+	   public String filter(Model model,@RequestParam String[] postCategory){
+		   
+		   System.out.println("======filter.do 도착(종근)");
+		   /*
+		   List<String> lists =new Vector<>();
+		   for(int i=0 ; i <postCategory.length ; i++ ) {
+			   lists.add(postCategory[i]);
+		   
+		   }*/
+		   List<GalleryDTO> result = galleryService.galleryFilter(postCategory);
+		   //System.out.println(map);
+			
+			model.addAttribute("lists",result);
+			
+
+			return "gallery/GalleryList";
+	   }
+	
+//	
+//	   @RequestMapping("filter.do")
+//	   public String filter(Model model,@RequestParam String[] postCategory){
+//		   
+//		   String result = postCategory[0];
+//		   for(int i=1 ; i <postCategory.length ; i++ ) {
+//			   
+//			   System.out.println(postCategory[i]);
+//			   result +="," +postCategory[i];
+//		   }
+//		   model.addAttribute("postCategory", result);
+//		   
+//		   System.out.println("======filter.do 도착(종근)");
+//		   
+//	
+//			List<GalleryDTO> lists = galleryService.galleryFilter(result);
+//			//model.addAttribute("lists",lists);
+//			
+//
+//			return "gallery/GalleryList";
+//	   }
+	   
+	   
 	
 	
 	

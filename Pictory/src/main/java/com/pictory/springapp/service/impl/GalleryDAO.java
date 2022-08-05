@@ -76,6 +76,11 @@ public class GalleryDAO {
 		return userInfos;
 	}
 
+	
+	public List<GalleryDTO> selectFilter(String[] postCategory) {
+		System.out.println("종근===갤러리 dao");
+		return template.selectList("filter",postCategory);
+	}
 
 	public List<GalleryDTO> selectCommentList(int postNo) {
 		// 댓글 목록 뿌려주기 위함

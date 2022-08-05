@@ -82,4 +82,33 @@
 	</select>
 	
 	
+	
+	
+	<select id="filter" resultType="GalleryDTO" parameterType="List">
+
+	       SELECT po.postno,
+      		po.postcategory,
+            po.posttitle,
+            po.postText,
+            po.postDate,
+            po.postSellorNot,
+            u.usernickname,
+            u.userprofile,
+            u.userno,
+            u.userId,
+            po.posthits,
+            po.postLikes,
+            (SELECT COUNT(ct.cno) FROM comment_tbl ct WHERE ct.postno=po.postno) commentCount
+        FROM post po INNER JOIN users u
+           ON po.userno = u.userno
+    	WHERE po.postcategory IN
+    	<foreach collection="array" item="item" open="(" close=")" separator=",">
+    	   #{item}
+    	</foreach>
+    	
+	
+	
+	<!--  select postcategory from post where postcategory=#{'value'}-->
+	</select>
+	
 </mapper>
