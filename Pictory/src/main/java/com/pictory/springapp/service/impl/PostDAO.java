@@ -102,7 +102,7 @@ public class PostDAO {
 		catch(Exception e) {e.getStackTrace();}
 		
 		
-		return resource+String.valueOf(map.get("userId"));
+		return String.valueOf(map.get("userId"));
 	}
 	
 	
@@ -135,7 +135,7 @@ public class PostDAO {
 		}//try
 		catch(Exception e) {e.getStackTrace();}
 		
-		return resource+String.valueOf(map.get("userId"))+"/"+uploadImage.getOriginalFilename();
+		return String.valueOf(map.get("userId"))+"/"+uploadImage.getOriginalFilename();
 	}
 
 	public String uploadStoryThumbnail(Map map, MultipartFile storyThumbnail) {
@@ -147,9 +147,9 @@ public class PostDAO {
 		try {storyThumbnail.transferTo(dest);}
 		catch (Exception e) {e.printStackTrace();}
 		
-		System.out.println(resource+String.valueOf(map.get("userId"))+"/"+storyThumbnail.getOriginalFilename());
+		System.out.println(String.valueOf(map.get("userId"))+"/"+storyThumbnail.getOriginalFilename());
 		
-		return resource+String.valueOf(map.get("userId"))+"/"+storyThumbnail.getOriginalFilename();
+		return String.valueOf(map.get("userId"))+"/"+storyThumbnail.getOriginalFilename();
 	}
 
 	public int storyInsert(Map map) {

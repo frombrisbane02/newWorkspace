@@ -27,8 +27,25 @@ public class GalleryDAO {
 	
 	//상단바-갤러리 클릭시 조회용
 	public List<GalleryDTO> selectGalleryList() {
+		//조회 시 photoUrl은 resource 빠져있으니까 그거 추가로 붙여서 저장해야함
 		
-		return template.selectList("galleryList");
+		List<GalleryDTO> rawLists = template.selectList("galleryList");
+		
+		System.out.println("==========변경전===========");
+		
+		for(GalleryDTO rawList : rawLists) {
+			System.out.println("==========변경 후===========");
+			System.out.println("RAW:"+rawList.getPhotoUrl());
+			
+			rawList.setPhotoUrl(resource+rawList.getPhotoUrl());
+			
+			System.out.println("==========DAO===========");
+			System.out.println("RAW:"+rawList.getPhotoUrl());
+		}
+		
+		System.out.println("SET COMPLETED?: "+rawLists.get(0));
+		
+		return rawLists;
 	}
 	
 

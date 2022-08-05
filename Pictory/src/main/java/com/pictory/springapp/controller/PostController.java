@@ -73,7 +73,7 @@ public class PostController {
 	
 	//===========================EDIT IMAGE===============================
 	//보정 이미지 한장한장 save 누를때마다 컨트롤러로 넘겨서 업로드 처리 및 db에 인서트할 값 필요 + 본문에 첨부
-
+/*
 	@CrossOrigin
 	@RequestMapping(value="post/EditImage.do",produces = "application/json;charset=UTF-8")
 	public @ResponseBody String image(@RequestParam String base64, @RequestParam String filename, 
@@ -137,7 +137,7 @@ public class PostController {
 		
 		return "{\"upload\":\"sucsses\"}";
 	}
-	
+	*/
 	
 	//===========================ADD MAP===============================
 	
