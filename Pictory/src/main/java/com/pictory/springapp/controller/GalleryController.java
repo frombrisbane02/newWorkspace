@@ -44,13 +44,14 @@ public class GalleryController {
 	
 	
 	@GetMapping("GalleryList.do")
-	public String galleryList(Model model) {
+	public String galleryList(Model model, @ModelAttribute("userId") String userId) {
 		//상단바 갤러리 클릭시 List에 뿌려줄 정보 저장해서 뿌리기
 		
 		List<GalleryDTO> lists = galleryService.galleryList();
 		List<GalleryDTO> hashs = galleryService.hashList();
 		model.addAttribute("lists",lists);
 		model.addAttribute("hashs",hashs);
+		model.addAttribute("userId", userId);
 		return "gallery/GalleryList";
 	}
 	
@@ -142,13 +143,30 @@ public class GalleryController {
 	
 	@CrossOrigin
 	@RequestMapping(value="post/SubmitComment.do",produces = "application/json;charset=UTF-8")
-	public @ResponseBody String image(@RequestParam String cText, @RequestParam String userId, 
+	public @ResponseBody String comment(@RequestParam String cText, @RequestParam String userId, 
 									@RequestParam int postNo ,HttpSession session, Model model,
 									HttpServletRequest req) throws JsonProcessingException{
 		
-		System.out.println("여기 넘어오니?!?!?!! post 받았니?!?!?!!!");
-		//model.addAttribute("fileInfos",fileInfos);
+		System.out.println("댓글내용 출력: "+cText);
+		System.out.println("댓글쓴사람(지금 로그인한 사람) 누구세요?: "+userId);
+		
 		//DB저장하기
+		
+
+		System.out.println("JSON 타입이 뭔데 씨발아");
+		return "{\"upload\":\"sucsses\"}";
+	}
+	
+	@CrossOrigin
+	@RequestMapping(value="post/Likes.do",produces = "application/json;charset=UTF-8")
+	public @ResponseBody String likes(@RequestParam(value="userId", required=false) String userId,
+									@RequestParam(value="postNo", required=false) int postNo,
+									HttpSession session, Model model,
+									HttpServletRequest req) throws JsonProcessingException{
+		
+		System.out.println("여기 넘어오니?!?!?!! post 받았니?!?!?!!!");
+		System.out.println("컨트롤러에서 받은 userId:"+userId);
+		System.out.println("컨트롤러에서 받은 postNo:"+postNo);
 		
 
 		System.out.println("JSON 타입이 뭔데 씨발아");

@@ -37,9 +37,14 @@ public class GalleryDAO {
 			
 			rawList.setPhotoUrl(resource+rawList.getPhotoUrl());
 			rawList.setUserProfile(resource+rawList.getUserProfile());
+			
+			switch(rawList.getPostCategory()) {
+				case "landscape": rawList.setPostCategory("풍경"); break;
+				case "object": rawList.setPostCategory("정물"); break;
+				case "figure": rawList.setPostCategory("인물"); break;
+				default: rawList.setPostCategory("기타"); break;
+			}
 		}
-		
-		System.out.println("SET COMPLETED?: "+rawLists.get(0));
 		
 		return rawLists;
 	}

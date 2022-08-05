@@ -12,6 +12,7 @@
         SELECT po.postno,
       		po.postcategory,
             po.posttitle,
+            po.postsellornot,
             u.usernickname,
             u.userprofile,
             u.userno,

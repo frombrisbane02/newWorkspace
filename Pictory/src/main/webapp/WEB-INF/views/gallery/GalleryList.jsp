@@ -62,14 +62,20 @@
 	
 						<div class="txt_area">
 							<p><img src="${list.userProfile}" alt="" class="pro_p">${list.userNickname}</p>
-							<p><img src="${pageContext.request.contextPath}/resources/img/gallerylist/test_icon06.png" alt="" class="pro_icon"><span>${list.postLikes}</span><img src="${pageContext.request.contextPath}/resources/img/gallerylist/test_icon07.png" alt="" class="pro_icon"><span>0</span></p>
-						</div>						
+							<p><img src="${pageContext.request.contextPath}/resources/img/gallerylist/test_icon06.png" alt="" class="pro_icon"><span>${list.postLikes}</span><img src="${pageContext.request.contextPath}/resources/img/gallerylist/test_icon07.png" alt="" class="pro_icon"><span>${list.commentCount}</span></p>
+						</div>		
 					</a>
 	
 					<ul class="hover_btn">
-						<li><a href="" onclick="likefunc(${list.postNo},${list.userNo});"><img src="${pageContext.request.contextPath}/resources/img/gallerylist/test_icon06.png" alt="">Like</a></li>
-						<li><a href="">Save</a></li>
+						<li><a id="aprevent${list.postNo}" href="${list.postNo}"><img src="${pageContext.request.contextPath}/resources/img/gallerylist/test_icon06.png" alt="">Like</a></li>
+						<!-- 판매글이면 카트 버튼이 있어야함 근데 걔가 카트를 넣었다? 그러면 다른 걸로 뿌려야함 -->
+						<c:if test="${list.postSellorNot==1}">
+						<li><a href="${list.postNo}">Cart</a></li>
+						</c:if>
+						
+					
 					</ul>
+					
 					
 					<div class="hover_txt">
 						<h3>${list.postTitle}</h3>
@@ -254,10 +260,35 @@
 			</form>
 		</div>
 	</div>
-
 	<script>
-
-	
+	   // 카테고리 value 영어로 받아와서 한글로 바꿔서 출력하기
+	   /*
+	   $(document).ready(function(){
+		   
+		   var category= $('.bot_txt').text();
+		   
+		   switch(category){
+		   	case "etc":
+		   		$('.bot_txt').text("기타"); break;
+		   		
+		   	case "landscape":
+		   		$('.bot_txt').text("풍경"); break;
+		   	case "object":
+		   		$('.bot_txt').text("정물"); break;
+		   	default: $('.bot_txt').text("인물"); break;
+		   }
+		   
+	 });*/
+	   
+	   /*
+	   var category = document.querySelector('.bot_txt').value;
+	   console.log('원래 카테',category);
+	   if(category=='etc'){
+		   var catekor = '기타';
+		   document.querySelector('.bot_txt').value=catekor;
+		   console.log('바뀐 카테',document.querySelector('.bot_txt').value);
+	   }
+	   */
 	
 	
 	
@@ -275,7 +306,6 @@
 
 		
 
-		
 		
 		var filterArr = $("input[name='postCategory']");
 		
