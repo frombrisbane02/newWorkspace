@@ -24,6 +24,7 @@ public class GalleryDAO {
 	//url 저장용 상수
 	String resource = Constants.RESOURCE.toString();
 
+
 	
 	//상단바-갤러리 클릭시 조회용
 	public List<GalleryDTO> selectGalleryList() {
@@ -116,6 +117,12 @@ public class GalleryDAO {
 	
 	public int isSellorNot(int postNo) {
 		return template.selectOne("isSellorNot",postNo);
+	}
+
+
+	public GalleryDTO getLoginInfo(String userId) {
+		
+		return template.selectOne("getLoginInfo", userId);
 	}
 
 

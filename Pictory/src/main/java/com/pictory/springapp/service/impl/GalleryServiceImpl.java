@@ -77,6 +77,14 @@ public class GalleryServiceImpl implements GalleryService<GalleryDTO> {
 		return dao.isSellorNot(postNo);
 	}
 
+	@Override
+	public GalleryDTO getLoginInfo(String userId) {
+		// 로그인 한 유저 정보 갖고오기 (user 테이블에 있는거)
+		GalleryDTO loginInfo = dao.getLoginInfo(userId);
+		loginInfo.setUserProfile(resource+loginInfo.getUserProfile());
+		return loginInfo;
+	}
+
 
 
 }

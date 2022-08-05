@@ -103,4 +103,9 @@
     	ORDER BY po.postdate DESC
 	</select>
 	
+	<select id="getLoginInfo" resultType="GalleryDTO" parameterType="string">
+		SELECT * FROM USERS
+		WHERE userId=#{userId}
+	</select>
+	
 </mapper>

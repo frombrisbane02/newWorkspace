@@ -101,12 +101,12 @@ public class GalleryController {
 		List<GalleryDTO> comments = galleryService.getComments(postNo);
 		
 		//6. 판매하는 경우 상품 정보 다 갖고오기(어차피 하나임 ㅇㅇ)
-		//if count해서 product 테이블 있나 보고 ..
 		
 		int isSellorNot = galleryService.isSellorNot(postNo);
 		if(isSellorNot==1) {
 			model.addAttribute("isSellorNot",isSellorNot);
 			GalleryDTO product = galleryService.getProductInfo(postNo);
+			model.addAttribute("product", product);
 			model.addAttribute("pdNo",product.getPdNo());
 			model.addAttribute("photoNo",product.getPhotoNo());
 			model.addAttribute("pdPrice",product.getPdPrice());
@@ -115,8 +115,13 @@ public class GalleryController {
 			
 		}
 		
+		//7. 로그인 한 사람 정보 다 갖고오기
+		GalleryDTO loginUser = galleryService.getLoginInfo(userId);
+		System.out.println("login한애 정보 다 갖고오니?: "+loginUser);
+		model.addAttribute("loginUser",loginUser);
 		
-		//7. Model에 정보 저장 후 돌아가기
+		
+		//8. Model에 정보 저장 후 돌아가기
 		model.addAttribute("postNo",postNo);
 		model.addAttribute("comments",comments);
 		model.addAttribute("photoUrls",photoLists);
@@ -137,31 +142,14 @@ public class GalleryController {
 	
 	@CrossOrigin
 	@RequestMapping(value="post/SubmitComment.do",produces = "application/json;charset=UTF-8")
-	public @ResponseBody String image(@RequestParam String base64, @RequestParam String filename, 
-									@RequestParam int base64Index ,HttpSession session, Model model,
+	public @ResponseBody String image(@RequestParam String cText, @RequestParam String userId, 
+									@RequestParam int postNo ,HttpSession session, Model model,
 									HttpServletRequest req) throws JsonProcessingException{
 		
-		//서버의 물리적 경로 얻어서 파일 업로드 처리 먼저
-		//1.1) PATH 먼저! userId 붙여서 설정하기
-		String path = req.getSession().getServletContext().getRealPath("/upload")+"\\img\\";
-		System.out.println("IEC) path는 제대로 가지고 왔나요? :"+ path);
-		
-		//1.2) 파일 객체 생성하기
-		
-		
-		//1.3) mkdir로 폴더 있으면 냅두고 없으면 생성
-		
-		Map<String, Object> fileInfo = new HashMap<String, Object>();
-		model.addAttribute(fileInfo);
-		
-		List<Map<String,Object>> fileInfos = new ArrayList<Map<String,Object>>();
-		fileInfos.add(fileInfo);
-		
-		model.addAttribute("fileInfos",fileInfos);
+		System.out.println("여기 넘어오니?!?!?!! post 받았니?!?!?!!!");
+		//model.addAttribute("fileInfos",fileInfos);
 
-
-		
-		
+		System.out.println("JSON 타입이 뭔데 씨발아");
 		return "{\"upload\":\"sucsses\"}";
 	}
 	

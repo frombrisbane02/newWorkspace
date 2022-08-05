@@ -36,6 +36,9 @@ public interface GalleryService<T> {
 	//상품 판매 여부 반환하기
 	int isSellorNot(int postNo);
 
+	//로그인한 사람 정보 다 갖고오기
+	GalleryDTO getLoginInfo(String userId);
+
 	
 	
 }

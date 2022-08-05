@@ -153,7 +153,7 @@
    			<textarea name="commentarea" id="commentarea" style="min-height: 100px; max-height: 100px; width:1000px;"></textarea>
    		</div>
    		<div class="">
-   			<input type="button" value="댓글 등록" onclick="commentAjaxCall('${userId}',${postNo});" style="width: 1000px;"/>
+   			<input type="button" value="댓글 등록" onclick="commentAjaxCall('${userId}',${postNo},'${loginUser.userNickname}','${loginUser.userProfile}');" style="width: 1000px;"/>
    		</div>
    	</form> 
 </div>
@@ -164,7 +164,7 @@
 <div class="container mb-5 mt-5">
 	<div class="card commentcard">
 		<div class="row">
-			<div class="col-md-12">
+			<div class="col-md-12 motherComment">
 				<h4 class="text-left mb-5">댓글</h4>
 				<c:choose>
 					<c:when test="${empty comments}">
@@ -256,29 +256,38 @@ window.onload = function(){
 	}
 }
 
-function commentAjaxCall(userId,postNo){
+function commentAjaxCall(userId,postNo,userNickname,userProfile){
 	
 	console.log('userId 들어왔니? %O', userId);
 	console.log('postNo 들어왔니?',typeof(postNo));
+	console.log('userNickname 들어왔니?%O', userNickname);
 	
 	var commentText = document.querySelector('#commentarea').value;
 	console.log('제가..댓글 뭐라고 썼죠?:',commentText);
 	
 	 $.ajax({
 	        type:'POST',
-	        url : "<c:url value='/gallery/post/SubmitComment.do'/>",
-	        data:$("#commentarea").serialize()
+	        url: "<c:url value='/gallery/post/SubmitComment.do'/>",
+	        data:"cText="+$("#commentarea").serialize()+"&userId="+userId+"&postNo="+postNo
 	 	}).done(function(data){
-	 		if(data=="success")
-            {
-                getCommentList();
-                $("#comment").val("");
-            }
+	 		
+           
+	 			//댓글 창 비워주기
+	 			$("#commentarea").val("");
+                
+	 			//댓글 바꿔주기
+	 			var commentHTML = "<div class='row'><div class='col-md-12'><div class='commentmedia'><a class='pr-3' href='#'><img class='mr-3 rounded-circle' alt='userProfile' src='"+userProfile+"'/></a><div class='media-body'><div class='row'><div class='col-8 d-flex'><a class='pr-3'><h5>"+userNickname+"</h5></a><span>"+2022-08-05+"</span></div></div>"+commentText;
+				document.querySelector('.motherComment').insertAdjacentHTML('beforeend',commentHTML);
+	 			
+				console.log(commentHTML);
+           
+	 	}).fail(function(request,status,error){
+			alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+	 	
+	 		console.log('개씨발 망했어요ㅠ');
 	 	});
-	       
 	
-	
-}
+}//function
 
 
 
