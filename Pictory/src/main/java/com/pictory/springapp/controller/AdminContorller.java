@@ -3,15 +3,18 @@ package com.pictory.springapp.controller;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pictory.springapp.dto.AdminDTO;
 import com.pictory.springapp.dto.AdminGalleryDTO;
@@ -25,6 +28,7 @@ import com.pictory.springapp.dto.AdminQnaDTO;
 import com.pictory.springapp.dto.AdminQnaService;
 import com.pictory.springapp.dto.AdminUsersDTO;
 import com.pictory.springapp.dto.AdminUsersService;
+import com.pictory.springapp.dto.PageDTO;
 
 @Controller
 @RequestMapping("/admin")
@@ -50,7 +54,15 @@ public class AdminContorller {
 	
 	
 	@RequestMapping("/Index.do")
-	public String adminMain() {
+	public String adminMain(HttpSession session, Model model) throws Exception {
+		String userId = (String) session.getAttribute("userId");
+		System.out.println("userId : " + userId);
+		// 유저정보 조회 
+		AdminUsersDTO adminUsersDTO = usersService.readMember(userId);
+		
+		System.out.println("adminUsersDTO : " + adminUsersDTO);
+		model.addAttribute("adminUsersDTO", adminUsersDTO);
+		
 		return "admin/Index";
 	}
 	
@@ -290,18 +302,29 @@ public class AdminContorller {
 //======================================= 수익 및 정산 ========================================================================	
 	
 	@RequestMapping("/manager/Index")
-	public String managerIndex() {
+	public String managerIndex(PageDTO pageDTO, Model model) throws Exception {
+		int totalCount = paymentService.totalCount();
+		String keyword = pageDTO.getKeyword();
+		int pageNum = pageDTO.getPageNum();
+		pageDTO = new PageDTO(pageNum, totalCount, keyword);
+		
+		model.addAttribute("pageDTO", pageDTO);
+		
+		
 		return "admin/manager/Index";
 	}
 	
 	@ResponseBody
 	@RequestMapping(value="/paymentList.do", method = {RequestMethod.POST}, produces="text/plain;charset=UTF-8")
-	public String paymentList() throws Exception {
+	public String paymentList(@RequestBody HashMap<String, Object> params) throws Exception {
+		
+		System.out.println("params : " + params);
+		
 		ObjectMapper obj = new ObjectMapper();
 		String jsonStr = "";
 		try {
 			
-			List<AdminPaymentDTO> list = paymentService.paymentList();
+			List<AdminPaymentDTO> list = paymentService.paymentList(params);
 			jsonStr = obj.writeValueAsString(list);			
 			return jsonStr;
 			

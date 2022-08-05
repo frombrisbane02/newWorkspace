@@ -44,7 +44,7 @@
 	
 	<select id="mainPaymentList" parameterType="AdminPaymentDTO" resultType="AdminPaymentDTO">
 		<![CDATA[
-		   		  SELECT ps.USERID AS seller
+			SELECT ps.USERID AS seller
 		  	   , us.USERID AS consumer
 		  	   , ps.PDNO
 		  	   , ps.PHOTONAME
@@ -73,12 +73,16 @@
                      ON pd.PDNO = pdo.PDNO
                     JOIN PAYMENT pay
                      ON pdo.PAYMENTNO = pay.PAYMENTNO
-                    WHERE 1=1
-                     AND ROWNUM <= 5
-                     ORDER BY LPAD(pay.PAYMENTDATE, 10, 0) DESC
+                     ORDER BY pay.PAYMENTDATE DESC
                 ) ps 
                  JOIN USERS us
                   ON us.USERNO = ps.payno
+                   WHERE 1=1
+                     AND ROWNUM <= 5
+                
+                
+                
+		  
                ]]>
 	</select>
 	
@@ -131,7 +135,8 @@
               ON n.USERNO = u.USERNO
               WHERE 1=1
               AND ROWNUM <= 5
-				ORDER BY LPAD(NOTICEDATE, 10, 0) DESC
+              ORDER BY NOTICEDATE DESC
+				
 		]]>
 	</select>
 	
@@ -159,7 +164,7 @@
                           JOIN USERS u
                            ON q.USERNO = u.USERNO
                           WHERE 1=1
-						   ORDER BY LPAD(q.QNADATE, 10, 0) DESC ) b
+						   ORDER BY q.QNADATE DESC ) b
         ) a
         WHERE RNUM >= 1 AND RNUM <= 5
 		]]>

@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.pictory.springapp.dto.AdminUsersDTO;
+import com.pictory.springapp.dto.MemberDTO;
 
 
 @Repository("adminusersDAO")
@@ -34,6 +35,12 @@ public class AdminUsersDAO {
 		
 		return null;
 		
+	}
+	
+	public AdminUsersDTO readMember(String id) {
+		SqlSession session= sqlMapper.openSession();
+		AdminUsersDTO adminUsersDTO = session.selectOne("readUser", id);
+		return adminUsersDTO;
 	}
 	
 	public List<AdminUsersDTO> searchList(AdminUsersDTO keyword)throws Exception {

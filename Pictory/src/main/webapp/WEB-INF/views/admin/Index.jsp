@@ -57,7 +57,7 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
 	crossorigin="anonymous">
 
 <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/resources/css/AdminInex.css">
+	href="${pageContext.request.contextPath}/resources/css/AdminIndex.css">
 
 <!--JavaScript Libraries(DASHMIN) -->
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -73,13 +73,16 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
 <script
 	src="${pageContext.request.contextPath}/resources/js/AdminIndex.js"></script>
 
-<link
-	href="${pageContext.request.contextPath}/resources/css/AdminIndex.css"
-	rel="stylesheet" />
-<link
-	href="${pageContext.request.contextPath}/resources/css/admin/admin.css"
-	rel="stylesheet" />
 
+
+	
+<link rel="stylesheet" href="<c:url value="/resources/css/admin/admin.css"/>">	
+	<!--font library-->
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+*{font-family: 'Noto Sans KR', sans-serif;}
+
+</style>
 </head>
 
 <body>
@@ -146,35 +149,10 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
 					<h2 class="text-primary mb-0">
 						<i class="fa fa-hashtag"></i>
 					</h2>
-				</a> <a href="#" class="sidebar-toggler flex-shrink-0 text-left"> <i
-					class="fa fa-bars text-left"></i>
 				</a>
 				<div class="navbar-nav align-items-center ms-auto">
 					
-					<div class="nav-item dropdown">
-						<a href="#" class="nav-link dropdown-toggle"
-							data-bs-toggle="dropdown"> <i class="fa fa-bell me-lg-2"></i>
-							<span class="d-none d-lg-inline-flex">알람</span>
-						</a>
-						<div
-							class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-							<a href="#" class="dropdown-item">
-								<h6 class="fw-normal mb-0">공지사항이 업로드 되었습니다</h6> <small>15
-									분 전</small>
-							</a>
-							<hr class="dropdown-divider">
-							<a href="#" class="dropdown-item">
-								<h6 class="fw-normal mb-0">Q&A가 등록되었습니다</h6> <small>20 분
-									전</small>
-							</a>
-							<hr class="dropdown-divider">
-							<a href="#" class="dropdown-item">
-								<h6 class="fw-normal mb-0">신고가 들어왔습니다</h6> <small>25 분 전</small>
-							</a>
-							<hr class="dropdown-divider">
-							<a href="#" class="dropdown-item text-center">더 보기</a>
-						</div>
-					</div>
+					
 					<div class="nav-item dropdown">
 						<a href="#" class="nav-link dropdown-toggle"
 							data-bs-toggle="dropdown"> <img
@@ -184,13 +162,122 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
 						</a>
 						<div
 							class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-							<a class="dropdown-item" data-toggle="modal" data-target="#exampleModalCenter">내 정보</a>
+							<a class="dropdown-item" data-toggle="modal" data-target="#exampleModalCenter5">내 정보</a>
                             <a href="${pageContext.request.contextPath}/auth/Logout.do" class="dropdown-item">로그아웃</a>
 						</div>
 					</div>
 				</div>
 			</nav>
 			
+			<div class="modal fade" id="exampleModalCenter5" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalCenterTitle">내 정보</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div id="modalfaqUserInfo">
+                
+                
+                <td class="col-1 align-top border-spacing; 30px;">
+                    <img class="rounded-3 flex-shrink-0 modal0" value="${records.userProfile }" alt="userProfile" style="width: 170px; height: 170px;">
+                </td>
+                	
+              
+                 <td class="col-8">
+                   <div class="row mb-3">
+                       <label for="userNo" class="col-3 col-form-label text-left">회원번호</label>
+                       <div class="col-5">
+                           <input value="${sessionScope.userNo }" readonly  type="text" class="form-control modal1" name="userNO">
+                       </div>
+                   </div>
+				</td>
+				
+			  
+				<td>
+                   <div class="row mb-3">
+                       <label for="userId" class="col-3 col-form-label text-left">ID</label>
+                       <div class="col-7">
+                           <input value="${sessionScope.userId }" readonly  type="text" class="form-control modal2" name="userId">
+                       </div>
+                   </div>
+				</td>
+				
+				<td>
+                   <div class="row mb-3">
+                       <label for="userPassword" class="col-3 col-form-label text-left">비밀번호</label>
+                       <div class="col-7">
+                           <input value="${sessionScope.userPassword }" readonly type="text" class="form-control modal3" name="userPassword">
+                       </div>
+                   </div>
+				</td>
+			
+				<td>
+                   <div class="row mb-3">
+                       <label for="userEmail" class="col-3 col-form-label text-left">이메일</label>
+                       <div class="col-7">
+                           <input value="${adminUsersDTO.userEmail }" readonly type="text" class="form-control modal4" name="userEmail">
+                       </div>
+                   </div>
+				</td>
+				
+				<td>
+                   <div class="row mb-3">
+                       <label for="userName" class="col-3 col-form-label text-left">이름</label>
+                       <div class="col-7">
+                           <input value="${adminUsersDTO.userName }" readonly type="text" class="form-control modal5" name="userName">
+                       </div>
+                   </div>
+                </td>
+                
+                <td>   
+                   <div class="row mb-3">
+                       <label for="userNickname" class="col-3 col-form-label text-left">닉네임</label>
+                       <div class="col-7">
+                           <input value="${adminUsersDTO.userNickname }" readonly type="text" class="form-control modal6" name="userNickname">
+                       </div>
+                   </div>
+                </td>
+                
+                <td>   
+                   <div class="row mb-3">
+                       <label for="userSelf" class="col-3 col-form-label text-left">자기소개</label>
+                       <div class="col-7">
+                           <input value="${adminUsersDTO.userFwer }" readonly type="text" class="form-control modal7" name="userFwer">
+                       </div>
+                   </div>
+                </td>
+                
+                <td>   
+                   <div class="row mb-3">
+                       <label for="userFing" class="col-3 col-form-label text-left">팔로잉 수</label>
+                       <div class="col-7">
+                           <input value="${adminUsersDTO.userFing }" readonly type="text" class="form-control modal8" name="userFing">
+                       </div>
+                   </div>
+                </td>
+                
+                <td>   
+                   <div class="row mb-3">
+                       <label for="userFwer" class="col-3 col-form-label text-left">팔로워 수</label>
+                       <div class="col-7">
+                           <input value="${adminUsersDTO.userFwer }" readonly type="text" class="form-control modal9" name="userFwer">
+                       </div>
+                   </div>
+                </td>
+				
+            </div> 
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary right" >확인</button>
+        </div>
+      </div>
+    </div>
+  </div>
 <!--================================================= Navbar 끝 =================================================-->
 
 <!--================================================= 이번주 매출 / 총 매출 / 회원수 / 누적 총 방문자 수 시작 =================================================-->
@@ -424,7 +511,7 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
                    <div class="row mb-3">
                        <label for="userNo" class="col-3 col-form-label text-left">회원번호</label>
                        <div class="col-5">
-                           <input value="${records.userNo }" readonly  type="text" class="form-control" name="userNO">
+                           <input value="${records.userNo }" readonly  type="text" class="form-control" name="userNo">
                        </div>
                    </div>
 				</td>
@@ -1039,6 +1126,71 @@ const localhost = 'http://localhost:4040/springapp/admin';
 	
 
 	
+	//회원 정보
+  	$('.userClass').on('click', function(){
+  		userAjax();
+  	});
+  
+  
+  	var userData = "";
+
+  // 회원 리스트 조회
+  	function userAjax(){
+			
+	 	$.ajax({
+		 	url: localhost + "/userData.do",
+		    type: "POST",
+		    cache: false,
+	        dataType: "json",
+		    data: {
+		    	'userNo' : 0,
+		    	'enabled' : 0,
+		    	'userId' : ""
+		    },
+		    success: function(data){
+				
+				userData = data;
+				pagingFn();
+				memberSetting(data);
+				
+		    }, error: function (request, status, error){
+		    	alert("Error");
+		    }
+		  });
+  	}
+  
+  	// 회원 리스트 세팅
+  	function memberSetting(data){
+  		
+  		$('#userListAppend').html('');
+  		
+  	
+  	}
+  	
+  	
+  	// 모달 세팅
+  	$(document).on("click", '.modalShow',function(){
+  		var userNo = $(this).data("userno");  		
+  		for(var i = 0; i < userData.length; i++){
+  			var v = userData[i];
+  			if(userNo == v.userNo){
+  				$('.modal0').val(v.userProfile);
+  				$('.modal1').val(v.userNo);
+  				$('.modal2').val(v.userId);
+  				$('.modal3').val(v.userPassword);
+  				$('.modal4').val(v.userEmail);
+  				$('.modal5').val(v.userName);
+  				$('.modal6').val(v.userNickname);
+  				$('.modal7').val(v.userSelf);
+  				$('.modal8').val(v.userFing);
+  				$('.modal9').val(v.userFwer);
+  			}
+  		}
+  	});
+	
+	
+	
+	
 
 	// 이번주 매출(차트)
 	function paymentChartAjax(){
@@ -1590,7 +1742,7 @@ const localhost = 'http://localhost:4040/springapp/admin';
 					var qnDate = v.qnaDate.substring(0, 10);
 					
 					qnaHTML += '<tr>';
-				    qnaHTML +=  '<td class="text-center">'+ num +'</td>';
+				    qnaHTML +=  '<td class="text-center">'+ v.qnaNo +'</td>';
 				    qnaHTML += 	'<td class="text-center"><a class="primary modalClick" data-qna_no='+ v.qnaNo +' data-modal_text="qna" data-toggle="modal" data-target="#exampleModalCenter12">'+ v.qnaTitle +'</a></td>';
 				    qnaHTML += 	'<td class="text-center">'+ v.userId +'</a></td>';
 				    qnaHTML += 	'<td class="text-center">'+ qnDate +'</td>';

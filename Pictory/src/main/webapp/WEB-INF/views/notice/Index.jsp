@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-
+<head>
 	<link rel="stylesheet" href="<c:url value="/resources/css/notice/common.css"/>"/>
 	<link rel="stylesheet" href="<c:url value="${pageContext.request.contextPath}/resources/css/notice/page2.css"/>"/>
 	<link rel="stylesheet" href="<c:url value="${pageContext.request.contextPath}/resources/css/faq/notice.css"/>"/>
@@ -10,7 +10,12 @@
     <script src="${pageContext.request.contextPath}/resources/js/notice/html5shiv.js"></script>
 	<script src="http://code.jquery.com/jquery-1.8.1.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/notice/tab.js"></script>
- 
+    <!--font library-->
+      <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+ <style>
+ *{font-family: 'Noto Sans KR', sans-serif;}
+ </style>
+ </head>
 <body>	
    <form method="post" action="<c:url value="/notice/Index.do"/>" accept-charset="UTF-8">
        

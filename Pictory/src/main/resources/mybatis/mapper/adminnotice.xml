@@ -10,7 +10,7 @@
               ON n.USERNO = u.USERNO
               WHERE 1=1
                 AND UPPER(NOTICETITLE) LIKE UPPER('%' || #{noticeKeyword} || '%')
-				ORDER BY LPAD(NOTICEDATE, 10, 0) ${orderby}, NOTICENO ${orderby}
+				ORDER BY NOTICEDATE ${orderby}, NOTICENO ${orderby}
 		]]>
 	</select>
 	

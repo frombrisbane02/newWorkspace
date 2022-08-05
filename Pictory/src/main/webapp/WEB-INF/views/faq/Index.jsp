@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<head>
 	<link rel="stylesheet" href="<c:url value="/resources/css/faq/common.css"/>"/>
 	<link rel="stylesheet" href="<c:url value="/resources/css/faq/page2.css"/>"/>
 	<link rel="stylesheet" href="<c:url value="/resources/css/faq/notice.css"/>"/>
@@ -9,7 +10,12 @@
     <script src="${pageContext.request.contextPath}/resources/js/faq/html5shiv.js"></script>
 	<script src="http://code.jquery.com/jquery-1.8.1.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/faq/tab.js"></script>
-    
+    <!--font library-->
+      <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+*{font-family: 'Noto Sans KR', sans-serif;}
+</style>
+</head>
 <body>	
 	<form method="post" action="<c:url value="/faq/Index.do"/>" accept-charset="UTF-8">
 	<div class="top_bg" style="background-image: url(<c:url value="/resources/img/faq/qnabg.jpg"/>"></div>

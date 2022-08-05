@@ -8,7 +8,7 @@
 <html lang="en">
 
 <head>
-    <title>Pictory-공지사항 및 Q&A </title>
+    <title>Picktory-공지사항 및 Q&A </title>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
@@ -91,10 +91,11 @@
         <link
 	href="${pageContext.request.contextPath}/resources/css/admin/admin.css"
 	rel="stylesheet" />
-  <script src="${pageContext.request.contextPath}/resources/js/admin/index.js"></script>
-  <link href="css/admin.css" rel="stylesheet" />
+  <link href="css/admin.css" rel="stylesheet" />     
+<!--font library-->
+      <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
 <style>
-
+*{font-family: 'Noto Sans KR', sans-serif;}
 </style>
 </head>
 
@@ -155,35 +156,10 @@
 					<h2 class="text-primary mb-0">
 						<i class="fa fa-hashtag"></i>
 					</h2>
-				</a> <a href="#" class="sidebar-toggler flex-shrink-0 text-left"> <i
-					class="fa fa-bars text-left"></i>
-				</a>
+				</a> 
 				<div class="navbar-nav align-items-center ms-auto">
 					
-					<div class="nav-item dropdown">
-						<a href="#" class="nav-link dropdown-toggle"
-							data-bs-toggle="dropdown"> <i class="fa fa-bell me-lg-2"></i>
-							<span class="d-none d-lg-inline-flex">알람</span>
-						</a>
-						<div
-							class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-							<a href="#" class="dropdown-item">
-								<h6 class="fw-normal mb-0">공지사항이 업로드 되었습니다</h6> <small>15
-									분 전</small>
-							</a>
-							<hr class="dropdown-divider">
-							<a href="#" class="dropdown-item">
-								<h6 class="fw-normal mb-0">Q&A가 등록되었습니다</h6> <small>20 분
-									전</small>
-							</a>
-							<hr class="dropdown-divider">
-							<a href="#" class="dropdown-item">
-								<h6 class="fw-normal mb-0">신고가 들어왔습니다</h6> <small>25 분 전</small>
-							</a>
-							<hr class="dropdown-divider">
-							<a href="#" class="dropdown-item text-center">더 보기</a>
-						</div>
-					</div>
+					
 					<div class="nav-item dropdown">
 						<a href="#" class="nav-link dropdown-toggle"
 							data-bs-toggle="dropdown"> <img
@@ -208,9 +184,9 @@
 							<i class="fa fa-chart-line fa-3x text-primary"></i>
 							<div class="ms-3">
 								<p class="mb-2">
-									이번 주 매출
+									이번 주 PICTORY 매출
 								</p>
-								<h6 class="mb-0 text-right">$1234</h6>
+								<h6 class="mb-0 text-right" id="weekPay">0원</h6>
 							</div>
 						</div>
 					</div>
@@ -220,9 +196,9 @@
 							<i class="fa fa-chart-bar fa-3x text-primary"></i>
 							<div class="ms-3">
 								<p class="mb-2">
-									총 매출
+									총 PICTORY 매출
 								</p>
-								<h6 class="mb-0 text-right">$56853</h6>
+								<h6 class="mb-0 text-right" id="totalPay">0원</h6>
 							</div>
 						</div>
 					</div>
@@ -232,9 +208,9 @@
 							<i class="fa fa-chart-area fa-3x text-primary"></i>
 							<div class="ms-3">
 								<p class="mb-2">
-									오늘 방문자 수
+									이번 주 가입한 회원 수
 								</p>
-								<h6 class="mb-0 text-right">42명</h6>
+								<h6 class="mb-0 text-right" id="weekUser" >0명</h6>
 							</div>
 						</div>
 					</div>
@@ -244,9 +220,9 @@
 							<i class="fa fa-chart-pie fa-3x text-primary"></i>
 							<div class="ms-3">
 								<p class="mb-2">
-									누적 총 방문자 수
+									총 회원 수
 								</p>
-								<h6 class="mb-0 text-right">2352명</h6>
+								<h6 class="mb-0 text-right" id="totalUser">0명</h6>
 							</div>
 						</div>
 					</div>
@@ -315,8 +291,8 @@ class="panel-radios" type="checkbox" name="nav-checkbox">
                                 정렬
                             </button>
                             <div class="dropdown-menu">
-                            	<a class="dropdown-item orderClick" href="#" value="ASC">내림차순</a>
-                                <a class="dropdown-item orderClick" href="#" value="DESC">오름차순</a>
+                            	<a class="dropdown-item orderClick" href="#" value="DESC">내림차순</a>
+                                <a class="dropdown-item orderClick" href="#" value="ASC">오름차순</a>
                              <!--     <a class="dropdown-item" href="#">구매자</a>
                                 <a class="dropdown-item-text" href="#">구매목록</a>	-->
                             </div>
@@ -618,8 +594,8 @@ class="panel-radios" type="checkbox" name="nav-checkbox">
                                 정렬
                             </button>
                             <div class="dropdown-menu">
-                            	<a class="dropdown-item orderClick" href="#" value="ASC">내림차순</a>
-                                <a class="dropdown-item orderClick" href="#" value="DESC">오름차순</a>
+                            	<a class="dropdown-item orderClick" href="#" value="DESC">내림차순</a>
+                                <a class="dropdown-item orderClick" href="#" value="ASC">오름차순</a>
                             </div>
                         </div>
             
@@ -841,7 +817,7 @@ class="panel-radios" type="checkbox" name="nav-checkbox">
 							<tr>
                                 <td class="text-center">5</td>
                                 <td class="text-center"><a class="primary" data-toggle="modal" data-target="#exampleModalCenter2">신고합니다</a></td>
-                                <td class="text-center"><a href="memberOne.html">Pictory</a></td>
+                                <td class="text-center"><a href="memberOne.html">Picktory</a></td>
                                 <td class="text-center">22-06-22</td>
                           </tr>
 						</c:forEach>
@@ -851,42 +827,42 @@ class="panel-radios" type="checkbox" name="nav-checkbox">
 			                 <tr>
 			                      <td class="text-center">5</td>
 			                      <td><a class="primary" data-toggle="modal" data-target="#exampleModalCenter2">신고합니다</a></td>
-			                      <td><a href="memberOne.html">Pictory</a></td>
+			                      <td><a href="memberOne.html">Picktory</a></td>
 			                      <td class="text-center">22-06-22</td>
 			                </tr>
 			                
 			                <tr>
 			                      <td class="text-center">5</td>
 			                      <td><a class="primary" data-toggle="modal" data-target="#exampleModalCenter2">신고합니다</a></td>
-			                      <td><a href="memberOne.html">Pictory</a></td>
+			                      <td><a href="memberOne.html">Picktory</a></td>
 			                      <td class="text-center">22-06-22</td>
 			                </tr>
 			                
 			               <tr>
 			                      <td class="text-center">5</td>
 			                      <td><a class="primary" data-toggle="modal" data-target="#exampleModalCenter2">신고합니다</a></td>
-			                      <td><a href="memberOne.html">Pictory</a></td>
+			                      <td><a href="memberOne.html">Picktory</a></td>
 			                      <td class="text-center">22-06-22</td>
 			                </tr>
 			                
 			                <tr>
 			                      <td class="text-center">5</td>
 			                      <td><a class="primary" data-toggle="modal" data-target="#exampleModalCenter2">신고합니다</a></td>
-			                      <td><a href="memberOne.html">Pictory</a></td>
+			                      <td><a href="memberOne.html">Picktory</a></td>
 			                      <td class="text-center">22-06-22</td>
 			                </tr>
 			                
 			                <tr>
 			                      <td class="text-center">5</td>
 			                      <td><a class="primary" data-toggle="modal" data-target="#exampleModalCenter2">신고합니다</a></td>
-			                      <td><a href="memberOne.html">Pictory</a></td>
+			                      <td><a href="memberOne.html">Picktory</a></td>
 			                      <td class="text-center">22-06-22</td>
 			                </tr>
 			                
 			                <tr>
 			                      <td class="text-center">5</td>
 			                      <td><a class="primary" data-toggle="modal" data-target="#exampleModalCenter2">신고합니다</a></td>
-			                      <td><a href="memberOne.html">Pictory</a></td>
+			                      <td><a href="memberOne.html">Picktory</a></td>
 			                      <td class="text-center">22-06-22</td>
 			                </tr>
 		    <!-- 예시 게시물 표현 끝-->
@@ -976,6 +952,74 @@ const localhost = 'http://localhost:4040/springapp/admin';
 var tabText = '공지';
 var orderby = "ASC";
 var userId = $('#adminUserId').val();
+
+
+$(document).ready(function() {
+	  salesOfWeek();
+});
+
+//한 주
+function weekDate(){
+
+	var currentDay = new Date();  
+	var theYear = currentDay.getFullYear();
+	var theMonth = currentDay.getMonth();
+	var theDate  = currentDay.getDate();
+	var theDayOfWeek = currentDay.getDay();
+	 
+	var thisWeek = [];
+ 
+	for(var i = 0; i < 7; i++) {
+	  var resultDay = new Date(theYear, theMonth, theDate - (i + theDayOfWeek) + 7 );
+	  
+	  var yyyy = resultDay.getFullYear();
+	  var mm = Number(resultDay.getMonth()) + 1;
+	  var dd = resultDay.getDate();
+	 
+	  mm = String(mm).length === 1 ? '0' + mm : mm;
+	  dd = String(dd).length === 1 ? '0' + dd : dd;
+	 
+	  thisWeek[i] = yyyy + mm + dd;
+	}
+			
+	return thisWeek.sort();
+}
+
+function salesOfWeek(){
+	var weekArr = [];
+	var week = weekDate();
+	var obj = {"startDate" : week[0], "endDate" : week[6]};
+	
+	weekArr.push(obj);
+	
+	 $.ajax({
+		 	url: localhost + '/salesofweek.do',
+		    type: "POST",
+		    cache: true,
+		    dataType: "json",
+		    contentType: "application/json",
+		    data: JSON.stringify(weekArr),
+		    success: function(data){
+		    	
+		    	
+		    	for(var i = 0; i < data.length; i++){
+		    		var v = data[i];
+		    		
+		    		$('#weekPay').text(v.payWeek + '원');
+		    		$('#totalPay').text(v.payTotal + '원');
+		    		$('#weekUser').text(v.userWeek + '명');
+		    		$('#totalUser').text(v.userTotal + '명');
+		    	}
+		    	
+		    	
+		    		noticeListFn();
+		    	
+		    	
+		    }, error: function (request, status, error){
+		    	alert("Error");
+		    }
+	  });
+}
 
 //Sidebar Toggler
 $('.sidebar-toggler').click(function () {

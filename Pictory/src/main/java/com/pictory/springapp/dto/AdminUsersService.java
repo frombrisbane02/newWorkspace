@@ -10,4 +10,5 @@ public interface AdminUsersService {
 	public List<AdminUsersDTO> searchList(AdminUsersDTO params) throws Exception;
 	public boolean updateEnabled(AdminUsersDTO params) throws Exception;
 	public List<AdminUsersDTO> usersChart(List<HashMap<String, Object>> params) throws Exception;
+	public AdminUsersDTO readMember(String id)  throws Exception;
 }

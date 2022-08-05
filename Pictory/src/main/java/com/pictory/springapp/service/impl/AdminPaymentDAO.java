@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.pictory.springapp.dto.AdminPaymentDTO;
+import com.pictory.springapp.dto.PageDTO;
 
 @Repository("adminpaymentDAO")
 public class AdminPaymentDAO {
@@ -18,13 +19,13 @@ public class AdminPaymentDAO {
 	private SqlSessionFactory sqlMapper;
 	
 	
-	public List<AdminPaymentDTO> paymentList() throws Exception {
+	public List<AdminPaymentDTO> paymentList(HashMap<String, Object> params) throws Exception {
 		
 		SqlSession session = sqlMapper.openSession();
 		
 		try {
 			
-			List<AdminPaymentDTO> list = session.selectList("paymentList");
+			List<AdminPaymentDTO> list = session.selectList("paymentList", params);
 			
 			return list;
 			
@@ -78,5 +79,26 @@ public class AdminPaymentDAO {
 		}
 		
 		return null;
+	}
+	
+	
+	
+	public int totalCount() throws Exception {
+		
+		SqlSession session = sqlMapper.openSession();
+		
+		try {
+			
+			int count = session.selectOne("totalCount");
+			
+			return count;
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			session.close();
+		}
+		
+		return 0;
 	}
 }

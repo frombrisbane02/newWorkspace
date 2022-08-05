@@ -61,7 +61,7 @@
     <!--bootstrap-->
     <link href="css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/resources/css/AdminInex.css">
+	href="${pageContext.request.contextPath}/resources/css/Admin.css">
 	<script
 	src="${pageContext.request.contextPath}/resources/js/AdminIndex.js"></script>
 
@@ -91,8 +91,16 @@
         <link
 	href="${pageContext.request.contextPath}/resources/css/admin/admin.css"
 	rel="stylesheet" />
+	<link
+	href="${pageContext.request.contextPath}/resources/css/admin/bottstrap.min.css"
+	rel="stylesheet" />
+	
   <link href="css/admin.css" rel="stylesheet" />     
-
+<!--font library-->
+      <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+*{font-family: 'Noto Sans KR', sans-serif;}
+</style>
 </head>
 
 <body>
@@ -152,35 +160,10 @@
 					<h2 class="text-primary mb-0">
 						<i class="fa fa-hashtag"></i>
 					</h2>
-				</a> <a href="#" class="sidebar-toggler flex-shrink-0 text-left"> <i
-					class="fa fa-bars text-left"></i>
-				</a>
+				</a> 
 				<div class="navbar-nav align-items-center ms-auto">
 					
-					<div class="nav-item dropdown">
-						<a href="#" class="nav-link dropdown-toggle"
-							data-bs-toggle="dropdown"> <i class="fa fa-bell me-lg-2"></i>
-							<span class="d-none d-lg-inline-flex">알람</span>
-						</a>
-						<div
-							class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-							<a href="#" class="dropdown-item">
-								<h6 class="fw-normal mb-0">공지사항이 업로드 되었습니다</h6> <small>15
-									분 전</small>
-							</a>
-							<hr class="dropdown-divider">
-							<a href="#" class="dropdown-item">
-								<h6 class="fw-normal mb-0">Q&A가 등록되었습니다</h6> <small>20 분
-									전</small>
-							</a>
-							<hr class="dropdown-divider">
-							<a href="#" class="dropdown-item">
-								<h6 class="fw-normal mb-0">신고가 들어왔습니다</h6> <small>25 분 전</small>
-							</a>
-							<hr class="dropdown-divider">
-							<a href="#" class="dropdown-item text-center">더 보기</a>
-						</div>
-					</div>
+					
 					<div class="nav-item dropdown">
 						<a href="#" class="nav-link dropdown-toggle"
 							data-bs-toggle="dropdown"> <img
@@ -313,7 +296,7 @@ class="panel-radios" type="checkbox" name="nav-checkbox">
             
                            <!--search-->
                            <div>
-                            <input type="text" id="keyword" placeholder="검색">
+                            <input type="text" id="keyword" placeholder="검색" value="${param.keyword}">
                             <button id="searchClick">검색</button>
                             </div>
                         <!--search-->
@@ -397,10 +380,38 @@ class="panel-radios" type="checkbox" name="nav-checkbox">
 		                            <td class="text-center">22-06-16</td>
 		                        </tr>	-->
 							</tbody>
+							
+							
 						</table>
+						<!-- 페이지  -->
+						<div class="page">
+							
+						<a href="?pageNum=<c:out value="${pageDTO.firstPage}"/>&keyword=${pageDTO.keyword}">[첫]</a>
+						<c:if test="${pageDTO.prev > 0 }">
+							<a href="?pageNum=<c:out value="${pageDTO.prev}"/>&keyword=${pageDTO.keyword}">[이전]</a>
+						</c:if>
+						<c:forEach var="i" begin="${pageDTO.startPage}" end="${pageDTO.lastPage}">
+							<c:if test="${pageDTO.pageNum ==  i}">
+								<b>
+							</c:if>
+								<!-- 페이지 번 -->
+								<a href="?pageNum=<c:out value="${i}"/>&keyword=${pageDTO.keyword}"><c:out value="${i}"/></a>
+							<c:if test="${pageDTO.pageNum ==  i}">
+								</b>
+							</c:if>
+						</c:forEach>
+						<c:if test="${pageDTO.next <= pageDTO.lastPage }">
+							<a href="?pageNum=<c:out value="${pageDTO.next}"/>&keyword=${pageDTO.keyword}">[다음]</a>
+						</c:if>
+						<a href="?pageNum=<c:out value="${pageDTO.lastPage}"/>&keyword=${pageDTO.keyword}">[마지막]</a>
 						<!-- Recent Sales End -->
+						</div>
+						
+						
+						
 					</div>
 				</div>
+				
     </main>
     </section>
 <!--일일매출 끝-->
@@ -651,6 +662,9 @@ var monthText = "";
 var monthArr = [];
 
 var tabText = "회원";
+
+	var pageNum = ${param.pageNum}
+	
 
   $(document).ready(function() {
 	  salesOfWeek();
@@ -1077,6 +1091,15 @@ var tabText = "회원";
   
   
   	function paymentListAjax(){
+  		var keyword =  $('#keyword').val();
+  		
+  		if( pageNum == 'undefined' || pageNum == '' || typeof pageNum != "number" ) {
+  			pageNum = 1
+  		}   
+  		obj = {
+  	      		'pageNum' : pageNum,
+  	      		'keyword' : keyword,
+  	      	},
   	
   	 	$.ajax({
   		 	url: localhost + '/paymentList.do',
@@ -1084,9 +1107,7 @@ var tabText = "회원";
   		    cache: false,
   	        dataType: "json",
   	        contentType: "application/json",
-  	      	data: {
-  	      		
-  	      	},
+  	      	data: JSON.stringify(obj),
   		    success: function(data){
   		    	
   		  		$('.tr_append').html('');

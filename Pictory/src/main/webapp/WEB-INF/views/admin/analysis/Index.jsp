@@ -92,8 +92,10 @@
 	rel="stylesheet" />
   <script src="${pageContext.request.contextPath}/resources/js/admin/index.js"></script>
   <link href="css/admin.css" rel="stylesheet" />
+  <!--font library-->
+      <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
 <style>
-
+*{font-family: 'Noto Sans KR', sans-serif;}
 </style>
 </head>
 
@@ -156,35 +158,10 @@
 					<h2 class="text-primary mb-0">
 						<i class="fa fa-hashtag"></i>
 					</h2>
-				</a> <a href="#" class="sidebar-toggler flex-shrink-0 text-left"> <i
-					class="fa fa-bars text-left"></i>
-				</a>
+				</a> 
 				<div class="navbar-nav align-items-center ms-auto">
 					
-					<div class="nav-item dropdown">
-						<a href="#" class="nav-link dropdown-toggle"
-							data-bs-toggle="dropdown"> <i class="fa fa-bell me-lg-2"></i>
-							<span class="d-none d-lg-inline-flex">알람</span>
-						</a>
-						<div
-							class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-							<a href="#" class="dropdown-item">
-								<h6 class="fw-normal mb-0">공지사항이 업로드 되었습니다</h6> <small>15
-									분 전</small>
-							</a>
-							<hr class="dropdown-divider">
-							<a href="#" class="dropdown-item">
-								<h6 class="fw-normal mb-0">Q&A가 등록되었습니다</h6> <small>20 분
-									전</small>
-							</a>
-							<hr class="dropdown-divider">
-							<a href="#" class="dropdown-item">
-								<h6 class="fw-normal mb-0">신고가 들어왔습니다</h6> <small>25 분 전</small>
-							</a>
-							<hr class="dropdown-divider">
-							<a href="#" class="dropdown-item text-center">더 보기</a>
-						</div>
-					</div>
+					
 					<div class="nav-item dropdown">
 						<a href="#" class="nav-link dropdown-toggle"
 							data-bs-toggle="dropdown"> <img

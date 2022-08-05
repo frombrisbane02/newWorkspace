@@ -8,6 +8,13 @@
           ON u.USERNO = a.USERNO
           WHERE u.USERID = #{userId} 
 	</select>
+	
+	<!-- 마이페이지 회원정보 불러오기 쿼리 -->
+	<select id="readUser" parameterType="String" resultType="AdminUsersDTO">
+		SELECT *
+		FROM USERS
+		WHERE USERID = #{userId}
+	</select>
 
 	
 	<select id="userList" parameterType="AdminUsersDTO" resultType="AdminUsersDTO">

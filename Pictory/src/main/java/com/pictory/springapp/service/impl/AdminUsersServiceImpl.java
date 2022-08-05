@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.pictory.springapp.dto.AdminUsersDTO;
 import com.pictory.springapp.dto.AdminUsersService;
+import com.pictory.springapp.dto.MemberDTO;
 
 @Service
 public class AdminUsersServiceImpl implements AdminUsersService{
@@ -26,6 +27,20 @@ public class AdminUsersServiceImpl implements AdminUsersService{
 		}
 		
 		return null;
+	}
+	
+	
+	//회원정보보기
+	@Override
+	public AdminUsersDTO readMember(String id) {
+		AdminUsersDTO dto = null;
+		try {
+		dto = adminuserDAO.readMember(id);
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		return dto;
 	}
 	
 	@Override

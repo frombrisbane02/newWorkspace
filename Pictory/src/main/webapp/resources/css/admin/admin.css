@@ -12,6 +12,7 @@
   z-index: 99;
 }
 
+*{font-family: 'Noto Sans KR', sans-serif;}
 
 /*** Spinner ***/
 #spinner {
@@ -295,7 +296,7 @@ width: 97%;
 
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:300,400|Inconsolata);
 :root {
---primary: #009CFF;
+--primary: #660099;
 --light: #F3F6F9;
 --dark: #191C24;
 }
