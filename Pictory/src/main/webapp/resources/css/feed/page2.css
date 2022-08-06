@@ -346,6 +346,10 @@
 }
 
 /* 스토리 페이지 */
+.cont_area {
+	width: 100%;
+}
+
 .story_list {
 	display: flex;
 	flex-wrap: wrap;

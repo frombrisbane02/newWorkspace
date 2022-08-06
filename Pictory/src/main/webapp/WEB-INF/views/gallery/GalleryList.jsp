@@ -11,7 +11,7 @@
 	
 	<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
- -->
+ 
 	<link rel="shortcut icon" type="image/x-icon" href="img/favicon.png">
 	<link rel="apple-touch-icon" href="img/favicon.png">
 	<link rel="stylesheet" type="text/css" href="http://localhost:4040/springapp/resources/css/galleryview/common.css">
@@ -321,7 +321,7 @@
 		var filter = filterList.join()
 		
 		
-		$(".hover_btn>li:first>a").click(function(e){  
+		$(".hover_btn>li>a").click(function(e){  
        
          const postNo = $(this).attr('href');
          const userId = document.getElementById('getuserId').value;

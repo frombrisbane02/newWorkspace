@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<!DOCTYPE html>
+<html>
+<head>
 	<link rel="shortcut icon" type="image/x-icon" href="img/favicon.png">
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/feed/page2.css">
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/feed/dm.css">
@@ -9,8 +11,9 @@
 
     <script src="${pageContext.request.contextPath}/resources/js/feed/html5shiv.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/feed/modernizr.js"></script>
+</head>
+<body>
 
-	
 	
     
 <div class="gray_box">
@@ -35,7 +38,7 @@
 							<c:if test = "${(sessionScope.userId) ==  (record.userId)}"  >
 						<li>
 							<a href="<c:url value="/story/virtualprocess.do?sNo=${record.SNo}"/>">
-								<div class="img_area" style="background-image: url(<c:url value="${record.storyThumbnail}"/>);">
+								<div class="img_area" style="background-image: url(<c:url value="http://localhost:4040/springapp/upload/img/${record.storyThumbnail}"/>);">
 								<img src="<c:url value="/resources/img/story/fake03.png"/>" alt="">
 								
 							
@@ -49,7 +52,7 @@
 										
 									<div class="pro_line">
 										<p>
-											<img src="<c:url value="${record.userProfile}"/>" alt="" class="pro_p">${record.userNickname}
+											<img src="<c:url value="http://localhost:4040/springapp/upload/img/${record.userProfile}"/>" alt="" class="pro_p">${record.userNickname}
 										</p>
 										<p class="gray">
 											<img

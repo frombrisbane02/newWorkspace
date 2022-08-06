@@ -26,7 +26,7 @@
 		<div class="main_area">
 			<div class="left_pro">
 				<div class="top_pro">
-					<img src="<c:url value="${feedInfo.userProfile}"/>" alt="" class="pro_img">
+					<img src="<c:url value="http://localhost:4040/springapp/upload/img/${feedInfo.userProfile}"/>" alt="" class="pro_img">
 					<div class="txt_area">
 						<h3><c:url value="${feedInfo.userNickname}"/></h3>
 						
