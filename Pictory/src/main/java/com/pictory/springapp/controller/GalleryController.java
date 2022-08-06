@@ -52,6 +52,7 @@ public class GalleryController {
 		List<GalleryDTO> lists = galleryService.galleryList();
 		List<GalleryDTO> hashs = galleryService.hashList();
 		model.addAttribute("lists",lists);
+		System.out.println("###lists###:"+lists);
 		model.addAttribute("hashs",hashs);
 		model.addAttribute("userId", userId);
 		return "gallery/GalleryList";
@@ -204,26 +205,18 @@ public class GalleryController {
 	      System.out.println("컨트롤러에서 받은 postNo:"+postNo);
 	      int like = galleryService.findLike(postNo, userId);
 	      System.out.println("like:"+like);
+	      if(like==1) {
+	    	 System.out.println("좋아요 취소!");
+	  		 galleryService.likeDown(postNo,userId);
+	      }
+	      else {
+	  		System.out.println("좋아요 업!");
+			galleryService.likeUp(postNo,userId);
+
+	      }
 	      
 	      return "{\"upload\":\"sucsses\"}";
 	   }
-	 
-	@CrossOrigin
-	@RequestMapping(value="likeUp.do",produces = "application/json;charset=UTF-8")
-	@ResponseBody
-	public void likeup(@RequestParam("postNo")int postNo,@RequestParam("userNo")int userNo) {
-		System.out.println("likeUp컨트롤러 연결 성공");
-		System.out.println(postNo);
-		System.out.println(userNo);
-		galleryService.likeUp(postNo,userNo);
-	}
-	@CrossOrigin
-	@RequestMapping(value="likeDown.do",produces = "application/json;charset=UTF-8")
-	@ResponseBody
-	public void likeDown(@RequestParam("postNo")int postNo,@RequestParam("userNo")int userNo) {
-		System.out.println("좋아요 싫어요!");
-		galleryService.likeDown(postNo,userNo);
-	}
 	
 	
 	

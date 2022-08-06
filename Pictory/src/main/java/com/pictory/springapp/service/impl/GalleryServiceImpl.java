@@ -87,13 +87,21 @@ public class GalleryServiceImpl implements GalleryService<GalleryDTO> {
 		return loginInfo;
 	}
 	@Override
-	public void likeUp(int postNo, int userNo) {
+	public void likeUp(int postNo, String userId) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("postNo", postNo);
+		map.put("userId", userId);
 		
+		dao.likeUp(map);
 	}
 
 	@Override
-	public void likeDown(int postNo, int userNo) {
+	public void likeDown(int postNo, String userId) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("postNo", postNo);
+		map.put("userId", userId);
 		
+		dao.likeDown(map);
 	}
 	
 	@Override

@@ -39,9 +39,9 @@ public interface GalleryService<T> {
 	//로그인한 사람 정보 다 갖고오기
 	GalleryDTO getLoginInfo(String userId);
 
-	void likeUp(int postNo, int userNo);
+	void likeUp(int postNo, String userId);
 
-	void likeDown(int postNo, int userNo);
+	void likeDown(int postNo, String userId);
 
 	Integer findLike(int postNo, String userId);
 

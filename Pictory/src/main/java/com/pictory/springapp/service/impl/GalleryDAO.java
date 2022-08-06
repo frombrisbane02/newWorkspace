@@ -139,7 +139,7 @@ public class GalleryDAO {
 		return template.selectOne("findUserNo", map);
 	}
 
-
+	//좋아요 체크
 	public int findLike(Map<String, Object> map) {
 		System.out.println("###갤러리dao###");
 		int succ=0;
@@ -147,6 +147,20 @@ public class GalleryDAO {
 		succ=template.selectOne("findLike", map);
 		System.out.println("###succ###:"+succ);
 		return succ;
+		
+	}
+
+	//좋아요 해제
+	public void likeDown(Map<String, Object> map) {
+		System.out.println("###좋아요 해제DAO###");
+		template.selectOne("likeDown", map);
+		
+	}
+
+
+	public void likeUp(Map<String, Object> map) {
+		System.out.println("###좋아요 업DAO###");
+		template.selectOne("likeUp", map);
 		
 	}
 

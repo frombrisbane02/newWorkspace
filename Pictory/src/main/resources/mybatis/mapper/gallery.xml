@@ -119,10 +119,10 @@
 		SELECT count(*) FROM likes WHERE userNo = (SELECT userNo FROM users WHERE userId=#{userId}) AND postNo=#{postNo}
 	</select>
 	<insert id="likeUp">
-		INSERT INTO likes VALUES(#{userNo},#{postNo})
+		INSERT INTO likes VALUES((SELECT userNo FROM users WHERE userId=#{userId}),#{postNo})
 	</insert>
-	<delete id="likeDown">
-		DELETE FROM LIKES WHERE userNo=#{userNo} AND postNo=#{postNo}
+	<delete id="likeDown" parameterType="Map">
+		DELETE FROM LIKES WHERE userNo=(SELECT userNo FROM users WHERE userId=#{userId}) AND postNo=#{postNo}
 	</delete>
 	
 	

@@ -341,11 +341,11 @@
               }).fail(function(request,status,error){
                 alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
               
-                 console.log('개씨발 망했어요ㅠ');
+                 console.log('무슨 실패입니까?');
               });
          
          e.preventDefault();
-         console.log('막았니?');
+         console.log('e.preventDefault() 실행');
          
       });
 		
