@@ -115,7 +115,7 @@
 		WHERE POSTNO = #{postNo}
 	</select>
 	
-		<select id="selectMember" parameterType="int" resultType="MemberDTO">
+	<select id="selectMember" parameterType="int" resultType="MemberDTO">
 		SELECT * FROM USERS
 		WHERE USERNO = #{userNo}
 	</select>

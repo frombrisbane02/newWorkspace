@@ -267,4 +267,5 @@ public class MemberServiceImpl implements MemberService<MemberDTO>{
 			
 			return dto;
 		}
+
 }

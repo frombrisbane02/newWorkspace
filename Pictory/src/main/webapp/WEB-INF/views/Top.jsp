@@ -104,7 +104,7 @@
     
    <!-- 스크롤 버튼 -->
 	<div class="topBtn"><img src="<c:url value="http://localhost:4040/springapp/resources/img/scrollup.png"/>"></div>
-      <div class="bottomBtn"><img src="<c:url value="http://localhost:4040/springapp/resources/img/scrolldown.png"/>"></div>
+    <div class="bottomBtn"><img src="<c:url value="http://localhost:4040/springapp/resources/img/scrolldown.png"/>"></div>
     
     
 </body>

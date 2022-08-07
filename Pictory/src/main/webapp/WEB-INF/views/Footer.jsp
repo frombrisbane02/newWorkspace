@@ -97,7 +97,7 @@
 	
 	$(document).ready(function(){ 
 		   $('#show').on("click", function(){
-		      window.open('<c:url value="/Chatbot.do"/>','_black','toolbar=no, menubar=no, width=500, height=800').focus();
+		      window.open('<c:url value="/Chatbot.do"/>','_blank','toolbar=no, menubar=no, width=500, height=800').focus();
 		   });
 		});
 	

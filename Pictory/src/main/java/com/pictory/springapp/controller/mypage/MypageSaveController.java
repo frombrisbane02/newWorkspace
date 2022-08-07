@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.pictory.springapp.Constants;
+import com.pictory.springapp.dto.GalleryDTO;
 import com.pictory.springapp.dto.MemberDTO;
 import com.pictory.springapp.dto.MemberService;
 import com.pictory.springapp.dto.SavePostDTO;
@@ -20,6 +22,8 @@ public class MypageSaveController {
 	@Autowired
 	private MemberService memberService;
 	
+	String resource = Constants.RESOURCE.toString();
+	
 	@RequestMapping("Like.do")
 	public String save(HttpSession session, Model model) {
 		System.out.println("마이페이지 내가 좋아요 한 사진 컨트롤러");
@@ -27,7 +31,10 @@ public class MypageSaveController {
 		String id = (String) session.getAttribute("userId");
 		MemberDTO member = memberService.readMember(id);
 		List<SavePostDTO> dto = memberService.selectLikePost(member.getUserNo());
-		System.out.println(dto);
+		for(SavePostDTO dtos : dto) {
+			dtos.setPhotoUrl(resource+dtos.getPhotoUrl());
+			dtos.setPostUserProfile(resource+dtos.getPostUserProfile());
+		}
 		model.addAttribute("likePostList", dto);
 		
 		return "mypage/MypageLike.tiles";
@@ -40,7 +47,10 @@ public class MypageSaveController {
 		String id = (String) session.getAttribute("userId");
 		MemberDTO member = memberService.readMember(id);
 		List<SavePostDTO> dto = memberService.selectBuyPost(member.getUserNo());
-		System.out.println(dto);
+		for(SavePostDTO dtos : dto) {
+			dtos.setPhotoUrl(resource+dtos.getPhotoUrl());
+			dtos.setPostUserProfile(resource+dtos.getPostUserProfile());
+		}
 		model.addAttribute("BuyPostList", dto);
 		
 		return "mypage/MypageBuy.tiles";

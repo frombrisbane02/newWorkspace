@@ -11,10 +11,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.pictory.springapp.Constants;
 import com.pictory.springapp.dto.MemberDTO;
 import com.pictory.springapp.dto.MyCartDTO;
 import com.pictory.springapp.dto.MyPageCartService;
 import com.pictory.springapp.dto.PaymentService;
+import com.pictory.springapp.dto.SavePostDTO;
 import com.pictory.springapp.service.impl.MemberServiceImpl;
 
 @Controller
@@ -29,12 +31,17 @@ public class MypageCartController {
 	@Autowired
 	private PaymentService paymentService;
 	
+	String resource = Constants.RESOURCE.toString();
+	
 	@RequestMapping("Cart.do")
 	public String cart(HttpSession session, Model model) {
 		System.out.println("마이페이지 장바구니 컨트롤러");
 		
 		String id = (String) session.getAttribute("userId");
 		List<MyCartDTO> list = cartService.selectMyCartDTO(id);
+		for(MyCartDTO lists : list) {
+			lists.setPhotoUrl(resource+lists.getPhotoUrl());
+		}
 		model.addAttribute("myCartList", list);
 		model.addAttribute("total", list.stream().mapToInt(cart -> cart.getTotalPrice()).sum());
 		
@@ -48,7 +55,7 @@ public class MypageCartController {
 		MemberDTO member = memberService.readMember(id);
 		cartService.deleteMyCart(member.getUserNo());
 		
-		return "mypage/MypageIndex.tiles";
+		return "mypage/MypageCart.tiles";
 	}
 	
 	@RequestMapping(value = "CartPayment.do", method = {RequestMethod.POST}) 

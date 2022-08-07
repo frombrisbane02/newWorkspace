@@ -207,7 +207,7 @@ public class GalleryController {
 	      System.out.println("like:"+like);
 	      if(like==1) {
 	    	 System.out.println("좋아요 취소!");
-	  		 galleryService.likeDown(postNo,userId);
+	  		 galleryService.likeDown(postNo, userId);
 	      }
 	      else {
 	  		System.out.println("좋아요 업!");

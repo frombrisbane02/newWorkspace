@@ -26,7 +26,7 @@
 	<!-- 정산 조회용 쿼리 -->
 	<select id="selectMySales" parameterType="int" resultType="SalesDTO">
 	    SELECT PRODUCT.PDNO AS productNo, payment.PAYMENTDATE AS soldDate
-		, post.POSTTITLE  AS productName, PRODUCT.PDPRICE AS profit, orders.PDSTATUS  AS status 
+		, post.POSTTITLE  AS productName, PRODUCT.PDPRICE AS profit
 		FROM PDORDER orders 
 		INNER JOIN PRODUCT product
 		ON orders.PDNO = product.PDNO
@@ -37,5 +37,17 @@
 		INNER JOIN PAYMENT payment
 		ON payment.PAYMENTNO = orders.PAYMENTNO
 		WHERE payment.USERNO = #{userNo}
+	</select>
+	
+	<insert id="insertAdjustment" parameterType="AdjustmentDTO">
+		INSERT INTO PICTORY.ADJUSTMENT
+		(ADJNO, ADJAMOUNT, BANK, ADJDATE, USERNO)
+		VALUES(SEQ_ADJUSTMENT.NEXTVAL, #{adjAmount}, #{bank}, #{adjDate}, #{userNo})
+	
+	</insert>
+	
+	<select id="selectAdjustment" parameterType="int" resultType="AdjustmentDTO">
+		SELECT * FROM ADJUSTMENT
+		WHERE USERNO = #{userNo}
 	</select>
 </mapper>

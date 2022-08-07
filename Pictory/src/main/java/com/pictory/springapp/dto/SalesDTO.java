@@ -12,5 +12,4 @@ public class SalesDTO {
 	private Date soldDate;
 	private String productName;
 	private int profit;
-	private int status;
 }

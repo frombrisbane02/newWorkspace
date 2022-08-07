@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.pictory.springapp.dto.AdjustmentDTO;
 import com.pictory.springapp.dto.OrderDTO;
 import com.pictory.springapp.dto.PaymentDTO;
 import com.pictory.springapp.dto.SalesDTO;
@@ -30,5 +31,13 @@ public class PaymentDAO {
 	
 	public List<SalesDTO> selectMySales(int userNo) {
 		return template.selectList("selectMySales", userNo);
+	}
+	
+	public int insertAdjustment(AdjustmentDTO dto) {
+		return template.insert("insertAdjustment", dto);
+	}
+	
+	public List<AdjustmentDTO> selectAdjustment(int userNo) {
+		return template.selectList("selectAdjustment", userNo);
 	}
 }

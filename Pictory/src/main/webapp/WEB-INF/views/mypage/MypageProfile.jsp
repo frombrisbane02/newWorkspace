@@ -100,7 +100,7 @@ function editLogic () {
 	if (pw1 !== pw2) {
 		alert("비밀번호와 비밀번호 확인이 맞지 않습니다.");
 	} else {
-	
+		console.log('?????????');
 		$.ajax({
 			url: '/springapp/mypage/password.do',
 			type: 'POST',

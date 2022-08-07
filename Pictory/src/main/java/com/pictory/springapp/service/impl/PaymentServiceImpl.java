@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.pictory.springapp.dto.AdjustmentDTO;
 import com.pictory.springapp.dto.OrderDTO;
 import com.pictory.springapp.dto.PaymentDTO;
 import com.pictory.springapp.dto.PaymentService;
@@ -37,16 +38,25 @@ public class PaymentServiceImpl implements PaymentService {
 	}
 
 
-	@Override
-	public void calculate(int userNo, List<Integer> productNo) {
-		
-			
-	}
-
 
 	@Override
 	public List<SalesDTO> selectMySales(int userNo) {
 		List<SalesDTO> list = dao.selectMySales(userNo);
+		return list;
+	}
+
+
+	@Override
+	public void insertAdjustment(AdjustmentDTO dto) {
+		dao.insertAdjustment(dto);
+		
+	}
+
+
+
+	@Override
+	public List<AdjustmentDTO> selectAdjustment(int userNo) {
+		List<AdjustmentDTO> list = dao.selectAdjustment(userNo);
 		return list;
 	}
 

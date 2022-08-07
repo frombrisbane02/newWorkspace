@@ -1,0 +1,441 @@
+@charset "utf-8"; 
+@import url('https://fonts.googleapis.com/css2?family=Gulzar&display=swap');
+
+
+	
+
+.gall_list {
+	padding: 0 80px;
+}
+
+/* 상단 - 필터 */
+.gall_list .top_filter {
+	border-bottom: 1px solid #eeeeee;
+	padding: 20px 10px;
+	margin-bottom: 20px;
+	display: block;
+	justify-content: space-between;
+}
+
+.gall_list .top_filter .filter_left {
+	display: block;
+	font-size: 13px;
+}
+
+.gall_list .top_filter a {
+	display: block;
+	font-size: 13px;
+	width:15%;
+}
+
+.gall_list .top_filter .filter_left .filter_btn {
+	background: #111111;
+	border-radius: 5px;
+	padding: 0 10px;
+	line-height: 30px;
+	color: #ffffff;
+	margin-right: 15px;
+	transition: 0.3s;
+}
+
+.gall_list .top_filter .filter_left .filter_btn:hover {
+	text-decoration: none;
+	background: #6e65d5;
+}
+
+.gall_list .top_filter .filter_left .filter_btn img {
+	width: 12px;
+	margin-right: 5px;
+	margin-top: -2px;
+}
+
+.gall_list .top_filter .count {
+	margin-bottom: 0;
+	line-height: 30px;
+}
+
+.gall_list .top_filter .count span {
+	font-weight: bold;
+}
+
+/* 상단 - 정렬 */
+.gall_list .top_filter .sort_area {
+	position: relative;
+	margin-left: 20px;
+	margin-top: 5px;
+	font-size: 13px;
+}
+
+.gall_list .top_filter .sort_area .sort_ac:hover {
+	text-decoration: none;
+	color: unset;
+}
+
+.gall_list .top_filter .sort_area .sort_ac span {
+	font-weight: bold;
+	width: 90px;
+	display: inline-block;
+}
+
+.gall_list .top_filter .sort_area .sort_ac img {
+	width: 8px;
+}
+
+.gall_list .top_filter .sort_list {
+	position: absolute;
+	background: #ffffff;
+	z-index: 1;
+	top: 30px;
+	left: 0;
+	width: 100%;
+	border: 1px solid #eeeeee;
+	padding: 10px 15px;
+	display: none;	
+}
+
+.gall_list .top_filter .sort_list li {
+	margin: 7px 0;
+	position: relative;
+}
+
+.gall_list .top_filter .sort_list li.sort_sel {
+	font-weight: bold;
+}
+
+.gall_list .top_filter .sort_list li a {
+	transition: 0.3s;	
+}
+
+.gall_list .top_filter .sort_list li a:hover {
+	text-decoration: none;
+	color: #6e65d5;
+}
+
+.gall_list .top_filter .sort_list li a img {
+	width: 13px;
+	position: absolute;
+	right: 0;
+	top: 50%;
+	margin-top: -6px;
+	opacity: 0;
+}
+
+.gall_list .top_filter .sort_list li.sort_sel a img {
+	opacity: 1;
+}
+
+/* 상단 필터 선택 항목 */
+.fil_sel_list {
+	display: flex;
+	flex-wrap: wrap;
+	margin-bottom: 20px;
+	padding: 0 10px;
+}
+
+.fil_sel_list li {
+	background: #eeeeee;
+	border-radius: 3px;
+	display: flex;
+	margin-right: 15px;
+	margin-bottom: 15px;
+	padding: 5px 15px;
+	font-size: 12px;
+}
+
+.fil_sel_list li a img {
+	width: 7px;
+	margin-right: 5px;
+	margin-top: -2px;
+}
+
+.fil_sel_list p {
+	margin-bottom: 0;
+}
+
+/* 이미지 리스트 */
+.gall_list_wrap {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.gall_list_wrap .photo_area {
+	width: 24%;
+	margin-bottom: 1.5%;
+	margin-right: 1.25%;
+	position: relative;
+}
+
+.gall_list_wrap .photo_area:nth-child(4n) {
+	margin-right: 0;
+}
+
+.gall_list_wrap .photo_area .photo_link {
+	display: block;
+	position: relative;
+	border-radius: 5px;
+	overflow: hidden;
+}
+
+.gall_list_wrap .img_area {
+	background-size: cover;
+	background-position: center center;
+	width: 100%;
+	height: 100%;
+	transition: 0.4s;
+}
+
+.gall_list_wrap .photo_area img {
+	width: 100%;
+}
+
+.gall_list_wrap .txt_area {
+	position: absolute;
+	bottom: 0px;
+	left: 0px;
+	color: #ffffff;
+	width: 100%;
+	padding: 25px;
+	display: flex;
+	justify-content: space-between;
+	transition: 0.4s;
+}
+
+.gall_list_wrap .photo_area:hover .txt_area {
+	opacity: 0;
+}
+
+.gall_list_wrap .txt_area p {
+	margin-bottom: 0;
+	line-height: 20px;
+	font-size: 12px;
+}
+
+.gall_list_wrap .txt_area p .pro_p {
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+	margin-right: 7px;
+	margin-top: -2px;
+}
+
+.gall_list_wrap .txt_area p .pro_icon {
+	width: 13px;
+	height: 13px;
+	margin-right: 5px;
+	margin-top: -2px;
+	margin-left: 15px;
+}
+
+/* 이미지 호버 블랙박스 */
+.gall_list_wrap .photo_area .photo_link:after {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	content: '';
+	background: #000;
+	opacity: 0;
+	transition: 0.4s;
+}
+
+.gall_list_wrap .photo_area:hover .photo_link:after {
+	opacity: 0.2;
+}
+
+/* 이미지 호버 상단 버튼 */
+.gall_list_wrap .hover_btn {
+	position: absolute;
+	top: 30px;
+	right: 30px;
+	display: flex;
+	transition: 0.4s;
+	opacity: 0;
+}
+
+.gall_list_wrap .photo_area:hover .hover_btn {
+	opacity: 1;
+}
+
+.gall_list_wrap .hover_btn li {
+	margin-left: 15px;	
+}
+
+.gall_list_wrap .hover_btn li a {
+	display: block;
+	padding: 0 25px;
+	height: 50px;
+	line-height: 50px;
+	color: #ffffff;
+	font-size: 13px;
+	background: rgba(0, 0, 0, 0.5);
+	border-radius: 5px;
+	transition: 0.3s;
+}
+
+.gall_list_wrap .hover_btn li a:hover {
+	text-decoration: none;
+	background: #6e65d5;
+}
+
+.gall_list_wrap .hover_btn li a img {
+	width: 13px;
+	height: 13px;
+	margin-right: 5px;
+	margin-top: -2px;
+}
+
+/* 이미지 호버 하단 텍스트 */
+.gall_list_wrap .hover_txt {
+	position: absolute;
+	bottom: 40px;
+	left: 40px;
+	transition: 0.4s;
+	color: #ffffff;
+	opacity: 0;
+}
+
+.gall_list_wrap .photo_area:hover .hover_txt {
+	opacity: 1;
+}
+
+.gall_list_wrap .hover_txt h3 {
+	font-size: 24px;
+}
+
+.gall_list_wrap .hover_txt .sub_txt {
+	font-size: 13px;
+}
+
+.gall_list_wrap .hover_txt .bot_txt {
+	font-size: 13px;
+	margin-bottom: 0;
+}
+
+/* 필터 모달 */
+.filter_modal {
+	position: fixed;
+	background: rgba(0, 0, 0, 0.4);
+	top: 0;
+	left: 0;
+	z-index: -1;
+	width: 100%;
+	height: 100%;
+	opacity: 0;
+	transition: 0.5s;
+}
+
+.filter_modal.mo_ac {
+	opacity: 1;
+	z-index: 2;
+}
+
+.filter_modal .modal_white {
+	background: #ffffff;
+	width: 750px;
+	padding: 60px 80px;
+	border-radius: 20px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.filter_modal .modal_white .close_modal {
+	position: absolute;
+	top: 30px;
+	right: 30px;
+}
+
+.filter_modal .modal_white h3 {
+	font-size: 32px;
+	font-family: 'Gulzar', serif;
+	font-weight: bold;
+	margin-bottom: 30px;
+}
+
+.filter_modal .modal_white .fil_wrap {
+	margin-bottom: 15px;
+}
+
+.filter_modal .modal_white .filter_tit {
+	color: #777777;
+	font-weight: 500;
+	letter-spacing: -0.5px;
+	font-size: 14px;
+}
+
+.filter_modal .modal_white .select_area {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.filter_modal .modal_white .sel_box {
+	display: flex;
+	width: 33%;
+	margin-bottom: 15px;
+}
+
+.filter_modal .modal_white .check_wrap {
+	width: 22px;
+	height: 22px; 
+	position: relative;
+}
+
+.filter_modal .modal_white input[type="checkbox"] {
+	width: 22px; 
+	height: 22px; 
+	position: absolute; 
+	top: 0; 
+	left: 0; 
+	margin: 0 !important; 
+	opacity: 0; 
+	z-index: 2;
+}
+
+.filter_modal .modal_white .check_btn {
+	width: 22px; 
+	height: 22px; 
+	background: url("../../../resources/img/gallerylist/test_icon14.png") no-repeat center center;
+	background-size: cover; 
+	position: absolute; 
+	top: 0; 
+	left: 0;
+}
+
+.filter_modal .modal_white input[type="checkbox"]:checked + .check_btn {
+	background: url("../../../resources/img/gallerylist/test_icon15.png") no-repeat center center;
+	background-size: cover; 
+}
+
+.filter_modal .modal_white label {
+	font-size: 14px;
+	cursor: pointer;
+	line-height: 22px;
+	margin-left: 7px;
+	font-weight: 500;
+}
+
+.filter_modal .modal_white .btn_area {
+	border-top: 1px solid #eeeeee;
+	padding-top: 30px;
+	display: flex;
+	justify-content: space-between;
+}
+
+.filter_modal .modal_white .btn_area input {
+	width: 48%;
+	line-height: 70px;
+	border-radius: 5px !important;
+	font-weight: 500;
+}
+
+.filter_modal .modal_white .btn_area .reset_btn {
+	background: none;
+	color: #777777;
+}
+
+.filter_modal .modal_white .btn_area .apply_btn {
+	background: #222222;
+	color: #ffffff;
+}
