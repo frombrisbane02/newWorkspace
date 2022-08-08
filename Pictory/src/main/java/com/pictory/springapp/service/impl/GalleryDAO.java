@@ -1,6 +1,7 @@
 package com.pictory.springapp.service.impl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -162,6 +163,16 @@ public class GalleryDAO {
 		System.out.println("###좋아요 업DAO###");
 		template.selectOne("likeUp", map);
 		
+	}
+
+	//갤러리리스트에서 로그인한 유저가 좋아요 버튼 누른 것들 표시
+	public List findUserPostno(Map<String, Object> map) {
+		
+		System.out.println("###포스트넘버 체크DAO###");
+		System.out.println("###포스트넘버 map###:"+map);
+		List lists=template.selectList("findUserPostno",map);
+		System.out.println("###tmp###:"+lists);
+		return lists;
 	}
 
 

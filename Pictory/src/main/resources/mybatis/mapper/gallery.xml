@@ -124,6 +124,8 @@
 	<delete id="likeDown" parameterType="Map">
 		DELETE FROM LIKES WHERE userNo=(SELECT userNo FROM users WHERE userId=#{userId}) AND postNo=#{postNo}
 	</delete>
-	
+	<select id="findUserPostno" resultType="int" parameterType="Map" >
+		SELECT postno FROM likes WHERE userNo = (SELECT userNo FROM users WHERE userId=#{userId})
+	</select>
 	
 </mapper>

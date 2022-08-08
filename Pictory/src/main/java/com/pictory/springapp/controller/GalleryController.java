@@ -51,10 +51,14 @@ public class GalleryController {
 		
 		List<GalleryDTO> lists = galleryService.galleryList();
 		List<GalleryDTO> hashs = galleryService.hashList();
+		System.out.println("###lists:"+lists.get(0));
 		model.addAttribute("lists",lists);
 		System.out.println("###lists###:"+lists);
+		List postNum = galleryService.findUserPostno(userId);
+		System.out.println("###postNum###:"+postNum);
 		model.addAttribute("hashs",hashs);
 		model.addAttribute("userId", userId);
+		model.addAttribute("postlists", postNum);
 		return "gallery/GalleryList";
 	}
 	
@@ -196,7 +200,7 @@ public class GalleryController {
 	   @CrossOrigin
 	   @RequestMapping(value="post/Likes.do",produces = "application/json;charset=UTF-8")
 	   @ResponseBody 
-	   public String likes(@RequestParam(value="userId", required=false) String userId,
+	   public int likes(@RequestParam(value="userId", required=false) String userId,
 	                           @RequestParam(value="postNo", required=false) int postNo,
 	                           HttpSession session, Model model,
 	                           HttpServletRequest req) throws JsonProcessingException{
@@ -205,7 +209,7 @@ public class GalleryController {
 	      System.out.println("컨트롤러에서 받은 postNo:"+postNo);
 	      int like = galleryService.findLike(postNo, userId);
 	      System.out.println("like:"+like);
-	      if(like==1) {
+	      if(like>=1) {
 	    	 System.out.println("좋아요 취소!");
 	  		 galleryService.likeDown(postNo, userId);
 	      }
@@ -215,7 +219,7 @@ public class GalleryController {
 
 	      }
 	      
-	      return "{\"upload\":\"sucsses\"}";
+	      return like;
 	   }
 	
 	

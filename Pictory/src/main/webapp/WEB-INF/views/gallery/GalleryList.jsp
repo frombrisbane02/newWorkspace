@@ -66,10 +66,18 @@
 							<p><img src="${pageContext.request.contextPath}/resources/img/gallerylist/test_icon06.png" alt="" class="pro_icon"><span>${list.postLikes}</span><img src="${pageContext.request.contextPath}/resources/img/gallerylist/test_icon07.png" alt="" class="pro_icon"><span>${list.commentCount}</span></p>
 						</div>		
 					</a>
-	
+					<!-- 좋아요 버튼 -->
 					<ul class="hover_btn">
+					<li><a id="aprevent${list.postNo}" href="${list.postNo}">
+					<c:forEach var="postlists" items="${postlists}" varStatus="loop">
+					<c:if test="${list.postNo == postlists}">
+					<img src="${pageContext.request.contextPath}/resources/img/gallerylist/test_icon06red.png" alt="">
+					</c:if>
+					</c:forEach>
+					
+					Like</a></li>
 						<!-- 판매글이면 카트 버튼이 있어야함 근데 걔가 카트를 넣었다? 그러면 다른 걸로 뿌려야함 -->
-						<li><a id="aprevent${list.postNo}" href="${list.postNo}"><img src="${pageContext.request.contextPath}/resources/img/gallerylist/test_icon06.png" alt="">Like</a></li>
+						
 						<c:if test="${list.postSellorNot==1}">
 						<li><a href="${list.postNo}">Cart</a></li>
 						</c:if>
@@ -325,7 +333,7 @@
        
          const postNo = $(this).attr('href');
          const userId = document.getElementById('getuserId').value;
-         
+         console.log(e.target.id);
          console.log('postNo :', postNo);
          console.log('userId :', userId);
          
@@ -334,10 +342,15 @@
                  url:"<c:url value='post/Likes.do'/>",
                  data: "postNo="+postNo+"&userId="+userId
                  }).done(function(data){
-                    
-                   console.log("성공입니다><",data);
-                   
-                  
+                	 if(data==1){
+                		 $(".hover_btn>li>a>img").attr("src","${pageContext.request.contextPath}/resources/img/gallerylist/test_icon06.png");
+                		 console.log("좋아요 취소1",data);
+                	 }else if(data==0 && postNo){
+                		 $(".hover_btn>li>a>img").attr("src","${pageContext.request.contextPath}/resources/img/gallerylist/test_icon06red.png");
+                		 console.log("좋아요 2",data);
+                     	 }
+                		
+                	                   
               }).fail(function(request,status,error){
                 alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
               
@@ -349,32 +362,6 @@
          
       });
 		
-	/* 	
-			/////////좋아요 ajax
-		function(e){
-			e.preventDefault();
-		function likefunc(postNo,userNo){
-		
-				alert("####postNo:"+postNo);
-				alert(userNo);
-				$.ajax({
-					url:"<c:url value='/gallery/likeUp.do'/>",
-					type:"POST",
-					data:{
-						"postNo":postNo,
-						"userNo":userNo
-					},
-					success:function(data){
-						alert("success");
-					},
-					error:function(){
-						alert("error");
-					}
-					
-						});
-					}//likefunc
-			
-		}	 */
 				
 		
 		//=============filter 배열에 저장 후 보여주기================

@@ -125,5 +125,14 @@ public class GalleryServiceImpl implements GalleryService<GalleryDTO> {
 		System.out.println("###counts###:"+counts);
 		return counts;
 	}
+	
+	@Override
+	public List findUserPostno(String userId) {
+		System.out.println("###갤러리서비스임플###");
+		Map<String, Object> map = new HashMap<>();
+		map.put("userId", userId);
+		
+		return dao.findUserPostno(map);
+	}
 
 }

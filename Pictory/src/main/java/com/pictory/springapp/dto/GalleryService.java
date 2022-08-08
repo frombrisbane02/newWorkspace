@@ -1,5 +1,6 @@
 package com.pictory.springapp.dto;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -46,6 +47,9 @@ public interface GalleryService<T> {
 	Integer findLike(int postNo, String userId);
 
 	Integer userNum(Map map);
+
+
+	List findUserPostno(String userId);
 	
 	
 	
