@@ -78,11 +78,11 @@
                     JOIN PDORDER pdo
                      ON pd.PDNO = pdo.PDNO
                     JOIN PAYMENT pay
-                     ON pdo.PAYMENTNO = pay.PAYMENTNO
+                     ON pdo.PAYMENTNO = pay.PAYMENTNO and rownum=1
                 ) ps, ( SELECT sur.USERNO AS surno, sur.USERID, spy.PAYMENTNO, spy.PAYMENTTOTAL, spy.PAYMENTDATE
                     FROM PAYMENT spy
                       JOIN USERS sur
-                   ON spy.USERNO = sur.USERNO ) py
+                   ON spy.USERNO = sur.USERNO and rownum=1) py
                    WHERE 1=1
 					AND UPPER(ps.USERID) LIKE UPPER('%' || #{keyword} || '%') 
 					OR UPPER(py.USERID) LIKE UPPER('%'||#{keyword}||'%')

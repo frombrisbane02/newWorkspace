@@ -29,10 +29,14 @@ public class SearchServiceImpl implements SearchService<SearchDTO> {
 		//해시태그 가져오기
 		return dao.getHashList();
 	}
+	//카테고리 메뉴 가져오기
+	public List<SearchDTO> categorySelect(Map map) {
+		List<SearchDTO> menu= dao.categorySelect(map);
+		System.out.println("너 돌아왔니??");
+		return menu;
+	}
 
-	//public List<SearchDTO> categorySelect() {
-		// 카테고리 가져오기
-	//	return dao.getCategoryList();
-	//}
+
+	
 
 }

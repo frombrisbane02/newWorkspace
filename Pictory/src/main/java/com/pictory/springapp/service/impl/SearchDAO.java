@@ -34,7 +34,14 @@ public class SearchDAO {
 					System.out.println("userNickname"+ oneResult.getUserNickname());
 					oneResult.setPhotoUrl(resource+oneResult.getPhotoUrl());
 					oneResult.setUserProfile(resource+oneResult.getUserProfile());
+					
+					switch(oneResult.getPostCategory()) {
+					case "landscape": oneResult.setPostCategory("풍경"); break;
+					case "object": oneResult.setPostCategory("정물"); break;
+					case "figure": oneResult.setPostCategory("인물"); break;
+					default: oneResult.setPostCategory("기타"); break;
 					}
+				}
 		return result;
 	}
 
@@ -44,21 +51,30 @@ public class SearchDAO {
 		return template.selectList("searchPostRecent", map);
 	}
 
-	// 카테고리별 검색
-		public List<SearchDTO> categorySelect(Map map) {
-
-			return template.selectList("categorySelect", map);
-		}
-
 	public List<SearchDTO> getHashList() {
 		//해시태그 가져오기
 		return template.selectList("hashlist");
 	}
+//	// 카테고리별 검색
+//	public List<SearchDTO> categorySelect(Map map) {
+//		
+//		return template.selectList("categorySelect", map)
+//	}
+	
+	//카테고리 검색
+	public List<SearchDTO> categorySelect(Map map) {
+		System.out.println("카테고리 DAO");
+		List<SearchDTO> tmp= template.selectList("categorySelect", map);
+		 System.out.println("쿼리에서 가져온 값:"+tmp);
+		 return tmp;
+	}
 
-	//public List<SearchDTO> getCategoryList() {
-		//카테고리 가져오기
-	//	return template.selectOne("categorylist");
-	//}
+	
+
+//	public List<SearchDTO> getCategoryList() {
+//		//카테고리 가져오기
+//		return template.selectOne("categorylist");
+//	}
 
 	
 

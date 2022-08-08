@@ -244,6 +244,13 @@ public class GalleryController {
 	   public String filter(Model model,@RequestParam String[] postCategory){
 		   
 		   System.out.println("======filter.do 도착(종근)");
+		   System.out.println("postCategory"+postCategory);
+		   /*
+		   List<String> lists =new Vector<>();
+		   for(int i=0 ; i <postCategory.length ; i++ ) {
+			   lists.add(postCategory[i]);
+		   
+		   }
 		   List<GalleryDTO> result = galleryService.galleryFilter(postCategory);
 		   //System.out.println(map);
 			

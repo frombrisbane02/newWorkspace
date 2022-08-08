@@ -64,8 +64,9 @@
 	
 	
 	<!-- 카테고리별 조회 -->
-	<select id="categorySelect" parameterType="Map">
-		SELECT POSTCATEGORY FROM POST WHERE POSTCATEGORY='object';
+	<select id="categorySelect" parameterType="Map" resultType="String">
+		<!-- SELECT POSTCATEGORY FROM POST WHERE POSTCATEGORY='%'|| #{postCategory} || '%'  -->
+		SELECT POSTCATEGORY, postNo FROM POST WHERE POSTCATEGORY='landscape'
 	</select>
 	
 </mapper>

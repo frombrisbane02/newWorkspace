@@ -31,26 +31,24 @@
 	</br>
 	</br>
 	</br>
-	<div class="form-group has-search">
-		<span class="fa fa-search form-control-feedback"></span> <input
-			type="search" class="form-control" placeholder="Search">
-	</div>
+	
 	<div>
-		<div class="form-group row">
+		<div class="form-group row" style="padding-left: 100px;">
 			<select id="" name="" class="form-control col-sm-1" style="width: 150px;">
-				<option value="gallery" id="gallery" selected>작품</option>
-				<option value="users" id="users">사람</option>
+				<option value="gallery" selected>작품</option>
+				<option value="users">사람</option>
 			</select> 
-			<select id="postCategory" name="postCategory" class="form-control col-sm-1" style="width: 150px;">
-				<option value="figure" id="figure">인물</option>
-				<option value="object" id="object">정물</option>
-				<option value="landscape" id="landscape" selected>풍경</option>
-				<option value="etc" id="etc">기타</option>
+			<select id="postCategory" name="postCategory" class="form-control col-sm-1" style="width: 150px;"">
+				<option value="">카테고리</option>
+				<option value="figure">인물</option>
+				<option value="object">정물</option>
+				<option value="landscape">풍경</option>
+				<option value="etc">기타</option>
 			</select> 
 			<select id="" name="" class="form-control col-sm-1" style="width: 150px;">
-				<option value="recent" id="recent" selected>최신순</option>
-				<option value="search" id="search">조회순</option>
-				<option value="like" id="like">좋아요순</option>
+				<option value="recent" selected>최신순</option>
+				<option value="search">조회순</option>
+				<option value="like">좋아요순</option>
 			</select>
 
 			<div class="chk_sale">
@@ -72,11 +70,21 @@
 			<c:if test="${empty lists}" var="isEmpty">
 				<li>검색결과없음</li>
 			</c:if>
+			<c:if test="${categorys=='landscape'}" var="isEmpty">
+				
+				풍경 사진들
+				
+			</c:if>
+			<c:if test="${categorys=='figure'}" var="isEmpty">
+				
+				
+				
+			</c:if>
 			<c:if test="${not isEmpty}">
 				<c:forEach var="list" items="${lists}" varStatus="loop">
-					<li class="photo_area"><a
-						href="<c:url value="/gallery/GalleryView.do?postNo=${list.postNo}"/>"
-						class="photo_link">
+					<li class="photo_area">
+					<a href="<c:url value="/gallery/GalleryView.do?postNo=${list.postNo}"/>
+					"class="photo_link">
 							<div class="img_area"
 								style="background-image: url(${list.photoUrl});">
 								<img
@@ -111,6 +119,8 @@
 								 <c:if test="${hash.postNo==list.postNo}">
 								#${hash.hashtag}
 								</c:if>
+								
+														
 							 </c:forEach>
 							</p>
 							<p class="bot_txt">${list.postCategory}</p>
@@ -121,5 +131,52 @@
 		</ul>
 	</div>
 
+
+<!-- <script>
+	var select = '${postCategory}';
+	var trans_select = select.split(",");
+	for(var i=0;i<trans_select.length;i++){
+		var index = trans_select[i]-1;
+		$("option").eq(index).prop("selected",true)
+	}
+
+</script> -->
+ <script type="text/javascript">
+	  $(function(e){
+		$('#postCategory').change(function(e){
+	
+			var postCategory = document.getElementById('postCategory').value;
+			
+			console.log("ajax들어가기 전")
+		
+		  $.ajax({
+			type:"POST",
+			url:"<c:url value='Category.do'/>",
+			data:"postCategory="+postCategory
+		}).done(function(data){
+			console.log("postCategrorwrrwrsry",postCategory);
+		}).fail(function(data){
+			console.log("실패다",data);
+		}); 
+		  
+		  e.preventDefault();
+		  console.log('e.preventDefault() 실행');
+	});
+		
+	  });
+		
+		
+	
+
+
+		
+	
+	
+	
+	
+	
+	
+
+</script>
 </body>
 </html>

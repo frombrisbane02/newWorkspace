@@ -3,11 +3,6 @@
     scroll-behavior: smooth;
   }
   
-  .list > div {
-    margin-bottom: 2rem;
-    margin-left: 1rem;
-    font-size: 2rem;
-  }
   
   .topBtn {
     position: fixed;
