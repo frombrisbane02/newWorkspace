@@ -25,6 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartResolver;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pictory.springapp.Constants;
 import com.pictory.springapp.dto.GalleryDTO;
 import com.pictory.springapp.dto.GalleryService;
@@ -40,6 +41,9 @@ public class GalleryController {
 	
 	@Autowired
 	private GalleryService<GalleryDTO> galleryService;
+	
+	@Autowired
+	ObjectMapper objectMapper;
 	
 	//url 저장용 상수
 	String resource = Constants.RESOURCE.toString();
@@ -235,17 +239,11 @@ public class GalleryController {
 	   }
 	
 	
-	
+	/*
 	   @RequestMapping("filter.do")
 	   public String filter(Model model,@RequestParam String[] postCategory){
 		   
 		   System.out.println("======filter.do 도착(종근)");
-		   /*
-		   List<String> lists =new Vector<>();
-		   for(int i=0 ; i <postCategory.length ; i++ ) {
-			   lists.add(postCategory[i]);
-		   
-		   }*/
 		   List<GalleryDTO> result = galleryService.galleryFilter(postCategory);
 		   //System.out.println(map);
 			
@@ -254,7 +252,23 @@ public class GalleryController {
 
 			return "gallery/GalleryList";
 	   }
-	 
+	 */
+	   
+	   @RequestMapping(value="filter.do", produces = "application/json;charset=UTF-8")
+	   @ResponseBody
+	   public String filter(Model model,@RequestParam(value="checkList[]") String[] postCategory) throws JsonProcessingException{
+		   
+		   System.out.println("======filter.do 도착(종근)");
+		   System.out.println(postCategory);
+		   List<GalleryDTO> result = galleryService.galleryFilter(postCategory);
+
+		   
+			System.out.println("22======================");
+			//model.addAttribute("lists",result);
+			
+
+			return objectMapper.writeValueAsString(result);
+	   }
 	   
 	
 	

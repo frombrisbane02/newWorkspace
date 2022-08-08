@@ -421,6 +421,13 @@
 	font-weight: 500;
 }
 
+.filter_modal .modal_white .btn_area button {
+	width: 48%;
+	line-height: 70px;
+	border-radius: 5px !important;
+	font-weight: 500;
+}
+
 .filter_modal .modal_white .btn_area .reset_btn {
 	background: none;
 	color: #777777;

@@ -36,16 +36,12 @@
 		</div>
 		<ul class="fil_sel_list">
 		<!-- 여기 선택한 필터 리스트 목록 갖고와서 foreach로 뿌리면서 엑스<도 기능하고, 엑스 눌렀을때 체크 해제되게 기능구현  -->
-		
+			<spen id='view_content_order'>
 			<li>
 				<a href=""><img src="<c:url value="/resources/img/story/test_icon16.png"/>" alt=""></a>
 				<p>Clean all</p>
 			</li>
-
-			<li>
-				<a href=""><img src="<c:url value="/resources/img/story/test_icon16.png"/>" alt=""></a>
-				<p>CATEGORY 1</p>
-			</li>
+			</spen>
 
 		</ul>
 		
@@ -105,13 +101,13 @@
 		<div class="modal_white">
 			<a href="" class="close_modal"><img src="<c:url value="/resources/img/story/test_icon13.png"/>" alt=""></a>
 			<h3>Filter content just for you</h3>
-			<form action="<c:url value="/gallery/filter.do"/>">
+			<form action="">
 				<div class="fil_wrap">
 					<p class="filter_tit">CATEGORY</p>
 					<div class="select_area">
 						<div class="sel_box">
 							<div class="check_wrap">
-								<input class="postCategory" type="checkbox" name="postCategory" value="landscape" id="landscape" >
+								<input type="checkbox" name="postCategory" value="landscape" id="landscape">
 								<div class="check_btn"></div>
 							</div>
 							<label for="landscape">풍경(landscape)</label>
@@ -119,7 +115,7 @@
 
 						<div class="sel_box">
 							<div class="check_wrap">
-								<input class="postCategory" type="checkbox" name="postCategory" value="figure" id="figure" >
+								<input type="checkbox" name="postCategory" value="figure" id="figure" >
 								<div class="check_btn"></div>
 							</div>
 							<label for="figure">인물(figure)</label>
@@ -127,7 +123,7 @@
 
 						<div class="sel_box">
 							<div class="check_wrap">
-								<input class="postCategory" type="checkbox" name="postCategory" value="animal" id="animal">
+								<input type="checkbox" name="postCategory" value="animal" id="animal">
 								<div class="check_btn"></div>
 							</div>
 							<label for="animal">동물(animal)</label>
@@ -135,7 +131,7 @@
 
 						<div class="sel_box">
 							<div class="check_wrap">
-								<input class="postCategory" type="checkbox" name="postCategory" value="food" id="food" >
+								<input type="checkbox" name="postCategory" value="food" id="food" >
 								<div class="check_btn"></div>
 							</div>
 							<label for="food">음식(food)</label>
@@ -143,7 +139,7 @@
 
 						<div class="sel_box">
 							<div class="check_wrap">
-								<input class="postCategory" type="checkbox" name="postCategory" value="object" id="object">
+								<input type="checkbox" name="postCategory" value="object" id="object" >
 								<div class="check_btn"></div>
 							</div>
 							<label for="object">사물(object)</label>
@@ -151,7 +147,7 @@
 						
 						<div class="sel_box">
 							<div class="check_wrap">
-								<input class="postCategory" type="checkbox" name="postCategory" value="etc" id="etc">
+								<input type="checkbox" name="postCategory" value="etc" id="etc">
 								<div class="check_btn"></div>
 							</div>
 							<label for="etc">기타(etc)</label>
@@ -168,7 +164,7 @@
 					<div class="select_area">
 						<div class="sel_box">
 							<div class="check_wrap">
-								<input class="postCategory" type="checkbox" name="postCategory" value="black"  id="black">
+								<input type="checkbox" name="postCategory" value="black"  id="black">
 								<div class="check_btn"></div>
 							</div>
 							<label for="black">BLACK</label>
@@ -176,7 +172,7 @@
 
 						<div class="sel_box">
 							<div class="check_wrap">
-								<input class="postCategory" type="checkbox" name="postCategory" value="white" id="white" >
+								<input type="checkbox" name="postCategory" value="white" id="white">
 								<div class="check_btn"></div>
 							</div>
 							<label for="white">WHITE</label>
@@ -184,7 +180,7 @@
 
 						<div class="sel_box">
 							<div class="check_wrap">
-								<input class="postCategory" type="checkbox" name="postCategory" value="red" id="red">
+								<input type="checkbox" name="postCategory" value="red" id="red">
 								<div class="check_btn"></div>
 							</div>
 							<label for="red">RED</label>
@@ -192,7 +188,7 @@
 
 						<div class="sel_box">
 							<div class="check_wrap">
-								<input class="postCategory" type="checkbox"  name="postCategory" value="blue" id="blue">
+								<input type="checkbox"  name="postCategory" value="blue" id="blue" >
 								<div class="check_btn"></div>
 							</div>
 							<label for="blue">BLUE</label>
@@ -200,7 +196,7 @@
 
 						<div class="sel_box">
 							<div class="check_wrap">
-								<input class="postCategory" type="checkbox"  name="postCategory" value="green" id="green">
+								<input type="checkbox"  name="postCategory" value="green" id="green">
 								<div class="check_btn"></div>
 							</div>
 							<label for="green">GREEN</label>
@@ -208,7 +204,7 @@
 						
 						<div class="sel_box">
 							<div class="check_wrap">
-								<input class="postCategory" type="checkbox" name="postCategory" value="pink" id="pink">
+								<input type="checkbox" name="postCategory" value="pink" id="pink" >
 								<div class="check_btn"></div>
 							</div>
 							<label for="pink">PINK</label>
@@ -226,44 +222,12 @@
 							</div>
 							<label for="filter3-1">HASHTAG 1</label>
 						</div>
-
-						<div class="sel_box">
-							<div class="check_wrap">
-								<input type="checkbox" id="filter3-2">
-								<div class="check_btn"></div>
-							</div>
-							<label for="filter3-2">HASHTAG 2</label>
-						</div>
-
-						<div class="sel_box">
-							<div class="check_wrap">
-								<input type="checkbox" id="filter3-3">
-								<div class="check_btn"></div>
-							</div>
-							<label for="filter3-3">HASHTAG 3</label>
-						</div>
-
-						<div class="sel_box">
-							<div class="check_wrap">
-								<input type="checkbox" id="filter3-4">
-								<div class="check_btn"></div>
-							</div>
-							<label for="filter3-4">HASHTAG 4</label>
-						</div>
-
-						<div class="sel_box">
-							<div class="check_wrap">
-								<input type="checkbox" id="filter3-5">
-								<div class="check_btn"></div>
-							</div>
-							<label for="filter3-5">HASHTAG 5</label>
-						</div>
 					</div>
 				</div>					 -->
 
-				<div class="btn_area">
+				<div id=modal class="btn_area">
 					<input type="reset" value="RESET" class="reset_btn">
-					<input type="submit" value="APPLY" class="apply_btn">
+					<button type="button" id="apply" value="APPLY" class="apply_btn">APPLY</button>
 				</div>
 			</form>
 		</div>
@@ -271,7 +235,10 @@
 	 			  <form>
 			         <input id="getuserId" type="hidden" value="${userId}"/>
 			      </form>
+			      
+			      
 	<script>
+	
 	   // 카테고리 value 영어로 받아와서 한글로 바꿔서 출력하기
 	   /*
 	   $(document).ready(function(){
@@ -313,23 +280,18 @@
 				$('.filter_modal').removeClass('mo_ac');
 				return false;
 			});
+			
+
+			$('.apply_btn').click(function(){
+				$('.filter_modal').removeClass('mo_ac');
+				return false;
+			});
+			
 		});
 
 		
 
 		
-		var filterArr = $("input[name='postCategory']");
-		
-		var filterList =[];
-		
-		for (var i=0; i<filterArr.length; i++){
-			if( filterArr[i].checked == true){
-				filterList.push(filterList[i].value);
-			};
-
-		};
-		 console.log(filterList);
-		var filter = filterList.join()
 		
 		
 		$(".hover_btn>li>a").click(function(e){  
@@ -411,49 +373,87 @@
 		/*
 		//=====================
 			$(document).ready(function(){
+		
+		//===종근 - 클릭시 태그 생성 ==============================================
+			/*
+			var num = 0;
+			function add_table(){
+			    var table_add = document.getElementById('view_content_order');
+			    div = document.createElement("div"); 
+			    var table = "<table id='row_"+num+"'><tr><td>...</td></tr></table>" ;
+			    div.innerHTML = table;
+			    table_add.appendChild(div);
+			    num++;
+			}
+			function add_table1(txt,gid){ 
+			 var table_add = document.getElementById('view_content_order');
+			 div = document.createElement("div"); 
+			 var table = "<table width='100%' id='row_"+gid+"'><tr><td>"+txt+"</td></tr></table>" ;
+			 div.innerHTML = table;
+			 table_add.appendChild(div);
+			 num++; 
+			}
+			function del_table(gid){
+			    var table_add = document.getElementById('view_content_order');
+			    var table_del = document.getElementById('row_'+gid);
+			    table_add.removeChild(table_del.parentNode);
+			}
+			
+			function add_list(chk,txt,gid)
+			{
+			 if(chk.checked==true)
+			 {
+			  add_table1(txt,gid);
+			 }
+			 else
+			 {
+			  del_table(gid)  
+			 }
+			}
+			*/
+		//==================================================
+			
+		//===========종근(필터 Ajax)
+		  $(document).ready(function(){
             
-            $(".postCategory").click(function() {
+            $("#apply").click(function() {
                 //배열 선언
-                var filterArr = [];
+                var checkArray = [];
                 
                 $('input[name="postCategory"]:checked').each(function(i){//체크된 리스트 저장
-                	filterArr.push($(this).val());
+                	checkArray.push($(this).val());
                 });
                 
-                var objParams = {
-                        "user"      : $("#user").val(), //유저 저장
-                        "fruitList" : fruitArray        //과일배열 저장
-                    };
+                console.log('checkArray :', checkArray);
                 
+                var checkParams = {
+                        //"user"      : $("#user").val(), //유저 저장
+                        "checkList" : checkArray        //체크배열 저장
+                    };
+                console.log('checkParams :', checkParams);
                 //ajax 호출
                 $.ajax({
-                    url         :   "/checkTest/save",
+                    url         :   "<c:url value="/gallery/filter.do"/>",
                     dataType    :   "json",
                     contentType :   "application/x-www-form-urlencoded; charset=UTF-8",
                     type        :   "post",
-                    data        :   objParams,
-                    success     :   function(retVal){
- 
-                        if(retVal.code == "OK") {
-                            alert(retVal.message);
-                        } else {
-                            alert(retVal.message);
-                        }
+                    data        :   checkParams,
+                    success     :   function(result){
+ 						console.log(result)
+ 						console.log(result[0].postTitle)
+ 						
                          
                     },
                     error       :   function(request, status, error){
-                        console.log("AJAX_ERROR");
+                        console.log("AJAX_ERROR(종근)");
                     }
                 });
                 
             })
             
-        });*/
-
-		
-
-		
-		
+        });
+			
+			//===========================
 	</script>
 </body>
 </html>

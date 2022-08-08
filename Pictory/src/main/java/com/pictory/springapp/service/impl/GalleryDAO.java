@@ -78,6 +78,7 @@ public class GalleryDAO {
 	public List<GalleryDTO> selectGalleryView(int postNo) {
 		System.out.println("dao 클릭한 postNo"+postNo);
 		return template.selectList("galleryView",postNo);
+		
 	}
 
 	
@@ -94,15 +95,25 @@ public class GalleryDAO {
 	}
 
 	
-	public List<GalleryDTO> selectFilter(String[] postCategory) {
-		//System.out.println("종근===갤러리 dao");
+	//2public List<GalleryDTO> selectFilter(String[] postCategory) 
+		public List<GalleryDTO> selectFilter(String[] postCategory){
+		System.out.println("종근===갤러리 dao");
 		
 		List<GalleryDTO> filters = template.selectList("filter",postCategory);
 		for(GalleryDTO filter : filters) {
 			filter.setPhotoUrl(resource+filter.getPhotoUrl());
 			filter.setUserProfile(resource+filter.getUserProfile());
+			
+			switch(filter.getPostCategory()) {
+			case "landscape": filter.setPostCategory("풍경"); break;
+			case "object": filter.setPostCategory("정물"); break;
+			case "figure": filter.setPostCategory("인물"); break;
+			default: filter.setPostCategory("기타"); break;
 		}
-		
+			
+		}
+		System.out.println("11======================");
+		System.out.println("filters"+filters);
 		return filters;
 	}
 
