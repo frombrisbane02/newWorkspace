@@ -7,7 +7,7 @@ import java.util.Map;
 public interface GalleryService<T> {
 	
 	//Gallery List 뿌려주는 서비스
-	List<GalleryDTO> galleryList();
+	List<GalleryDTO> galleryList(String userId);
 	
 	//클릭한 뷰의 사진 url 뽑아오기
 	//List<Map<String, Object>> galleryPhoto(Map postMap);
@@ -50,6 +50,8 @@ public interface GalleryService<T> {
 
 
 	List findUserPostno(String userId);
+
+	void galleryComment(Map map);
 	
 	
 	

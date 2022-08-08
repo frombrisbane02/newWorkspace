@@ -68,13 +68,13 @@
 					</a>
 					<!-- 좋아요 버튼 -->
 					<ul class="hover_btn">
-					<li><a id="aprevent${list.postNo}" href="${list.postNo}">
-					<c:forEach var="postlists" items="${postlists}" varStatus="loop">
-					<c:if test="${list.postNo == postlists}">
-					<img src="${pageContext.request.contextPath}/resources/img/gallerylist/test_icon06red.png" alt="">
-					</c:if>
-					</c:forEach>
-					
+						<li><a id="aprevent${list.postNo}" href="${list.postNo}">
+							<c:if test="${list.likeornot == 1}">
+								<img src="${pageContext.request.contextPath}/resources/img/gallerylist/test_icon06red.png" alt="">
+							</c:if>
+							<c:if test="${list.likeornot == 0}">
+								<img src="${pageContext.request.contextPath}/resources/img/gallerylist/test_icon06.png" alt="">
+							</c:if>
 					Like</a></li>
 						<!-- 판매글이면 카트 버튼이 있어야함 근데 걔가 카트를 넣었다? 그러면 다른 걸로 뿌려야함 -->
 						
@@ -157,9 +157,12 @@
 							<label for="etc">기타(etc)</label>
 						</div>
 						
+						
+						
+						
 					</div>
 				</div>
-
+	<!--
 				<div class="fil_wrap">
 					<p class="filter_tit">COLOR</p>
 					<div class="select_area">
@@ -213,7 +216,7 @@
 					</div>
 				</div>	
 
-			<!-- 	<div class="fil_wrap">
+		 	<div class="fil_wrap">
 					<p class="filter_tit">HASHTAG</p>
 					<div class="select_area">
 						<div class="sel_box">
@@ -330,27 +333,38 @@
 		
 		
 		$(".hover_btn>li>a").click(function(e){  
-       
+			
          const postNo = $(this).attr('href');
          const userId = document.getElementById('getuserId').value;
          console.log(e.target.id);
          console.log('postNo :', postNo);
          console.log('userId :', userId);
          
+
          $.ajax({
                  type:"POST",
                  url:"<c:url value='post/Likes.do'/>",
                  data: "postNo="+postNo+"&userId="+userId
                  }).done(function(data){
+                	
+                    //var srcsrc = ($(this).children("img").attr('src')==='${pageContext.request.contextPath}/resources/img/gallerylist/test_icon06.png')) ? '${pageContext.request.contextPath}/resources/img/gallerylist/test_icon06red.png' : '${pageContext.request.contextPath}/resources/img/gallerylist/test_icon06.png';
+                	//$(this).children('img').attr('src',srcsrc);
+                	 
+                	 //var anchor = $('#aprevent'+postNo);
+                	 //if($('#aprevent'+postNo))
+                	 
+                	 /*
                 	 if(data==1){
-                		 $(".hover_btn>li>a>img").attr("src","${pageContext.request.contextPath}/resources/img/gallerylist/test_icon06.png");
+                		 
+                		 $(this).children('img').attr("src","${pageContext.request.contextPath}/resources/img/gallerylist/test_icon06.png");
+                		 //$(".hover_btn>li>a>img").attr("src","${pageContext.request.contextPath}/resources/img/gallerylist/test_icon06.png");
                 		 console.log("좋아요 취소1",data);
                 	 }else if(data==0 && postNo){
-                		 $(".hover_btn>li>a>img").attr("src","${pageContext.request.contextPath}/resources/img/gallerylist/test_icon06red.png");
+                		 $(this).children('img').attr("src","${pageContext.request.contextPath}/resources/img/gallerylist/test_icon06red.png");
+                		 //$(".hover_btn>li>a>img").attr("src","${pageContext.request.contextPath}/resources/img/gallerylist/test_icon06red.png");
                 		 console.log("좋아요 2",data);
-                     	 }
+                     	 }*/
                 		
-                	                   
               }).fail(function(request,status,error){
                 alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
               
@@ -361,9 +375,10 @@
          console.log('e.preventDefault() 실행');
          
       });
+	
+
 		
 				
-		
 		//=============filter 배열에 저장 후 보여주기================
 		
 		/*

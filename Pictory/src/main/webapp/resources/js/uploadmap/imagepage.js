@@ -4,7 +4,7 @@ function modalOpen() {
     title: '<strong>HTML <u>example</u></strong>',
     width: 1430,
     html:
-    '<iframe width="1350" height="700" src="map.html" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',
+    '<iframe width="1350" height="1000" src="map.html" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',
     showCloseButton: true,
     showCancelButton: true,
     focusConfirm: false,
@@ -26,6 +26,6 @@ function modalOpen() {
 
 
 //버튼 클릭리스너 달기
-document.querySelector('#modal_btn').addEventListener('click', modalOpen);
+document.querySelector('#openMap').addEventListener('click', modalOpen);
 
 

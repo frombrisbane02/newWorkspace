@@ -199,15 +199,12 @@ public class PostDAO {
 		return 1;
 	}
 
-	public List<PostDTO> getStoryList(Map userId) {
-		// story를 위해 sno, 스토리 타이틀, 스토리 제목 갖고와야함
+	public List<PostDTO> getStoryList(String userId) {
 		List<PostDTO> lists = template.selectList("getStoryList",userId);
 		for(PostDTO list : lists) {
-			System.out.println("가지고온 sno: "+list.getSNo());
-			System.out.println("가지고온 stitle: "+list.getStoryTitle());
-			System.out.println("가지고온 썸네일: "+list.getStoryThumbnail());
+			list.setStoryThumbnail(resource+list.getStoryThumbnail());
 		}
-		return null;
+		return lists;
 	}
 
 

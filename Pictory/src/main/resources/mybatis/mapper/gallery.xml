@@ -8,7 +8,7 @@
 <mapper namespace="mybatis.mapper.gallery">
 	
 	<!-- 필요 인자: 카테고리, 해시태그, 첫번째 이미지 url(썸네일용), 좋아요수, 댓글 수 -->
-	<select id="galleryList" resultType="GalleryDTO">		
+	<select id="galleryList" resultType="GalleryDTO" parameterType="string">		
         SELECT po.postno,
       		po.postcategory,
             po.posttitle,
@@ -118,6 +118,7 @@
 	<select id="findLike" resultType="int" parameterType="Map">
 		SELECT count(*) FROM likes WHERE userNo = (SELECT userNo FROM users WHERE userId=#{userId}) AND postNo=#{postNo}
 	</select>
+	
 	<insert id="likeUp">
 		INSERT INTO likes VALUES((SELECT userNo FROM users WHERE userId=#{userId}),#{postNo})
 	</insert>
@@ -125,7 +126,19 @@
 		DELETE FROM LIKES WHERE userNo=(SELECT userNo FROM users WHERE userId=#{userId}) AND postNo=#{postNo}
 	</delete>
 	<select id="findUserPostno" resultType="int" parameterType="Map" >
-		SELECT postno FROM likes WHERE userNo = (SELECT userNo FROM users WHERE userId=#{userId})
+		SELECT postNo FROM likes WHERE userNo = (SELECT userNo FROM users WHERE userId=#{userId})
 	</select>
+	
+	<select id="getUserNo" parameterType="string" resultType="int">
+		SELECT userNo FROM USERS WHERE userId = #{userId}
+	</select>
+	
+	<insert id="insertComment" parameterType="Map">
+		<selectKey keyProperty="cNo" resultType="int" order="BEFORE">
+			SELECT SEQ_COMMENT_TBL.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO COMMENT_TBL VALUES(SEQ_COMMENT_TBL.CURRVAL,#{postNo},#{userNo},#{cText},1,SYSDATE,#{parentCNo, jdbcType=INTEGER})
+	</insert>
+	
 	
 </mapper>

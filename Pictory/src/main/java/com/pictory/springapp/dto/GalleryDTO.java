@@ -27,6 +27,9 @@ public class GalleryDTO {
 	
 	//글 총합 저장용
 	private int postCount;
+	
+	//좋아요 눌렀는지 0, 1 저장용
+	private int likeornot;
 
 	//TBL_STORY
 	private int sNo;

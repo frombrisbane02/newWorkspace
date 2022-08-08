@@ -76,6 +76,20 @@
 .editpic:hover > button {
 	opacity: 1;
 }
+
+.checkStoryText{
+	
+  position: absolute; 
+  bottom: 0; 
+  background: rgb(0, 0, 0);
+  background: rgba(0, 0, 0, 0.5);
+  color: #f1f1f1; 
+  width: 100%;
+  opacity:1;
+  color: white;
+  text-align: center;
+}
+
 </style>
 
 
@@ -100,7 +114,9 @@
 		<input type="hidden" class="form-control" value="${postSellorNot}" name="postSellorNot" id="postSellorNot">
 		<input type="hidden" class="form-control" value="" name="hashtags" id="hashtags">
 		<input type="hidden" class="form-control" value="" name="fileInfos" id="fileInfos">
+		<input type="hidden" class="form-control" value="" name="existingstory" id="existingstory">
 		
+		<input type="hidden" name="lnglat" id="a-lnglat" />
 		
 		
 		<div class="form-group">
@@ -171,7 +187,7 @@
 			
 			<!-- ===================================지도=================================== -->
 			<label for="addMap" class="btn btn-ouline-dark m-2" style="display: inline-block;">
-				<img src="${pageContext.request.contextPath}/resources/img/upload/btnmap.jpg" style="width:50px;"/>
+				<img id="openMap" src="${pageContext.request.contextPath}/resources/img/upload/btnmap.jpg" style="width:50px;"/>
 			</label>
 			<input type="hidden" name="addMap" id="addMap"  class="form-control m-2" hidden />
 			
@@ -185,43 +201,40 @@
 				<ul class="list-group list-group-horizontal">
 					<li class="list-group-item overflow-x: auto; border-0">
 						<div class="inline" id="sThumnail">
-							<label for="storyThumbnail"> <img
-								src="${pageContext.request.contextPath}/resources/img/upload/btnaddStory.jpg"
-								id="addedThumbnailimg" width="100px;">
-							</label> <input id="storyThumbnail" name="storyThumbnail" type="file"
-								accept="image/*" hidden />
-						</div>
-					</li>
-					<!--<c:if test="">foreach로 스토리 가져와서 뿌려주기!!!!!!!!!</c:if>-->
-					
-			<c:if test="">
-					<li class="list-group-item overflow-x: auto; border-0">
-						<div>
-							<input type="checkbox" id="story1" onclick="imageClicked(this)"
-								hidden /> <label for="story1"> <img
-								src="${pageContext.request.contextPath}/resources/img/upload/sell.jpg"
-								id="sThumnail+1" width="100px;">
+							<label for="storyThumbnail">
+							<img src="${pageContext.request.contextPath}/resources/img/upload/btnaddStory.jpg" id="addedThumbnailimg" width="100px;" height="142px;">
 							</label>
+							<input id="storyThumbnail" name="storyThumbnail" type="file" accept="image/*" hidden />
 						</div>
-						<p>스토리이름1</p>
 					</li>
-			</c:if>
-
 					
-				</ul>
-			</div>
-			<div id="story_field" class="form-group"></div>
+			<!--기존 스토리 있으면 뿌려주는 공간-->
+			<c:if test="${not empty storyLists}">
+				<c:forEach var="story" items="${storyLists}" varStatus="loop">
+				
+					<li class="list-group-item form-check overflow-x: auto; border-0">
+						<div>
+							<input type="radio" class="form-check-input storyradio" id="story${story.SNo}" name="storyradio" hidden />
+							<label for="story${story.SNo}" style="position: relative;">
+								<img src="${story.storyThumbnail}" class="thumbstory" width="100px;">
+							</label>
+							<p><small>${story.storyTitle}<small></p>
+						</div>
+					</li>
+					
+				</c:forEach>
+			</c:if>
+		</ul>
+		</div>
+		<div id="story_field" class="form-group"></div>
 		</c:if>
 
 
 		<!-- ===================================해시태그=================================== -->
 		<div class="form-group inline">
 			<label for="price">해시태그</label>
-			<button type="button" class="btn btn-sm btn-dark ml-3"
-				onclick="addHash()">+</button>
-			<input type="text" class="form-control"
-				placeholder="10자이내 해시태그를 입력 후 추가 버튼을 누르세요." id="putHashtag">
-
+			<button type="button" class="btn btn-sm btn-dark ml-3" onclick="addHash()">+</button>
+			<input type="text" class="form-control mt-1" placeholder="10자이내 해시태그를 입력 후 추가 버튼을 누르세요." id="putHashtag">
 		</div>
 
 		<div class="form-group">
@@ -232,8 +245,8 @@
 		<!-- ===================================판매시 이 부분 추가=================================== -->
 		<c:if test="${postSellorNot eq 'sell'}">
 			<div class="form-group">
-				<label for="price">가격(￦)</label> <input type="text"
-					class="form-control" placeholder="숫자만 입력" id="price" name="price">
+				<label for="price">가격(￦)</label>
+				<input type="text" class="form-control" placeholder="숫자만 입력" id="price" name="price">
 			</div>
 			<div class="form-group">
 				<label for="warning">정책 유의사항</label>
@@ -257,7 +270,26 @@
 			<button type="submit" id="uploadButton"
 				class="btn-lg btn-outline-dark m-2">Upload</button>
 		</div>
-		</form>
+</form>
+
+<!-- Map Modal  영역 
+<div class="modal" id="myModal">
+	<div class="modal-dialog modal-xl">
+		<div class="modal-content ">
+			<div class="modal-header my-0">
+				<button type="button" class="btn close btn-danger" data-dismiss="modal">Compleate</button>
+			</div>
+			<div class="modal-body">
+				<iframe src="http://localhost:4040/springapp/editImage/UploadMap.jsp" id="modalMap">
+			</div>
+		</div>
+	</div>
+</div>
+-->
+
+
+
+
 
 
 
@@ -321,10 +353,6 @@
 	        }
 	        // Trigger Promises
 	        Promise.all(readers).then((values) => {
-	            // Values will be an array that contains an item
-	            // with the text of every selected file
-	            // ["File1 Content", "File2 Content" ... "FileN Content"]
-	            //console.log(values);
 	             for (i = 0; i < values.length; i++) {
 	        		var html="<div class='container editpic' title='"+i+"'><img data-index='"+i+"' id='pictoryImage"+i+"' src='"+values[i]+"' class='imageprev'><button type='button' onclick='showModal("+i+")' class='btn btn-sm btn-light'>이미지 보정</button></div>";
     				document.querySelector('div.mothercontainer').innerHTML+=html;
@@ -333,7 +361,7 @@
 	        	});//then
     		}, false);
 	});
-//====================버튼 클릭했을때 POPUP=====================================
+//====================버튼 클릭했을때 보정 에디터 이동=====================================
 	
 	 function showModal(index){
 		console.log('index:',index);
@@ -347,12 +375,24 @@
 	   	document.frm.action="http://localhost:4040/springapp/editImage/EditImage.jsp";
 	   	document.frm.submit();
 }
-	
-	
-	
     var base64=[];
+    
+	//버튼 클릭시 지도 팝업 이동 ========
 
-  
+	$('#openMap').click(function() {
+		
+		console.log('지도 버튼 클릭 했으');
+		window.open('http://localhost:4040/springapp/editImage/UploadMap.jsp', 'uploadMap','_blank','toolbar=no, menubar=no,scrollbars=no, width=1000, height=1000').focus();
+		
+		
+	});
+	
+	
+
+    
+    
+    
+    
 //==============================textarea 높이 자동조정==============================
 	  $(document).ready(function() {
 	  $('#textContent').on('keypress', function() {
@@ -361,10 +401,8 @@
 	    }); 
 	  });
   
-	  
 	//이전 페이지 데이터 받아와서 넘겨주기
 	function sellornot(){
-		
 		console.log("${postSellorNot}");
 	    var sellornot = document.querySelector("#postSellorNot");
 	    if("${postSellorNot}"=="sell"){
@@ -407,14 +445,13 @@
 	  reader.onload = function (e) {
 	   $('#addedThumbnailimg').attr('src', e.target.result);  
 	  }
-	  
 	  reader.readAsDataURL(input.files[0]);
 	  }
 	 
 	//이미지 띄우고 나서 밑에 스토리타이틀, 스토리설명 추가하기 한번만!!!!!
 	 if(!document.querySelector('#storyTitle')){ //storyTitle 없으면!
-	 var html = "<label>Story Title</label><input type='text' class='w-100 form-control' id='storyTitle' placeholder='스토리 제목을 입력하세요' name='storyTitle'></div><br><div class='form-group'><label>Story Description</label><textarea class='w-100 form-control' id='storyDescription' name='storyDescription'  placeholder='스토리 설명을 입력하세요. (100자 이내)' style='min-height:100px; max-height:100px;'></textarea>";
-	 document.querySelector("#story_field").insertAdjacentHTML('afterbegin',html);
+	 	var html = "<label>Story Title</label><input type='text' class='w-100 form-control' id='storyTitle' placeholder='스토리 제목을 입력하세요' name='storyTitle'></div><br><div class='form-group'><label>Story Description</label><textarea class='w-100 form-control' id='storyDescription' name='storyDescription'  placeholder='스토리 설명을 입력하세요. (100자 이내)' style='min-height:100px; max-height:100px;'></textarea>";
+	 	document.querySelector("#story_field").insertAdjacentHTML('afterbegin',html);
 	 }
 	}
 	 
@@ -432,38 +469,53 @@
 	};
 	
 	
-	//보정한 이미지의 인덱스, 파일명, 크기, url 저장한거 받아서 넘기기
-	//파일 save 누르면 하나씩 저장되고 모델에 넣음
-	/*
-	var fileInfos=[];
-	$( ".mothercontainer" ).on('change', function() {
-		if(${fileInfo} != null){
-		var fileInfo =${fileInfo.photoSize}, ${fileInfo.photoName}, ${fileInfo.photoUrl},${fileInfo.photoIndex};
-		fileInfos.push(fileInfo);
-		
-		fileInfos.join();
-		document.querySelector('#fileInfos').value=fileInfos;
-		
-		console.log('fileInfos^.^..',fileInfos);
-		}
-	});*/
-	
 	var inputFile = document.querySelector('#uploadImage');
 	inputFile.onchange = function(){
 		
 		for(var i = 0;i < inputFile.files.length; i++){
            console.log('파일~!~!:'+inputFile.files[i]);
         }
-		
 	}
 	
+	
+	//가격 입력칸 키업 이벤트 잡아서 콤마 추가 근데 컨트롤러단에서는 콤마 떼고 insert 해야함
+	
+	
+	//기존 스토리 이미지 클릭시 체크 된 효과
+	 $(".storyradio").click(function(e){
+		 
+		console.log('기존 스토리 체크했음');
+		
+		if($(this).prop('checked', true)){
+			
+			$('.checkStoryText').remove(); //다 찾아서 지워야함
+		
+		//var html = "<div class='checkStoryText' style='position:absolute;'>스토리 선택</div>";
+		$(this).siblings('label').append("<div class='checkStoryText' style='position:absolute; font-size:10px;'>스토리 선택</div>");
+		
+		var checkedStory = $(this).attr('id');
+		$('#existingstory').val(checkedStory);
+		
+		console.log('잘들갔냐?',$('#existingstory').val());
+		
+		}
+	});
+	
+	
+	$("#a-lnglat").change(function(){
+		console.log('change이벤트 발생!!!!!!!!!!!!!!!')
+	});
+	
+	
+	
+	
+	
+	
+	
+	
+
+
+	
 </script>
-
-
-
-
-
-
-
 </body>
 </html>

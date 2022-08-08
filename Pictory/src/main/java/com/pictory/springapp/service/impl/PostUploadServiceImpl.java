@@ -56,6 +56,9 @@ public class PostUploadServiceImpl implements PostUploadService<PostDTO> {
 		
 		}
 		
+		//0.1) 스토리 기존거 선택했으면 이미 있음..
+		System.out.println("서비스) 기존스토리 있지..?:"+map.get("sNo"));
+		
 		System.out.println("해시태그출력:<"+map.get("hashtags")+">");
 		
 		//1) 부모인 postInsert부터 호출
@@ -130,7 +133,7 @@ public class PostUploadServiceImpl implements PostUploadService<PostDTO> {
 	
 	
 	@Override
-	public List<PostDTO> selectStoryList(Map userId) {
+	public List<PostDTO> selectStoryList(String userId) {
 		// 스토리 리스트 뿌려주기
 		return dao.getStoryList(userId);
 	}

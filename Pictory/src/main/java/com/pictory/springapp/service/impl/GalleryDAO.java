@@ -29,14 +29,21 @@ public class GalleryDAO {
 
 	
 	//상단바-갤러리 클릭시 조회용
-	public List<GalleryDTO> selectGalleryList() {
+	public List<GalleryDTO> selectGalleryList(String userId) {
 		//조회 시 photoUrl은 resource 빠져있으니까 그거 추가로 붙여서 저장해야함
 		
 		List<GalleryDTO> rawLists = template.selectList("galleryList");
+		//리스트는 다 받아왔고, 각 postNo에 대한 user의 like를 가져와서 같이 저장할거임
 		
+		Map map = new HashMap();
+		map.put("userId", userId);
 		
 		for(GalleryDTO rawList : rawLists) {
 			
+			
+			map.put("postNo", rawList.getPostNo());
+			int likeornot = template.selectOne("findLike",map);
+			rawList.setLikeornot(likeornot);
 			rawList.setPhotoUrl(resource+rawList.getPhotoUrl());
 			rawList.setUserProfile(resource+rawList.getUserProfile());
 			
@@ -104,6 +111,7 @@ public class GalleryDAO {
 		
 		List<GalleryDTO> comments = template.selectList("getComments", postNo);
 		for(GalleryDTO oneComment : comments) {
+			if(!(oneComment.getUserProfile().contains("k.kakaocdn.net")))
 			oneComment.setUserProfile(resource+oneComment.getUserProfile());
 		}
 		
@@ -173,6 +181,19 @@ public class GalleryDAO {
 		List lists=template.selectList("findUserPostno",map);
 		System.out.println("###tmp###:"+lists);
 		return lists;
+	}
+
+
+	public void insertComment(Map map) {
+		// 댓글 넣기전에 USERID로 USERNO 먼저 가져오기
+		String userId = map.get("userId").toString();
+		
+		int userNo = template.selectOne("getUserNo",userId);
+		map.put("userNo", userNo);
+		map.put("parentCNo", null); //이거 걍 ...일단 다 null넣자 ㅠ 답글처리 못해잉
+		
+		template.insert("insertComment", map);
+		
 	}
 
 

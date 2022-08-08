@@ -274,17 +274,28 @@ function commentAjaxCall(userId,postNo,userNickname,userProfile){
            
 	 			//댓글 창 비워주기
 	 			$("#commentarea").val("");
+	 			
+	 			/*오늘날짜
+	 			var today = new Date();
+				var dd = String(today.getDate()).padStart(2, '0');
+				var mm = String(today.getMonth() + 1).padStart(2, '0');
+				var yyyy = today.getFullYear();
+				
+				today = yyyy + '/' + mm + '/' + dd;
+	 			*/
+	 			
+
+	 			var date = new Date();
+	 			var today = date.getFullYear() +"=" + ("0"+(date.getMonth()+1)).slice(-2) + "-" + ("0"+date.getDate()).slice(-2);
                 
 	 			//댓글 바꿔주기
-	 			var commentHTML = "<div class='row'><div class='col-md-12'><div class='commentmedia'><a class='pr-3' href='#'><img class='mr-3 rounded-circle' alt='userProfile' src='"+userProfile+"'/></a><div class='media-body'><div class='row'><div class='col-8 d-flex'><a class='pr-3'><h5>"+userNickname+"</h5></a><span>날짜자리</span></div></div>"+commentText;
+	 			var commentHTML = "<div class='row'><div class='col-md-12'><div class='commentmedia'><a class='pr-3' href='#'><img class='mr-3 rounded-circle' alt='userProfile' src='"+userProfile+"'/></a><div class='media-body'><div class='row'><div class='col-8 d-flex'><a class='pr-3'><h5>"+userNickname+"</h5></a><span>"+today+"</span></div></div>"+commentText;
 				document.querySelector('.motherComment').insertAdjacentHTML('beforeend',commentHTML);
 	 			
 				console.log(commentHTML);
            
 	 	}).fail(function(request,status,error){
 			alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-	 	
-	 		console.log('개씨발 망했어요ㅠ');
 	 	});
 	
 }//function

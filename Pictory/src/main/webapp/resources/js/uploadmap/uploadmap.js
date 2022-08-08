@@ -127,10 +127,10 @@ function placesSearchCB(data, status, pagination) {
 
             console.log(message);
             
-            var inputTypeHidden = window.parent.document.getElementById('a-lnglat');
+            var inputTypeHidden = opener.document.getElementById('a-lnglat');
             inputTypeHidden.value = latlng;
             
-            console.log(latlng);
+            console.log('들어왔음',latlng);
 
 
         });
@@ -279,7 +279,7 @@ function addMarker(position, idx, title) {
 }
 
 function addMarker2() {
-    var imageSrc = '../resources/img/uploadmap/picLocation.png'; // 마커 이미지 url, 스프라이트 이미지를 씁니다    
+    var imageSrc = 'http://localhost:4040/springapp/resources/img/uploadmap/picLocation.png'; // 마커 이미지 url, 스프라이트 이미지를 씁니다    
     var imageSize = new kakao.maps.Size(40, 40); // 마커이미지의 크기입니다
     var imageOption = {offset: new kakao.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
 

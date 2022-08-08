@@ -62,9 +62,9 @@ public class PostController {
 		model.addAttribute("postSellorNot",map.get("sellornot"));
 		System.out.println("userID 업로드 넘어올때 들어오나요?"+ userId);
 		
-		//map.put("userId", userId);
-		//스토리 리스트 있으면 뿌려주기 위한 서비스 호출
-		//List<PostDTO> stories = postUploadService.selectStoryList(map);
+		
+		List<PostDTO> storyLists = postUploadService.selectStoryList(userId);
+		model.addAttribute("storyLists",storyLists);
 		
 		return "gallery/Upload2";
 	}
@@ -186,7 +186,7 @@ public class PostController {
 		//PRODUCT - pdNo, photoNo, pdPrice, pdSalesNo, pdDate
 		String photoName = uploadImage.getOriginalFilename();
 		int photoSize = (int)Math.ceil(uploadImage.getSize()/1024.0);
-		String photoUrl = "http://localhost:4040/springapp/upload/img/"+String.valueOf(map.get("userId"))+"/"+photoName;
+		String photoUrl = String.valueOf(map.get("userId"))+"/"+photoName;
 		
 		//파일 정보 저장
 		map.put("photoName", photoName);
@@ -218,6 +218,8 @@ public class PostController {
 		System.out.println("스토리썸네일이름: "+sThumbnail.getOriginalFilename());
 		System.out.println("스토리썸네일사이즈: "+sThumbnail.getSize());
 		
+		System.out.println("기존스토리 넘버는??!"+map.get("existingstory"));
+		
 		
 		if(hashtag!=null) {
 			for(int i=0; i<hashtag.size(); i++) {
@@ -244,6 +246,18 @@ public class PostController {
 			postUploadService.storyInsert(map);
 		}
 		
+		
+		//1.2) 만일 기존 스토리를 선택했다면? 해당 sno 참조하는걸로 post, photo만 업데이트하면 끝!
+		if((map.get("existingstory")!=null)&&!(map.get("existingstory").equals(""))) {
+			//만일 null도 아니고 빈문자열도 아니라면 기존 스토리를 선택한 것이므로
+			
+			int sNo = Integer.parseInt(map.get("existingstory").toString().substring(5));
+			System.out.println("잘...잘렸냐...??....."+sNo);
+			
+			map.put("sNo", sNo);
+			
+		}
+		
 		//2) 파일관련 정보를 담은 List를 만들고 List에 담아서 POST 부터 업로드 호출!
 		List<Map<String,Object>> fileInfo = new ArrayList<Map<String,Object>>();
 		
@@ -254,14 +268,13 @@ public class PostController {
 			
 			String photoName = file.getOriginalFilename();
 			int photoSize = (int)Math.ceil(file.getSize()/1024.0);
-			String photoUrl = "http://localhost:4040/springapp/upload/img/"+String.valueOf(map.get("userId"))+"/"+photoName;
+			String photoUrl = String.valueOf(map.get("userId"))+"/"+photoName;
 			
 			
 			fileList.put("photoName", photoName);
 			fileList.put("photoSize", photoSize);
 			fileList.put("photoUrl", photoUrl);
 			
-			//fileInfo List<Map<String,Object>>에 fileList(Map<String,Object>) 추가하기
 			fileInfo.add(fileList);
 		}
 		
@@ -278,6 +291,8 @@ public class PostController {
 		System.out.println("list에 담긴 hashtags: "+hashtag.toString());
 		System.out.println("map의 storyTitle"+map.get("storyTitle"));
 		System.out.println("map의 storyDescription"+map.get("storyDescription"));
+		
+		System.out.println("스토리 기존거 들갔나요...?...."+map.get("sNo"));
 		
 		//부모테이블인 post Upload부터 하기(넘길때 본문정보 담긴 map, List 같이 넘기기)
 		postUploadService.postInsert(map,fileInfo);

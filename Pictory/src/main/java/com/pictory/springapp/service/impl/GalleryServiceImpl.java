@@ -22,10 +22,10 @@ public class GalleryServiceImpl implements GalleryService<GalleryDTO> {
 	String resource = Constants.RESOURCE.toString();
 
 	@Override
-	public List<GalleryDTO> galleryList() {
+	public List<GalleryDTO> galleryList(String userID) {
 		//필요 인자: 카테고리, 해시태그, 첫번째 이미지 url(썸네일용), 좋아요수, 댓글 수, 유저프사, 유저닉네임
 		
-		return dao.selectGalleryList();
+		return dao.selectGalleryList(userID);
 	}
 	
 	@Override
@@ -133,6 +133,14 @@ public class GalleryServiceImpl implements GalleryService<GalleryDTO> {
 		map.put("userId", userId);
 		
 		return dao.findUserPostno(map);
+	}
+
+	@Override
+	public void galleryComment(Map map) {
+		//댓글 insert
+		
+		dao.insertComment(map);
+		
 	}
 
 }

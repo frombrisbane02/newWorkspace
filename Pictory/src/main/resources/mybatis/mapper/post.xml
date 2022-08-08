@@ -52,10 +52,10 @@
 		SELECT photoNo FROM PHOTO WHERE postNo=#{postNo}
 	</select>
 	
-	<select id="getStoryList" parameterType="map" resultType="PostDTO">
-		SELECT s.storytitle, s.storyThumbnail, p.sno, p.userNo
-		FROM STORY s, POST p
-		WHERE s.sno=p.sno AND userNo=(SELECT userNo FROM USERS WHERE userId=#{userId});
+	<select id="getStoryList" parameterType="String" resultType="PostDTO">
+  		SELECT storyTitle, storyThumbnail, sNo
+        FROM STORY
+        WHERE storyThumbnail LIKE #{userId} || '%'
 	</select>
 	
 

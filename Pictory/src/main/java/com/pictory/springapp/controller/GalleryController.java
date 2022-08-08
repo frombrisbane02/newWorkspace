@@ -49,7 +49,7 @@ public class GalleryController {
 	public String galleryList(Model model, @ModelAttribute("userId") String userId) {
 		//상단바 갤러리 클릭시 List에 뿌려줄 정보 저장해서 뿌리기
 		
-		List<GalleryDTO> lists = galleryService.galleryList();
+		List<GalleryDTO> lists = galleryService.galleryList(userId);
 		List<GalleryDTO> hashs = galleryService.hashList();
 		System.out.println("###lists:"+lists.get(0));
 		model.addAttribute("lists",lists);
@@ -63,8 +63,8 @@ public class GalleryController {
 	}
 	
 	@PostMapping("GalleryList")
-	public String galleryList2(Model model) {
-		List<GalleryDTO> lists = galleryService.galleryList();
+	public String galleryList2(Model model, @ModelAttribute("userId") String userId) {
+		List<GalleryDTO> lists = galleryService.galleryList(userId);
 		model.addAttribute("lists",lists);
 		
 		return "gallery/GalleryList";
@@ -189,11 +189,23 @@ public class GalleryController {
 		
 		System.out.println("댓글내용 출력: "+cText);
 		System.out.println("댓글쓴사람(지금 로그인한 사람) 누구세요?: "+userId);
+		System.out.println("지금 postNo 몇번?"+postNo);
 		
-		//DB저장하기
+		//commentarea=이렇게 나오니까 여기서부터 짤라서 준다..
+		String realComment = cText.substring(12);
+		System.out.println("찐 이거맞냐?"+realComment);
+		
+		//DB저장위해 넘겨야할 값: postNo, userNo(댓글쓴애), cText
+		Map map = new HashMap();
+		map.put("postNo", postNo);
+		map.put("userId", userId);
+		map.put("cText", realComment);
+		
+		//서비스호출(댓글 insert)
+		galleryService.galleryComment(map);
+		
 		
 
-		System.out.println("JSON 타입이 뭔데 씨발아");
 		return "{\"upload\":\"sucsses\"}";
 	}
 

@@ -29,6 +29,6 @@ public interface PostUploadService<T> {
 	String editedImageInfo(Map<String, Object> fileInfo);
 	
 	//업로드2로 넘어갈때 스토리 있으면 뿌려주기 위한 서비스
-	List<PostDTO> selectStoryList(Map userId);
+	List<PostDTO> selectStoryList(String userId);
 	
 }
