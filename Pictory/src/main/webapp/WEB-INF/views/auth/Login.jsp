@@ -12,11 +12,10 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"/>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/login/fontstyle.css">
-
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/lgoin/owl.carousel.min.css">
+<link rel="shortcut icon" href="data:image/x-icon;," type="image/x-cion">
 
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/login/bootstrap.min.css">
@@ -27,7 +26,6 @@
 
 <title>Login #6</title>
 </head>
-<script src="https://code.iconify.design/2/2.2.1/iconify.min.js"></script>
 <body>
 
    <div class="main">
@@ -97,4 +95,5 @@
 </div>
 </section>
 </div>
+<script src="https://code.iconify.design/2/2.2.1/iconify.min.js"></script>
 

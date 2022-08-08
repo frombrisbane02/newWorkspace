@@ -339,7 +339,8 @@
          console.log(e.target.id);
          console.log('postNo :', postNo);
          console.log('userId :', userId);
-         
+         var likesrc = $(this).children("img").attr("src")==='${pageContext.request.contextPath}/resources/img/gallerylist/test_icon06.png' ? "${pageContext.request.contextPath}/resources/img/gallerylist/test_icon06red.png" : "${pageContext.request.contextPath}/resources/img/gallerylist/test_icon06.png";
+     	$(this).children('img').attr('src',likesrc);
 
          $.ajax({
                  type:"POST",
