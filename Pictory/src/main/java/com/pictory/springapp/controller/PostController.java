@@ -71,73 +71,6 @@ public class PostController {
 	
 	
 	
-	//===========================EDIT IMAGE===============================
-	//보정 이미지 한장한장 save 누를때마다 컨트롤러로 넘겨서 업로드 처리 및 db에 인서트할 값 필요 + 본문에 첨부
-/*
-	@CrossOrigin
-	@RequestMapping(value="post/EditImage.do",produces = "application/json;charset=UTF-8")
-	public @ResponseBody String image(@RequestParam String base64, @RequestParam String filename, 
-									@RequestParam int base64Index ,HttpSession session, Model model,
-									HttpServletRequest req) throws JsonProcessingException {
-		//save를 누르면 정보가 여기로 들어옴
-		System.out.println("base64:"+base64);
-		String userId = (String)session.getAttribute("userId");
-		System.out.println("IEC) userId 가지고 왔나요? :"+ userId);
-		System.out.println("IEC) index 넘버 가지고 왔나요? "+ base64Index);
-		
-		
-		//서버의 물리적 경로 얻어서 파일 업로드 처리 먼저
-		//1.1) PATH 먼저! userId 붙여서 설정하기
-		String path = req.getSession().getServletContext().getRealPath("/upload")+"\\img\\"+userId;
-		System.out.println("IEC) path는 제대로 가지고 왔나요? :"+ path);
-		
-		//1.2) 파일 객체 생성하기
-		FileOutputStream fos=null;
-		File Folder = new File(path);
-		byte[] data = Base64.getDecoder().decode(base64);
-		
-		//1.3) mkdir로 폴더 있으면 냅두고 없으면 생성
-		try{
-			if (!Folder.exists()) {
-				    Folder.mkdir();
-				    System.out.println("IEC) 폴더 생성!");
-			}
-			else {System.out.println("IEC) 이미 폴더 있는데요..");}
-		
-		
-		//2) 파일 해당 경로에 업로드하기(한장)
-		File dest = new File(path+File.separator+filename);
-		fos = new FileOutputStream(dest);
-		fos.write(data);
-		
-		//3) DB 저장용 및 본문에 뿌려주기 위한 정보 따로 저장
-		//필요값: photoSize, photoName
-		int photoSize = ((int)Math.ceil(dest.length()/1024.0));
-		String photoName = filename;
-		String photoUrl = "http://localhost:4040/springapp/upload/img/"+userId+"/"+photoName;
-		
-		
-		System.out.println("IEC) 사진크기: "+photoSize+"KB");
-		System.out.println("IEC) 파일명: "+photoName);
-		
-		Map<String, Object> fileInfo = new HashMap<String, Object>();
-		fileInfo.put("photoSize", photoSize);
-		fileInfo.put("photoName", photoName);
-		fileInfo.put("photoUrl", photoUrl);
-		fileInfo.put("photoIndex", base64Index);
-		model.addAttribute(fileInfo);
-		
-		List<Map<String,Object>> fileInfos = new ArrayList<Map<String,Object>>();
-		fileInfos.add(fileInfo);
-		
-		model.addAttribute("fileInfos",fileInfos);
-
-		}//try
-		catch(Exception e) {e.getStackTrace();}
-		
-		return "{\"upload\":\"sucsses\"}";
-	}
-	*/
 	
 	//===========================ADD MAP===============================
 	
@@ -174,13 +107,10 @@ public class PostController {
 		
 		System.out.println("===========================================");
 		
-		
 		//2) 파일을 디렉토리 만들고 + 업로드하는것까지 하나의 메소드로 먼저 호출
 		String path = req.getSession().getServletContext().getRealPath("/upload");
 		map.put("path", path);
 		path = postUploadService.uploadoneFile(map,uploadImage);
-		
-		//String path = postUploadService.uploadoneFile(map,uploadImage);
 		
 		//3)insert 순서 - post, photo, product
 		//PRODUCT - pdNo, photoNo, pdPrice, pdSalesNo, pdDate
@@ -197,7 +127,6 @@ public class PostController {
 		postUploadService.sellPostInsert(map);
 		
 		return "forward:/gallery/GalleryList.do";
-		//return "gallery/GalleryList.tiles";
 	}
 	
 //=============================================절취선========================================================
@@ -229,6 +158,15 @@ public class PostController {
 		
 		//일단 아이디부터 map에 넣고!!
 		map.put("userId", userId);
+		
+		
+		//지도 첨부시 갖고오나 체크해야함
+		System.out.println("지도갖고왔니???alat: "+map.get("alat"));
+		System.out.println("지도갖고왔니???alng: "+map.get("alng"));
+		
+		String markerLocation = map.get("alat")+","+map.get("alng");
+		System.out.println("@@@지도위치정보@@@@"+markerLocation);
+		map.put("markerLocation", markerLocation);
 		
 		//1) 파일을 디렉토리 만들고 + 업로드하는것까지 하나의 메소드로 먼저 호출
 		String path = req.getSession().getServletContext().getRealPath("/upload");

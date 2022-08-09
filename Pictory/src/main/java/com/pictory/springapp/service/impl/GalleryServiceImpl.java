@@ -143,4 +143,35 @@ public class GalleryServiceImpl implements GalleryService<GalleryDTO> {
 		
 	}
 
+	@Override
+	public int findCart(Map map) {
+		// 카트에서 count 가지고오기
+		
+		return dao.findCart(map);
+	}
+
+	@Override
+	public void deleteCart(Map map) {
+		dao.deleteCart(map);
+		
+	}
+
+	@Override
+	public void insertCart(Map map) {
+		dao.insertCart(map);
+		
+	}
+
+	@Override
+	public int isMapAttached(int postNo) {
+		// 지도 첨부 여부 확인하기
+		return dao.isMapAttached(postNo);
+	}
+
+	@Override
+	public GalleryDTO getMapInfo(int postNo) {
+		
+		return dao.getMapInfo(postNo);
+	}
+
 }

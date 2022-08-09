@@ -115,7 +115,6 @@ public class GalleryController {
 		List<GalleryDTO> comments = galleryService.getComments(postNo);
 		
 		//6. 판매하는 경우 상품 정보 다 갖고오기(어차피 하나임 ㅇㅇ)
-		
 		int isSellorNot = galleryService.isSellorNot(postNo);
 		if(isSellorNot==1) {
 			model.addAttribute("isSellorNot",isSellorNot);
@@ -127,9 +126,34 @@ public class GalleryController {
 			model.addAttribute("pdSalesNo",product.getPdSalesNo());
 			model.addAttribute("pdDate",product.getPdDate());
 			
+			//카트정보도 저장해서 뿌리자잉
+			map.put("userId", userId);
+			map.put("postNo", postNo);
+			int isAdded = galleryService.findCart(map);
+			
+			model.addAttribute("isCart",isAdded);
 		}
 		
-		//7. 로그인 한 사람 정보 다 갖고오기
+		
+		
+		//7. MAP 첨부했는지? 있으면 갖고오기(어차피 하나임)
+		int isMapAttached = galleryService.isMapAttached(postNo);
+		if(isMapAttached==1) {
+			//count = 1이니까 정보 전부 가지고와서 저장하기
+			GalleryDTO mapInfo = galleryService.getMapInfo(postNo);
+			String markerLocation = mapInfo.getMarkerLocation();
+			String lat=markerLocation.split(",")[0];
+			String lng=markerLocation.split(",")[1];
+			
+			System.out.println("latlatlatlat======"+lat);
+			System.out.println("lnglnglnglng======"+lng);
+			
+			model.addAttribute("lat",lat);
+			model.addAttribute("lng",lng);
+			
+		}
+		
+		//8. 로그인 한 사람 정보 다 갖고오기
 		GalleryDTO loginUser = galleryService.getLoginInfo(userId);
 		System.out.println("login한애 정보 다 갖고오니?: "+loginUser);
 		model.addAttribute("loginUser",loginUser);
@@ -277,7 +301,34 @@ public class GalleryController {
 			return objectMapper.writeValueAsString(result);
 	   }
 	   
-	
-	
-	
+	   
+	   @CrossOrigin
+	   @RequestMapping(value="post/AddCartInView.do",produces = "application/json;charset=UTF-8")
+	   @ResponseBody
+		public String AddCartInView(Model model,@RequestParam("pdNo") int pdNo, @ModelAttribute("userId") String userId) {
+			
+		   System.out.println("로그인한애 누구세요?"+userId);
+		   System.out.println("지금 상품 번호가?"+pdNo);
+		   
+		   Map map = new HashMap();
+		   map.put("userId", userId);
+		   map.put("pdNo", pdNo);
+		   
+		   //db 저장 처리
+		   //1) 카트에 이미 상품 있는지 COUNT - INT 값 반환후
+		   int isAdded = galleryService.findCart(map);
+		   
+		   //2) 1이면 DELETE 0이면 INSERT
+		   if(isAdded>=1) {
+			   //cart delete 처리
+			   galleryService.deleteCart(map);
+		   }
+		   else{
+			   //cart insert 처리
+			   galleryService.insertCart(map);
+		   }
+			
+			return "{\"upload\":\"sucsses\"}";
+		}
+	   
 }

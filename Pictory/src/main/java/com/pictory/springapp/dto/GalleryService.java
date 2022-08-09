@@ -52,6 +52,16 @@ public interface GalleryService<T> {
 	List findUserPostno(String userId);
 
 	void galleryComment(Map map);
+
+	int findCart(Map map);
+
+	void deleteCart(Map map);
+	
+	void insertCart(Map map);
+
+	int isMapAttached(int postNo);
+
+	GalleryDTO getMapInfo(int postNo);
 	
 	
 	

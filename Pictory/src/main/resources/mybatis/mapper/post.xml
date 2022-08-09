@@ -58,6 +58,13 @@
         WHERE storyThumbnail LIKE #{userId} || '%'
 	</select>
 	
+	<insert id="insertMarker" parameterType="map">
+		<selectKey keyProperty="markerNo" resultType="int" order="BEFORE">
+			SELECT SEQ_MARKER.NEXTVAL FROM DUAL
+		</selectKey>
+			INSERT INTO MAP VALUES(SEQ_MARKER.CURRVAL,#{postNo},#{markerLocation},#{markerName, jdbcType=VARCHAR})
+	</insert>
+	
 
 
 </mapper>

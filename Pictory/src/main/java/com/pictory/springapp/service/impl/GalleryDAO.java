@@ -208,6 +208,36 @@ public class GalleryDAO {
 	}
 
 
+	public int findCart(Map map) {
+		//findCart
+		return template.selectOne("findCart",map);
+	}
+
+
+	public void deleteCart(Map map) {
+		// TODO Auto-generated method stub
+		template.delete("deleteCart",map);
+	}
+
+
+	public void insertCart(Map map) {
+		// TODO Auto-generated method stub
+		template.insert("insertCart",map);
+		
+	}
+
+
+	public int isMapAttached(int postNo) {
+		return template.selectOne("isMapAttached",postNo);
+	}
+
+
+	public GalleryDTO getMapInfo(int postNo) {
+		
+		return template.selectOne("getMapInfo",postNo);
+	}
+
+
 
 
 

@@ -140,5 +140,27 @@
 		INSERT INTO COMMENT_TBL VALUES(SEQ_COMMENT_TBL.CURRVAL,#{postNo},#{userNo},#{cText},1,SYSDATE,#{parentCNo, jdbcType=INTEGER})
 	</insert>
 	
+	<select id="findCart" parameterType="map" resultType="int">
+	 SELECT count(c.pdNo) FROM CART c WHERE c.pdNo=#{pdNo} AND c.userNo=(SELECT userNo FROM USERS WHERE userId=#{userId})
+	</select>
+	
+	<insert id="insertCart" parameterType="Map">
+		INSERT INTO CART VALUES((SELECT userNo FROM USERS WHERE userId=#{userId}),#{pdNo})
+	</insert>
+	
+	<delete id="deleteCart" parameterType="Map">
+		DELETE FROM CART WHERE userNo=(SELECT userNo FROM users WHERE userId=#{userId}) AND pdNo=#{pdNo}
+	</delete>
+	
+	<select id="isMapAttached" parameterType="int" resultType="int">
+		SELECT COUNT(markerLocation) FROM MAP WHERE postNo=#{postNo}
+	</select>
+	
+	<select id="getMapInfo" parameterType="int" resultType="GalleryDTO">
+		SELECT * FROM MAP WHERE postNo=#{postNo}
+	</select>
+	
+	
+	
 	
 </mapper>

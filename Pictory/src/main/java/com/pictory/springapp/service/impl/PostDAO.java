@@ -207,6 +207,10 @@ public class PostDAO {
 		return lists;
 	}
 
+	public void insertMarker(Map map) {
+		template.insert("insertMarker",map);
+	}
+
 
 
 	

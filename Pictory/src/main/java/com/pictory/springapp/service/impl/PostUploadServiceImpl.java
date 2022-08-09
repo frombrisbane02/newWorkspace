@@ -67,6 +67,7 @@ public class PostUploadServiceImpl implements PostUploadService<PostDTO> {
 		
 		//2) SEQ_POST.CURRVAL 갖고와서 int에 postNo로 넣고, 리스트에 추가해서 전달하기
 		int postNo = dao.getPostNo();
+		map.put("postNo", postNo);
 		System.out.println("ServiceImpl 내의 postNo:"+postNo);
 		
 		for(Map<String,Object> oneFile : fileInfo) {
@@ -74,7 +75,7 @@ public class PostUploadServiceImpl implements PostUploadService<PostDTO> {
 			oneFile.put("postNo", postNo);
 			
 			//3) photoInsert하기
-			dao.photoInsert(oneFile);		
+			dao.photoInsert(oneFile);
 		}
 		
 		//4) photoInsert 후에 hashtag insert
@@ -83,6 +84,16 @@ public class PostUploadServiceImpl implements PostUploadService<PostDTO> {
 			dao.hashtagInsert(map);
 		}
 		else {System.out.println("해시태그 null임;;;;");}
+		
+		
+		//5) 지도 있는 경우 지도 insert해야함
+		if(map.get("markerLocation")!=null && !map.get("markerLocation").equals("")) {
+			System.out.println("지도 첨부했군요?!?!?");
+			System.out.println("지도 첨부하는 postNo 뭐야???"+postNo);
+			map.put("postNo", postNo);
+			map.put("markerName", "출사정보");
+			dao.insertMarker(map);
+		}
 		
 		
 		//이건 걍 보내... ㅎ;
