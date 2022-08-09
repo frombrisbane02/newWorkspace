@@ -97,7 +97,7 @@ public class MemberDAO {
 		SqlSession session= sqlMapper.openSession();
 		session.update("updateMember", dto);
 	}
-	
+
 	public void updateMemberPassword(MemberDTO dto) {
 		SqlSession session= sqlMapper.openSession();
 		session.update("updateMemberPassword", dto);

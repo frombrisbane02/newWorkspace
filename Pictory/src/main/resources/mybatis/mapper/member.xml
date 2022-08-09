@@ -65,7 +65,7 @@
 	
 	<!-- 마이페이지 장바구니 목록 불러오기 쿼리-->
    <select id="selectMyCart" parameterType="String" resultType="MyCartDTO">
-      SELECT cart.USERNO, u.USERNICKNAME, product.PDNO, product.PHOTONO, product.PDPRICE, photo.PHOTONAME, photo.PHOTOURL
+      SELECT photo.POSTNO AS postNo,cart.USERNO, u.USERNICKNAME, product.PDNO, product.PHOTONO, product.PDPRICE, photo.PHOTONAME, photo.PHOTOURL
       FROM CART cart 
       INNER JOIN PRODUCT product 
       ON cart.PDNO = product.PDNO 

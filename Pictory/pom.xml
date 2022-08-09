@@ -184,6 +184,12 @@
           <version>${org.springframework-version}</version>
       </dependency>
       
+      <dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-messaging</artifactId>
+		    <version>${org.springframework-version}</version>
+		</dependency>
+      
       <!-- https://mvnrepository.com/artifact/org.aspectj/aspectjweaver -->
       <dependency>
           <groupId>org.aspectj</groupId>

@@ -47,66 +47,29 @@
 		</div>			
 		<div class="row">
 			<div class="col-md-12">
-				<div class="card mb-2">
-					<ul class="list-unstyled">
-						<!--FIRST LIST ITEM-->
-						<li class="media pt-3"> 
-							<span class="round pt-2">
-								<img src="https://img.icons8.com/bubbles/100/000000/groups.png" class="align-self-start mr-3">
-							</span>
-							<div class="media-body">
-								<h6 class="user pt-2 ">김용경</h6>
-								<p class="text">Liked your artworks</p>							
-								<p class="text"><small>2022-08-08</small></p>
-							</div>
-						</li>
-					</ul>
-				</div>
-				<div class="card mb-2">
-					<ul class="list-unstyled">
-						<!--FIRST LIST ITEM-->
-						<li class="media pt-3"> 
-							<span class="round pt-2">
-								<img src="https://img.icons8.com/bubbles/100/000000/groups.png" class="align-self-start mr-3">
-							</span>
-							<div class="media-body">
-								<h6 class="user pt-2 ">김용경</h6>
-								<p class="text">added comment on your post</p>							
-								<p class="text"><small>2022-08-08</small></p>
-							</div>
-						</li>
-					</ul>
-				</div>
-				<div class="card mb-2">
-					<ul class="list-unstyled">
-						<!--FIRST LIST ITEM-->
-						<li class="media pt-3"> 
-							<span class="round pt-2">
-								<img src="https://img.icons8.com/bubbles/100/000000/groups.png" class="align-self-start mr-3">
-							</span>
-							<div class="media-body">
-								<h6 class="user pt-2 ">관리자</h6>
-								<p class="text">reply on your Q&A</p>							
-								<p class="text"><small>2022-08-08</small></p>
-							</div>
-						</li>
-					</ul>
-				</div>
-				<div class="card mb-2">
-					<ul class="list-unstyled">
-						<!--FIRST LIST ITEM-->
-						<li class="media pt-3"> 
-							<span class="round pt-2">
-								<img src="https://img.icons8.com/bubbles/100/000000/groups.png" class="align-self-start mr-3">
-							</span>
-							<div class="media-body">
-								<h6 class="user pt-2 ">관리자</h6>
-								<p class="text">새로운 공지사항 글이 올라왔습니다.</p>							
-								<p class="text"><small>2022-08-08</small></p>
-							</div>
-						</li>
-					</ul>
-				</div>
+				<form action="<c:url value="/mypage/UpdateAlert.do"/>" method="post">	 
+					<c:forEach var="alarm" items="${alarmList}">
+						<div class="card mb-2">
+							<ul class="list-unstyled">
+								<!--FIRST LIST ITEM-->
+								<li class="media pt-3"> 
+									<span class="round pt-2">
+										<img src="https://img.icons8.com/bubbles/100/000000/groups.png" class="align-self-start mr-3">
+									</span>
+									<div class="media-body">
+										<input type="hidden" value="${alarm.alarmNo}" name="alarmNo"/>
+										<h6 class="user pt-2 ">${alarm.eventUser}</h6>
+										<p class="text">${alarm.subject}</p>
+										<p class="text">${alarm.content}</p>							
+										<p class="text"><small>${alarm.alarmDate}</small></p>
+										<button type="submit" >알람확인</button>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</c:forEach>
+				</form>
+				
 			</div>
 		</div>
 	</div>

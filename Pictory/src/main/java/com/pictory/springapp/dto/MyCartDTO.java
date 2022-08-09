@@ -10,6 +10,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MyCartDTO {
+	private int postNo;
 	private String userId;
 	private String userNickName;
 	private int pdNo;

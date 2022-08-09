@@ -96,9 +96,8 @@ body {
 </br>
 </br>
 </br>
-
+    <form action="/springapp/mypage/updateProfile.do" method="POST" enctype="multipart/form-data">	
     <!-- Team member  -->
-    <form action="/springapp/mypage/updateProfile.do" method="POST" enctype="multipart/form-data">
 	    <div class="col-lg-3 col-md-6 text-center" style="margin-left: 400px;">
 	      <a href="team-member.html">
 	        <img class="avatar avatar-xxl p-2 mb-4" src="${memDTO.userProfile}">
@@ -113,12 +112,11 @@ body {
 	        </li>
 	       	<li class="list-inline-item mr-3"><a class="filter_btn text-reset" data-toggle="modal" data-target="#changePwdModal" href="#">
 	        	<i class="fa-solid fa-lock"></a></i>
-	        </li>
-	        
+	        </li>      
 	      </ul>
 	      <p class="small small text-gray-600">${memDTO.userSelf}</p>
 	    </div>
-	    
+    
 	    <!-- 회원정보 수정 모달 (비밀번호 모달은 아래에) -->
 		<div class="modal modal-center" id="changeProfileModal" tabindex="-1" role="dialog" aria-labelledby="my80sizeCenterModalLabel">
 		  <div class="modal-dialog modal-80size modal-center" role="document">

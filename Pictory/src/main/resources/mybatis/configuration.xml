@@ -34,6 +34,7 @@
 		<typeAlias type="com.pictory.springapp.dto.FeedDTO" alias="FeedDTO" />
 		<typeAlias type="com.pictory.springapp.dto.PageDTO" alias="PageDTO" />
 		<typeAlias type="com.pictory.springapp.dto.AdjustmentDTO" alias="AdjustmentDTO" />
+		<typeAlias type="com.pictory.springapp.dto.AlarmDTO" alias="AlarmDTO" />
 	</typeAliases>
 	<environments default="development">
 	    <environment id="development">
@@ -66,5 +67,6 @@
 		<mapper resource="mybatis/mapper/message.xml"/>
 		<mapper resource="mybatis/mapper/faq.xml"/>
 		<mapper resource="mybatis/mapper/feed.xml"/>
+		<mapper resource="mybatis/mapper/alarm.xml"/>
 	</mappers>
 </configuration>

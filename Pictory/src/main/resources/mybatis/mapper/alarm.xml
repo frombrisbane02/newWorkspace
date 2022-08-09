@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mybatis.mapper.alarm">	
+
+	
+	<select id="selectAlarm" resultType="AlarmDTO" parameterType="String">
+		SELECT * FROM ALARM WHERE ISCHECK != 1 AND receiver = #{id}
+	</select>
+	
+	<insert id="insertAlarm" parameterType="AlarmDTO">
+		INSERT INTO PICTORY.ALARM
+		(ALARMNO, ALARMTYPE, ALARMDATE, ISCHECK, RECEIVER, SUBJECT, CONTENT, EVNETUSER)
+		VALUES(SEQ_ALARM.NEXTVAL, #{alarmType}, #{alarmDate}, #{isCheck} , #{receiver}, #{subject}, #{content}, #{eventUser})
+	</insert>
+	
+	<update id="updateAlarm" parameterType="AlarmDTO">
+		UPDATE PICTORY.ALARM SET ISCHECK = 1 WHERE ALARMNO = #{alarmNo}
+	</update>
+</mapper>

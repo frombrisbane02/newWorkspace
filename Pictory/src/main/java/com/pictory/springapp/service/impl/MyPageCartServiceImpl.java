@@ -6,8 +6,11 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.pictory.springapp.dto.MemberDTO;
 import com.pictory.springapp.dto.MyCartDTO;
 import com.pictory.springapp.dto.MyPageCartService;
+import com.pictory.springapp.dto.PostDTO;
+import com.pictory.springapp.dto.SavePostDTO;
 
 @Service
 public class MyPageCartServiceImpl implements MyPageCartService {
@@ -17,7 +20,10 @@ public class MyPageCartServiceImpl implements MyPageCartService {
 	
 	@Override
 	public List<MyCartDTO> selectMyCartDTO(String userId) {
-		List<MyCartDTO>  list = dao.selectMyCart(userId);
+		List<MyCartDTO> list = dao.selectMyCart(userId);
+		
+		
+		
 		List<MyCartDTO> result = list
 				.stream()
 				.map(cart -> {
@@ -31,7 +37,7 @@ public class MyPageCartServiceImpl implements MyPageCartService {
 		
 		return result;
 	}
-
+	
 	@Override
 	public void deleteMyCart(int userNo) {
 		dao.deleteMyCart(userNo);

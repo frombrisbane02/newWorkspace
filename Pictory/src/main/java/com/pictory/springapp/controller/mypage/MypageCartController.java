@@ -13,11 +13,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.pictory.springapp.Constants;
 import com.pictory.springapp.dto.MemberDTO;
+import com.pictory.springapp.dto.MemberService;
 import com.pictory.springapp.dto.MyCartDTO;
 import com.pictory.springapp.dto.MyPageCartService;
 import com.pictory.springapp.dto.PaymentService;
-import com.pictory.springapp.dto.SavePostDTO;
-import com.pictory.springapp.service.impl.MemberServiceImpl;
 
 @Controller
 @RequestMapping("/mypage/")
@@ -26,7 +25,7 @@ public class MypageCartController {
 	private MyPageCartService cartService;
 	
 	@Autowired
-	private MemberServiceImpl memberService;
+	private MemberService memberService;
 	
 	@Autowired
 	private PaymentService paymentService;
