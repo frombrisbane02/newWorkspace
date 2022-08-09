@@ -238,7 +238,7 @@ body {
         <div class="col-lg-4">
           <div class="box-image">
               <div class="mb-2">
-                <a id="myalarm" href="<c:url value="/mypage/Alarm.do"/>">
+                <a id="myalarm" href="<c:url value="/mypage/Alert.do"/>">
                   <img class="img-fluid" src="${pageContext.request.contextPath}/resources/img/mypage/mypage_05.jpg" alt="...">
                 </a>
               </div>

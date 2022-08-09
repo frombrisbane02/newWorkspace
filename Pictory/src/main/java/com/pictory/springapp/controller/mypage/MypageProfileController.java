@@ -46,10 +46,14 @@ public class MypageProfileController {
 	@RequestMapping("Profile.do")
 	public String index(HttpSession session, Model model) {
 		System.out.println("Profile 컨트롤러 들어옴");
-		
+
 		String id = (String) session.getAttribute("userId");
 		MemberDTO dto = service.readMember(id);
-		dto.setUserProfile(resource+dto.getUserProfile());
+		
+		if(!(dto.getUserProfile().contains("k.kakaocdn.net"))) {
+			dto.setUserProfile(resource+dto.getUserProfile());
+		}
+		
 		model.addAttribute("memDTO",dto);
 		
 		return "mypage/MypageIndex.tiles";

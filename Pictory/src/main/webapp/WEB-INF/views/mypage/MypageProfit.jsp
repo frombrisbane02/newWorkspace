@@ -92,7 +92,6 @@
 			<table class="table">
 				<thead>
 					<tr>
-						<th scope="col">주문번호</th> 
 						<th scope="col">판매된 상품</th>                    
 						<th scope="col">판매 날짜</th>                    
 						<th scope="col">판매 금액</th>                                     
@@ -100,8 +99,7 @@
 				</thead>
 				<tbody>
 					<c:forEach var="sale" items="${sales}">
-						<tr class="bg-blue border-bottom"> 
-							<td class="pt-2"><h6>1gsgfs</h6></td>              
+						<tr class="bg-blue border-bottom">          
 							<td class="pt-2"><h6>${sale.productName}</h6></td>                
 							<td class="pt-2"><h6>${sale.soldDate}</h6></td>
 							<td class="pt-2"><h6>${sale.profit}</h6></td>
@@ -156,9 +154,9 @@
 		  	  <label for="bank">은행명</label>
 			  <select class="browser-default custom-select check" name="bank">
 				  <option selected style="border-width:2px" value="pick">입금 계좌의 은행 명을 선택하세요</option>
-				  <option value="1">하나은행</option>
-				  <option value="2">우리은행</option>
-				  <option value="3">신한은행</option>
+				  <option value="하나은행">하나은행</option>
+				  <option value="우리은행">우리은행</option>
+				  <option value="신한은행">신한은행</option>
 			  </select>
 			  <p></p>
 		  </div>
@@ -186,7 +184,7 @@ $("#my80sizeCenterModal").css("z-index", "1600");
 //validation
 $(function(){
 	   
-    $('.check').on('change', function(){
+    $('#adjAmout').on('change', function(){
        
         var scriptTag2 = /[~^&()|<>?]/; 
         var regExp_bankAcc = ([0-9,\-]{3,6}\-[0-9,\-]{2,6}\-[0-9,\-]);

@@ -25,6 +25,21 @@
 		body {
 			font-family: 'Noto Sans KR', sans-serif;
 		}
+		input {
+			display: block;
+			padding: 0 25px;
+			height: 50px;
+			line-height: 50px;
+			color: #ffffff;
+			font-size: 13px;
+			background: rgba(0, 0, 0, 0.5);
+			border-radius: 5px;
+			transition: 0.3s;
+		}
+		input:hover {
+			text-decoration: none;
+			background: #6e65d5;
+		}
 	  </style>
 
 <body>
@@ -48,20 +63,24 @@
 		<ul class="gall_list_wrap list-unstyled">
 			<c:forEach var="buyPost" items="${BuyPostList}">
 			<li class="photo_area">
-				<a href="GalleryView.html" class="photo_link">					
+				<a href="<c:url value="/gallery/GalleryView.do?postNo=${buyPost.postNo}"/>" class="photo_link">					
 					<div class="img_area" style="background-image: url(${buyPost.photoUrl});">
 						<img src="${pageContext.request.contextPath}/resources/img/gallerylist/fake02.png" alt="">
 					</div>	
 					<div class="txt_area">
 						<p><img src="${buyPost.postUserProfile}" alt="" class="pro_p">${buyPost.postUserNickName}</p>
-					</div>						
+					</div>					
 				</a>
-				<ul class="hover_btn list-unstyled">
-					<li><a href=""><i class="fa-solid fa-circle-down"> 사진 다운로드</i></a></li>
-				</ul>
+				<form action="<c:url value="/mypage/download.do"/>" method="get">
+					<input type="hidden" name="name" value="${buyPost.photoUrl}" />
+					<ul class="hover_btn list-unstyled">
+						<input type="submit" value="사진 다운로드" />
+					</ul>	
+				</form>				
 			</li>
 			</c:forEach>
 		</ul>
 	</div>
 </body>
+
 </html>

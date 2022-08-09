@@ -25,6 +25,7 @@
 		body {
 			font-family: 'Noto Sans KR', sans-serif;
 		}
+
 	  </style>
 
 <body>
@@ -45,8 +46,8 @@
 			
 		<ul class="gall_list_wrap list-unstyled">
 			<c:forEach var="likePost" items="${likePostList}">
-			<li class="photo_area">
-				<a href="GalleryView.html" class="photo_link">					
+			<li class="photo_area">	
+				<a href="<c:url value="/gallery/GalleryView.do?postNo=${likePost.postNo}"/>" class="photo_link">					
 					<div class="img_area" style="background-image: url(${likePost.photoUrl});">
 						<img src="${pageContext.request.contextPath}/resources/img/gallerylist/fake02.png" alt="">
 					</div>	
@@ -55,7 +56,7 @@
 					</div>						
 				</a>
 				<ul class="hover_btn list-unstyled">
-					<li><a href=""><i class="fa-solid fa-heart-crack"> 좋아요 취소</i></a></li>
+					<li><a href="<c:url value="/mypage/LikeDelete.do"/>"><i class="fa-solid fa-heart-crack"> 좋아요 취소</i></a></li>
 				</ul>
 			</li>
 			</c:forEach>

@@ -11,7 +11,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class SavePostDTO {
 
-	private int no;
+	private int postNo;
 	
 	private String photoName;
 	

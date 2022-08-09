@@ -254,18 +254,25 @@ public class MemberServiceImpl implements MemberService<MemberDTO>{
 			List<SavePostDTO> dto = dao.selectLikePost(memberNo);
 			return dto;
 		}
+		
 		//용- 내가 구매 한 것들 조회
 		@Override
 		public List<SavePostDTO> selectBuyPost(int memberNo) {
 			List<SavePostDTO> dto = dao.selectBuyPost(memberNo);
 			for(SavePostDTO post : dto) {
-				PostDTO p = dao.selectPost(post.getNo());
+				PostDTO p = dao.selectPost(post.getPostNo());
 				MemberDTO m = dao.selectMember(p.getUserNo());
 				post.setPostUserNickName(m.getUserNickname());
 				post.setPostUserProfile(m.getUserProfile());
 			}
 			
 			return dto;
+		}
+		
+		//좋아요 저장소에서 취소
+		@Override
+		public void deleteLikePost(int userNo) {
+			dao.deleteLikePost(userNo);
 		}
 
 }

@@ -35,7 +35,6 @@ public class MyPageCartServiceImpl implements MyPageCartService {
 	@Override
 	public void deleteMyCart(int userNo) {
 		dao.deleteMyCart(userNo);
-		
 	}
 
 }

@@ -122,6 +122,9 @@ public class MemberDAO {
 		MemberDTO dto = template.selectOne("selectMember", userNo);
 		return dto;
 	}
-
+	
+	public void deleteLikePost(int userNo) {
+		template.delete("deleteLikePost", userNo);
+	}
 		
 }
