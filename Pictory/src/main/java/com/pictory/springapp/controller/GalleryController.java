@@ -295,7 +295,7 @@ public class GalleryController {
 
 		   
 			System.out.println("22======================");
-			//model.addAttribute("lists",result);
+			model.addAttribute("lists",result);
 			
 
 			return objectMapper.writeValueAsString(result);

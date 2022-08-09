@@ -45,8 +45,8 @@
 
 		</ul>
 		
-
-		<ul class="gall_list_wrap">
+	<!-- ===========================리스트 데이터 뿌려주기================================= -->
+		<ul class="gall_list_wrap" id="resultList">
 		<!-- li~li까지 데이터 저장후 받아와서 foreach로 뿌리기 -->
 		<c:if test="${empty lists}" var="isEmpty">
 			    <li> There is NO POST YET</li>
@@ -153,77 +153,9 @@
 							<label for="etc">기타(etc)</label>
 						</div>
 						
-						
-						
-						
 					</div>
 				</div>
-	<!--
-				<div class="fil_wrap">
-					<p class="filter_tit">COLOR</p>
-					<div class="select_area">
-						<div class="sel_box">
-							<div class="check_wrap">
-								<input type="checkbox" name="postCategory" value="black"  id="black">
-								<div class="check_btn"></div>
-							</div>
-							<label for="black">BLACK</label>
-						</div>
-
-						<div class="sel_box">
-							<div class="check_wrap">
-								<input type="checkbox" name="postCategory" value="white" id="white">
-								<div class="check_btn"></div>
-							</div>
-							<label for="white">WHITE</label>
-						</div>
-
-						<div class="sel_box">
-							<div class="check_wrap">
-								<input type="checkbox" name="postCategory" value="red" id="red">
-								<div class="check_btn"></div>
-							</div>
-							<label for="red">RED</label>
-						</div>
-
-						<div class="sel_box">
-							<div class="check_wrap">
-								<input type="checkbox"  name="postCategory" value="blue" id="blue" >
-								<div class="check_btn"></div>
-							</div>
-							<label for="blue">BLUE</label>
-						</div>
-
-						<div class="sel_box">
-							<div class="check_wrap">
-								<input type="checkbox"  name="postCategory" value="green" id="green">
-								<div class="check_btn"></div>
-							</div>
-							<label for="green">GREEN</label>
-						</div>
-						
-						<div class="sel_box">
-							<div class="check_wrap">
-								<input type="checkbox" name="postCategory" value="pink" id="pink" >
-								<div class="check_btn"></div>
-							</div>
-							<label for="pink">PINK</label>
-						</div>
-					</div>
-				</div>	
-
-		 	<div class="fil_wrap">
-					<p class="filter_tit">HASHTAG</p>
-					<div class="select_area">
-						<div class="sel_box">
-							<div class="check_wrap">
-								<input type="checkbox" id="filter3-1">
-								<div class="check_btn"></div>
-							</div>
-							<label for="filter3-1">HASHTAG 1</label>
-						</div>
-					</div>
-				</div>					 -->
+	
 
 				<div id=modal class="btn_area">
 					<input type="reset" value="RESET" class="reset_btn">
@@ -238,37 +170,6 @@
 			      
 			      
 	<script>
-	
-	   // 카테고리 value 영어로 받아와서 한글로 바꿔서 출력하기
-	   /*
-	   $(document).ready(function(){
-		   
-		   var category= $('.bot_txt').text();
-		   
-		   switch(category){
-		   	case "etc":
-		   		$('.bot_txt').text("기타"); break;
-		   		
-		   	case "landscape":
-		   		$('.bot_txt').text("풍경"); break;
-		   	case "object":
-		   		$('.bot_txt').text("정물"); break;
-		   	default: $('.bot_txt').text("인물"); break;
-		   }
-		   
-	 });*/
-	   
-	   /*
-	   var category = document.querySelector('.bot_txt').value;
-	   console.log('원래 카테',category);
-	   if(category=='etc'){
-		   var catekor = '기타';
-		   document.querySelector('.bot_txt').value=catekor;
-		   console.log('바뀐 카테',document.querySelector('.bot_txt').value);
-	   }
-	   */
-	
-	
 	
 		$(window).load(function(){
 			$('.filter_btn').click(function(){
@@ -287,11 +188,8 @@
 				return false;
 			});
 			
-		});
+		});//load
 
-		
-
-		
 		
 		
 		$(".hover_btn>li>a").click(function(e){  
@@ -309,24 +207,6 @@
                  url:"<c:url value='post/Likes.do'/>",
                  data: "postNo="+postNo+"&userId="+userId
                  }).done(function(data){
-                	
-                    //var srcsrc = ($(this).children("img").attr('src')==='${pageContext.request.contextPath}/resources/img/gallerylist/test_icon06.png')) ? '${pageContext.request.contextPath}/resources/img/gallerylist/test_icon06red.png' : '${pageContext.request.contextPath}/resources/img/gallerylist/test_icon06.png';
-                	//$(this).children('img').attr('src',srcsrc);
-                	 
-                	 //var anchor = $('#aprevent'+postNo);
-                	 //if($('#aprevent'+postNo))
-                	 
-                	 /*
-                	 if(data==1){
-                		 
-                		 $(this).children('img').attr("src","${pageContext.request.contextPath}/resources/img/gallerylist/test_icon06.png");
-                		 //$(".hover_btn>li>a>img").attr("src","${pageContext.request.contextPath}/resources/img/gallerylist/test_icon06.png");
-                		 console.log("좋아요 취소1",data);
-                	 }else if(data==0 && postNo){
-                		 $(this).children('img').attr("src","${pageContext.request.contextPath}/resources/img/gallerylist/test_icon06red.png");
-                		 //$(".hover_btn>li>a>img").attr("src","${pageContext.request.contextPath}/resources/img/gallerylist/test_icon06red.png");
-                		 console.log("좋아요 2",data);
-                     	 }*/
                 		
               }).fail(function(request,status,error){
                 alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
@@ -339,79 +219,6 @@
          
       });
 	
-
-		
-				
-		//=============filter 배열에 저장 후 보여주기================
-		
-		/*
-		//해시태그 추가시 배열에 저장 후 보여주기
-		var filters=[];
-		function addfilter(){
-		    
-		    var filter = document.querySelector(".postCategory").value;
-		    console.log(filter);
-		    //tags[] 배열에 저장(컨트롤러 보낼용도)
-		    filters.push(filter);
-		    console.log(filters);
-		    var ul = document.querySelector("#hashtaglist");
-		
-		    var li = document.createElement('li');
-		    li.innerHTML="#"+filter+" ";
-		    li.style.display = "none";
-		    li.style.display = "inline";
-		
-		    ul.appendChild(li);
-		    document.querySelector(".postCategory").value="";
-		    
-		    filters.join;
-		    document.querySelector('#filters').value=filters;
-		
-		};
-	*/
-		
-		/*
-		//=====================
-			$(document).ready(function(){
-		
-		//===종근 - 클릭시 태그 생성 ==============================================
-			/*
-			var num = 0;
-			function add_table(){
-			    var table_add = document.getElementById('view_content_order');
-			    div = document.createElement("div"); 
-			    var table = "<table id='row_"+num+"'><tr><td>...</td></tr></table>" ;
-			    div.innerHTML = table;
-			    table_add.appendChild(div);
-			    num++;
-			}
-			function add_table1(txt,gid){ 
-			 var table_add = document.getElementById('view_content_order');
-			 div = document.createElement("div"); 
-			 var table = "<table width='100%' id='row_"+gid+"'><tr><td>"+txt+"</td></tr></table>" ;
-			 div.innerHTML = table;
-			 table_add.appendChild(div);
-			 num++; 
-			}
-			function del_table(gid){
-			    var table_add = document.getElementById('view_content_order');
-			    var table_del = document.getElementById('row_'+gid);
-			    table_add.removeChild(table_del.parentNode);
-			}
-			
-			function add_list(chk,txt,gid)
-			{
-			 if(chk.checked==true)
-			 {
-			  add_table1(txt,gid);
-			 }
-			 else
-			 {
-			  del_table(gid)  
-			 }
-			}
-			*/
-		//==================================================
 			
 		//===========종근(필터 Ajax)
 		  $(document).ready(function(){
@@ -430,7 +237,7 @@
                         //"user"      : $("#user").val(), //유저 저장
                         "checkList" : checkArray        //체크배열 저장
                     };
-                console.log('checkParams :', checkParams);
+                //console.log('checkParams :', checkParams);
                 //ajax 호출
                 $.ajax({
                     url         :   "<c:url value="/gallery/filter.do"/>",
@@ -439,9 +246,53 @@
                     type        :   "post",
                     data        :   checkParams,
                     success     :   function(result){
- 						console.log(result)
- 						console.log(result[0].postTitle)
- 						
+                    				$('#resultList').empty();
+ 						console.log("result:",result);
+                    				var html ='';
+             						result.forEach(function(item, index){
+             							console.log('item:',item)
+             							
+             							html = $('<li class="photo_area">' +
+             		 							'<a href="<c:url value="/gallery/GalleryView.do?postNo='+item.postNo+'"/>" class="photo_link">'	+
+             		 									'<div class="img_area" style="background-image: url('+item.photoUrl+');">'+'<img src="http://localhost:4040/springapp/resources/img/gallerylist/fake02.png" alt="">'+'</div>'+
+             		 									'<div class="txt_area">'+
+             		 										'<p>'+'<img src="'+item.userProfile+'" alt="" class="pro_p">'+item.userNickname+'</p>'+
+             		 										'<p>'+'<img src="http://localhost:4040/springapp/resources/img/gallerylist/test_icon06.png" alt="" class="pro_icon">'+'<span>'+item.postLikes+'</span>'+'<img src="http://localhost:4040/springapp/resources/img/gallerylist/test_icon07.png" alt="" class="pro_icon">'+'<span>'+item.commentCount+'</span>'+'</p>'+
+             		 									'</div>'+
+             		 								'</a>'+
+             		 								'<ul class="hover_btn">'+
+             		 								'<li>'+'<a id='+item.postNo+' href='+item.postNo+'>'+
+             		 									'<c:if test='+item.likeornot == 1+'>'+
+             		 										'<img src="$http://localhost:4040/springapp/resources/img/gallerylist/test_icon06red.png" alt="">'+
+             		 									'</c:if>'+
+             		 									'<c:if test='+item.likeornot == 0+'>'+
+             		 										'<img src="$http://localhost:4040/springapp/resources/img/gallerylist/test_icon06.png" alt="">'+
+             		 									'</c:if>'+
+             		 							'Like'+'</a>'+'</li>'+
+             		 								'<c:if test='+item.postSellorNot==1+'>'+
+             		 								'<li>'+'<a href='+item.postNo+'>Cart+'</a>'+'</li>'+
+             		 								'</c:if>'+
+             		 		               '</ul>'+
+             		 			                  	'<div class="hover_txt">'+
+             		 									'<h3>'+item.postTitle+'</h3>'+
+             		 									'<p class="sub_txt">'+
+             		 									 '<c:forEach var="hash" items='+item.hashs+' varStatus="loop">'+
+             		 										 '<c:if test='+item.postNo==item.postNo+'>'+
+             		 										+#item.hashtag+
+             		 										'</c:if>'+
+             		 									'</c:forEach>'+
+             		 									'</p>'+
+             		 									'<p class="sub_txt">'+
+             		 									'</p>'+
+             		 									'<p class="bot_txt">'+item.postCategory+'</p>'+
+             		 								'</div>'+
+             		 							'</li>');
+             		 							
+             		 							$('#resultList').append(html);	
+             		 						
+             		 							});
+                    			
+                    	
                          
                     },
                     error       :   function(request, status, error){
@@ -452,8 +303,7 @@
             })
             
         });
-			
-			//===========================
+		
 	</script>
 </body>
 </html>

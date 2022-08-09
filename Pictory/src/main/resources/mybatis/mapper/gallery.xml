@@ -92,6 +92,8 @@
             u.userprofile,
             u.userno,
             po.posthits,
+            po.postSellorNot,
+            po.postHits
             (SELECT COUNT(l.postNo) FROM LIKES l WHERE l.postno=po.postno) postLikes,
             (SELECT ph.photourl FROM photo ph WHERE ph.postno=po.postno AND ROWNUM = 1) photoUrl,
             (SELECT COUNT(ct.cno) FROM comment_tbl ct WHERE ct.postno=po.postno) commentCount
