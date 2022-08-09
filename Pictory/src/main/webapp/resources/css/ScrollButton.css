@@ -6,8 +6,8 @@
   
   .topBtn {
     position: fixed;
-    bottom: 5rem;
-    right: 0.5rem;
+    bottom: 4rem;
+    right: 1rem;
     display: flex;
     transition: .2s;
   }
@@ -15,7 +15,7 @@
   .bottomBtn {
     position: fixed;
     bottom: 1rem;
-    right: 0.5rem;
+    right: 1rem;
     display: flex;
     transition: .2s;
   }
