@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<jsp:include page="/WEB-INF/views/Top.jsp"/>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -90,6 +89,13 @@
   text-align: center;
 }
 
+.maparea{
+	margin-left: auto;
+	margin-right: auto;
+	margin-top:10px;
+	margin-bottom:10px;
+}
+
 </style>
 
 
@@ -111,12 +117,14 @@
 		
 
 
-		<input type="hidden" class="form-control" value="${postSellorNot}" name="postSellorNot" id="postSellorNot">
-		<input type="hidden" class="form-control" value="" name="hashtags" id="hashtags">
-		<input type="hidden" class="form-control" value="" name="fileInfos" id="fileInfos">
-		<input type="hidden" class="form-control" value="" name="existingstory" id="existingstory">
+		<input type="hidden" class="form-control" value="${postSellorNot}" name="postSellorNot" id="postSellorNot"/>
+		<input type="hidden" class="form-control" value="" name="hashtags" id="hashtags"/>
+		<input type="hidden" class="form-control" value="" name="fileInfos" id="fileInfos"/>
+		<input type="hidden" class="form-control" value="" name="existingstory" id="existingstory"/>
 		
-		<input type="hidden" name="lnglat" id="a-lnglat" />
+		<input type="hidden" class="form-control" value="" name="alat" id="alat"/>
+		<input type="hidden" class="form-control" value="" name="alng" id="alng"/>
+		<input type="hidden" class="form-control" value="" name="mapName" id="mapName"/>
 		
 		
 		<div class="form-group">
@@ -140,9 +148,15 @@
 		<div class="mothercontainer" id="mothercontainer">
 		</div>
 
-		<br><br>
+		<br>
+		
+		<!-- ===================================지도 영역=================================== -->
+		
+		<div class="maparea" id="mapattached" style="width:500px; height:250px;"></div>
+		
+		
 		<!-- ===================================text 영역=================================== -->
-		<div class="form-group border-secondary border justify-item-center">
+		<div class="form-group border-secondary border justify-item-center mt-3">
 			<div class="text-center">
 				<button type="button" onclick="f1()"
 					class="btn btn-sm btn-outline-secondary" title="Bold Text">B</button>
@@ -189,7 +203,7 @@
 			<label for="addMap" class="btn btn-ouline-dark m-2" style="display: inline-block;">
 				<img id="openMap" src="${pageContext.request.contextPath}/resources/img/upload/btnmap.jpg" style="width:50px;"/>
 			</label>
-			<input type="hidden" name="addMap" id="addMap"  class="form-control m-2" hidden />
+			<input type="hidden" name="addMap" id="addMap" value="" class="form-control m-2" hidden />
 			
 
 		</div>
@@ -260,32 +274,13 @@
 			</div>
 		</c:if>
 
-
 		<!-- ===================================제출버튼=================================== -->
 		<div class="form-group text-center">
-			<button type="button" class="btn-lg btn-outline-dark m-2"
-				onclick="leavePage()">
-				Leave</a>
-			</button>
-			<button type="submit" id="uploadButton"
-				class="btn-lg btn-outline-dark m-2">Upload</button>
+			<button type="button" class="btn-lg btn-outline-dark m-2" onclick="leavePage()">Leave</button>
+			<button type="submit" id="uploadButton" class="btn-lg btn-outline-dark m-2">Upload</button>
 		</div>
 </form>
 
-<!-- Map Modal  영역 
-<div class="modal" id="myModal">
-	<div class="modal-dialog modal-xl">
-		<div class="modal-content ">
-			<div class="modal-header my-0">
-				<button type="button" class="btn close btn-danger" data-dismiss="modal">Compleate</button>
-			</div>
-			<div class="modal-body">
-				<iframe src="http://localhost:4040/springapp/editImage/UploadMap.jsp" id="modalMap">
-			</div>
-		</div>
-	</div>
-</div>
--->
 
 
 
@@ -382,8 +377,7 @@
 	$('#openMap').click(function() {
 		
 		console.log('지도 버튼 클릭 했으');
-		window.open('http://localhost:4040/springapp/editImage/UploadMap.jsp', 'uploadMap','_blank','toolbar=no, menubar=no,scrollbars=no, width=1000, height=1000').focus();
-		
+		window.open('http://localhost:4040/springapp/kakaomap/UploadMap.jsp', 'uploadMap','_blank','toolbar=no, menubar=no, scrollbars=no, width=1000, height=1000').focus();
 		
 	});
 	
@@ -499,11 +493,6 @@
 		console.log('잘들갔냐?',$('#existingstory').val());
 		
 		}
-	});
-	
-	
-	$("#a-lnglat").change(function(){
-		console.log('change이벤트 발생!!!!!!!!!!!!!!!')
 	});
 	
 	

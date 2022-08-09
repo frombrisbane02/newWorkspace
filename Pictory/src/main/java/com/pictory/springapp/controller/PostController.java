@@ -53,7 +53,7 @@ public class PostController {
 	@GetMapping("post/Upload1.do")
 	public String upload1Page() {
 		//상단바 업로드 버튼 클릭시 업로드1 페이지로 넘겨주기
-		return "gallery/Upload1";
+		return "gallery/Upload1.tiles";
 	}
 	
 	/*upload1에서 누를시 upload2 페이지로 넘어감*/
@@ -66,7 +66,7 @@ public class PostController {
 		List<PostDTO> storyLists = postUploadService.selectStoryList(userId);
 		model.addAttribute("storyLists",storyLists);
 		
-		return "gallery/Upload2";
+		return "gallery/Upload2.tiles";
 	}
 	
 	
@@ -147,7 +147,7 @@ public class PostController {
 		String userId = (String)session.getAttribute("userId");
 		System.out.println("EditImage이동전 아이디!!: "+userId);
 		
-		return "gallery/UploadMap";
+		return "gallery/UploadMap.tiles";
 	}
 	
 	
@@ -299,6 +299,5 @@ public class PostController {
 	
 		//전부 업로드하고 갤러리 목록으로 ㄱㄱ
 		return "forward:/gallery/GalleryList.do";
-		//return "gallery/GalleryList.tiles";
 	}
 }

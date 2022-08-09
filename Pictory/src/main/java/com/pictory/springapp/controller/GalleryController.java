@@ -63,7 +63,7 @@ public class GalleryController {
 		model.addAttribute("hashs",hashs);
 		model.addAttribute("userId", userId);
 		model.addAttribute("postlists", postNum);
-		return "gallery/GalleryList";
+		return "gallery/GalleryList.tiles";
 	}
 	
 	@PostMapping("GalleryList")
@@ -71,7 +71,7 @@ public class GalleryController {
 		List<GalleryDTO> lists = galleryService.galleryList(userId);
 		model.addAttribute("lists",lists);
 		
-		return "gallery/GalleryList";
+		return "gallery/GalleryList.tiles";
 		
 	}
 	
@@ -151,7 +151,7 @@ public class GalleryController {
 		model.addAttribute("postTitle",viewLists.get(0).getPostTitle());
 		
 		
-		return "gallery/GalleryView";
+		return "gallery/GalleryView.tiles";
 	}
 //	@ModelAttribute("userId") 
 //	@GetMapping("/getlike.do")

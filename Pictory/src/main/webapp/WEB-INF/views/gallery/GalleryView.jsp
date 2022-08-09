@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<jsp:include page="/WEB-INF/views/Top.jsp"/>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,7 +34,6 @@
 	margin-right: auto;
 }
 	
-
     body {
         display: grid;
         place-items: center;
@@ -60,6 +58,16 @@
     .reply a {
         text-decoration: none;
     }
+    
+    .mapdiv{
+	margin-left: auto;
+	margin-right: auto;
+	margin-top:10px;
+	margin-bottom:10px;
+}
+    
+    
+
 
 
 </style>
@@ -79,7 +87,7 @@
                     <a href="<c:url value=" /gallery/GalleryListEdit.do?no=${list.postNo}" />" class="btn-outline-dark btn-sm">목록</a>
                 </div>
                 <div>
-                    <h3 style="text-weight:bold;">&nbsp;${list.postTitle}</h3>
+                    <h3 class="postTitleArea" style="text-weight:bold;">&nbsp;${list.postTitle}</h3>
                     <p>&nbsp;${list.postDate} &nbsp; &nbsp; | &nbsp; &nbsp; ${list.postCategory}</p>
                 </div>
                 <div class="imageArea">
@@ -90,6 +98,7 @@
                 <div class="textArea text-center" style="margin-top: 50px;">
                     <p>${list.postText}</p>
                 </div>
+                <div class="mapdiv d-flex justify-content-center" id="map" style=" width:500px; height:350px;"></div>
             </c:forEach>
         </c:if>
     </div>
@@ -228,78 +237,104 @@
 <br>
 
 
-
-
 </body>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=13e2904db019b8976886a50562f1211f&libraries=services,clusterer,drawing"></script>
 <script>
 
-window.onload = function(){
-	
-	if(document.querySelector('#pdPrice')){
-	var money = document.querySelector('#pdPrice').innerHTML;
-	
-	 var regx = new RegExp(/(-?\d+)(\d{3})/);
-     var bExists = money.indexOf(".", 0);//0번째부터 .을 찾는다.
-     var strArr = money.split('.');
-     while (regx.test(strArr[0])) {//문자열에 정규식 특수문자가 포함되어 있는지 체크
-         //정수 부분에만 콤마 달기 
-         strArr[0] = strArr[0].replace(regx, "$1,$2");//콤마추가하기
-     }
-     if (bExists > -1) {
-    	 money = strArr[0] + "." + strArr[1];
-     } else { 
-    	 money = strArr[0];
-     }
-     console.log(money);
-     
-     document.querySelector('#pdPrice').innerHTML = money;
-	}
-}
+	window.onload = function(){
+		
+		if(document.querySelector('#pdPrice')){
+		var money = document.querySelector('#pdPrice').innerHTML;
+		
+		 var regx = new RegExp(/(-?\d+)(\d{3})/);
+	     var bExists = money.indexOf(".", 0);//0번째부터 .을 찾는다.
+	     var strArr = money.split('.');
+	     while (regx.test(strArr[0])) {//문자열에 정규식 특수문자가 포함되어 있는지 체크
+	         //정수 부분에만 콤마 달기 
+	         strArr[0] = strArr[0].replace(regx, "$1,$2");//콤마추가하기
+	     }
+	     if (bExists > -1) {
+	    	 money = strArr[0] + "." + strArr[1];
+	     } else { 
+	    	 money = strArr[0];
+	     }
+	     console.log(money);
+	     
+	     document.querySelector('#pdPrice').innerHTML = money;
+		}
+	};//function
 
-function commentAjaxCall(userId,postNo,userNickname,userProfile){
+	function commentAjaxCall(userId,postNo,userNickname,userProfile){
+		
+		console.log('userId 들어왔니? %O', userId);
+		console.log('postNo 들어왔니?',typeof(postNo));
+		console.log('userNickname 들어왔니?%O', userNickname);
+		
+		var commentText = document.querySelector('#commentarea').value;
+		
+		 $.ajax({
+		        type:'POST',
+		        url: "<c:url value='/gallery/post/SubmitComment.do'/>",
+		        data:"cText="+$("#commentarea").serialize()+"&userId="+userId+"&postNo="+postNo
+		 	}).done(function(data){
+		 		
+		 			//댓글 창 비워주기
+		 			$("#commentarea").val("");
 	
-	console.log('userId 들어왔니? %O', userId);
-	console.log('postNo 들어왔니?',typeof(postNo));
-	console.log('userNickname 들어왔니?%O', userNickname);
+		 			var date = new Date();
+		 			var today = date.getFullYear() +"=" + ("0"+(date.getMonth()+1)).slice(-2) + "-" + ("0"+date.getDate()).slice(-2);
+	                
+		 			//댓글 바꿔주기
+		 			var commentHTML = "<div class='row'><div class='col-md-12'><div class='commentmedia'><a class='pr-3' href='#'><img class='mr-3 rounded-circle' alt='userProfile' src='"+userProfile+"'/></a><div class='media-body'><div class='row'><div class='col-8 d-flex'><a class='pr-3'><h5>"+userNickname+"</h5></a><span>"+today+"</span></div></div>"+commentText;
+					document.querySelector('.motherComment').insertAdjacentHTML('beforeend',commentHTML);
+		 			
+					console.log(commentHTML);
+	           
+		 	}).fail(function(request,status,error){
+				alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+		 	});
+	}//function
 	
-	var commentText = document.querySelector('#commentarea').value;
-	console.log('제가..댓글 뭐라고 썼죠?:',commentText);
 	
-	 $.ajax({
-	        type:'POST',
-	        url: "<c:url value='/gallery/post/SubmitComment.do'/>",
-	        data:"cText="+$("#commentarea").serialize()+"&userId="+userId+"&postNo="+postNo
-	 	}).done(function(data){
-	 		
-           
-	 			//댓글 창 비워주기
-	 			$("#commentarea").val("");
-	 			
-	 			/*오늘날짜
-	 			var today = new Date();
-				var dd = String(today.getDate()).padStart(2, '0');
-				var mm = String(today.getMonth() + 1).padStart(2, '0');
-				var yyyy = today.getFullYear();
-				
-				today = yyyy + '/' + mm + '/' + dd;
-	 			*/
-	 			
+	//지도 있는 경우 보여줘야함
+	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+	    mapOption = { 
+	        center: new kakao.maps.LatLng(37.478683, 126.878648), // 지도의 중심좌표
+	        level: 4 // 지도의 확대 레벨
+	    };
+	
+	var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+	
+	var imageSrc = "${pageContext.request.contextPath}/resources/img/uploadmap/mapicon.png", // 마커이미지의 주소입니다    
+	    imageSize = new kakao.maps.Size(30, 30), // 마커이미지의 크기입니다
+	    imageOption = {offset: new kakao.maps.Point(10, 20)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+	      
+	// 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
+	var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption),
+	    markerPosition = new kakao.maps.LatLng(37.478683, 126.878648); // 마커가 표시될 위치입니다
+	
+	// 마커를 생성합니다
+	var marker = new kakao.maps.Marker({
+	    position: markerPosition,
+	    image: markerImage // 마커이미지 설정 
+	});
+	
+	// 마커가 지도 위에 표시되도록 설정합니다
+	marker.setMap(map);
+	
+	var postTitle = $('.postTitleArea').html();
+	
+	var iwContent = '<div style="padding:5px;"><p style="font-size:10px; text-align:center; font-weight:bold;">'+postTitle+'</p></div>',
+	    iwPosition = new kakao.maps.LatLng(37.478683, 126.878648); //인포윈도우 표시 위치
 
-	 			var date = new Date();
-	 			var today = date.getFullYear() +"=" + ("0"+(date.getMonth()+1)).slice(-2) + "-" + ("0"+date.getDate()).slice(-2);
-                
-	 			//댓글 바꿔주기
-	 			var commentHTML = "<div class='row'><div class='col-md-12'><div class='commentmedia'><a class='pr-3' href='#'><img class='mr-3 rounded-circle' alt='userProfile' src='"+userProfile+"'/></a><div class='media-body'><div class='row'><div class='col-8 d-flex'><a class='pr-3'><h5>"+userNickname+"</h5></a><span>"+today+"</span></div></div>"+commentText;
-				document.querySelector('.motherComment').insertAdjacentHTML('beforeend',commentHTML);
-	 			
-				console.log(commentHTML);
-           
-	 	}).fail(function(request,status,error){
-			alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-	 	});
-	
-}//function
-
+	// 인포윈도우를 생성합니다
+	var infowindow = new kakao.maps.InfoWindow({
+	    position : iwPosition,
+	    content : iwContent 
+	});
+	  
+	// 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
+	infowindow.open(map, marker);
 
 
 
