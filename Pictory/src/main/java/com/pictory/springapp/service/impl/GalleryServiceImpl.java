@@ -134,6 +134,13 @@ public class GalleryServiceImpl implements GalleryService<GalleryDTO> {
 		
 		return dao.findUserPostno(map);
 	}
+	
+	@Override
+	public Integer getpostlikes(int postNo) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("postNo", postNo);
+		return dao.getpostlikes(map);
+	}
 
 	@Override
 	public void galleryComment(Map map) {

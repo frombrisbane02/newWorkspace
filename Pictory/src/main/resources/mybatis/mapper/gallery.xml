@@ -163,4 +163,7 @@
 	
 	
 	
+	<select id="getpostlikes" parameterType="Map" resultType="int">
+		SELECT COUNT(l.postNo) FROM LIKES l WHERE l.postno=#{postNo}
+	</select>
 </mapper>

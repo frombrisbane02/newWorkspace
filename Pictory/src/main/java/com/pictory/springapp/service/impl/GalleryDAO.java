@@ -193,6 +193,11 @@ public class GalleryDAO {
 		System.out.println("###tmp###:"+lists);
 		return lists;
 	}
+	
+	public Integer getpostlikes(Map map) {
+		int getpostlikes =template.selectOne("getpostlikes", map);
+		return getpostlikes; 
+	}
 
 
 	public void insertComment(Map map) {

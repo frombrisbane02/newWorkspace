@@ -37,6 +37,11 @@ public class SearchServiceImpl implements SearchService<SearchDTO> {
 	}
 
 
+	//public List<SearchDTO> categorySelect() {
+		// 카테고리 가져오기
+	//	return dao.getCategoryList();
+	//}
+
 	
 
 }

@@ -56,6 +56,8 @@ public interface GalleryService<T> {
 	int findCart(Map map);
 
 	void deleteCart(Map map);
+
+	Integer getpostlikes(int postNo);
 	
 	void insertCart(Map map);
 

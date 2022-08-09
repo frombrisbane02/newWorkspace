@@ -247,6 +247,7 @@ public class GalleryController {
 	 
 	      System.out.println("컨트롤러에서 받은 userId:"+userId);
 	      System.out.println("컨트롤러에서 받은 postNo:"+postNo);
+	    
 	      int like = galleryService.findLike(postNo, userId);
 	      System.out.println("like:"+like);
 	      if(like>=1) {
@@ -258,8 +259,9 @@ public class GalleryController {
 			galleryService.likeUp(postNo,userId);
 
 	      }
-	      
-	      return like;
+	      int getpostlikes = galleryService.getpostlikes(postNo);
+	      System.out.println("###getpostlikes###:"+getpostlikes);
+	      return getpostlikes;
 	   }
 	
 	

@@ -59,7 +59,7 @@
 	
 						<div class="txt_area">
 							<p><img src="${list.userProfile}" alt="" class="pro_p">${list.userNickname}</p>
-							<p><img src="${pageContext.request.contextPath}/resources/img/gallerylist/test_icon06.png" alt="" class="pro_icon"><span>${list.postLikes}</span><img src="${pageContext.request.contextPath}/resources/img/gallerylist/test_icon07.png" alt="" class="pro_icon"><span>${list.commentCount}</span></p>
+							<p><img src="${pageContext.request.contextPath}/resources/img/gallerylist/test_icon06.png" alt="" class="pro_icon"><span id="plike${list.postNo}">${list.postLikes}</span><img src="${pageContext.request.contextPath}/resources/img/gallerylist/test_icon07.png" alt="" class="pro_icon"><span>${list.commentCount}</span></p>
 						</div>		
 					</a>
 					<!-- 좋아요 버튼 -->
@@ -70,8 +70,7 @@
 							</c:if>
 							<c:if test="${list.likeornot == 0}">
 								<img src="${pageContext.request.contextPath}/resources/img/gallerylist/test_icon06.png" alt="">
-							</c:if>
-					Like</a></li>
+							</c:if>Like</a></li>
 						<!-- 판매글이면 카트 버튼이 있어야함 근데 걔가 카트를 넣었다? 그러면 다른 걸로 뿌려야함 -->
 						
 						<c:if test="${list.postSellorNot==1}">
@@ -195,18 +194,45 @@
 		$(".hover_btn>li>a").click(function(e){  
 			
          const postNo = $(this).attr('href');
+         const postNum = 1+Number(postNo);
          const userId = document.getElementById('getuserId').value;
          console.log(e.target.id);
          console.log('postNo :', postNo);
          console.log('userId :', userId);
          var likesrc = $(this).children("img").attr("src")==='${pageContext.request.contextPath}/resources/img/gallerylist/test_icon06.png' ? "${pageContext.request.contextPath}/resources/img/gallerylist/test_icon06red.png" : "${pageContext.request.contextPath}/resources/img/gallerylist/test_icon06.png";
      	$(this).children('img').attr('src',likesrc);
+     	
+       	 //$('li:nth-last-child('+ postNo +') > a > div> p > span:nth-child(2)').text('ddd');
+    	/* const i =$(this).attr("id");
+       	const pxnum = Number(i.substring(8));
+     	console.log("pxnum:"+pxnum);
+ */
 
          $.ajax({
                  type:"POST",
                  url:"<c:url value='post/Likes.do'/>",
                  data: "postNo="+postNo+"&userId="+userId
                  }).done(function(data){
+                	//$('li:nth-last-child(6) > a > div> p > span:nth-child(2)').text(data);
+                	 $('li:nth-last-child('+ postNum +') > a > div> p > span:nth-child(2)').text(data);
+                	 console.log("성공");
+                    //var srcsrc = ($(this).children("img").attr('src')==='${pageContext.request.contextPath}/resources/img/gallerylist/test_icon06.png')) ? '${pageContext.request.contextPath}/resources/img/gallerylist/test_icon06red.png' : '${pageContext.request.contextPath}/resources/img/gallerylist/test_icon06.png';
+                	//$(this).children('img').attr('src',srcsrc);
+                	 
+                	 //var anchor = $('#aprevent'+postNo);
+                	 //if($('#aprevent'+postNo))
+                	 
+                	 /*
+                	 if(data==1){
+                		 
+                		 $(this).children('img').attr("src","${pageContext.request.contextPath}/resources/img/gallerylist/test_icon06.png");
+                		 //$(".hover_btn>li>a>img").attr("src","${pageContext.request.contextPath}/resources/img/gallerylist/test_icon06.png");
+                		 console.log("좋아요 취소1",data);
+                	 }else if(data==0 && postNo){
+                		 $(this).children('img').attr("src","${pageContext.request.contextPath}/resources/img/gallerylist/test_icon06red.png");
+                		 //$(".hover_btn>li>a>img").attr("src","${pageContext.request.contextPath}/resources/img/gallerylist/test_icon06red.png");
+                		 console.log("좋아요 2",data);
+                     	 }*/
                 		
               }).fail(function(request,status,error){
                 alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);

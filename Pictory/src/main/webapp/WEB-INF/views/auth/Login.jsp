@@ -51,7 +51,7 @@
 		<form  class="register-form" action="<c:url value="/auth/LoginProcess.do"/>" method="POST"  id="login-form">
 			<div class="form-group first">
 			<label for="username">
-			<i class="glyphicon glyphicon-user"></i>
+			<i class="fa fa-user-circle"></i>
 			</label> 
 			<input type="text" name="userId" placeholder="ID">
 			</div>
