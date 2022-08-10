@@ -159,6 +159,7 @@ public class GalleryController {
 		//8. Model에 정보 저장 후 돌아가기
 		model.addAttribute("postNo",postNo);
 		model.addAttribute("comments",comments);
+		System.out.println("###comments###:"+comments);
 		model.addAttribute("photoUrls",photoLists);
 		model.addAttribute("viewLists",viewLists);
 		model.addAttribute("infoLists", infoLists);

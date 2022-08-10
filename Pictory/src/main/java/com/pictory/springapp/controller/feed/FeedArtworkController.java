@@ -1,5 +1,6 @@
 package com.pictory.springapp.controller.feed;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,12 +34,30 @@ public class FeedArtworkController {
 	@Autowired
 	private FeedArtworkService<FeedDTO> artworkService; 
 	
+	@Autowired
+	private FeedService<FeedDTO> feedService;
 		
+		
+
+	
 	@GetMapping("Artwork.do")
-	public String galleryList(Model model) {
-		
+	public String galleryList(Model model,@RequestParam("userNo")int userNo) {
+		//상단바 갤러리 클릭시 List에 뿌려줄 정보 저장해서 뿌리기
+		FeedDTO dto = new FeedDTO();
+
 		List<FeedDTO> lists = artworkService.artworkList();
-		model.addAttribute("lists",lists);
+		model.addAttribute("listsreply",lists);
+		System.out.println("###아트웍스lists###:"+lists);
+		System.out.println("###userNo###:"+userNo);
+			
+		List<FeedDTO> replpostNo=feedService.replyselect(userNo);
+		System.out.println("##컨트롤러 replpostNo###:"+replpostNo);
+
+		for(FeedDTO replpostNos : replpostNo) {
+			System.out.println("###컨트롤러url###"+replpostNos.getPhotoUrl());
+			System.out.println("####컨트롤러postno####:"+replpostNos.getPostNo());
+		}
+		model.addAttribute("replpostNo", replpostNo);
 		
 		return "feed/Artwork.tiles";
 	}

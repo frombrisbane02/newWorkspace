@@ -59,4 +59,23 @@
 		ORDER BY postNo DESC
 	</select>
 	
+	<select id="replyselect" resultType="FeedDTO">
+		       SELECT
+				po.postno,
+				po.postcategory,
+				po.posttitle,
+				po.postsellornot,
+				u.usernickname,
+				u.userprofile,
+				u.userId,
+				po.posthits,
+				(SELECT COUNT(l.postNo) FROM LIKES l WHERE l.postno=po.postno) postLikes,
+				(SELECT ph.photourl FROM photo ph WHERE ph.postno=po.postno AND ROWNUM = 1) photoUrl,
+				(SELECT COUNT(ct.cno) FROM comment_tbl ct WHERE ct.postno=po.postno) commentCount
+				FROM post po INNER JOIN users u
+				   ON po.userno = u.userno
+				    WHERE u.userno=#{userNo}
+				   ORDER BY po.postNo DESC
+	</select>
+	
 </mapper>
