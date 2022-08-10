@@ -13,8 +13,7 @@ import com.pictory.springapp.dto.SearchDTO;
 
 @Repository("searchDAO")
 public class SearchDAO {
-	@Autowired
-	private SqlSessionFactory sqlMapper;
+	
 	// - SqlSessionTemplate사용: 위 프로그래밍 순서 가, 나에서는 commit(), 다의 close()호출 불필요
 
 	@Autowired
@@ -29,18 +28,20 @@ public class SearchDAO {
 		System.out.println("dao 들어왔냐"+map.get("searchName"));
 		List<SearchDTO> result=template.selectList("searchSelect", map);
 				for(SearchDTO oneResult : result) {
-					System.out.println("DAO포문 입장");
-					System.out.println("postno"+ oneResult.getPostNo());
-					System.out.println("userNickname"+ oneResult.getUserNickname());
+//					System.out.println("DAO포문 입장");
+//					System.out.println("postno"+ oneResult.getPostNo());
+//					System.out.println("userNickname"+ oneResult.getUserNickname());
 					oneResult.setPhotoUrl(resource+oneResult.getPhotoUrl());
 					oneResult.setUserProfile(resource+oneResult.getUserProfile());
 					
-					switch(oneResult.getPostCategory()) {
-					case "landscape": oneResult.setPostCategory("풍경"); break;
-					case "object": oneResult.setPostCategory("정물"); break;
-					case "figure": oneResult.setPostCategory("인물"); break;
-					default: oneResult.setPostCategory("기타"); break;
-					}
+					
+//					  switch(oneResult.getPostCategory()) { 
+//					  case "landscape":oneResult.setPostCategory("풍경"); break; 
+//					  case "object":oneResult.setPostCategory("정물"); break; 
+//					  case "figure":oneResult.setPostCategory("인물"); break; 
+//					  default:oneResult.setPostCategory("기타"); break; 
+//					  }
+					 
 				}
 		return result;
 	}
@@ -55,19 +56,18 @@ public class SearchDAO {
 		//해시태그 가져오기
 		return template.selectList("hashlist");
 	}
-//	// 카테고리별 검색
-//	public List<SearchDTO> categorySelect(Map map) {
-//		
-//		return template.selectList("categorySelect", map)
-//	}
 	
 	//카테고리 검색
-	public List<SearchDTO> categorySelect(Map map) {
-		System.out.println("카테고리 DAO");
-		List<SearchDTO> tmp= template.selectList("categorySelect", map);
-		 System.out.println("쿼리에서 가져온 값:"+tmp);
-		 return tmp;
-	}
+//	public List<SearchDTO> categorySelect(String postCategory) {
+//		System.out.println("카테고리 DAO");
+//		List<SearchDTO> tmps= template.selectList("categorySelect", postCategory);
+//		for(SearchDTO tmp : tmps) {
+//			tmp.setPhotoUrl(resource+tmp.getPhotoUrl());
+//			tmp.setUserProfile(resource+tmp.getUserProfile());
+//		}
+//		 System.out.println("=====쿼리에서 가져온 값===:"+tmps);
+//		 return tmps;
+//	}
 
 	
 

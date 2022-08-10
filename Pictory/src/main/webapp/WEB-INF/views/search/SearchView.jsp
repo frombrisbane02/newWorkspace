@@ -26,7 +26,7 @@
 
 </head>
 <body>
-	</br>
+	
 	</br>
 	</br>
 	</br>
@@ -40,10 +40,10 @@
 			</select> 
 			<select id="postCategory" name="postCategory" class="form-control col-sm-1" style="width: 150px;"">
 				<option value="">카테고리</option>
-				<option value="figure">인물</option>
-				<option value="object">정물</option>
-				<option value="landscape">풍경</option>
-				<option value="etc">기타</option>
+				<option value="figure" >인물</option>
+				<option value="object" >정물</option>
+				<option value="landscape" >풍경</option>
+				<option value="etc" >기타</option>
 			</select> 
 			<select id="" name="" class="form-control col-sm-1" style="width: 150px;">
 				<option value="recent" selected>최신순</option>
@@ -59,7 +59,7 @@
 	</div>
 
 	<div>
-		<h6 style="text-align: left; padding-left: 80px;">검색 결과 : ${fn:length(lists)} 건</h6>
+		<h6 style="text-align: left; padding-left: 80px;">검색 결과 : <span id="listLength">${fn:length(lists)}</span> 건</h6>
 	</div>
 
 
@@ -70,7 +70,7 @@
 			<c:if test="${empty lists}" var="isEmpty">
 				<li>검색결과없음</li>
 			</c:if>
-			<c:if test="${categorys=='landscape'}" var="isEmpty">
+			<%-- <c:if test="${categorys=='landscape'}" var="isEmpty">
 				
 				풍경 사진들
 				
@@ -79,10 +79,10 @@
 				
 				
 				
-			</c:if>
+			</c:if> --%>
 			<c:if test="${not isEmpty}">
 				<c:forEach var="list" items="${lists}" varStatus="loop">
-					<li class="photo_area">
+					<li class="photo_area cate_${list.postCategory}">
 					<a href="<c:url value="/gallery/GalleryView.do?postNo=${list.postNo}"/>
 					"class="photo_link">
 							<div class="img_area"
@@ -131,51 +131,19 @@
 		</ul>
 	</div>
 
-
-<!-- <script>
-	var select = '${postCategory}';
-	var trans_select = select.split(",");
-	for(var i=0;i<trans_select.length;i++){
-		var index = trans_select[i]-1;
-		$("option").eq(index).prop("selected",true)
-	}
-
-</script> -->
- <script type="text/javascript">
-	  $(function(e){
-		$('#postCategory').change(function(e){
-	
-			var postCategory = document.getElementById('postCategory').value;
-			
-			console.log("ajax들어가기 전")
-		
-		  $.ajax({
-			type:"POST",
-			url:"<c:url value='Category.do'/>",
-			data:"postCategory="+postCategory
-		}).done(function(data){
-			console.log("postCategrorwrrwrsry",postCategory);
-		}).fail(function(data){
-			console.log("실패다",data);
-		}); 
-		  
-		  e.preventDefault();
-		  console.log('e.preventDefault() 실행');
+<!-- 카테고리 검색 -->
+ <script type="text/javascript">	  
+  $(document).ready(function(){
+		$('#postCategory').change(function(){
+			/*
+			$(" li[class^='cate_']").hide();
+			$('cate_' + $(this).val()).show();;
+			*/
+			$('.photo_area').hide();
+			$('.cate_' + $(this).val()).show();
+			$('#listLength').text($('.cate_' + $(this).val()).length);
+		});		
 	});
-		
-	  });
-		
-		
-	
-
-
-		
-	
-	
-	
-	
-	
-	
 
 </script>
 </body>

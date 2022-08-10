@@ -66,7 +66,21 @@
 	<!-- 카테고리별 조회 -->
 	<select id="categorySelect" parameterType="Map" resultType="String">
 		<!-- SELECT POSTCATEGORY FROM POST WHERE POSTCATEGORY='%'|| #{postCategory} || '%'  -->
-		SELECT POSTCATEGORY, postNo FROM POST WHERE POSTCATEGORY='landscape'
+		 SELECT po.postno,
+      		po.postcategory,
+            po.posttitle,
+            u.usernickname,
+            u.userprofile,
+            u.userno,
+            po.posthits,
+            (SELECT COUNT(l.postNo) FROM LIKES l WHERE l.postno=po.postno) postLikes,
+            (SELECT ph.photourl FROM photo ph WHERE ph.postno=po.postno AND ROWNUM = 1) photoUrl,
+            (SELECT COUNT(ct.cno) FROM comment_tbl ct WHERE ct.postno=po.postno) commentCount
+        FROM post po INNER JOIN users u
+           ON po.userno = u.userno
+    	WHERE po.postcategory IN
+    	#{postCategory}
+    	ORDER BY po.postdate DESC
 	</select>
 	
 </mapper>

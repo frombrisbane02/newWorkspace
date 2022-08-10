@@ -21,7 +21,7 @@ public class SearchServiceImpl implements SearchService<SearchDTO> {
 	@Override
 	public List<SearchDTO> searchSelect(Map map) {
 		List<SearchDTO> succ = dao.searchSelect(map);
-		System.out.println("서비스로 돌아왔어요");
+		//System.out.println("서비스로 돌아왔어요");
 		return succ;		
 	}
 
@@ -30,11 +30,11 @@ public class SearchServiceImpl implements SearchService<SearchDTO> {
 		return dao.getHashList();
 	}
 	//카테고리 메뉴 가져오기
-	public List<SearchDTO> categorySelect(Map map) {
-		List<SearchDTO> menu= dao.categorySelect(map);
-		System.out.println("너 돌아왔니??");
-		return menu;
-	}
+//	public List<SearchDTO> categorySelect(String postCategory) {
+//		List<SearchDTO> menu= dao.categorySelect(postCategory);
+//		//System.out.println("너 돌아왔니??");
+//		return menu;
+//	}
 
 
 	//public List<SearchDTO> categorySelect() {

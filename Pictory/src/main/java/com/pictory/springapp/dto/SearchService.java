@@ -7,5 +7,5 @@ public interface SearchService<T> {
 	//조회(검색)
 	List<SearchDTO> searchSelect(Map map);
 	//카테고리별 조회
-	List<SearchDTO> categorySelect(Map map);
+//	List<SearchDTO> categorySelect(String postCategory);
 }
