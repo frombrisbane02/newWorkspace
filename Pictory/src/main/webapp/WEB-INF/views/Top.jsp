@@ -22,7 +22,7 @@
 </head>
 
 
-<body onload="disconnect()">
+
 
 
     <div class="content">
