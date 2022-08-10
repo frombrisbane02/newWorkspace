@@ -21,9 +21,6 @@ import com.pictory.springapp.dto.PostDTO;
 
 @Repository("postDAO")
 public class PostDAO {
-
-	@Autowired
-	private SqlSessionFactory sqlMapper;
 	
 	@Autowired
 	private SqlSessionTemplate template;

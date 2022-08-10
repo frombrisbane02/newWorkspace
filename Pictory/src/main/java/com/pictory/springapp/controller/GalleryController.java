@@ -138,6 +138,7 @@ public class GalleryController {
 		
 		//7. MAP 첨부했는지? 있으면 갖고오기(어차피 하나임)
 		int isMapAttached = galleryService.isMapAttached(postNo);
+		
 		if(isMapAttached==1) {
 			//count = 1이니까 정보 전부 가지고와서 저장하기
 			GalleryDTO mapInfo = galleryService.getMapInfo(postNo);

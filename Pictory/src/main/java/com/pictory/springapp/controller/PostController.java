@@ -164,9 +164,14 @@ public class PostController {
 		System.out.println("지도갖고왔니???alat: "+map.get("alat"));
 		System.out.println("지도갖고왔니???alng: "+map.get("alng"));
 		
-		String markerLocation = map.get("alat")+","+map.get("alng");
-		System.out.println("@@@지도위치정보@@@@"+markerLocation);
-		map.put("markerLocation", markerLocation);
+		if(map.get("alat")!=null && !map.get("alat").toString().equals("")) {
+			
+			String markerLocation = map.get("alat")+","+map.get("alng");
+			System.out.println("@@@지도위치정보@@@@"+markerLocation);
+			map.put("markerLocation", markerLocation);
+			
+		}
+		
 		
 		//1) 파일을 디렉토리 만들고 + 업로드하는것까지 하나의 메소드로 먼저 호출
 		String path = req.getSession().getServletContext().getRealPath("/upload");

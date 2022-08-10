@@ -17,8 +17,6 @@ import com.pictory.springapp.dto.LikeDTO;
 @Repository("galleryDAO")
 public class GalleryDAO {
 	
-	@Autowired
-	private SqlSessionFactory sqlMapper;
 	
 	@Autowired
 	private SqlSessionTemplate template;
