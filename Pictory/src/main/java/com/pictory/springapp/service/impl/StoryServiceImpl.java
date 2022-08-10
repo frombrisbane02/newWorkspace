@@ -17,20 +17,12 @@ public class StoryServiceImpl implements StoryService<StoryDTO> {
 
 	@Override
 	public List<StoryDTO> virtualList() {
-
 		return dao.virtualList();
 	}
 
-
-	// =====0728
 	@Override
 	public List<StoryDTO> virtualImages(int sNo) {
-		//System.out.println("서비스 virtualImages...오니?");
-		
 		List<StoryDTO> storyImages = dao.virtualImages(sNo);
-		//System.out.println(storyImages);
-	
-
 		return storyImages;
 	}
 

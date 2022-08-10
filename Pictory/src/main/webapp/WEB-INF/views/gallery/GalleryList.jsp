@@ -275,6 +275,7 @@
                     data        :   checkParams,
                     success     :   function(result){
                     				$('#resultList').empty();
+                    				$('#cartegoryList').empty();
  						console.log("result:",result);
                     				var html ='';
                     				

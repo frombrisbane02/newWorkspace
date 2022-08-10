@@ -38,7 +38,6 @@
 										</div>
 										
 										<div class="txt_area">
-											<p class="small"> <span class="cate">CATEGORY</span><span class="gray">${record.postCategory}</span> </p>
 											<p class="main_txt">${record.storyDescription}</p>
 											<div class="pro_line">
 												<p><img src="<c:url value="${record.userProfile}"/>" alt="" class="pro_p">${record.userNickname}</p>
@@ -46,6 +45,7 @@
 										</div>
 									</a>
 								</li>
+								
 							</c:forEach>
 						</c:if>
 					</ul>				
@@ -54,3 +54,29 @@
 		</div>
 	</div>
 </div>
+
+
+<script>
+/*
+$(document).ready(function(){
+	
+	$('#tab1').empty();
+});
+*/
+/*
+  $(document).ready(function(){
+	$('#postCategory').change(function(){
+		$('.photo_area').hide();
+		$('.cate_' + $(this).val()).show();
+		$('#listLength').text($('.cate_' + $(this).val()).length);
+	});		
+});
+*/
+$(document).ready(function(){
+	
+	
+	
+});
+
+
+</script>

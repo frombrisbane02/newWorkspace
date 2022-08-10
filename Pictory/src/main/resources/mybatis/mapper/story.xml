@@ -5,22 +5,25 @@
   
 <mapper namespace="mybatis.mapper.story">	
 
-	<select id="storyllist" resultType="StoryDTO">	      
-		select s.*,p.*,u.*  from story s
+	<select id="storyllist" resultType="StoryDTO">	  
+		select distinct (s.SNo),
+				s.storyThumbnail,
+				s.storyDescription,
+				u.userProfile,
+				u.userNickname  from story s
 		LEFT OUTER JOIN post p on s.sNO = p.sNO
-		LEFT OUTER JOIN users u on u.userNO = p.userNo
+		LEFT OUTER JOIN users u on u.userNO = p.userNo ORDER BY s.SNo DESC
+		
+		<!--  select s.*,u.userProfile, u.userNickname form where in (select story -->
+		
 	</select>
 	
 	<!-- 스토리가 #번인 사진 전부 가져오기 -->
 	<select id="storyimages" parameterType="int" resultType="StoryDTO">
 		
-		
+	
 	select photoURL,photoNo from photo where postno in (select postno from post where sno= #{value})
-		<!--  SELECT ph.photoUrl, s.sNo, ph.photoNo
-		FROM PHOTO ph
-		RIGHT OUTER JOIN POST p ON ph.postNo=p.postNo
-		RIGHT OUTER JOIN STORY s ON p.sNo=s.sNo
-		  where s.sNo = #{value} -->
+
 	</select>
 
 

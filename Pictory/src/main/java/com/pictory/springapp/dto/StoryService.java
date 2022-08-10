@@ -7,9 +7,6 @@ public interface StoryService<T>{
 
 	List<T> virtualList();
 	
-	
 	List<T> virtualImages(int sNo);
 
-	
-	
 }
