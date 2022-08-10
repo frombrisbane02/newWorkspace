@@ -113,7 +113,7 @@ public class MemberDAO {
 		return dto;
 	}
 	
-	public PostDTO selectPost(int postNo ) {
+	public PostDTO selectPost(int postNo) {
 		PostDTO dto = template.selectOne("selectPost", postNo);
 		return dto;
 	}
@@ -123,8 +123,9 @@ public class MemberDAO {
 		return dto;
 	}
 	
-	public void deleteLikePost(int userNo) {
-		template.delete("deleteLikePost", userNo);
+	public void deleteLikePost(int postNo) {
+		template.delete("deleteLikePost", postNo);
+		System.out.println("여기는 디에이오"+postNo);
 	}
 		
 }

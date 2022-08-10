@@ -28,8 +28,10 @@ public class MypageAlertController {
 		System.out.println("마이페이지 장바구니 컨트롤러");
 		
 		String id = (String) session.getAttribute("userId");
+		MemberDTO member = memberService.readMember(id);
 		
-		List<AlarmDTO> list = alarmService.selectAlram(id);
+		List<AlarmDTO> list = alarmService.selectAlarm(member.getUserNo());
+
 		model.addAttribute("alarmList", list);
 		
 		return "mypage/MypageAlert.tiles";
@@ -41,9 +43,10 @@ public class MypageAlertController {
 		
 		
 		String id = (String) session.getAttribute("userId");
+		MemberDTO member = memberService.readMember(id);
 		
-		alarmService.updateAlarm(alarmNo, id);
-		List<AlarmDTO> list = this.alarmService.selectAlram(id);
+		alarmService.updateAlarm(alarmNo, member.getUserNo());
+		List<AlarmDTO> list = this.alarmService.selectAlarm(member.getUserNo());
 		model.addAttribute("alarmList", list);
 		
 		

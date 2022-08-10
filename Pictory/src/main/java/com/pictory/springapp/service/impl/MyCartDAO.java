@@ -21,7 +21,7 @@ public class MyCartDAO {
 		return list;
 	}
 	
-	public void deleteMyCart(int userNo) {
-		template.delete("deleteMyCart", userNo);
+	public void deleteMyCart(int postNo) {
+		template.delete("deleteMyCart", postNo);
 	}
 }

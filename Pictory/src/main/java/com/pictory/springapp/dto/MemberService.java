@@ -30,5 +30,5 @@ public interface MemberService<T> {
 	public List<SavePostDTO> selectBuyPost(int memberNo);	
 	
 	//좋아요 저장소에서 취소
-	void deleteLikePost(int userNo);
+	void deleteLikePost(int postNo);
 }

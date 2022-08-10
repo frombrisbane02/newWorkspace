@@ -65,12 +65,15 @@
 	
 	<!-- 마이페이지 장바구니 목록 불러오기 쿼리-->
    <select id="selectMyCart" parameterType="String" resultType="MyCartDTO">
-      SELECT photo.POSTNO AS postNo,cart.USERNO, u.USERNICKNAME, product.PDNO, product.PHOTONO, product.PDPRICE, photo.PHOTONAME, photo.PHOTOURL
+      SELECT photo.POSTNO AS postNo,cart.USERNO, u.USERNICKNAME, product.PDNO, product.PHOTONO, 
+      product.PDPRICE, post.POSTTITLE, photo.PHOTOURL
       FROM CART cart 
       INNER JOIN PRODUCT product 
       ON cart.PDNO = product.PDNO 
       INNER JOIN PHOTO photo
       ON product.PHOTONO = photo.PHOTONO 
+      INNER JOIN POST post
+      ON photo.POSTNO = post.POSTNO 
       INNER JOIN USERS u 
       ON cart.USERNO = u.USERNO 
       WHERE u.USERId = #{userId}
@@ -122,8 +125,7 @@
 	
 	<!-- 좋아요 삭제용 쿼리-->
 	<delete id="deleteLikePost" parameterType="int">
-		DELETE FROM LIKES likes
-		WHERE likes.USERNO = #{userNo}
+		DELETE FROM LIKES WHERE POSTNO = #{postNo}
 	</delete>
 	
 </mapper>

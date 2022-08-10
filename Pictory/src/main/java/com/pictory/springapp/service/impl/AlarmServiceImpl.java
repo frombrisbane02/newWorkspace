@@ -14,9 +14,9 @@ public class AlarmServiceImpl implements AlarmService {
 	@Autowired private AlarmDAO alarmDao;
 	
 	@Override
-	public List<AlarmDTO> selectAlram(String id) {
+	public List<AlarmDTO> selectAlarm(int userNo) {
 		
-		return alarmDao.selectAlarm(id);
+		return alarmDao.selectAlarm(userNo);
 	}
 
 	@Override
@@ -26,10 +26,10 @@ public class AlarmServiceImpl implements AlarmService {
 	}
 
 	@Override
-	public void updateAlarm(int alarmNo, String id) {
-		List<AlarmDTO> list = this.selectAlram(id);
+	public void updateAlarm(int alarmNo, int userNo) {
+		List<AlarmDTO> list = this.selectAlarm(userNo);
 		AlarmDTO findDTO = list.stream().filter(alarm -> alarm.getAlarmNo() == alarmNo).findFirst().get();
-		findDTO.setCheck(true);
+		findDTO.setChecked(true);
 		alarmDao.updateAlarmCheck(findDTO);
 	}
 

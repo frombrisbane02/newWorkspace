@@ -17,7 +17,7 @@
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
 		<!--jquery-->
-		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+		<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 	  </head>
 
@@ -56,11 +56,30 @@
 					</div>						
 				</a>
 				<ul class="hover_btn list-unstyled">
-					<li><a href="<c:url value="/mypage/LikeDelete.do"/>"><i class="fa-solid fa-heart-crack"> 좋아요 취소</i></a></li>
+					<li><a href="#" onclick="nDelCheck(${likePost.postNo})"><i class="fa-solid fa-heart-crack"> 좋아요 취소</i></a></li>
 				</ul>
 			</li>
 			</c:forEach>
 		</ul>
 	</div>
 </body>
+
+<script>
+	function nDelCheck(postNo){
+		var ans = confirm("삭제하시겠습니까?");
+		if(ans){
+			console.log("postNo찍히나? "+postNo);
+			var query = {"postNo":postNo};
+			$.ajax({
+				url : "<c:url value="/mypage/LikeDelete.do"/>",
+				type : "get",
+				data : query,
+				sucess : function(data){
+				}		
+			});
+		}
+		window.location.reload();
+	}
+
+</script>
 </html>

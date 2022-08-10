@@ -4,17 +4,22 @@
 <mapper namespace="mybatis.mapper.alarm">	
 
 	
-	<select id="selectAlarm" resultType="AlarmDTO" parameterType="String">
-		SELECT * FROM ALARM WHERE ISCHECK != 1 AND receiver = #{id}
+	<select id="selectAlarm" resultType="AlarmDTO" parameterType="int">
+		SELECT al.ALARMNO, al.ALARMTYPE, al.ALARMDATE, al.ISCHECKED, al.RECEIVER, al.EVENTUSER, al.SUBJECT,
+		al.CONTENT, u.USERNICKNAME AS receiveUser
+		FROM ALARM al 
+		INNER JOIN USERS u
+		ON al.RECEIVER=u.USERNO
+		WHERE ISCHECKED != 1 AND receiver = #{userNo}
 	</select>
 	
 	<insert id="insertAlarm" parameterType="AlarmDTO">
 		INSERT INTO PICTORY.ALARM
-		(ALARMNO, ALARMTYPE, ALARMDATE, ISCHECK, RECEIVER, SUBJECT, CONTENT, EVNETUSER)
-		VALUES(SEQ_ALARM.NEXTVAL, #{alarmType}, #{alarmDate}, #{isCheck} , #{receiver}, #{subject}, #{content}, #{eventUser})
+		(ALARMNO, ALARMTYPE, ALARMDATE, ISCHECKED, RECEIVER, SUBJECT, CONTENT, EVNETUSER)
+		VALUES(SEQ_ALARM.NEXTVAL, #{alarmType}, #{alarmDate}, #{isChecked} , #{receiver}, #{subject}, #{content}, #{eventUser})
 	</insert>
 	
 	<update id="updateAlarm" parameterType="AlarmDTO">
-		UPDATE PICTORY.ALARM SET ISCHECK = 1 WHERE ALARMNO = #{alarmNo}
+		UPDATE PICTORY.ALARM SET ISCHECKED = 1 WHERE ALARMNO = #{alarmNo}
 	</update>
 </mapper>

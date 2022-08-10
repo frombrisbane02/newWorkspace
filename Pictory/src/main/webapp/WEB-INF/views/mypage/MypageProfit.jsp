@@ -3,68 +3,69 @@
 
 <!DOCTYPE html>
 <html lang="ko">
-	<head>
-		<title>mylike</title>
-		<meta charset="utf-8">
-		<!--gallery css-->
-		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/common.css"/>">
-		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/mypage/gallerylist.css"/>">
-		<!--font library-->
-		<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
-		<!--icon css-->
-		<script src="https://kit.fontawesome.com/4e5169080d.js" crossorigin="anonymous"></script>
-		<!--bootstrap-->
-		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
-		<!--jquery-->
-		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-	  </head>
+<head>
+	<title>mylike</title>
+	<meta charset="utf-8">
+	<!--gallery css-->
+	<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/common.css"/>">
+	<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/mypage/gallerylist.css"/>">
+	<!--font library-->
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+	<!--icon css-->
+	<script src="https://kit.fontawesome.com/4e5169080d.js" crossorigin="anonymous"></script>
+	<!--bootstrap-->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+	<!--jquery-->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  </head>
 
-	  <style>
-		body {
-			font-family: 'Noto Sans KR', sans-serif;
-		}
-		img{
-			width: 40px;
-			height: 40px;
-		}
-		.name{
-			display: inline-block;
-		}
-		.bg-blue{
-			background-color: #EBF5FB;
-			border-radius: 8px;
-		}
-		.fa-check,.fa-minus{
-			color: blue;
-		}
-		.table thead th,.table td{
-			border: none;
-		}
+  <style>
+	body {
+		font-family: 'Noto Sans KR', sans-serif;
+	}
+	img{
+		width: 40px;
+		height: 40px;
+	}
+	.name{
+		display: inline-block;
+	}
+	.bg-blue{
+		background-color: #EBF5FB;
+		border-radius: 8px;
+	}
+	.fa-check,.fa-minus{
+		color: blue;
+	}
+	.table thead th,.table td{
+		border: none;
+	}
 
-		.table tbody td:first-child{
-			border-bottom-left-radius: 10px;
-			border-top-left-radius: 10px;
+	.table tbody td:first-child{
+		border-bottom-left-radius: 10px;
+		border-top-left-radius: 10px;
+	}
+	.table tbody td:last-child{
+		border-bottom-right-radius: 10px;
+		border-top-right-radius: 10px;
+	}
+	#spacing-row{
+		height: 10px;
+	}
+	@media(max-width:575px){
+		.container{
+			width: 125%;
+			padding: 20px 10px;
 		}
-		.table tbody td:last-child{
-			border-bottom-right-radius: 10px;
-			border-top-right-radius: 10px;
-		}
-		#spacing-row{
-			height: 10px;
-		}
-		@media(max-width:575px){
-			.container{
-				width: 125%;
-				padding: 20px 10px;
-			}
-		}
-		h6{
-			font-size: 14px;
-		}
-	  </style>
-
+	}
+	h6{
+		font-size: 14px;
+	}
+  </style>
+	  
+	  
 <body>
 	<div class="content">
 	
@@ -86,7 +87,13 @@
 		<div class="h2 font-weight-bold">판매 내역
 		</div>
 		<h5>정산 가능 금액: <strong>${preparedTotal}</strong> 원</h5>
-		<button class="btn btn-sm bg-dark text-white px-lg-5 mt-2" data-toggle="modal" data-target="#my80sizeCenterModal" href="#">예치금 정산</button>
+	         <c:if test = "${preparedTotal > 10000}">
+	            <button class="btn btn-sm bg-dark text-white px-lg-5 mt-2" data-toggle="modal" data-target="#my80sizeCenterModal" href="#">예치금 정산</button>
+	         </c:if>
+	
+	         <c:if test = "${preparedTotal < 10000}">
+	            <h6 style="color:tomato">예치금은 10,000원 이상시 정산 가능합니다.</h6>
+	         </c:if>
 		<hr>
 		<div class="table-responsive">
 			<table class="table">
@@ -137,101 +144,67 @@
 	</div>
 	
 	<!-- 80%size Modal at Center -->
-<div class="modal modal-center" id="my80sizeCenterModal" tabindex="-1" role="dialog" aria-labelledby="my80sizeCenterModalLabel" data-backdrop="false">
-  <div class="modal-dialog modal-80size modal-center" role="document">
-    <div class="modal-content modal-80size">
-      <div class="modal-header">
-        <h5 class="modal-title" id="myModalLabel">프로필 변경</h5>
-      </div>
-      <div class="modal-body">
-        <form action="<c:url value="/mypage/InsertProfit.do"/>" method="post">	 
-          <div class="form-group col-xs-2">
-		    <label for="adjAmout">정산금액 </label><small>(정산 가능금액: <strong> ${preparedTotal}</strong> 원)</small>
-		    <input type="text" class="form-control check" name="adjAmount" id="adjAmout" aria-describedby="emailHelp" style="border-width:2px">
-		  	<p></p>
-		  </div>
-		  <div class="form-group col-xs-2">
-		  	  <label for="bank">은행명</label>
-			  <select class="browser-default custom-select check" name="bank">
-				  <option selected style="border-width:2px" value="pick">입금 계좌의 은행 명을 선택하세요</option>
-				  <option value="하나은행">하나은행</option>
-				  <option value="우리은행">우리은행</option>
-				  <option value="신한은행">신한은행</option>
-			  </select>
-			  <p></p>
-		  </div>
-		  <div class="form-group col-xs-2">
-		    <label for="bankNo">계좌번호</label>
-		    <input type="text" class="form-control check" id="bankNo" aria-describedby="bankNoHelp" style="border-width:2px">
-		  	<p></p>
-		  </div>
-		  <div class="modal-footer">
-      			<button class="btn btn-sm bg-dark text-white px-lg-5 mt-2" type="submit" >예치금정산</button>
-        		<button class="btn btn-sm bg-dark text-white px-lg-5 mt-2" data-dismiss="modal">닫기</button>
-     	   </div>
-		</form>
-      </div>
-
-    </div>
-  </div>
-</div>
+	<div class="modal modal-center mt-5" id="my80sizeCenterModal" tabindex="-1" role="dialog" aria-labelledby="my80sizeCenterModalLabel" data-backdrop="false">
+	  <div class="modal-dialog modal-80size modal-center" role="document">
+	    <div class="modal-content modal-80size">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="myModalLabel">프로필 변경</h5>
+	      </div>
+	      <div class="modal-body">
+	        <form action="<c:url value="/mypage/InsertProfit.do"/>" method="post" class="needs-validation" novalidate>	 
+	          <div class="form-group col-xs-2">
+			    <label for="adjAmout">정산금액 </label><small>(정산 가능금액: <strong> ${preparedTotal}</strong> 원)</small>
+			    <input type="text" class="form-control check" name="adjAmount" id="adjAmout" aria-describedby="emailHelp" style="border-width:2px" required>
+			  	<p class="invalid-feedback">정산금액을 입력하세요</p>
+			  </div>
+			  <div class="form-group col-xs-2">
+			  	  <label for="bank">은행명</label>
+				  <select class="browser-default custom-select check" name="bank" required>
+					  <option selected style="border-width:2px" selected disabled value="">입금 계좌의 은행 명을 선택하세요</option>
+					  <option value="하나은행">하나은행</option>
+					  <option value="우리은행">우리은행</option>
+					  <option value="신한은행">신한은행</option>
+				  </select>
+				  <p class="invalid-feedback">은행명을 선택하세요</p>
+			  </div>
+			  <div class="form-group col-xs-2">
+			    <label for="bankNo">계좌번호</label>
+			    <input type="text" class="form-control check" id="bankNo" aria-describedby="bankNoHelp" style="border-width:2px" required>
+			  	<p class="invalid-feedback">계좌번호를 입력하세요</p>
+			  </div>
+			  <div class="modal-footer">
+			        <button class="btn btn-sm bg-dark text-white px-lg-5 mt-2" type="submit" >예치금정산</button>
+	        		<button class="btn btn-sm bg-dark text-white px-lg-5 mt-2" data-dismiss="modal">닫기</button>
+	     	   </div>
+			</form>
+	      </div>
+	
+	    </div>
+	  </div>
+	</div>
 
 </body>
 
 <script>
 $("#my80sizeCenterModal").css("z-index", "1600");
 
-//validation
-$(function(){
-	   
-    $('#adjAmout').on('change', function(){
-       
-        var scriptTag2 = /[~^&()|<>?]/; 
-        var regExp_bankAcc = ([0-9,\-]{3,6}\-[0-9,\-]{2,6}\-[0-9,\-]);
-        var checkText = "";
-        var thisVal = $(this).val();
-        var total = $(preparedTotal).val();
-               
-        switch($(this).attr("name")){
-            case "adjAmount":
-                if(thisVal.length == 0){
-                    checkText = "정산을 원하시는 금액을 입력해주세요.";
-                }else if(scriptTag2.test(thisVal) == true){
-                    checkText = "스크립트 태그는 들어갈 수 없습니다.";
-                }else if(Space_Check.test(thisVal) == true){
-                    checkText = "공백이 들어갈 수 없습니다.";
-                }else if (thisVal.length > total){
-                    checkText = "정산가능 금액을 초과하였습니다.";
-                }
-            break;
-            case "bankNo":
-                if(thisVal.length == 0){
-                    checkText = "계좌를 입력하여 주세요.";
-                }else if(thisVal.length != 0 && regExp_bankAcc.test(thisVal) == false ){
-                    checkText = "정확한 계좌 형식이 아닙니다.";
-                }
-            break;
-            case "bank":
-                if(thisVal == 'pick'){
-                    checkText = "전공을 선택해주세요.";
-                }
-            break;
-        
-        
-        if(checkText != ""){
-            $(this).siblings("p").html(checkText);
-            $(this).siblings("p").addClass("vali");
-            $(this).siblings("p").slideDown();
-        } else {
-            $(this).siblings("p").slideUp(function(){
-                $(this).removeClass("vali");
-            });
-        }
-    });
-    
-    
-});
+(function () {
+	  'use strict'
+	  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+	  var forms = document.querySelectorAll('.needs-validation')
+	  // Loop over them and prevent submission
+	  Array.prototype.slice.call(forms)
+	    .forEach(function (form) {
+	      form.addEventListener('submit', function (event) {
+	        if (!form.checkValidity()) {
+	          event.preventDefault()
+	          event.stopPropagation()
+	        }
 
+	        form.classList.add('was-validated')
+	      }, false)
+	    })
+	})()
 </script>
 
 </html>

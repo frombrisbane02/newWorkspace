@@ -103,8 +103,8 @@
 			<table class="table">
 				<thead>
 					<tr>
-						<th scope="col">판매자</th> 
-						<th scope="col" class="text-center">상품 정보</th>                    
+						<th scope="col">상품명</th> 
+						<th scope="col" class="text-center">상품 상세정보</th>                    
 						<th scope="col">상품 가격</th>                    
 						<th scope="col">수수료</th>       
 						<th scope="col">결제 금액</th>                               
@@ -114,9 +114,8 @@
 				<c:forEach var="myCart" items="${myCartList}">
 					<tr class="bg-light border-bottom"> 
 						<input type="hidden" name="pdNo" value="${myCart.pdNo}"/>
-						<td class="pt-3"><h6>${myCart.userNickName}</h6></td>              
+						<td class="pt-3"><h6>${myCart.postTitle}</h6></td>              
 						<td class="pt-3 ml-5" style="text-align:center">
-							<div class="mb-2"><strong>${myCart.photoName}</strong></div>
 							<img src="${myCart.photoUrl}" style="width:250px;height:250px;padding-left:20px">		
 						</td>                
 						<td class="pt-3"><h6>${myCart.pdPrice}</h6></td>

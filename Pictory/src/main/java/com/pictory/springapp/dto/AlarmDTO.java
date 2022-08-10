@@ -14,9 +14,10 @@ import lombok.Setter;
 public class AlarmDTO {
 	
 	private int alarmNo;
+	private String receiveUser;
 	private String alarmType;
 	private Date alarmDate;
-	private boolean isCheck;
+	private boolean isChecked;
 	private String receiver;
 	private String subject;
 	private String content;

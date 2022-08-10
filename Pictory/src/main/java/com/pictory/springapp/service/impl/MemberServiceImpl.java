@@ -273,8 +273,9 @@ public class MemberServiceImpl implements MemberService<MemberDTO>{
 	
 	//좋아요 저장소에서 취소
 	@Override
-	public void deleteLikePost(int userNo) {
-		dao.deleteLikePost(userNo);
+	public void deleteLikePost(int postNo) {
+		dao.deleteLikePost(postNo);
+		System.out.println("서비스임플"+postNo);
 	}
 
 }

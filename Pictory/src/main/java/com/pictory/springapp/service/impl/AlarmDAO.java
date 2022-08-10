@@ -14,8 +14,8 @@ public class AlarmDAO {
 	private SqlSessionTemplate template;
 	
 
-	public List<AlarmDTO> selectAlarm(String id) {
-		return template.selectList("selectAlarm", id);
+	public List<AlarmDTO> selectAlarm(int userNo) {
+		return template.selectList("selectAlarm", userNo);
 	}
 	
 	public void insertAlarm(AlarmDTO dto) {

@@ -52,17 +52,39 @@
 						<div class="card mb-2">
 							<ul class="list-unstyled">
 								<!--FIRST LIST ITEM-->
-								<li class="media pt-3"> 
+								<li class="media pt-3 pr-3"> 
 									<span class="round pt-2">
-										<img src="https://img.icons8.com/bubbles/100/000000/groups.png" class="align-self-start mr-3">
+										<c:if test = "${alarm.alarmType eq '좋아요'}">
+											<img src="${pageContext.request.contextPath}/resources/img/mypage/like.png" class="align-self-start mr-3" style="width:150px;padding:20px">
+										</c:if>
+										<c:if test = "${alarm.alarmType eq '댓글'}">
+											<img src="${pageContext.request.contextPath}/resources/img/mypage/comment.png" class="align-self-start mr-3" style="width:150px;padding:20px">
+										</c:if>
+										<c:if test = "${alarm.alarmType eq '구매'}">
+											<img src="${pageContext.request.contextPath}/resources/img/mypage/love.png" class="align-self-start mr-3" style="width:150px;padding:20px">
+										</c:if>
+										<c:if test = "${alarm.alarmType eq '관리자'}">
+											<img src="${pageContext.request.contextPath}/resources/img/mypage/person.png" class="align-self-start mr-3" style="width:150px;padding:20px">
+										</c:if>
 									</span>
 									<div class="media-body">
+										<input type="hidden" value="${alarm.alarmType}" name="alarmType"/>
 										<input type="hidden" value="${alarm.alarmNo}" name="alarmNo"/>
 										<h6 class="user pt-2 ">${alarm.eventUser}</h6>
-										<p class="text">${alarm.subject}</p>
-										<p class="text">${alarm.content}</p>							
+										<c:if test = "${alarm.alarmType eq '좋아요' || alarm.alarmType eq '댓글'}">
+											<p class="text">회원님의 게시글에 <strong>${alarm.alarmType}</strong>(이)가 추가되었습니다.</p>
+										</c:if>
+										<c:if test = "${alarm.alarmType eq '관리자'}">
+											<p class="text"><strong>문의: </strong> ${alarm.subject}</p>
+											<p class="text"><strong>답변: </strong> ${alarm.content}</p>	
+										</c:if>		
+										<c:if test = "${alarm.alarmType eq '구매'}">
+											<p class="text">회원님의 게시글이 <strong>${alarm.alarmType}</strong>되었습니다.</p>
+										</c:if>
 										<p class="text"><small>${alarm.alarmDate}</small></p>
-										<button type="submit" >알람확인</button>
+									</div>
+									<div class="ml-3">
+										<button type="submit" class="btn btn-sm bg-dark text-white px-lg-5 mt-2">알람확인</button>
 									</div>
 								</li>
 							</ul>
