@@ -10,9 +10,6 @@
 
     <script src="${pageContext.request.contextPath}/resources/js/feed/html5shiv.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/feed/modernizr.js"></script>
-    
-    
-
 	
 <body>	 
  <!--
@@ -78,7 +75,7 @@
 				</div>
 			</div>
 			<div class="right_list">
-				<ul class="top_tab" role="tablist" id="tab" >
+				<ul class="top_tab" role="tablist" id="tab">
 					<li class="tab_link" data-tab="tab1"><a href="Artwork">Artwork <span>갤러리 글수</span></a></li>
 					<li class="tab_link" data-tab="tab2"><a href="FeedStory">Story <span>스토리 글수</span></a></li>
 					<li class="tab_link" data-tab="tab3"><a href="Likes">Likes <span>좋아요 한 글</span></a></li>

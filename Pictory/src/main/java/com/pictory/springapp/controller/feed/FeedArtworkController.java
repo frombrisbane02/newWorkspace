@@ -34,17 +34,13 @@ public class FeedArtworkController {
 	private FeedArtworkService<FeedDTO> artworkService; 
 	
 		
-		
-
-	
 	@GetMapping("Artwork.do")
 	public String galleryList(Model model) {
-		//상단바 갤러리 클릭시 List에 뿌려줄 정보 저장해서 뿌리기
 		
 		List<FeedDTO> lists = artworkService.artworkList();
 		model.addAttribute("lists",lists);
 		
-		return "feed/Artwork";
+		return "feed/Artwork.tiles";
 	}
 	
 	@PostMapping("Artwork")

@@ -52,28 +52,20 @@ public class PostController {
 	
 	@GetMapping("post/Upload1.do")
 	public String upload1Page() {
-		//상단바 업로드 버튼 클릭시 업로드1 페이지로 넘겨주기
 		return "gallery/Upload1.tiles";
 	}
 	
-	/*upload1에서 누를시 upload2 페이지로 넘어감*/
 	@GetMapping("post/Upload2.do")
 	public String upload2Page(@RequestParam Map map, Model model, @ModelAttribute("userId") String userId) {
 		model.addAttribute("postSellorNot",map.get("sellornot"));
-		System.out.println("userID 업로드 넘어올때 들어오나요?"+ userId);
-		
-		
 		List<PostDTO> storyLists = postUploadService.selectStoryList(userId);
 		model.addAttribute("storyLists",storyLists);
 		
 		return "gallery/Upload2.tiles";
 	}
 	
-	
-	
-	
-	//===========================ADD MAP===============================
-	
+
+	/*
 	@GetMapping("post/AddMap.do")
 	public String addMap(HttpSession session, Model model) {
 		
@@ -81,10 +73,9 @@ public class PostController {
 		System.out.println("EditImage이동전 아이디!!: "+userId);
 		
 		return "gallery/UploadMap.tiles";
-	}
+	}*/
 	
 	
-	//판매용 업로드 처리
 	@PostMapping("post/SellUpload.do")
 	public String sellUpload(@ModelAttribute("userId") String userId, @RequestParam Map map,
 			@RequestParam(value="hashtags") List<String> hashtag,
@@ -93,27 +84,12 @@ public class PostController {
 		//1) 일단 map에 userId 넣고 시작
 		map.put("userId", userId);
 		
-		//여기는 MultipartFile 걍 한장이다잉 가격 잘 받아와야함
-		//판매할때 insert 테이블 story다 null 넣어야함, hashtag, map, photo, product insert해야함
-		
-		System.out.println("=========확인용 출력입니다 Controller==========");
-		System.out.println("가져온 맵: "+map);
-		System.out.println(map.get("postTitle"));
-		System.out.println(map.get("postText"));
-		System.out.println(map.get("postSellorNot"));
-		System.out.println(map.get("userId"));
-		System.out.println("해시태그비어있을지도모름: "+map.get("hashtags"));
-		System.out.println(map.get("price"));
-		
-		System.out.println("===========================================");
-		
-		//2) 파일을 디렉토리 만들고 + 업로드하는것까지 하나의 메소드로 먼저 호출
+		//2) 파일 디렉토리 생성 + 업로드
 		String path = req.getSession().getServletContext().getRealPath("/upload");
 		map.put("path", path);
 		path = postUploadService.uploadoneFile(map,uploadImage);
 		
-		//3)insert 순서 - post, photo, product
-		//PRODUCT - pdNo, photoNo, pdPrice, pdSalesNo, pdDate
+		//3)post, photo, product insert
 		String photoName = uploadImage.getOriginalFilename();
 		int photoSize = (int)Math.ceil(uploadImage.getSize()/1024.0);
 		String photoUrl = String.valueOf(map.get("userId"))+"/"+photoName;
@@ -123,62 +99,36 @@ public class PostController {
 		map.put("photoSize", photoSize);
 		map.put("photoUrl", photoUrl);
 		
-		//파일 업로드
+		//파일 업로드 서비스 호출
 		postUploadService.sellPostInsert(map);
 		
 		return "forward:/gallery/GalleryList.do";
 	}
 	
-//=============================================절취선========================================================
 	
 	@PostMapping("post/NotSellUpload.do")
 	public String notSellUpload(@ModelAttribute("userId") String userId,@RequestParam Map map,
 			@RequestParam("storyThumbnail") MultipartFile sThumbnail,
 			@RequestParam(value="hashtags") List<String> hashtag,
 			@RequestParam("uploadImage") List<MultipartFile> uploadImage, HttpServletRequest req) throws IllegalStateException, IOException {
+
 		
-		for(MultipartFile oneImage:uploadImage) {
-			System.out.println("image 원본 파일 순서대로 내놔봐: "+oneImage.getOriginalFilename());
-		}
-		
-		
-		System.out.println(userId);
-		System.out.println("가져온 맵: "+map);
-		System.out.println("스토리썸네일이름: "+sThumbnail.getOriginalFilename());
-		System.out.println("스토리썸네일사이즈: "+sThumbnail.getSize());
-		
-		System.out.println("기존스토리 넘버는??!"+map.get("existingstory"));
-		
-		
-		if(hashtag!=null) {
-			for(int i=0; i<hashtag.size(); i++) {
-				System.out.println("hashtag "+i+"번방 : "+hashtag.get(i));
-			}
-		}
-		
-		//일단 아이디부터 map에 넣고!!
+		//0.1) 아이디 저장
 		map.put("userId", userId);
 		
-		
-		//지도 첨부시 갖고오나 체크해야함
-		System.out.println("지도갖고왔니???alat: "+map.get("alat"));
-		System.out.println("지도갖고왔니???alng: "+map.get("alng"));
-		
+		//0.2) 지도 첨부했는지 체크하여 첨부시 저장
 		if(map.get("alat")!=null && !map.get("alat").toString().equals("")) {
-			
 			String markerLocation = map.get("alat")+","+map.get("alng");
-			System.out.println("@@@지도위치정보@@@@"+markerLocation);
 			map.put("markerLocation", markerLocation);
-			
 		}
 		
 		
-		//1) 파일을 디렉토리 만들고 + 업로드하는것까지 하나의 메소드로 먼저 호출
+		//1) 파일 디렉토리 생성 + 업로드 호출
 		String path = req.getSession().getServletContext().getRealPath("/upload");
 		map.put("path", path);
 		path = postUploadService.uploadingFile(map,uploadImage);
 		
-		//1.1) 만일 스토리를 생성했다면? storyThumnail이 null이 아니면 썸네일부터 업로드처리하기
+		//1.1) 스토리를 생성한 경우 - 썸네일부터 업로드처리
 		String storyThumbnail = null;
 		if((sThumbnail.getSize()!=0) && !(sThumbnail.getOriginalFilename().equals(""))) {
 			
@@ -190,21 +140,18 @@ public class PostController {
 		}
 		
 		
-		//1.2) 만일 기존 스토리를 선택했다면? 해당 sno 참조하는걸로 post, photo만 업데이트하면 끝!
+		//1.2) 기존 스토리를 선택한 경우 - 해당 sno 참조하여 post, photo 업데이트
 		if((map.get("existingstory")!=null)&&!(map.get("existingstory").equals(""))) {
-			//만일 null도 아니고 빈문자열도 아니라면 기존 스토리를 선택한 것이므로
 			
 			int sNo = Integer.parseInt(map.get("existingstory").toString().substring(5));
-			System.out.println("잘...잘렸냐...??....."+sNo);
-			
 			map.put("sNo", sNo);
 			
 		}
 		
-		//2) 파일관련 정보를 담은 List를 만들고 List에 담아서 POST 부터 업로드 호출!
+		//2) 파일관련 정보를 담은 List
 		List<Map<String,Object>> fileInfo = new ArrayList<Map<String,Object>>();
 		
-		//2.1) 파일관련 정보 담은 map에 정보 넣어두기
+		//2.1) 파일관련 정보 담은 map에 정보 저장
 		for(MultipartFile file : uploadImage) {
 			
 			Map<String, Object> fileList = new HashMap<String, Object>();
@@ -213,34 +160,16 @@ public class PostController {
 			int photoSize = (int)Math.ceil(file.getSize()/1024.0);
 			String photoUrl = String.valueOf(map.get("userId"))+"/"+photoName;
 			
-			
 			fileList.put("photoName", photoName);
 			fileList.put("photoSize", photoSize);
 			fileList.put("photoUrl", photoUrl);
-			
 			fileInfo.add(fileList);
 		}
 		
-		//======================= 글 저 장 ============================
-		System.out.println("map의 Title:"+map.get("postTitle"));
-		System.out.println("map의 postText:"+map.get("postText"));
-		System.out.println("map의 postCategory:"+map.get("postCategory"));
-		System.out.println("map의 postSellorNot:"+map.get("postSellorNot"));
-		System.out.println("황인곤의 세션 아이디: "+userId);
-		
-		
-		//============================해시태그랑 스토리 값 받아오자============================
-		System.out.println("map의 hashtags"+map.get("hashtags"));
-		System.out.println("list에 담긴 hashtags: "+hashtag.toString());
-		System.out.println("map의 storyTitle"+map.get("storyTitle"));
-		System.out.println("map의 storyDescription"+map.get("storyDescription"));
-		
-		System.out.println("스토리 기존거 들갔나요...?...."+map.get("sNo"));
-		
-		//부모테이블인 post Upload부터 하기(넘길때 본문정보 담긴 map, List 같이 넘기기)
+		//post Upload 서비스 호출
 		postUploadService.postInsert(map,fileInfo);
 	
-		//전부 업로드하고 갤러리 목록으로 ㄱㄱ
+		//업로드 완료 후 갤러리리스트로 이동
 		return "forward:/gallery/GalleryList.do";
 	}
 }

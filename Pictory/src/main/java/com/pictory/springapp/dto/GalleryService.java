@@ -64,6 +64,10 @@ public interface GalleryService<T> {
 	int isMapAttached(int postNo);
 
 	GalleryDTO getMapInfo(int postNo);
+
+	int findCartinList(Map map);
+
+	int findPdNo(Map map);
 	
 	
 	

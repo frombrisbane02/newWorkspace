@@ -55,6 +55,7 @@ public class GalleryController {
 		
 		List<GalleryDTO> lists = galleryService.galleryList(userId);
 		List<GalleryDTO> hashs = galleryService.hashList();
+		
 		System.out.println("###lists:"+lists.get(0));
 		model.addAttribute("lists",lists);
 		System.out.println("###lists###:"+lists);
@@ -78,13 +79,9 @@ public class GalleryController {
 	
 	@GetMapping("GalleryView.do")
 	public String GalleryView(Model model,@RequestParam("postNo") int postNo, @ModelAttribute("userId") String userId, Map map) {
-		//postNo만 넘겨서 해당 내용 가져와서 뿌려주기
-		//title, category, photourl(순서대로), userNickname, 프사 url
 		
 		System.out.println("===========view 반환===========");
 		System.out.println("클릭한 postNo: "+postNo);
-		//System.out.println("클릭한 postNo: "+userNo);
-
 		
 		Map postMap = new HashMap<>();
 		postMap.put("postNo", postNo);
@@ -93,15 +90,20 @@ public class GalleryController {
 		//1. photoUrl 먼저 가져오기
 		List<GalleryDTO> photoLists = galleryService.galleryPhoto(postNo);
 		for(GalleryDTO photoUrls : photoLists) {
-			System.out.println("컨트롤러 postUrls:"+ photoUrls.getPhotoUrl());
+			//상수로 ip 주소 붙이기
 			photoUrls.setPhotoUrl(resource+photoUrls.getPhotoUrl());
 		}
 		
-		//2. 나머지 본문 정보 전부 갖고오기
+		//2. 나머지 본문 정보 추출
 		List<GalleryDTO> viewLists = galleryService.galleryView(postNo);
 		
 		for(GalleryDTO viewList : viewLists) {
-			System.out.println("소리코의 가지고온 viewLists에서 꺼내오기"+viewList.getUserId());
+			switch(viewList.getPostCategory()) {
+			case "landscape": viewList.setPostCategory("풍경"); break;
+			case "object": viewList.setPostCategory("정물"); break;
+			case "figure": viewList.setPostCategory("인물"); break;
+			default: viewList.setPostCategory("기타"); break;
+			}	
 		}
 		
 		//3. 작가의 다른 정보 위해 각 포스트 몇개인지 총합, 각 포스트 썸네일, 포스트 no 가져와야함
@@ -114,7 +116,7 @@ public class GalleryController {
 		//5. 댓글 코멘트 갖고 오기(postNo 넘기고!)
 		List<GalleryDTO> comments = galleryService.getComments(postNo);
 		
-		//6. 판매하는 경우 상품 정보 다 갖고오기(어차피 하나임 ㅇㅇ)
+		//6. 판매하는 경우 상품 정보 가져오기
 		int isSellorNot = galleryService.isSellorNot(postNo);
 		if(isSellorNot==1) {
 			model.addAttribute("isSellorNot",isSellorNot);
@@ -126,7 +128,7 @@ public class GalleryController {
 			model.addAttribute("pdSalesNo",product.getPdSalesNo());
 			model.addAttribute("pdDate",product.getPdDate());
 			
-			//카트정보도 저장해서 뿌리자잉
+			//카트정보 저장해 뿌리기
 			map.put("userId", userId);
 			map.put("postNo", postNo);
 			int isAdded = galleryService.findCart(map);
@@ -136,29 +138,23 @@ public class GalleryController {
 		
 		
 		
-		//7. MAP 첨부했는지? 있으면 갖고오기(어차피 하나임)
+		//7. MAP 첨부했는지 체크해서 가져오기
 		int isMapAttached = galleryService.isMapAttached(postNo);
 		
 		if(isMapAttached==1) {
-			//count = 1이니까 정보 전부 가지고와서 저장하기
 			GalleryDTO mapInfo = galleryService.getMapInfo(postNo);
 			String markerLocation = mapInfo.getMarkerLocation();
 			String lat=markerLocation.split(",")[0];
 			String lng=markerLocation.split(",")[1];
 			
-			System.out.println("latlatlatlat======"+lat);
-			System.out.println("lnglnglnglng======"+lng);
-			
 			model.addAttribute("lat",lat);
 			model.addAttribute("lng",lng);
-			
 		}
 		
 		//8. 로그인 한 사람 정보 다 갖고오기
 		GalleryDTO loginUser = galleryService.getLoginInfo(userId);
 		System.out.println("login한애 정보 다 갖고오니?: "+loginUser);
 		model.addAttribute("loginUser",loginUser);
-		
 		
 		//8. Model에 정보 저장 후 돌아가기
 		model.addAttribute("postNo",postNo);
@@ -216,26 +212,19 @@ public class GalleryController {
 									@RequestParam int postNo ,HttpSession session, Model model,
 									HttpServletRequest req) throws JsonProcessingException{
 		
-		System.out.println("댓글내용 출력: "+cText);
-		System.out.println("댓글쓴사람(지금 로그인한 사람) 누구세요?: "+userId);
-		System.out.println("지금 postNo 몇번?"+postNo);
-		
-		//commentarea=이렇게 나오니까 여기서부터 짤라서 준다..
+		//댓글 저장(commentarea 자르고 저장)
 		String realComment = cText.substring(12);
-		System.out.println("찐 이거맞냐?"+realComment);
 		
-		//DB저장위해 넘겨야할 값: postNo, userNo(댓글쓴애), cText
+		//DB저장
 		Map map = new HashMap();
 		map.put("postNo", postNo);
 		map.put("userId", userId);
 		map.put("cText", realComment);
 		
-		//서비스호출(댓글 insert)
+		//댓글 insert
 		galleryService.galleryComment(map);
-		
-		
-
-		return "{\"upload\":\"sucsses\"}";
+	
+		return "{\"comment\":\"sucsses\"}";
 	}
 
 	   @CrossOrigin
@@ -310,28 +299,41 @@ public class GalleryController {
 	   @ResponseBody
 		public String AddCartInView(Model model,@RequestParam("pdNo") int pdNo, @ModelAttribute("userId") String userId) {
 			
-		   System.out.println("로그인한애 누구세요?"+userId);
-		   System.out.println("지금 상품 번호가?"+pdNo);
-		   
 		   Map map = new HashMap();
 		   map.put("userId", userId);
 		   map.put("pdNo", pdNo);
 		   
-		   //db 저장 처리
-		   //1) 카트에 이미 상품 있는지 COUNT - INT 값 반환후
+		   //1) 카트에 상품 있는지 check
 		   int isAdded = galleryService.findCart(map);
 		   
 		   //2) 1이면 DELETE 0이면 INSERT
-		   if(isAdded>=1) {
-			   //cart delete 처리
-			   galleryService.deleteCart(map);
-		   }
-		   else{
-			   //cart insert 처리
-			   galleryService.insertCart(map);
-		   }
+		   if(isAdded>=1) {galleryService.deleteCart(map);}
+		   else{galleryService.insertCart(map);}
 			
-			return "{\"upload\":\"sucsses\"}";
+			return "{\"cart\":\"sucsses\"}";
+		}
+	   
+	   @CrossOrigin
+	   @RequestMapping(value="post/CartInList.do",produces = "application/json;charset=UTF-8")
+	   @ResponseBody
+		public String CartInList(Model model,@RequestParam("postNo") int postNo, @ModelAttribute("userId") String userId) {
+			
+		   Map map = new HashMap();
+		   map.put("userId", userId);
+		   map.put("postNo", postNo);
+		   
+		   //1) 카트에 상품 있는지 check
+		   int isCartedList = galleryService.findCartinList(map);
+		   
+		   //1.1) pdNo 알아오기
+		   int pdNo = galleryService.findPdNo(map);
+		   map.put("pdNo", pdNo);
+		   
+		   //2) 1이면 DELETE 0이면 INSERT
+		   if(isCartedList>=1) {galleryService.deleteCart(map);}
+		   else{galleryService.insertCart(map);}
+			
+			return "{\"cart\":\"sucsses\"}";
 		}
 	   
 }

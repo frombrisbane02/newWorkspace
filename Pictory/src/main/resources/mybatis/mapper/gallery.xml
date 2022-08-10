@@ -22,7 +22,7 @@
             (SELECT COUNT(ct.cno) FROM comment_tbl ct WHERE ct.postno=po.postno) commentCount
         FROM post po INNER JOIN users u
            ON po.userno = u.userno
-     	ORDER BY po.postdate DESC
+     	ORDER BY po.postNo DESC
 	</select>
 	
 	<select id="hashlist" resultType="GalleryDTO">
@@ -161,9 +161,20 @@
 	</select>
 	
 	
-	
-	
 	<select id="getpostlikes" parameterType="Map" resultType="int">
 		SELECT COUNT(l.postNo) FROM LIKES l WHERE l.postno=#{postNo}
+	</select>
+	
+	<select id="findCartinList" parameterType="Map" resultType="int">
+		SELECT COUNT(c.pdNo) 
+		FROM CART c 
+		WHERE c.pdNo IN (SELECT p.pdNo FROM PRODUCT p WHERE p.photoNo IN (SELECT p.photoNo FROM PHOTO p WHERE p.postNo=#{postNo})) 
+		AND c.userNo IN (SELECT u.userNo from USERS u WHERE userId=#{userId})
+	</select>
+	
+	<select id="findPdNo" parameterType="Map" resultType="int">
+		SELECT p.pdNo FROM PRODUCT p, USERS u 
+		WHERE  p.photoNo=(SELECT p.photoNo FROM PHOTO p WHERE p.postNo=#{postNo}) 
+		AND u.userNo=(SELECT u.userNo from USERS u WHERE userId=#{userId})
 	</select>
 </mapper>

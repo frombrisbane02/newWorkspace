@@ -68,7 +68,6 @@ public class PostDAO {
 	public String uploadingFile(Map map,List<MultipartFile> uploadImage) {
 		
 			//1) map 안에 있는 userID 갖고 와서 그걸로 mkdir 생성하기
-			//이거 path 바꾸기 (전에 한 springproj 참고)
 		
 			System.out.println("path 잘 받아왔니?;;: "+map.get("path"));
 		

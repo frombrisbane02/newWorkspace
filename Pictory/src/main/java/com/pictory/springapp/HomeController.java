@@ -18,18 +18,8 @@ public class HomeController {
 	
 	@RequestMapping(value = "/index.do", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
-		logger.info("Welcome home! The client locale is {}.", locale);
-		
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-		
-		String formattedDate = dateFormat.format(date);
-		
-		model.addAttribute("serverTime", formattedDate );
-		
-		System.out.println("메인화면 들어왔니?");
-		
-		return "index";
+
+		return "index.tiles";
 	}
 	
 }

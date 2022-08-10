@@ -38,10 +38,12 @@ public class GalleryDAO {
 		
 		for(GalleryDTO rawList : rawLists) {
 			
-			
 			map.put("postNo", rawList.getPostNo());
 			int likeornot = template.selectOne("findLike",map);
 			rawList.setLikeornot(likeornot);
+			int cartornot = template.selectOne("findCartinList",map);
+			rawList.setCartornot(cartornot);
+			
 			rawList.setPhotoUrl(resource+rawList.getPhotoUrl());
 			rawList.setUserProfile(resource+rawList.getUserProfile());
 			
@@ -239,6 +241,19 @@ public class GalleryDAO {
 		
 		return template.selectOne("getMapInfo",postNo);
 	}
+
+
+	public int findCartinList(Map map) {
+		
+		return template.selectOne("findCartinList",map);
+	}
+
+
+	public int findPdNo(Map map) {
+
+		return template.selectOne("findPdNo",map);
+	}
+
 
 
 

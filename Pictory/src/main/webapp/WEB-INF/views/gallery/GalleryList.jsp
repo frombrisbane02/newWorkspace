@@ -3,8 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
-
-<jsp:include page="/WEB-INF/views/Top.jsp"/>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=0,maximum-scale=1">
 	<title>Gallery</title>
@@ -76,7 +74,14 @@
 						<!-- 판매글이면 카트 버튼이 있어야함 근데 걔가 카트를 넣었다? 그러면 다른 걸로 뿌려야함 -->
 						
 						<c:if test="${list.postSellorNot==1}">
-						<li><a href="${list.postNo}">Cart</a></li>
+							<li><a id="cart${list.postNo}" href="${list.postNo}">
+								<c:if test="${list.cartornot==0}">
+									<img src="${pageContext.request.contextPath}/resources/img/gallerylist/nocart.png" alt="">
+								</c:if>
+								<c:if test="${list.cartornot==1}">
+									<img src="${pageContext.request.contextPath}/resources/img/gallerylist/yescart.png" alt="">
+								</c:if>
+							Cart</a></li>
 						</c:if>
                </ul>
                   	<div class="hover_txt">
@@ -193,7 +198,7 @@
 
 		
 		
-		$(".hover_btn>li>a").click(function(e){  
+		$(".hover_btn > li:nth-child(1) >a").click(function(e){  
 			
          const postNo = $(this).attr('href');
          const postNum = 1+Number(postNo);
@@ -346,6 +351,34 @@
             })
             
         });
+		
+		
+		
+		//cart 담기 버튼
+		$(".hover_btn > li:nth-child(2) >a").click(function(e){  
+			
+         const postNo = $(this).attr('href');
+         const userId = document.getElementById('getuserId').value;
+         
+         var cartsrc = $(this).children("img").attr("src")==='${pageContext.request.contextPath}/resources/img/gallerylist/nocart.png' ? "${pageContext.request.contextPath}/resources/img/gallerylist/yescart.png" : "${pageContext.request.contextPath}/resources/img/gallerylist/nocart.png";
+     	$(this).children('img').attr('src',cartsrc);
+     	
+
+         $.ajax({
+                 type:"POST",
+                 url:"<c:url value='post/CartInList.do'/>",
+                 data: "postNo="+postNo+"&userId="+userId
+                 }).done(function(data){
+                	 console.log("성공");
+                		
+              }).fail(function(request,status,error){
+                alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+                 console.log('무슨 실패입니까?');
+              });
+         
+         e.preventDefault();
+         console.log('e.preventDefault() 실행');
+      });
 		
 	</script>
 </body>

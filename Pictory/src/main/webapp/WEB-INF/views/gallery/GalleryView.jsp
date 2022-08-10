@@ -19,7 +19,10 @@
     
      <!-- Bootstrap icons-->
      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-
+	
+	<script type="text/javascript">
+	document.oncontextmenu = function(){return false;}
+	</script>
     
 
 </head>
@@ -74,13 +77,13 @@
 	margin-right: auto;
 	margin-top:10px;
 	margin-bottom:10px;
-}
+	}
 
     .watermarkpic{
 	 position: absolute;
 	  bottom: 0;
-	  width: 100%;
 	  height:100%;
+	  
     }
     
 
@@ -88,6 +91,7 @@
 
 </style>
 <body>
+<body oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
     <br>
     <br>
     <br>
@@ -100,7 +104,7 @@
                         <a href="<c:url value=" /gallery/bbs/Edit.do?no=${list.postNo}" />" class="btn-outline-dark btn-sm">수정</a>
                         <a href="<c:url value=" /gallery/bbs/Delete.do?no=${list.postNo}" />" class="btn-outline-dark btn-sm">삭제</a>
                     </c:if>
-                    <a href="<c:url value=" /gallery/GalleryListEdit.do?no=${list.postNo}" />" class="btn-outline-dark btn-sm">목록</a>
+                    <a href="<c:url value="/gallery/GalleryList.do" />" class="btn-outline-dark btn-sm">목록</a>
                 </div>
                 <div>
                     <h3 class="postTitleArea" style="text-weight:bold;">&nbsp;${list.postTitle}</h3>
@@ -109,7 +113,7 @@
                 <div class="imageArea">
                     <c:forEach var="photo" items="${photoUrls}" varStatus="loop">
 	                    <c:if test="${not empty isSellorNot}">
-	                    <div class="sell_div" style="position:relative; max-width:1000px; margin:0 auto;">
+	                    <div class="sell_div" style="position:relative; margin:0 auto;">
 		                    	<img class="watermarkpic" src="${pageContext.request.contextPath}/resources/img/galleryview/pictorywatermark.png" alt="">
 		                    	<img class="postImages_sell" src="${photo.photoUrl}" alt="">
 		                </div>
@@ -125,9 +129,10 @@
                 </div>
                 <c:if test="${not empty lat}">
                 	<div class="mapdiv d-flex justify-content-center" id="map" style=" width:500px; height:350px;"></div>
+                </c:if>
+                	<div id="map" style="display: none;"></div>
                 	<input type="hidden" id="alat" name="alat" value="${lat}">
                 	<input type="hidden" id="alng" name="alng" value="${lng}">
-                </c:if>
             </c:forEach>
         </c:if>
     </div>
@@ -145,18 +150,18 @@
 				<div class="row">
 					<div class="pdArea m-2 col-xs-6" style="display:inline-block;">
 						<a href="<c:url value="/mypage/Cart.do"/>">
-						<img src="${pageContext.request.contextPath}/resources/img/galleryview/btncart.jpg" style="width:100px;"/>
+						<img src="${pageContext.request.contextPath}/resources/img/galleryview/gotocart.png" style="width:100px;"/>
 						</a>
 					</div>
 					<div class="pdArea addCart m-2 col-xs-6" style="display:inline-block;">
 					
 					<c:if test="${isCart==0}">
 						<a id="cart${pdNo}" href="${pdNo}">
-						<img src="${pageContext.request.contextPath}/resources/img/galleryview/btncartplus.jpg" style="width:100px;"/>
+						<img src="${pageContext.request.contextPath}/resources/img/galleryview/addcart.png" style="width:100px;"/>
 					</c:if>
 					<c:if test="${isCart==1}">
 						<a id="cart${pdNo}" href="${pdNo}">
-						<img src="${pageContext.request.contextPath}/resources/img/galleryview/btncart.jpg" style="width:100px;"/>
+						<img src="${pageContext.request.contextPath}/resources/img/galleryview/minuscart.png" style="width:100px;"/>
 					</c:if>
 					
 						</a>
@@ -167,21 +172,22 @@
 	</c:if>
     
     
-    <!-- Features section-->
-    <div class="container">
+    <!-- Features section    <div class="container">
         <section class="py-5" id="features">
             <div class="container px-2 my-2">
                 <div class="row gx-5">
                     <div class="d-inline-flex">
-                        <span class="material-symbols-outlined">favorite</span>&nbsp;좋아요&nbsp;<span>${postLikes}</span>
+                        <span class="material-symbols-outlined">favorite</span>&nbsp;좋아요&nbsp;<span>${viewLists[0].postLikes}</span>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <span class="material-symbols-outlined">visibility</span>&nbsp;조회수&nbsp;<span>${postHits}</span>
+                        <span class="material-symbols-outlined">visibility</span>&nbsp;조회수&nbsp;<span>${viewLists[0].postHits}</span>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     </div>
                 </div>
             </div>
         </section>
     </div>
+    -->
+    
  <!-- 작가의 다른 작품 보기 영역!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
 
     
@@ -193,7 +199,7 @@
     
 
 <!-- 댓글 영역!!!!!!!!!!!!!!!! -->
-<div class="container mycomment text-center">
+<div class="container mycomment text-center mt-5">
    	<form id="commentform">
    		<div class="">
    			<textarea name="commentarea" id="commentarea" style="min-height: 100px; max-height: 100px; width:1000px;"></textarea>
@@ -319,7 +325,7 @@
 		 			$("#commentarea").val("");
 	
 		 			var date = new Date();
-		 			var today = date.getFullYear() +"=" + ("0"+(date.getMonth()+1)).slice(-2) + "-" + ("0"+date.getDate()).slice(-2);
+		 			var today = date.getFullYear() +"-" + ("0"+(date.getMonth()+1)).slice(-2) + "-" + ("0"+date.getDate()).slice(-2);
 	                
 		 			//댓글 바꿔주기
 		 			var commentHTML = "<div class='row'><div class='col-md-12'><div class='commentmedia'><a class='pr-3' href='#'><img class='mr-3 rounded-circle' alt='userProfile' src='"+userProfile+"'/></a><div class='media-body'><div class='row'><div class='col-8 d-flex'><a class='pr-3'><h5>"+userNickname+"</h5></a><span>"+today+"</span></div></div>"+commentText;
@@ -332,59 +338,14 @@
 		 	});
 	}//function
 	
-	
-	//지도 있는 경우 보여줘야함
-	var lat = document.getElementById('alat').value;
-	var lng = document.getElementById('alng').value;
-	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-	    mapOption = { 
-	        center: new kakao.maps.LatLng(lat, lng), // 지도의 중심좌표
-	        level: 4 // 지도의 확대 레벨
-	    };
-	
-	var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
-	
-	var imageSrc = "${pageContext.request.contextPath}/resources/img/uploadmap/mapicon.png", // 마커이미지의 주소입니다    
-	    imageSize = new kakao.maps.Size(30, 30), // 마커이미지의 크기입니다
-	    imageOption = {offset: new kakao.maps.Point(10, 20)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
-	      
-	// 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
-	var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption),
-	    markerPosition = new kakao.maps.LatLng(lat, lng); // 마커가 표시될 위치입니다
-	
-	// 마커를 생성합니다
-	var marker = new kakao.maps.Marker({
-	    position: markerPosition,
-	    image: markerImage // 마커이미지 설정 
-	});
-	
-	// 마커가 지도 위에 표시되도록 설정합니다
-	marker.setMap(map);
-	
-	var postTitle = $('.postTitleArea').html();
-	
-	var iwContent = '<div style="padding:5px;"><p style="font-size:10px; text-align:center; font-weight:bold;">'+postTitle+'</p></div>',
-	    iwPosition = new kakao.maps.LatLng(lat, lng); //인포윈도우 표시 위치
 
-	// 인포윈도우를 생성합니다
-	var infowindow = new kakao.maps.InfoWindow({
-	    position : iwPosition,
-	    content : iwContent 
-	});
-	  
-	// 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
-	infowindow.open(map, marker);
-	
-	
-	
 	//카트 ajax 처리
 	$(".addCart>a").click(function(e){
-		//userId controller에서 필요, 지금 없어도댐 pdNo만 있으면 ㅇㅇ
 		
         const pdNo = $(this).attr('href');
         console.log('pdNo :', pdNo);
 
-        var likesrc = $(this).children("img").attr("src")==='${pageContext.request.contextPath}/resources/img/galleryview/btncartplus.jpg' ? "${pageContext.request.contextPath}/resources/img/galleryview/btncart.jpg" : "${pageContext.request.contextPath}/resources/img/galleryview/btncartplus.jpg";
+        var likesrc = $(this).children("img").attr("src")==='${pageContext.request.contextPath}/resources/img/galleryview/addcart.png' ? "${pageContext.request.contextPath}/resources/img/galleryview/minuscart.png" : "${pageContext.request.contextPath}/resources/img/galleryview/addcart.png";
     	$(this).children('img').attr('src',likesrc);
 
         $.ajax({
@@ -407,6 +368,56 @@
         
      });
 
+	
+	
+	//지도 는 경우 보여줘야함
+	if(document.getElementById('alat').value != null){
+		
+		var lat = document.getElementById('alat').value;
+		var lng = document.getElementById('alng').value;
+		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+		    mapOption = { 
+		        center: new kakao.maps.LatLng(lat, lng), // 지도의 중심좌표
+		        level: 4 // 지도의 확대 레벨
+		    };
+		
+		var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+		
+		var imageSrc = "${pageContext.request.contextPath}/resources/img/uploadmap/mapicon.png", // 마커이미지의 주소입니다    
+		    imageSize = new kakao.maps.Size(30, 30), // 마커이미지의 크기입니다
+		    imageOption = {offset: new kakao.maps.Point(10, 20)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+		      
+		// 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
+		var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption),
+		    markerPosition = new kakao.maps.LatLng(lat, lng); // 마커가 표시될 위치입니다
+		
+		// 마커를 생성합니다
+		var marker = new kakao.maps.Marker({
+		    position: markerPosition,
+		    image: markerImage // 마커이미지 설정 
+		});
+		
+		// 마커가 지도 위에 표시되도록 설정합니다
+		marker.setMap(map);
+		
+		var postTitle = $('.postTitleArea').html();
+		
+		var iwContent = '<div style="padding:5px;"><p style="font-size:10px; text-align:center; font-weight:bold;">'+postTitle+'</p></div>',
+		    iwPosition = new kakao.maps.LatLng(lat, lng); //인포윈도우 표시 위치
+
+		// 인포윈도우를 생성합니다
+		var infowindow = new kakao.maps.InfoWindow({
+		    position : iwPosition,
+		    content : iwContent 
+		});
+		  
+		// 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
+		infowindow.open(map, marker);
+		
+	}
+
+	
+	
 
 
 </script>

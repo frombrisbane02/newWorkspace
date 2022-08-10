@@ -30,6 +30,9 @@ public class GalleryDTO {
 	
 	//좋아요 눌렀는지 0, 1 저장용
 	private int likeornot;
+	
+	//카트 담았는지 0,1 저장용
+	private int cartornot;
 
 	//TBL_STORY
 	private int sNo;

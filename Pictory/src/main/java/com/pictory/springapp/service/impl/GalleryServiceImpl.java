@@ -24,20 +24,29 @@ public class GalleryServiceImpl implements GalleryService<GalleryDTO> {
 	@Override
 	public List<GalleryDTO> galleryList(String userID) {
 		//필요 인자: 카테고리, 해시태그, 첫번째 이미지 url(썸네일용), 좋아요수, 댓글 수, 유저프사, 유저닉네임
+		//postNo 받아올때마다 for문 돌면서 해당 postNo에 대한 cart 여부 받아오기
+		/*
+		List<GalleryDTO> Lists = dao.selectGalleryList(userID);
+		Map map = new HashMap();
+		map.put("userId", userID);
 		
+		for(GalleryDTO oneList : Lists) {
+			map.put("postNo", oneList.getPostNo());
+			int cartornot = dao.findCartinList(map);
+			oneList.setCartornot(cartornot);
+		}
+		*/
 		return dao.selectGalleryList(userID);
 	}
 	
 	@Override
 	public List<GalleryDTO> galleryPhoto(int postNo) {
-		System.out.println("Impl.1 클릭한 postNo: "+postNo);
 		
 		return dao.selectPhotoList(postNo);
 	}
 
 	@Override
 	public List<GalleryDTO> galleryView(int postNo) {
-		System.out.println("Impl.2 클릭한 postNo: "+postNo);
 		
 		return dao.selectGalleryView(postNo);
 	}
@@ -179,6 +188,16 @@ public class GalleryServiceImpl implements GalleryService<GalleryDTO> {
 	public GalleryDTO getMapInfo(int postNo) {
 		
 		return dao.getMapInfo(postNo);
+	}
+
+	@Override
+	public int findCartinList(Map map) {
+		return dao.findCartinList(map);
+	}
+
+	@Override
+	public int findPdNo(Map map) {
+		return dao.findPdNo(map);
 	}
 
 }
