@@ -102,6 +102,9 @@ public class GalleryServiceImpl implements GalleryService<GalleryDTO> {
 		map.put("userId", userId);
 		
 		dao.likeUp(map);
+		
+		//오빠 저 윤진인데 alarm 테이블 insert 여기서 했어요
+		dao.insertLikeAlarm(map);
 	}
 
 	@Override
@@ -111,6 +114,9 @@ public class GalleryServiceImpl implements GalleryService<GalleryDTO> {
 		map.put("userId", userId);
 		
 		dao.likeDown(map);
+		
+		//alarm 테이블 delete 여기서 했어여!
+		dao.deleteLikeAlarm(map);
 	}
 	
 	@Override
@@ -154,9 +160,10 @@ public class GalleryServiceImpl implements GalleryService<GalleryDTO> {
 	@Override
 	public void galleryComment(Map map) {
 		//댓글 insert
-		
 		dao.insertComment(map);
 		
+		//댓글 alarm insert
+		dao.insertCommentAlarm(map);
 	}
 
 	@Override

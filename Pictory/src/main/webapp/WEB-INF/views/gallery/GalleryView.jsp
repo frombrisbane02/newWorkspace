@@ -35,17 +35,17 @@
 	margin-bottom: 10px;
 	margin-left: auto;
 	margin-right: auto;
-}
-
-.postImages_sell{
-	display: block;
-	width: auto;
-	height: auto;
-	max-width: 1000px;
-	margin-bottom: 10px;
-	margin-left: auto;
-	margin-right: auto;
-}
+	}
+	
+	.postImages_sell{
+		display: block;
+		width: auto;
+		height: auto;
+		max-width: 1000px;
+		margin-bottom: 10px;
+		margin-left: auto;
+		margin-right: auto;
+	}
 	
     body {
         display: grid;
@@ -85,10 +85,10 @@
 	  height:100%;
 	  
     }
-    
-
-
-
+	
+	a {
+	 text-decoration-line:none;
+	}
 </style>
 <body>
 <body oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
@@ -101,10 +101,10 @@
             <c:forEach var="list" items="${viewLists}">
                 <div class="text-right mr-6">
                     <c:if test="${sessionId==list.userId}">
-                        <a href="<c:url value=" /gallery/bbs/Edit.do?no=${list.postNo}" />" class="btn-outline-dark btn-sm">수정</a>
-                        <a href="<c:url value=" /gallery/bbs/Delete.do?no=${list.postNo}" />" class="btn-outline-dark btn-sm">삭제</a>
+                        <a href="<c:url value=" /gallery/bbs/Edit.do?no=${list.postNo}"/>" class="btn-outline-dark btn-sm">수정</a>
+                        <a href="<c:url value=" /gallery/bbs/Delete.do?no=${list.postNo}"/>" class="btn-outline-dark btn-sm">삭제</a>
                     </c:if>
-                    <a href="<c:url value="/gallery/GalleryList.do" />" class="btn-outline-dark btn-sm">목록</a>
+                    <a href="<c:url value="/gallery/GalleryList.do"/>" class="btn-outline-dark btn-sm">목록</a>
                 </div>
                 <div>
                     <h3 class="postTitleArea" style="text-weight:bold;">&nbsp;${list.postTitle}</h3>
@@ -163,15 +163,12 @@
 						<a id="cart${pdNo}" href="${pdNo}">
 						<img src="${pageContext.request.contextPath}/resources/img/galleryview/minuscart.png" style="width:100px;"/>
 					</c:if>
-					
 						</a>
 					</div>
 				</div>
 			</div>
 		</div>
 	</c:if>
-    
-    
     <!-- Features section    <div class="container">
         <section class="py-5" id="features">
             <div class="container px-2 my-2">
@@ -188,11 +185,28 @@
     </div>
     -->
     
- <!-- 작가의 다른 작품 보기 영역!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
-
-    
-    
-    
+ <!-- 작가의 다른 작품 보기 영역(작가 프로필, 글 좋아요) -->
+<div class="container mt-5 mb-5 bg-white" style="width:40%;">
+    <div class="row no-gutters">
+        <div class="col-md-4 col-lg-4"><img class="profileimg" src="https://i.imgur.com/aCwpF7V.jpg"></div>
+        <div class="col-md-8 col-lg-8">
+            <div class="d-flex flex-column">
+                <div class="d-flex flex-row justify-content-between align-items-center p-5 text-dark">
+                    <h3 class="display-5">Amelly Anderson</h3>
+                </div> 
+                <div class="p-3">
+                    <h6></h6>
+                </div>
+                <div class="d-flex flex-row justify-content-center text-white">
+                	<button class="btn btn-sm btn-outline-dark mr-1">FEED</button>
+                	<button class="btn btn-sm btn-outline-dark mr-1">LIKE</button>
+                	<button class="btn btn-sm btn-outline-dark mr-1">FOLLOW</button>
+                	<button class="btn btn-sm btn-outline-dark">DM</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
     
     
     
@@ -205,7 +219,7 @@
    			<textarea name="commentarea" id="commentarea" style="min-height: 100px; max-height: 100px; width:1000px;"></textarea>
    		</div>
    		<div class="">
-   			<input type="button" value="댓글 등록" onclick="commentAjaxCall('${userId}',${postNo},'${loginUser.userNickname}','${loginUser.userProfile}');" style="width: 1000px;"/>
+   			<input class="btn btn-dark text-white" type="button" value="댓글 등록" onclick="commentAjaxCall('${userId}',${postNo},'${loginUser.userNickname}','${loginUser.userProfile}');" style="width: 1000px;"/>
    		</div>
    	</form> 
 </div>
@@ -220,7 +234,7 @@
 				<h4 class="text-left mb-5">댓글</h4>
 				<c:choose>
 					<c:when test="${empty comments}">
-						<h6>등록된 댓글이 없습니다.</h6>
+						<h6 class="noComments">등록된 댓글이 없습니다.</h6>
 					</c:when>
 					<c:otherwise>
 					<c:forEach var="comments" items="${comments}" varStatus="loop">
@@ -229,12 +243,12 @@
 		                       <div class="col-md-12">
 		                           <div class="commentmedia">
 		                               <a class="pr-3" href="<c:url value="/feed/Artwork.do?userNo=${comments.userNo}"/>">
-		                               	<img class="mr-3 rounded-circle" alt="userProfile" src="${comments.userProfile}"/>
+		                               	<img class="mr-3 rounded-circle" style="width:30px; height:30px;" alt="userProfile" src="${comments.userProfile}"/>
 		                               </a>
 		                               <div class="media-body">
 		                                   <div class="row">
 		                                       <div class="col-8 d-flex">
-		                                       <a class="pr-3" href="<c:url value="/feed/Artwork.do?userNo=${comments.userNo}"/>">
+		                                       <a class="pr-3" href="<c:url value="/feed/Artwork.do?userNo=${comments.userNo}"/>" style="text-decoration:none; color: black;">
 		                                           <h5>${comments.userNickname}</h5>
 		                                       </a>
 		                                           <span>${comments.CDate}</span>
@@ -307,11 +321,9 @@
 		}
 	};//function
 
+	
+	//댓글 등록처리
 	function commentAjaxCall(userId,postNo,userNickname,userProfile){
-		
-		console.log('userId 들어왔니? %O', userId);
-		console.log('postNo 들어왔니?',typeof(postNo));
-		console.log('userNickname 들어왔니?%O', userNickname);
 		
 		var commentText = document.querySelector('#commentarea').value;
 		
@@ -328,11 +340,11 @@
 		 			var today = date.getFullYear() +"-" + ("0"+(date.getMonth()+1)).slice(-2) + "-" + ("0"+date.getDate()).slice(-2);
 	                
 		 			//댓글 바꿔주기
-		 			var commentHTML = "<div class='row'><div class='col-md-12'><div class='commentmedia'><a class='pr-3' href='#'><img class='mr-3 rounded-circle' alt='userProfile' src='"+userProfile+"'/></a><div class='media-body'><div class='row'><div class='col-8 d-flex'><a class='pr-3'><h5>"+userNickname+"</h5></a><span>"+today+"</span></div></div>"+commentText;
+		 			var commentHTML = "<div class='row'><div class='col-md-12'><div class='commentmedia'><a class='pr-3' href=#><img class='mr-3 rounded-circle' alt='userProfile' src='"+userProfile+"' style='width:30px; height:30px;'/></a><div class='media-body'><div class='row'><div class='col-8 d-flex'><a class='pr-3'><h5>"+userNickname+"</h5></a><span>"+today+"</span></div></div>"+commentText;
 					document.querySelector('.motherComment').insertAdjacentHTML('beforeend',commentHTML);
-		 			
-					console.log(commentHTML);
-	           
+					
+					$(".noComments").hide();
+					
 		 	}).fail(function(request,status,error){
 				alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 		 	});
@@ -353,24 +365,16 @@
                 url:"<c:url value='/gallery/post/AddCartInView.do'/>",
                 data: "pdNo="+pdNo
                 }).done(function(data){
-               	
-                	console.log(data);
-                    
-               		
-             }).fail(function(request,status,error){
+               	}).fail(function(request,status,error){
                alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-             
-                console.log('무슨 실패입니까?');
              });
         
         e.preventDefault();
-        console.log('e.preventDefault() 실행');
-        
      });
 
 	
 	
-	//지도 는 경우 보여줘야함
+	//지도 넣은 경우 보여줄것
 	if(document.getElementById('alat').value != null){
 		
 		var lat = document.getElementById('alat').value;
@@ -378,30 +382,28 @@
 		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 		    mapOption = { 
 		        center: new kakao.maps.LatLng(lat, lng), // 지도의 중심좌표
-		        level: 4 // 지도의 확대 레벨
+		        level: 4 //지도 확대 레벨
 		    };
 		
-		var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+		var map = new kakao.maps.Map(mapContainer, mapOption);//지도 생성
 		
-		var imageSrc = "${pageContext.request.contextPath}/resources/img/uploadmap/mapicon.png", // 마커이미지의 주소입니다    
-		    imageSize = new kakao.maps.Size(30, 30), // 마커이미지의 크기입니다
-		    imageOption = {offset: new kakao.maps.Point(10, 20)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+		var imageSrc = "${pageContext.request.contextPath}/resources/img/uploadmap/mapicon.png", //마커 이미지   
+		    imageSize = new kakao.maps.Size(30, 30), //마커이미지의 크기
+		    imageOption = {offset: new kakao.maps.Point(10, 20)}; // 마커이미지 옵션
 		      
-		// 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
 		var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption),
 		    markerPosition = new kakao.maps.LatLng(lat, lng); // 마커가 표시될 위치입니다
 		
-		// 마커를 생성합니다
+		// 마커 생성
 		var marker = new kakao.maps.Marker({
 		    position: markerPosition,
 		    image: markerImage // 마커이미지 설정 
 		});
 		
-		// 마커가 지도 위에 표시되도록 설정합니다
+		// 마커 표시
 		marker.setMap(map);
 		
 		var postTitle = $('.postTitleArea').html();
-		
 		var iwContent = '<div style="padding:5px;"><p style="font-size:10px; text-align:center; font-weight:bold;">'+postTitle+'</p></div>',
 		    iwPosition = new kakao.maps.LatLng(lat, lng); //인포윈도우 표시 위치
 
@@ -412,8 +414,7 @@
 		});
 		  
 		// 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
-		infowindow.open(map, marker);
-		
+		infowindow.open(map, marker);	
 	}
 
 	

@@ -60,30 +60,15 @@ public class GalleryDAO {
 	
 
 	public List<GalleryDTO> selectPhotoList(int postNo) {
-		
-		System.out.println("DAO: 클릭한 postNo: "+postNo);
-		
-		// photoUrl 먼저 뽑아오기
-		//List<Map<String, Object>> photoLists = new ArrayList<Map<String,Object>>();
-		List<GalleryDTO> photoLists = template.selectList("photoList",postNo);
-		
-		for(GalleryDTO onePhoto : photoLists) {
-			System.out.println("클릭한 post의 url"+onePhoto.getPhotoUrl());
-		}
-		return photoLists;
-		
+		return template.selectList("photoList",postNo);
 	}
 
 
 	public List<GalleryDTO> selectGalleryView(int postNo) {
-		System.out.println("dao 클릭한 postNo"+postNo);
 		return template.selectList("galleryView",postNo);
-		
 	}
 
 	
-
-
 	public List<GalleryDTO> selectUserInfo(int postNo) {
 		//작가 정보 뿌려주기 위한 서비스 호출
 		List<GalleryDTO> userInfos = template.selectList("userInfo",postNo);
@@ -118,7 +103,6 @@ public class GalleryDAO {
 	}
 
 	public List<GalleryDTO> selectCommentList(int postNo) {
-		// 댓글 목록 뿌려주기 위함
 		
 		List<GalleryDTO> comments = template.selectList("getComments", postNo);
 		for(GalleryDTO oneComment : comments) {
@@ -131,16 +115,12 @@ public class GalleryDAO {
 
 
 	public List<GalleryDTO> getHashList() {
-		// 해시태그 갖고오기
 		return template.selectList("hashlist");
 	}
 
 
 	public GalleryDTO getProductInfo(int postNo) {
-		// 상품정보 가져오기
-		GalleryDTO pdInfo = template.selectOne("getProductInfo",postNo);
-		System.out.println("pdInfo 다 갖고왔니?"+pdInfo);
-		return pdInfo;
+		return template.selectOne("getProductInfo",postNo);
 	}
 	
 	public int isSellorNot(int postNo) {
@@ -167,7 +147,6 @@ public class GalleryDAO {
 		succ=template.selectOne("findLike", map);
 		System.out.println("###succ###:"+succ);
 		return succ;
-		
 	}
 
 	//좋아요 해제
@@ -195,40 +174,33 @@ public class GalleryDAO {
 	}
 	
 	public Integer getpostlikes(Map map) {
-		int getpostlikes =template.selectOne("getpostlikes", map);
-		return getpostlikes; 
+		return template.selectOne("getpostlikes", map);
 	}
 
 
 	public void insertComment(Map map) {
-		// 댓글 넣기전에 USERID로 USERNO 먼저 가져오기
 		String userId = map.get("userId").toString();
 		
 		int userNo = template.selectOne("getUserNo",userId);
 		map.put("userNo", userNo);
-		map.put("parentCNo", null); //이거 걍 ...일단 다 null넣자 ㅠ 답글처리 못해잉
+		map.put("parentCNo", null);
 		
 		template.insert("insertComment", map);
-		
 	}
 
 
 	public int findCart(Map map) {
-		//findCart
 		return template.selectOne("findCart",map);
 	}
 
 
 	public void deleteCart(Map map) {
-		// TODO Auto-generated method stub
 		template.delete("deleteCart",map);
 	}
 
 
 	public void insertCart(Map map) {
-		// TODO Auto-generated method stub
-		template.insert("insertCart",map);
-		
+		template.insert("insertCart",map);		
 	}
 
 
@@ -238,26 +210,31 @@ public class GalleryDAO {
 
 
 	public GalleryDTO getMapInfo(int postNo) {
-		
 		return template.selectOne("getMapInfo",postNo);
 	}
 
 
 	public int findCartinList(Map map) {
-		
 		return template.selectOne("findCartinList",map);
 	}
 
 
 	public int findPdNo(Map map) {
-
 		return template.selectOne("findPdNo",map);
 	}
 
 
+	public void insertLikeAlarm(Map<String, Object> map) {
+		template.insert("insertLikeAlarm", map);
+	}
 
 
+	public void deleteLikeAlarm(Map<String, Object> map) {
+		template.delete("deleteLikeAlarm",map);
+	}
 
 
-
+	public void insertCommentAlarm(Map map) {
+		template.insert("insertCommentAlarm",map);
+	}
 }

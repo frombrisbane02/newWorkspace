@@ -68,7 +68,7 @@
 		SELECT c.cNo, c.userNo, c.cText, c.cLevel, c.cDate,c.parentCNo, u.userProfile, u.userNickname
 		FROM USERS u, COMMENT_TBL c
 		WHERE c.postNo=#{postNo} AND u.userNO=c.userNo
-		ORDER BY c.cLevel
+		ORDER BY c.cDate DESC
 	</select>
 	
 	<select id="isSellorNot" resultType="int" parameterType="_integer">
@@ -76,13 +76,12 @@
         FROM POST p
         WHERE p.postno=#{postNo} AND p.postSellorNot=1
 	</select>
+	
 	<select id="getProductInfo" resultType="GalleryDTO" parameterType="_integer">
 		SELECT *
 		FROM PRODUCT
 		WHERE photoNo = (SELECT ph.photono FROM PHOTO ph WHERE ph.postno=#{postNo})
 	</select>
-	
-	
 
 	<select id="filter" resultType="GalleryDTO" parameterType="List">
 	  SELECT po.postno,
@@ -177,4 +176,21 @@
 		WHERE  p.photoNo=(SELECT p.photoNo FROM PHOTO p WHERE p.postNo=#{postNo}) 
 		AND u.userNo=(SELECT u.userNo from USERS u WHERE userId=#{userId})
 	</select>
+	
+	<insert id="insertLikeAlarm" parameterType="Map">
+		<selectKey keyProperty="alarmNo" resultType="int" order="BEFORE">
+			SELECT SEQ_ALARM.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO ALARM VALUES(SEQ_ALARM.CURRVAL,'like',DEFAULT,DEFAULT,(SELECT userNo FROM POST WHERE postNo=#{postNo}),(SELECT userNo FROM USERS WHERE userId=#{userId}),(SELECT postTitle FROM POST WHERE postNo=#{postNo}),'좋아요')
+	</insert>
+	<delete id="deleteLikeAlarm" parameterType="Map">
+		DELETE ALARM WHERE alarmtype='like' AND receiver IN (SELECT userNo FROM POST WHERE postNo=#{postNo}) AND eventuser IN (SELECT userNo FROM USERS WHERE userId=#{userId});
+	</delete>
+	
+	<insert id="insertCommentAlarm" parameterType="Map">
+		<selectKey keyProperty="alarmNo" resultType="int" order="BEFORE">
+			SELECT SEQ_ALARM.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO ALARM VALUES(SEQ_ALARM.CURRVAL,'comment',DEFAULT,DEFAULT,(SELECT userNo FROM POST WHERE postNo=#{postNo}),(SELECT userNo FROM USERS WHERE userId=#{userId}),(SELECT postTitle FROM POST WHERE postNo=#{postNo}),#{cText})
+	</insert>
 </mapper>

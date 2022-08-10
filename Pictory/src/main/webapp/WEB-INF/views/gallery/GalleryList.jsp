@@ -30,24 +30,20 @@
 				<a href="" class="filter_btn"><img src="<c:url value="/resources/img/story/test_icon12.png"/>"alt="">Filter</a>
 				<p class="count"><span>${fn:length(lists)}</span>개의 글</p>
 			</div>
-			<!-- sort area 삭제함 -->
 		</div>
+		
 		<ul class="fil_sel_list" id="cartegoryList">
 		<!-- 여기 선택한 필터 리스트 목록 갖고와서 foreach로 뿌리면서 엑스<도 기능하고, 엑스 눌렀을때 체크 해제되게 기능구현  -->
-			<spen id='view_content_order'>
+			<span id='view_content_order'>
 			<li>
 				<a href=""><img src="<c:url value="/resources/img/story/test_icon16.png"/>" alt=""></a>
 				<p>Clean all</p>
 			</li>
-
-			
-			</spen>
-
+			</span>
 		</ul>
 		
-	<!-- ===========================리스트 데이터 뿌려주기================================= -->
+	<!-- ===========================글 리스트================================= -->
 		<ul class="gall_list_wrap" id="resultList">
-		<!-- li~li까지 데이터 저장후 받아와서 foreach로 뿌리기 -->
 		<c:if test="${empty lists}" var="isEmpty">
 			    <li> There is NO POST YET</li>
 		</c:if>
@@ -62,8 +58,10 @@
 							<p><img src="${pageContext.request.contextPath}/resources/img/gallerylist/test_icon06.png" alt="" class="pro_icon"><span id="plike${list.postNo}">${list.postLikes}</span><img src="${pageContext.request.contextPath}/resources/img/gallerylist/test_icon07.png" alt="" class="pro_icon"><span>${list.commentCount}</span></p>
 						</div>		
 					</a>
-					<!-- 좋아요 버튼 -->
+					
 					<ul class="hover_btn">
+					
+						<!-- 좋아요 버튼 -->
 						<li><a id="aprevent${list.postNo}" href="${list.postNo}">
 							<c:if test="${list.likeornot == 1}">
 								<img src="${pageContext.request.contextPath}/resources/img/gallerylist/test_icon06red.png" alt="">
@@ -71,8 +69,8 @@
 							<c:if test="${list.likeornot == 0}">
 								<img src="${pageContext.request.contextPath}/resources/img/gallerylist/test_icon06.png" alt="">
 							</c:if>Like</a></li>
-						<!-- 판매글이면 카트 버튼이 있어야함 근데 걔가 카트를 넣었다? 그러면 다른 걸로 뿌려야함 -->
-						
+
+						<!-- 판매글 카트 버튼-->
 						<c:if test="${list.postSellorNot==1}">
 							<li><a id="cart${list.postNo}" href="${list.postNo}">
 								<c:if test="${list.cartornot==0}">
@@ -83,7 +81,7 @@
 								</c:if>
 							Cart</a></li>
 						</c:if>
-               </ul>
+					</ul>
                   	<div class="hover_txt">
 						<h3>${list.postTitle}</h3>
 						
@@ -99,7 +97,6 @@
 				</li>
 			</c:forEach>
 		</c:if>
-	<!-- ===========================절취선================================= -->
 		</ul>
 	</div>
 

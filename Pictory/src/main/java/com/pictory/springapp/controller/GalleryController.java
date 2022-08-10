@@ -80,9 +80,6 @@ public class GalleryController {
 	@GetMapping("GalleryView.do")
 	public String GalleryView(Model model,@RequestParam("postNo") int postNo, @ModelAttribute("userId") String userId, Map map) {
 		
-		System.out.println("===========view 반환===========");
-		System.out.println("클릭한 postNo: "+postNo);
-		
 		Map postMap = new HashMap<>();
 		postMap.put("postNo", postNo);
 		postMap.put("userId", userId);
