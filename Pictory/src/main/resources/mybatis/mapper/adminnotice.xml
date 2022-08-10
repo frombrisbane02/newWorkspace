@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mybatis.mapper.adminnotice">
 
-	<select id="noticeList" parameterType="hashMap" resultType="AdminNoticeDTO">
+<!--  	<select id="noticeList" parameterType="hashMap" resultType="AdminNoticeDTO">
 		<![CDATA[
 			SELECT n.*, u.USERID
 			 FROM NOTICE n 
@@ -11,8 +11,45 @@
               WHERE 1=1
                 AND UPPER(NOTICETITLE) LIKE UPPER('%' || #{noticeKeyword} || '%')
 				ORDER BY NOTICEDATE ${orderby}, NOTICENO ${orderby}
+				WHERE RNUM >= #{rowStart} AND RNUM <= #{rowEnd}
+		]]>
+	</select>	-->
+	
+	
+	<select id="noticeList" parameterType="HashMap" resultType="AdminNoticeDTO">
+		<![CDATA[
+			SELECT * FROM (
+    			SELECT ROWNUM AS RNUM, a.* FROM (
+                	SELECT n.*, u.USERID
+                             FROM NOTICE n 
+                              JOIN USERS u
+                              ON n.USERNO = u.USERNO
+                  )a
+                  WHERE 1=1
+                  AND UPPER(NOTICETITLE) LIKE UPPER('%' || #{noticeKeyword} || '%')
+                  ORDER BY NOTICENO ${orderby}
+            )b
+            WHERE RNUM >= #{rowStart} AND RNUM <= #{rowEnd}
 		]]>
 	</select>
+	
+	<select id="noticeTotalCount" parameterType="HashMap" resultType="int" >
+		<![CDATA[
+  			SELECT COUNT(*) AS totalCount
+  			 FROM (
+              	SELECT n.*, u.USERID
+                           FROM NOTICE n 
+                            JOIN USERS u
+                            ON n.USERNO = u.USERNO
+                )a
+                WHERE 1=1
+				 AND UPPER(a.NOTICETITLE) LIKE UPPER('%' || #{noticeKeyword} || '%')
+		]]>
+	</select>
+	
+		
+
+	
 	
 	<insert id="noticeInsert" parameterType="map">
 		INSERT INTO NOTICE(

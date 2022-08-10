@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.pictory.springapp.dto.AdminCriteriaDTO;
 import com.pictory.springapp.dto.AdminNoticeDTO;
 
 @Repository("adminnoticeDAO")
@@ -17,14 +18,33 @@ public class AdminNoticeDAO {
 	
 	@Autowired
 	private SqlSessionFactory sqlMapper;
+	
+	// 카운트
+	public int getNoticeTotalCount(HashMap<String, Object> params) throws Exception {
+		SqlSession session = sqlMapper.openSession();
+		try {
 			
-	public List<AdminNoticeDTO> noticeList(HashMap<String, Object> map) throws Exception {
+			int result = session.selectOne("noticeTotalCount", params);
+			
+			return result;
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			session.close();
+		}
+		
+		return 0;
+	}
+	
+	// 리스트
+	public List<AdminNoticeDTO> noticeList(HashMap<String, Object> params) throws Exception {
 		
 		SqlSession session = sqlMapper.openSession();
 		
 		try {
 			
-			List<AdminNoticeDTO> list = session.selectList("noticeList", map);
+			List<AdminNoticeDTO> list = session.selectList("noticeList", params);
 			return list;
 			
 		}catch(Exception e) {
@@ -37,6 +57,7 @@ public class AdminNoticeDAO {
 	}
 	
 	
+	// 저장
 	@Transactional
 	public boolean noticeInsert(List<HashMap<String, Object>> map) throws Exception {
 		SqlSession session = sqlMapper.openSession();
@@ -63,6 +84,7 @@ public class AdminNoticeDAO {
 			return false;
 	}
 	
+	// 업데이트
 	@Transactional
 	public boolean noticeUpdate(HashMap<String, Object> map) throws Exception {
 		 SqlSession session = sqlMapper.openSession();
@@ -84,6 +106,8 @@ public class AdminNoticeDAO {
 		 return false;
 	}
 	
+	
+	// 삭제
 	@Transactional
 	public boolean noticeDelete(int map) throws Exception {
 		

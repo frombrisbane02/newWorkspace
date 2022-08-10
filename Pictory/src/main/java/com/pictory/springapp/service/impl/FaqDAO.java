@@ -62,7 +62,8 @@ public class FaqDAO {
 		return false;
 		
 	}
-	
+
+
 	
 	
 }

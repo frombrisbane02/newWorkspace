@@ -1,36 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mybatis.mapper.adminqna">
-	 
-<!--  	 <select id="qnaList" parameterType="hashMap" resultType="AdminQnaDTO">
+	
+	
+	 <select id="qnaTotalCount" parameterType="HashMap" resultType="int">
 	 	<![CDATA[
-			SELECT q.*, u.USERID
-			 FROM QNA q 
-			  JOIN USERS u
-              ON q.USERNO = u.USERNO
-              WHERE 1=1
-                AND UPPER(QNATITLE) LIKE UPPER('%' || #{qnaKeyword} || '%')
-				ORDER BY LPAD(QNADATE, 10, 0) ${orderby}, QNANO ${orderby}
+	            SELECT COUNT(*) AS totalCount FROM (
+	                SELECT q.*, an.ANSWERTEXT, an.ANSWERDATE,u.USERID	 	  
+				 FROM QNA q
+				  JOIN USERS u
+	              ON q.USERNO = u.USERNO
+	              LEFT JOIN ANSWER an
+	              ON q.QNANO = an.QNANO
+	            ) a
+	            WHERE 1=1
+	             AND UPPER(a.QNATITLE) LIKE UPPER('%' || #{qnaKeyword} || '%')
+	             ${column}
 		]]>
-	 </select>	-->
-	 
-	 <select id="qnaList" parameterType="hashMap" resultType="AdminQnaDTO">
+	 </select>	
+	
+	
+	 <select id="qnaList" parameterType="HashMap" resultType="AdminQnaDTO">
 	 	<![CDATA[
-	 	  SELECT q.*, an.ANSWERTEXT, an.ANSWERDATE,u.USERID	 	  
-			 FROM QNA q 
-			  JOIN USERS u
-              ON q.USERNO = u.USERNO
-              LEFT JOIN ANSWER an
-              ON q.QNANO = an.QNANO
-              WHERE 1=1
-                AND UPPER(q.QNATITLE) LIKE UPPER('%' || #{qnaKeyword} || '%')
-				ORDER BY LPAD(q.QNADATE, 10, 0) ${orderby}, q.QNANO ${orderby}
+			 SELECT * FROM (
+	            SELECT ROWNUM AS RNUM, a.* FROM (
+	                SELECT q.*, an.ANSWERTEXT, an.ANSWERDATE,u.USERID	 	  
+				 FROM QNA q 
+				  JOIN USERS u
+	              ON q.USERNO = u.USERNO
+	              LEFT JOIN ANSWER an
+	              ON q.QNANO = an.QNANO
+	              ORDER BY q.QNANO ${orderby}
+	            ) a
+	            WHERE 1=1
+	             AND UPPER(a.QNATITLE) LIKE UPPER('%' || #{qnaKeyword} || '%')
+	             ${column}
+	        ) b
+	         WHERE RNUM >= #{rowStart} AND RNUM <= #{rowEnd}
+	         ORDER BY b.rnum ASC
 		]]>
 	 </select>
-	 
-
-	 
-	 
+ 
 	 <insert id="adminQnaAnswer" parameterType="map">
 	 	INSERT INTO ANSWER(
 	 			QNANO
@@ -48,5 +58,21 @@
 	 <delete id="qnaDelete" parameterType="int">
 	 	DELETE FROM QNA WHERE 1=1 AND QNANO = #{qnaNo}
 	 </delete>
+	 
+	 <delete id="answerDelete" parameterType="int">
+	 	DELETE FROM ANSWER WHERE 1=1 AND QNANO = #{qnaNo}
+	 </delete>
+	
+	 
+	 <select id="selectAnswer" parameterType="map" resultType="AdminQnaDTO">
+	 	SELECT * FROM ANSWER a, QNA q WHERE a.qnaNo=q.qnaNo AND q.qnaNo=#{qnaNo}
+	 </select>
+	 
+	 <insert id="alarmInsert" parameterType="AdminQnaDTO">
+	 	<selectKey keyProperty="alarmNo" resultType="int" order="BEFORE">
+			SELECT SEQ_ALARM.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO ALARM VALUES(SEQ_ALARM.CURRVAL,'qna',DEFAULT,DEFAULT,#{userNo},1,#{qnaTitle},#{answerText})
+	 </insert>
 	 
 </mapper>

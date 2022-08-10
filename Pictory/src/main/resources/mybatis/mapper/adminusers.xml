@@ -11,34 +11,143 @@
 	
 	<!-- 마이페이지 회원정보 불러오기 쿼리 -->
 	<select id="readUser" parameterType="String" resultType="AdminUsersDTO">
-		SELECT *
-		FROM USERS
-		WHERE USERID = #{userId}
+		SELECT u.*
+		FROM USERS u 
+		 JOIN AUTHORITIES au
+		  ON u.USERNO = au.USERNO
+		WHERE u.USERID = #{userId}
 	</select>
 
 	
-	<select id="userList" parameterType="AdminUsersDTO" resultType="AdminUsersDTO">
-		SELECT u.*, a.enabled FROM USERS u 
-    	 INNER JOIN AUTHORITIES a 
-          ON u.USERNO = a.USERNO
+<!--  	<select id="userList" parameterType="AdminUsersDTO" resultType="AdminUsersDTO">
+	<![CDATA[
+		    SELECT us2.* FROM (
+		        SELECT ROWNUM AS rnum
+		             , us.*
+		              FROM (
+		            SELECT    u.USERNO
+		                   ,  u.USERID
+		                   ,  u.USERPASSWORD
+		                   ,  u.USEREMAIL
+		                   ,  u.USERNAME
+		                   ,  u.USERNICKNAME
+		                   ,  u.USERFING
+		                   ,  u.USERFWER
+		                   ,  u.USERPROFILE
+		                   ,  u.USERSELF
+		                   , u.USERDATE
+		                   , a.enabled FROM USERS u 
+		             INNER JOIN AUTHORITIES a 
+		              ON u.USERNO = a.USERNO
+		        ) us
+		    )us2  
+		    WHERE 1=1 AND rnum >= 1 AND rnum <= 3
+    ]]>
+	</select>	-->
+	
+	<!-- 전체 카운트 -->
+	<select id="usersCount" parameterType="int" resultType="int" >
+		SELECT COUNT(*) AS totalCount
+		 FROM USERS u
+		  JOIN  AUTHORITIES a
+		   ON u.USERNO = a.USERNO
+	</select>
+	
+	<!-- 검색 카운트 -->
+	<select id="searchCount" parameterType="String" resultType="int">
+		<![CDATA[
+		SELECT COUNT(*) AS totalCount
+		 FROM USERS u
+		  JOIN  AUTHORITIES a
+		   ON u.USERNO = a.USERNO
+            WHERE
+          	UPPER(USERID) LIKE UPPER('%' || #{keyword} || '%')
+          	OR USERNAME LIKE '%'||#{keyword}||'%'
+          	OR USERNICKNAME LIKE '%'||#{keyword}||'%'
+		]]>
+	</select>
+	
+	<!-- WHERE 1=1 AND us.RNUM >= #{startPage} AND us.RNUM <= #{endPage} -->
+	
+<!--  	<select id="userList" parameterType="AdminUsersDTO" resultType="AdminUsersDTO">
+	<![CDATA[
+		 SELECT us.* FROM ( 
+            SELECT    ROW_NUMBER() OVER(ORDER BY u.USERNO ASC) AS RNUM 
+                   ,  u.USERNO
+                   ,  u.USERID
+                   ,  u.USERPASSWORD
+                   ,  u.USEREMAIL
+                   ,  u.USERNAME
+                   ,  u.USERNICKNAME
+                   ,  u.USERFING
+                   ,  u.USERFWER
+                   ,  u.USERPROFILE
+                   ,  u.USERSELF
+                   , u.USERDATE
+                   , a.enabled FROM USERS u 
+             INNER JOIN AUTHORITIES a 
+              ON u.USERNO = a.USERNO
+		    )us  
+		    WHERE 1=1 AND us.RNUM >= #{startPage} AND us.RNUM <= #{endPage}
+    ]]>
+	</select>	-->
+	
+	
+	<select id="userList" parameterType="HashMap" resultType="AdminUsersDTO">
+	<![CDATA[
+		 SELECT us.* FROM ( 
+            SELECT    ROW_NUMBER() OVER(ORDER BY u.USERNO ${orderby}) AS RNUM 
+                   ,  u.USERNO
+                   ,  u.USERID
+                   ,  u.USERPASSWORD
+                   ,  u.USEREMAIL
+                   ,  u.USERNAME
+                   ,  u.USERNICKNAME
+                   ,  u.USERFING
+                   ,  u.USERFWER
+                   ,  u.USERPROFILE
+                   ,  u.USERSELF
+                   , u.USERDATE
+                   , a.enabled FROM USERS u
+             INNER JOIN AUTHORITIES a 
+              ON u.USERNO = a.USERNO
+				WHERE
+				 UPPER(USERID) LIKE UPPER('%' || #{keyword} || '%')
+				 OR USERNAME LIKE '%'||#{keyword}||'%'
+				 OR USERNICKNAME LIKE '%'||#{keyword}||'%'
+				 ORDER BY u.USERNO ${orderby}
+		    )us  
+		    WHERE 1=1 AND us.RNUM >= #{rowStart} AND us.RNUM <= #{rowEnd}
+    ]]>
 	</select>
 			
-	<update id="updateEnabled" parameterType="AdminUsersDTO">
-		UPDATE AUTHORITIES 
+	<update id="updateEnabled" parameterType="HashMap">
+		UPDATE AUTHORITIES
 		 SET ENABLED = #{enabled}
 		  WHERE
 		    USERNO = #{userNo}
 	</update>
 	
-	<select id="searchList" parameterType="AdminUsersDTO" resultType="AdminUsersDTO">
-		SELECT u.*, a.enabled FROM USERS u 
-    	 INNER JOIN AUTHORITIES a 
-          ON u.USERNO = a.USERNO
-          WHERE
-          	UPPER(USERID) LIKE UPPER('%' || #{userId} || '%')
-          	OR USERNAME LIKE '%'||#{userName}||'%'
-          	OR USERNICKNAME LIKE '%'||#{userNickname}||'%' 
+	<select id="searchList" parameterType="HashMap" resultType="AdminUsersDTO">
+		<![CDATA[
+			SELECT us.* FROM (
+			    SELECT ROW_NUMBER() OVER(ORDER BY u.USERNO ${orderby}) AS rnum
+				        , u.*
+				        , a.enabled FROM USERS u 
+				    	 INNER JOIN AUTHORITIES a 
+				          ON u.USERNO = a.USERNO
+				          WHERE
+				          	UPPER(USERID) LIKE UPPER('%' || #{keyword} || '%')
+				          	OR USERNAME LIKE '%'||#{keyword}||'%'
+				          	OR USERNICKNAME LIKE '%'||#{keyword}||'%'
+				          	ORDER BY u.USERNO ${orderby}
+					) us
+				WHERE 1=1 
+				 AND us.RNUM >= #{rowStart} AND us.RNUM <= #{rowEnd}
+    	]]>
 	</select>
+	
+	
 	<select id="userChart" parameterType="map" resultType="AdminUsersDTO">
 	<![CDATA[ 
 	 SELECT
@@ -48,7 +157,7 @@
         JOIN AUTHORITIES a
          ON u.USERNO = a.USERNO
 	 WHERE
-	     USERDATE >= #{startDate} AND USERDATE < LAST_DAY(TO_DATE(#{endDate}, 'YYYYMMDD')) 
+	     USERDATE >= #{startDate} AND USERDATE < LAST_DAY(TO_DATE(#{endDate}, 'YYYYMMDD')+1) 
 	 GROUP BY
 	    TO_CHAR(USERDATE, 'YYYYMMDD')
 	]]>

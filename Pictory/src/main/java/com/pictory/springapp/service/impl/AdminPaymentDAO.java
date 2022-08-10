@@ -9,6 +9,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.pictory.springapp.dto.AdminCriteriaDTO;
 import com.pictory.springapp.dto.AdminPaymentDTO;
 import com.pictory.springapp.dto.PageDTO;
 
@@ -17,15 +18,30 @@ public class AdminPaymentDAO {
 	
 	@Autowired
 	private SqlSessionFactory sqlMapper;
+
+	// 최근 거래내역 총 갯수
+	public int paymentTotalCount() throws Exception {
+		SqlSession session = sqlMapper.openSession();
+		try {
+			
+			int result = session.selectOne("paymentTotalCount");
+			return result;
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+			return 0;
+	}
 	
-	
-	public List<AdminPaymentDTO> paymentList(HashMap<String, Object> params) throws Exception {
+	// 최근거래내역 전체 LIST
+	public List<AdminPaymentDTO> paymentList(AdminCriteriaDTO cri) throws Exception {
 		
 		SqlSession session = sqlMapper.openSession();
 		
 		try {
 			
-			List<AdminPaymentDTO> list = session.selectList("paymentList", params);
+			List<AdminPaymentDTO> list = session.selectList("paymentList", cri);
 			
 			return list;
 			
@@ -39,9 +55,64 @@ public class AdminPaymentDAO {
 	}
 	
 	
+	// 검색 카운트
+	public int paymentSearchCount(HashMap<String, Object> params) throws Exception {
+		SqlSession session = sqlMapper.openSession();
+		int result = 0;
+		try {
+			
+			// 구매자
+			if("CONSUMER".equals(params.get("choiceValue"))) {
+				params.put("column", "a.consumer");
+				
+			// 판매자
+			}else if("SELLER".equals(params.get("choiceValue"))) {
+				params.put("column", "a.seller");
+				
+			// 주문번호
+			}else if("ORDER".equals(params.get("choiceValue"))) {
+				params.put("column", "a.PAYMENTNO");
+				
+			// 상품번호
+			}else if("PRODUCT".equals(params.get("choiceValue"))) {
+				params.put("column", "a.PDNO");
+			}
+			
+			result = session.selectOne("paymentSearchCount", params);
+			
+			return result;
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			session.close();
+		}
+			
+		return 0;
+	}
+	
+	
+	// 최근 거래내역 검색 리스트
 	public List<AdminPaymentDTO> paymentSearch(HashMap<String, Object> params) throws Exception {
 		SqlSession session = sqlMapper.openSession();
 		try {
+			
+			// 구매자
+			if("CONSUMER".equals(params.get("choiceValue"))) {
+				params.put("column", "a.consumer");
+				
+			// 판매자
+			}else if("SELLER".equals(params.get("choiceValue"))) {
+				params.put("column", "a.seller");
+				
+			// 주문번호
+			}else if("ORDER".equals(params.get("choiceValue"))) {
+				params.put("column", "a.PAYMENTNO");
+				
+			// 상품번호
+			}else if("PRODUCT".equals(params.get("choiceValue"))) {
+				params.put("column", "a.PDNO");
+			}
 			
 			List<AdminPaymentDTO> list = session.selectList("paymentSearch", params);
 			
@@ -79,26 +150,5 @@ public class AdminPaymentDAO {
 		}
 		
 		return null;
-	}
-	
-	
-	
-	public int totalCount() throws Exception {
-		
-		SqlSession session = sqlMapper.openSession();
-		
-		try {
-			
-			int count = session.selectOne("totalCount");
-			
-			return count;
-			
-		}catch(Exception e) {
-			e.printStackTrace();
-		}finally {
-			session.close();
-		}
-		
-		return 0;
 	}
 }

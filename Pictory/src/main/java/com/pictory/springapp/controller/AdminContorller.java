@@ -1,10 +1,9 @@
 package com.pictory.springapp.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,12 +15,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.pictory.springapp.dto.AdminCriteriaDTO;
 import com.pictory.springapp.dto.AdminDTO;
 import com.pictory.springapp.dto.AdminGalleryDTO;
 import com.pictory.springapp.dto.AdminGalleryService;
 import com.pictory.springapp.dto.AdminMainService;
 import com.pictory.springapp.dto.AdminNoticeDTO;
 import com.pictory.springapp.dto.AdminNoticeService;
+import com.pictory.springapp.dto.AdminPageMarkerDTO;
 import com.pictory.springapp.dto.AdminPaymentDTO;
 import com.pictory.springapp.dto.AdminPaymentService;
 import com.pictory.springapp.dto.AdminQnaDTO;
@@ -53,20 +54,38 @@ public class AdminContorller {
 	private AdminPaymentService paymentService;
 	
 	
+	
 	@RequestMapping("/Index.do")
-	public String adminMain(HttpSession session, Model model) throws Exception {
-		String userId = (String) session.getAttribute("userId");
-		System.out.println("userId : " + userId);
-		// 유저정보 조회 
-		AdminUsersDTO adminUsersDTO = usersService.readMember(userId);
-		
-		System.out.println("adminUsersDTO : " + adminUsersDTO);
-		model.addAttribute("adminUsersDTO", adminUsersDTO);
-		
+	public String adminMain() throws Exception {
 		return "admin/Index";
 	}
 	
 	
+	// 로그인시 로그인한 회원 정보
+	@ResponseBody
+	@RequestMapping(value="/LoginUserInfo.do", method = {RequestMethod.POST}, produces="text/plain;charset=UTF-8" )
+	public String AdminLoginInfo(@RequestParam("userId") String userId) throws Exception {
+		ObjectMapper obj = new ObjectMapper();
+		String jsonStr = "";
+		
+		try {
+			
+			List<AdminUsersDTO> result = usersService.readMember(userId);
+			
+			jsonStr = obj.writeValueAsString(result);
+			
+			return jsonStr;
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+			return null;
+	}
+	
+
+	
+
 	@ResponseBody
 	@RequestMapping(value="/salesofweek.do", method = {RequestMethod.POST}, produces="text/plain;charset=UTF-8")
 	public String adminSalesOfWeek(@RequestBody List<HashMap<String, Object>> params) throws Exception {
@@ -75,9 +94,7 @@ public class AdminContorller {
 		try {
 		
 			List<AdminDTO> list = mainService.adminSalesOfWeek(params);
-				
-			System.out.println("LIST : " + list);
-		
+
 			jsonStr = obj.writeValueAsString(list);
 		
 			return jsonStr;
@@ -96,7 +113,7 @@ public class AdminContorller {
 		String jsonStr = "";
 		
 		try {
-	
+
 			List<AdminPaymentDTO> list = mainService.adminPaymentChart(params);
 			jsonStr = obj.writeValueAsString(list);
 			return jsonStr;
@@ -136,7 +153,7 @@ public class AdminContorller {
 		try {
 			
 			List<AdminGalleryDTO> list = mainService.adminGalleryChart(params);
-			jsonStr = obj.writeValueAsString(list);
+			jsonStr = obj.writeValueAsString(list);			
 			return jsonStr;
 			
 		}catch (Exception e) {
@@ -213,43 +230,107 @@ public class AdminContorller {
 	public String anysisIndex() {		
 		return "admin/analysis/Index";
 	}
+
+	// 회원 리스트 및 정보
+	
+//	@RequestParam("type") String type,  @RequestParam("userNo") int userNo, @RequestParam("enabled") int enabled, @RequestParam("userId") String userId, @RequestParam("page") int page, @RequestParam("ppp") int ppp
 	
 	@ResponseBody
 	@RequestMapping(value="/userData.do", method = { RequestMethod.POST }, produces="text/plain;charset=UTF-8")
-	public String mainData(@RequestParam("userNo") int userNo, @RequestParam("enabled") int enabled, @RequestParam("userId") String userId) throws Exception {
-			
+	public String mainData(AdminCriteriaDTO cri, @RequestBody List<HashMap<String, Object>>  params ) throws Exception {
+		List<String> listArr = new ArrayList<String>();
+		AdminPageMarkerDTO pageMaker = new AdminPageMarkerDTO();
 		ObjectMapper obj = new ObjectMapper();
-		String jsonStr = "";
+		String jsonStr1 = "";
+		String jsonStr2 = "";
 		
 		try {
-			if(userNo == 0 && enabled == 0 && userId == "" ) {
-				List<AdminUsersDTO> users = usersService.getUserList();
-				jsonStr = obj.writeValueAsString(users);
-				return jsonStr;
+		
+			String type = (String) params.get(0).get("type");
+			
+			// 전체
+			if( "ALL".equals(type) ) {
 				
-			} else if(userId != "") {
+				int page = (Integer) params.get(0).get("page");
+				int ppp = (Integer) params.get(0).get("ppp");
 				
-				String userName = userId;
-				String userNickname = userId;
+				cri.setPage(page);
+				cri.setPerPageNum(ppp);
 				
-				AdminUsersDTO s = new AdminUsersDTO();
-				s.setUserId(userId);
-				s.setUserName(userName);
-				s.setUserNickname(userNickname);
 				
-				List<AdminUsersDTO> sUser = usersService.searchList(s);
-				jsonStr = obj.writeValueAsString(sUser);
-				return jsonStr;
+				params.get(0).put("rowStart", cri.getRowStart());
+				params.get(0).put("rowEnd", cri.getRowEnd());
 				
-			}else if(userNo != 0 && enabled != 0){
-				AdminUsersDTO params = new AdminUsersDTO();
-				params.setUserNo(userNo);
-				params.setEnabled(enabled);
-				usersService.updateEnabled(params);
-				List<AdminUsersDTO> users1 = usersService.getUserList();
-				jsonStr = obj.writeValueAsString(users1);				
-				return jsonStr;
+				List<AdminUsersDTO> users = usersService.getUserList(params.get(0));
+				pageMaker.setCri(cri);
+				pageMaker.setTotalCount(usersService.getUsersCount());
+				jsonStr1 = obj.writeValueAsString(users);
+				jsonStr2 = obj.writeValueAsString(pageMaker);
+			
+				listArr.add(jsonStr1);
+				listArr.add(jsonStr2);
+				String reList = listArr.toString();
+				
+				return reList;
+				
 			}
+			
+			// 검색
+			if("SEARCH".equals(type)) {
+				
+				int page = (Integer) params.get(0).get("page");
+				int ppp = (Integer) params.get(0).get("ppp");
+				
+				cri.setPage(page);
+				cri.setPerPageNum(ppp);
+				
+				params.get(0).put("rowStart", cri.getRowStart());
+				params.get(0).put("rowEnd", cri.getRowEnd());
+
+				pageMaker.setCri(cri);
+				pageMaker.setTotalCount(usersService.getSearchUsersCount(params.get(0)));
+				List<AdminUsersDTO> sUser = usersService.searchList(params.get(0));
+				
+				jsonStr1 = obj.writeValueAsString(sUser);
+				jsonStr2 = obj.writeValueAsString(pageMaker);
+			
+				listArr.add(jsonStr1);
+				listArr.add(jsonStr2);
+				String reList = listArr.toString();
+				
+				return reList;
+				
+			}
+			
+			// 업데이트
+			if("UPDATE".equals(type)){
+
+				usersService.updateEnabled(params.get(0));
+			
+				int page = (Integer) params.get(0).get("page");
+				int ppp = (Integer) params.get(0).get("ppp");
+				
+				cri.setPage(page);
+				cri.setPerPageNum(ppp);	
+				
+				params.get(0).put("rowStart", cri.getRowStart());
+				params.get(0).put("rowEnd", cri.getRowEnd());
+
+				pageMaker.setCri(cri);
+				pageMaker.setTotalCount(usersService.getSearchUsersCount(params.get(0)));
+				
+				List<AdminUsersDTO> users1 = usersService.getUserList(params.get(0));
+			
+				jsonStr1 = obj.writeValueAsString(users1);
+				jsonStr2 = obj.writeValueAsString(pageMaker);
+			
+				listArr.add(jsonStr1);
+				listArr.add(jsonStr2);
+				String reList = listArr.toString();
+				
+				return reList;
+			}
+
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -303,30 +384,49 @@ public class AdminContorller {
 	
 	@RequestMapping("/manager/Index")
 	public String managerIndex(PageDTO pageDTO, Model model) throws Exception {
-		int totalCount = paymentService.totalCount();
-		String keyword = pageDTO.getKeyword();
-		int pageNum = pageDTO.getPageNum();
-		pageDTO = new PageDTO(pageNum, totalCount, keyword);
-		
-		model.addAttribute("pageDTO", pageDTO);
+//		int totalCount = paymentService.totalCount();
+//		String keyword = pageDTO.getKeyword();
+//		int pageNum = pageDTO.getPageNum();
+//		pageDTO = new PageDTO(pageNum, totalCount, keyword);		
+//		model.addAttribute("pageDTO", pageDTO);
 		
 		
 		return "admin/manager/Index";
 	}
 	
+	// 수익 및 정산 => 최근 거래내역 LIST
 	@ResponseBody
 	@RequestMapping(value="/paymentList.do", method = {RequestMethod.POST}, produces="text/plain;charset=UTF-8")
-	public String paymentList(@RequestBody HashMap<String, Object> params) throws Exception {
+	public String paymentList(AdminCriteriaDTO cri,@RequestBody List<HashMap<String, Object>>  params) throws Exception {
 		
-		System.out.println("params : " + params);
-		
+		List<String> listArr = new ArrayList<String>();
+		AdminPageMarkerDTO pageMaker = new AdminPageMarkerDTO();
 		ObjectMapper obj = new ObjectMapper();
-		String jsonStr = "";
+		String jsonStr1 = "";
+		String jsonStr2 = "";
 		try {
 			
-			List<AdminPaymentDTO> list = paymentService.paymentList(params);
-			jsonStr = obj.writeValueAsString(list);			
-			return jsonStr;
+			
+			int page = (Integer) params.get(0).get("page");
+			int ppp = (Integer) params.get(0).get("ppp");
+			
+			cri.setPage(page);
+			cri.setPerPageNum(ppp);
+			
+			List<AdminPaymentDTO> list = paymentService.paymentList(cri);
+		
+			pageMaker.setCri(cri);
+			pageMaker.setTotalCount(paymentService.paymentTotalCount());
+
+			jsonStr1 = obj.writeValueAsString(list);
+			jsonStr2 = obj.writeValueAsString(pageMaker);
+
+			listArr.add(jsonStr1);
+			listArr.add(jsonStr2);
+		
+			String relist = listArr.toString();
+			
+			return relist;
 			
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -336,28 +436,60 @@ public class AdminContorller {
 	}
 	
 	
+	// 최근구매 / 판매 목록 검색
 	@ResponseBody
 	@RequestMapping(value="/paymentSearch.do", method = {RequestMethod.POST}, produces="text/plain;charset=UTF-8")
-	public String paymentSearch(@RequestBody HashMap<String, Object> params) throws Exception {
+	public String paymentSearch(AdminCriteriaDTO cri, @RequestBody List<HashMap<String, Object>> params) throws Exception {
+		
+		List<String> listArr = new ArrayList<String>();
+		AdminPageMarkerDTO pageMaker = new AdminPageMarkerDTO();
+		ObjectMapper obj = new ObjectMapper();
+		String jsonStr1 = "";
+		String jsonStr2 = "";
+	
 		try {
 			
-			System.out.println("params : " + params);
+			int page = (Integer) params.get(0).get("page");
+			int ppp = (Integer) params.get(0).get("ppp");
 			
-			ObjectMapper obj = new ObjectMapper();
-			String jsonStr = "";
+			cri.setPage(page);
+			cri.setPerPageNum(ppp);
 			
-			List<AdminPaymentDTO> list = paymentService.paymentSearch(params);
-			jsonStr = obj.writeValueAsString(list);
+			params.get(0).put("rowStart", cri.getRowStart());
+			params.get(0).put("rowEnd", cri.getRowEnd());
 			
-			return jsonStr;
+			
+			if("ALL".equals(params.get(0).get("choiceValue"))) {
+				List<AdminPaymentDTO> list = paymentService.paymentList(cri);
+				pageMaker.setCri(cri);
+				pageMaker.setTotalCount(paymentService.paymentTotalCount());
+				
+				jsonStr1 = obj.writeValueAsString(list);
+				jsonStr2 = obj.writeValueAsString(pageMaker);
+				
+			} else {
+				List<AdminPaymentDTO> list = paymentService.paymentSearch(params.get(0));
+				pageMaker.setCri(cri);
+				pageMaker.setTotalCount(paymentService.paymentSearchCount(params.get(0)));
+				
+				jsonStr1 = obj.writeValueAsString(list);
+				jsonStr2 = obj.writeValueAsString(pageMaker);
+			}
+
+			listArr.add(jsonStr1);
+			listArr.add(jsonStr2);
+			String relist = listArr.toString();
+			
+			return relist;
 			
 		}catch(Exception e){
 			e.printStackTrace();
 		}
 		
-		return null;
+		 return null;
 	}
 	
+	// 매출 차트
 	@ResponseBody
 	@RequestMapping(value="/paymentChart.do", method = {RequestMethod.POST}, produces="text/plain;charset=UTF-8")
 	public String paymentChart(@RequestBody List<HashMap<String, Object>>   params) throws Exception {
@@ -386,17 +518,44 @@ public class AdminContorller {
 		return "admin/notice/Index";
 	}
 	
+	
+	// 공지 사항 조회
 	@ResponseBody
 	@RequestMapping(value="/noticeList.do", method = {RequestMethod.POST}, produces="text/plain;charset=UTF-8")
-	public String noticeList(@RequestBody HashMap<String, Object> map) throws Exception {
+	public String noticeList(AdminCriteriaDTO cri, @RequestBody List<HashMap<String, Object>> params) throws Exception {
+		List<String> listArr = new ArrayList<String>();
+		AdminPageMarkerDTO pageMaker = new AdminPageMarkerDTO();
 		ObjectMapper obj = new ObjectMapper();
-		String jsonStr = "";
+		String jsonStr1 = "";
+		String jsonStr2 = "";
 		try {
 			
-			List<AdminNoticeDTO> list = noticeService.getNoticeList(map);			
-			jsonStr = obj.writeValueAsString(list);
+			int page = (Integer) params.get(0).get("page");
+			int ppp = (Integer) params.get(0).get("ppp");
 			
-			return jsonStr;
+			cri.setPage(page);
+			cri.setPerPageNum(ppp);
+			
+			params.get(0).put("rowStart", cri.getRowStart());
+			params.get(0).put("rowEnd", cri.getRowEnd());
+			
+			List<AdminNoticeDTO> list = noticeService.getNoticeList(params.get(0));
+			
+			int countResult = noticeService.getNoticeTotalCount(params.get(0));
+			
+			pageMaker.setCri(cri);
+			pageMaker.setTotalCount(countResult);
+			
+			
+			jsonStr1 = obj.writeValueAsString(list);
+			jsonStr2 = obj.writeValueAsString(pageMaker);
+
+			listArr.add(jsonStr1);
+			listArr.add(jsonStr2);
+			String relist = listArr.toString();
+			
+			return relist;
+
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -450,14 +609,40 @@ public class AdminContorller {
 //============================== Q&A====================================================================
 	@ResponseBody
 	@RequestMapping(value="/qnaList.do", method = {RequestMethod.POST}, produces="text/plain;charset=UTF-8")
-	public String qnaList(@RequestBody HashMap<String, Object> map) throws Exception {
+	public String qnaList(AdminCriteriaDTO cri, @RequestBody List<HashMap<String, Object>> params) throws Exception {
+		List<String> listArr = new ArrayList<String>();
+		AdminPageMarkerDTO pageMaker = new AdminPageMarkerDTO();
 		ObjectMapper obj = new ObjectMapper();
-		String jsonStr = "";
+		String jsonStr1 = "";
+		String jsonStr2 = "";
 		
 		try {
-			List<AdminQnaDTO> list = qnaService.qnaList(map);
-			jsonStr = obj.writeValueAsString(list);
-			return jsonStr;
+			
+			int page = (Integer) params.get(0).get("page");
+			int ppp = (Integer) params.get(0).get("ppp");
+			
+			cri.setPage(page);
+			cri.setPerPageNum(ppp);
+			
+			params.get(0).put("rowStart", cri.getRowStart());
+			params.get(0).put("rowEnd", cri.getRowEnd());
+			
+			List<AdminQnaDTO> list = qnaService.qnaList(params.get(0));
+			
+			int countResult = qnaService.qnaTotalCount(params.get(0));
+			
+			pageMaker.setCri(cri);
+			pageMaker.setTotalCount(countResult);
+			
+			
+			jsonStr1 = obj.writeValueAsString(list);
+			jsonStr2 = obj.writeValueAsString(pageMaker);
+
+			listArr.add(jsonStr1);
+			listArr.add(jsonStr2);
+			String relist = listArr.toString();
+			
+			return relist;
 			
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -473,6 +658,16 @@ public class AdminContorller {
 			
 		boolean result = qnaService.qnaAnswer(params);
 		
+		//알람 테이블 인서트
+		//Map map = params.get(2);
+		for(HashMap<String, Object> oneParam : params) {
+			System.out.println("oneParam찍어보기@@@"+oneParam);
+			Map map = new HashMap();
+			map.put("qnaNo", oneParam.get("qnaNo"));
+			qnaService.alarmInsert(map);
+		}
+		
+		System.out.println("PARAMS@@@@@@@@@"+params);
 		System.out.println("CONTROLLER CHECK : " + result);
 		
 		

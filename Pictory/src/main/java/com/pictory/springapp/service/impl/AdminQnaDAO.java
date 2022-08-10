@@ -1,6 +1,5 @@
 package com.pictory.springapp.service.impl;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,13 +18,60 @@ public class AdminQnaDAO {
 	@Autowired
 	private SqlSessionFactory sqlMapper;
 	
-	public List<AdminQnaDTO> qnaList(HashMap<String, Object> map) throws Exception {
+	
+	// 총 갯수
+	public int qnaTotalCount(HashMap<String, Object> params) throws Exception{
+		SqlSession session = sqlMapper.openSession();
+		try {
+			
+			if("ANSWER".equals(params.get("answerChk"))) {		
+				
+				params.put("column", "AND NOT a.ANSWERTEXT IS NULL");
+				
+			}else if("NOTANSWER".equals(params.get("answerChk"))) {
+				
+				params.put("column", "AND a.ANSWERTEXT IS NULL");
+				
+			}else {
+				
+				params.put("column", "");
+			}
+			
+			int result = session.selectOne("qnaTotalCount", params);
+			return result;
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			session.close();
+		}
+		
+		return 0;
+	}
+	
+	
+	// 리스트 조회
+	public List<AdminQnaDTO> qnaList(HashMap<String, Object> params) throws Exception {
 		
 		SqlSession session = sqlMapper.openSession();
 		
 		try {
 			
-			List<AdminQnaDTO> list = session.selectList("qnaList", map);
+			if("ANSWER".equals(params.get("answerChk"))) {
+				
+				params.put("column", "AND NOT a.ANSWERTEXT IS NULL");
+				
+			} else if("NOTANSWER".equals(params.get("answerChk"))) {
+				
+				params.put("column", "AND a.ANSWERTEXT IS NULL");
+				
+			} else {
+				
+				params.put("column", "");
+			}
+			
+			List<AdminQnaDTO> list = session.selectList("qnaList", params);
+
 			return list;
 			
 		}catch(Exception e) {
@@ -96,9 +142,10 @@ public class AdminQnaDAO {
 		
 		try{
 			
-			int check = session.delete("qnaDelete", qnaNo);
+			int check1 = session.delete("qnaDelete", qnaNo);
+			int check2 = session.delete("answerDelete", qnaNo);
 			
-			if(check == 1) {
+			if(check1 == 1 && check2 == 1) {
 				result = true;
 			}
 			
@@ -112,5 +159,21 @@ public class AdminQnaDAO {
 		
 		return false;
 	}
+
+	public AdminQnaDTO selectAnswer(Map map) {
+		SqlSession session = sqlMapper.openSession();
+		
+		return session.selectOne("selectAnswer", map);
+		
+		
+	}
+
+	public void alarmInsert(AdminQnaDTO oneAnswer) {
+		SqlSession session = sqlMapper.openSession();
+		session.insert("alarmInsert", oneAnswer);
+	}
+
+
+	
 	
 }

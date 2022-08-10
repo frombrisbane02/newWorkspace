@@ -6,6 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class AdminNoticeDTO {
+	private int rnum;
 	private int noticeNo;
 	private int userNo;
 	private int noticeCode;

@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.pictory.springapp.dto.AdminCriteriaDTO;
 import com.pictory.springapp.dto.AdminNoticeDTO;
 import com.pictory.springapp.dto.AdminNoticeService;
 
@@ -15,12 +16,33 @@ public class AdminNoticeServiceImpl implements AdminNoticeService {
 	@Autowired
 	private AdminNoticeDAO noticeDAO;
 	
+	// 전체 카운트
 	@Override
-	public List<AdminNoticeDTO> getNoticeList(HashMap<String, Object> map) throws Exception {
+	public int getNoticeTotalCount(HashMap<String, Object> params) throws Exception {
+		try {
+			
+			int result = noticeDAO.getNoticeTotalCount(params);
+			return result;
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+
+	// 검색 카운트
+//	@Override
+//	public int getNoticeSearchTotalCount(HashMap<String, Object> params) throws Exception {
+//		// TODO Auto-generated method stub
+//		return 0;
+//	}
+	
+	// 전체 검색
+	@Override
+	public List<AdminNoticeDTO> getNoticeList(HashMap<String, Object> params) throws Exception {
 		
 		try {
 			
-			return noticeDAO.noticeList(map);
+			return noticeDAO.noticeList(params);
 			
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -73,5 +95,4 @@ public class AdminNoticeServiceImpl implements AdminNoticeService {
 		
 		return false;
 	}
-
 }

@@ -3,9 +3,17 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
-<mapper namespace="mybatis.mapper.adminpayment">	
+<mapper namespace="mybatis.mapper.adminpayment">
 
-		<select id="paymentList" parameterType="map" resultType="AdminPaymentDTO">
+		<select id="paymentTotalCount" parameterType="int" resultType="int">
+			SELECT COUNT(*) AS totalCount FROM PAYMENT p 
+			    JOIN PDORDER d
+			      ON p.PAYMENTNO = d.PAYMENTNO
+			    JOIN PRODUCT r
+			      ON d.PDNO = r.PDNO
+		</select>
+
+		<select id="paymentList" parameterType="com.pictory.springapp.dto.AdminCriteriaDTO" resultType="AdminPaymentDTO">
 			<![CDATA[ 
 				  SELECT *
 					FROM
@@ -18,7 +26,9 @@
 					                   ps.USERID AS seller
 					                   , us.USERID AS consumer
 					                   , ps.PDNO
+					                   , ps.POSTTITLE
 					                   , ps.PHOTONAME
+					                   , ps.PHOTOURL
 					                   , ps.PAYMENTNO
 					                   , ps.payno
 					                   , ps.pno
@@ -28,6 +38,8 @@
 					                           , ups.USERID
 					                           , sp.POSTNO
 					                           , pd.PDNO
+					                           , sp.POSTTITLE
+					                           , ph.PHOTOURL
 					                           , ph.PHOTONAME
 					                           , pay.PAYMENTNO
 					                           , pay.USERNO AS payno
@@ -50,24 +62,26 @@
 					                    ORDER BY ps.PAYMENTDATE DESC
 					    ) a
 					)
-					WHERE RNUM >= #{start} AND RNUM <= #{end}
-						AND ( 	UPPER(seller) LIKE UPPER('%' || #{keyword} || '%') 
-								OR UPPER(consumer) LIKE UPPER('%'|| #{keyword} ||'%')
-							)
+					WHERE RNUM >= #{rowStart} AND RNUM <= #{rowEnd}
 			]]>
 		</select>
 		
 		
-		<select id="paymentSearch" parameterType="AdminPaymentDTO" resultType="AdminPaymentDTO">
-		  SELECT ps.USERID AS seller
+		<!-- AND ( 	UPPER(seller) LIKE UPPER('%' || #{keyword} || '%') 
+								OR UPPER(consumer) LIKE UPPER('%'|| #{keyword} ||'%')
+							) -->
+		
+		
+		<!--  	  SELECT ps.USERID AS seller
 		  	   , py.USERID AS consumer
 		  	   , py.PAYMENTNO
 		  	   , ps.PDNO
+		  	   , ps.POSTTITLE
 		  	   , ps.PHOTONAME
 		  	   , py.PAYMENTTOTAL
 		  	   , py.PAYMENTDATE
             FROM
-            (SELECT ups.USERNO AS pno, ups.USERID, sp.POSTNO, pd.PDNO, ph.PHOTONAME
+            (SELECT ups.USERNO AS pno, ups.USERID, sp.POSTNO, pd.PDNO, sp.POSTTITLE, ph.PHOTONAME
                    FROM POST sp
                     JOIN USERS ups
                      ON sp.USERNO = ups.USERNO
@@ -78,14 +92,115 @@
                     JOIN PDORDER pdo
                      ON pd.PDNO = pdo.PDNO
                     JOIN PAYMENT pay
-                     ON pdo.PAYMENTNO = pay.PAYMENTNO and rownum=1
+                     ON pdo.PAYMENTNO = pay.PAYMENTNO
                 ) ps, ( SELECT sur.USERNO AS surno, sur.USERID, spy.PAYMENTNO, spy.PAYMENTTOTAL, spy.PAYMENTDATE
                     FROM PAYMENT spy
                       JOIN USERS sur
-                   ON spy.USERNO = sur.USERNO and rownum=1) py
+                   ON spy.USERNO = sur.USERNO ) py
                    WHERE 1=1
-					AND UPPER(ps.USERID) LIKE UPPER('%' || #{keyword} || '%') 
-					OR UPPER(py.USERID) LIKE UPPER('%'||#{keyword}||'%')
+					AND UPPER(ps.USERID) LIKE UPPER('%' ||  || '%') 
+					OR UPPER(py.USERID) LIKE UPPER('%'||#{keyword}||'%')	-->
+		
+		<select id="paymentSearchCount" parameterType="HashMap" resultType="int">
+			    SELECT COUNT(*) AS totalCount
+					FROM
+					(
+					     SELECT     
+					                     ps.USERID AS seller
+					                   , us.USERID AS consumer
+					                   , ps.PDNO
+					                   , ps.POSTTITLE
+					                   , ps.PHOTONAME
+					                   , ps.PHOTOURL
+					                   , ps.PAYMENTNO
+					                   , ps.payno
+					                   , ps.pno
+					                   , ps.PAYMENTTOTAL
+					                   , ps.PAYMENTDATE
+					                FROM (SELECT ups.USERNO AS pno
+					                           , ups.USERID
+					                           , sp.POSTNO
+					                           , pd.PDNO
+					                           , sp.POSTTITLE
+					                           , ph.PHOTOURL
+					                           , ph.PHOTONAME
+					                           , pay.PAYMENTNO
+					                           , pay.USERNO AS payno
+					                           , pay.PAYMENTTOTAL
+					                           , pay.PAYMENTDATE
+					                       FROM POST sp
+					                        JOIN USERS ups
+					                         ON sp.USERNO = ups.USERNO
+					                        JOIN PHOTO  ph
+					                         ON sp.POSTNO = ph.POSTNO
+					                        JOIN PRODUCT pd
+					                         ON  ph.PHOTONO = pd.PHOTONO
+					                        JOIN PDORDER pdo
+					                         ON pd.PDNO = pdo.PDNO
+					                        JOIN PAYMENT pay
+					                         ON pdo.PAYMENTNO = pay.PAYMENTNO
+					                    ) ps 
+					                     JOIN USERS us
+					                      ON us.USERNO = ps.payno
+					                    ORDER BY ps.PAYMENTDATE DESC
+									)a
+                        	WHERE 1=1
+                     		  AND UPPER(${column}) = UPPER(#{keyword})
+		</select>
+		
+		<select id="paymentSearch" parameterType="HashMap" resultType="AdminPaymentDTO">
+			<![CDATA[	
+				SELECT b.*
+					FROM
+					(
+					    SELECT ROWNUM AS RNUM
+                              , a.*
+					    FROM
+					    ( 
+					     SELECT     
+					                     ps.USERID AS seller
+					                   , us.USERID AS consumer
+					                   , ps.PDNO
+					                   , ps.POSTTITLE
+					                   , ps.PHOTONAME
+					                   , ps.PHOTOURL
+					                   , ps.PAYMENTNO
+					                   , ps.payno
+					                   , ps.pno
+					                   , ps.PAYMENTTOTAL
+					                   , ps.PAYMENTDATE
+					                FROM (SELECT ups.USERNO AS pno
+					                           , ups.USERID
+					                           , sp.POSTNO
+					                           , pd.PDNO
+					                           , sp.POSTTITLE
+					                           , ph.PHOTOURL
+					                           , ph.PHOTONAME
+					                           , pay.PAYMENTNO
+					                           , pay.USERNO AS payno
+					                           , pay.PAYMENTTOTAL
+					                           , pay.PAYMENTDATE
+					                       FROM POST sp
+					                        JOIN USERS ups
+					                         ON sp.USERNO = ups.USERNO
+					                        JOIN PHOTO  ph
+					                         ON sp.POSTNO = ph.POSTNO
+					                        JOIN PRODUCT pd
+					                         ON  ph.PHOTONO = pd.PHOTONO
+					                        JOIN PDORDER pdo
+					                         ON pd.PDNO = pdo.PDNO
+					                        JOIN PAYMENT pay
+					                         ON pdo.PAYMENTNO = pay.PAYMENTNO
+					                    ) ps
+                                        JOIN USERS us
+					                      ON us.USERNO = ps.payno
+                                        ORDER BY ps.PAYMENTDATE DESC
+					    ) a
+						 WHERE 1=1
+                          AND UPPER(${column}) = UPPER(#{keyword})
+					)b
+					WHERE RNUM >= #{rowStart} AND RNUM <= #{rowEnd}
+				]]>
 		</select>
 		
 		<select id="paymentChart" parameterType="map" resultType="AdminPaymentDTO">
@@ -96,16 +211,9 @@
 				  , SUM(PAYMENTTOTAL) AS paymentTotal
  			 FROM PAYMENT
  			  WHERE
-	     	   PAYMENTDATE >= #{startDate} AND PAYMENTDATE < LAST_DAY(TO_DATE(#{endDate}, 'YYYYMMDD')) 
+	     	   PAYMENTDATE >= #{startDate} AND PAYMENTDATE < LAST_DAY(TO_DATE(#{endDate}, 'YYYYMMDD')+1) 
 	 		GROUP BY
 	    	 TO_CHAR(PAYMENTDATE, 'YYYYMMDD'), PAYMENTTOTAL
 	      ]]>
 		</select>	
-		
-		<select id="totalCount"  resultType="int">
-			SELECT COUNT(*)
-			FROM PAYMENT
-		</select>
-	
-
 </mapper>

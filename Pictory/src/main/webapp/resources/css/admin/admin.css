@@ -1,5 +1,5 @@
 :root {
-  --primary: #009CFF;
+  --primary: #6e65d5;
   --light: #F3F6F9;
   --dark: #191C24;
 }
@@ -35,7 +35,7 @@
 }
 
 button {
-background: #009CFF;
+background: #6e65d5;
 color: #FFFFFF;
 border: 0px;
 height: 30px;
@@ -296,7 +296,7 @@ width: 97%;
 
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:300,400|Inconsolata);
 :root {
---primary: #660099;
+--primary: #6e65d5;
 --light: #F3F6F9;
 --dark: #191C24;
 }
@@ -497,7 +497,7 @@ border-color: var(--primary);
 ul#tabs-list {
 list-style: none;
 text-align: left;
-border-bottom: 1px solid #009CFF;
+border-bottom: 1px solid #6e65d5;
 margin: 0;
 
 }
@@ -517,7 +517,7 @@ transition-duration: 200ms;
 }
 label.panel-label:hover {
 color: #FFFFFF;
-background-color: #009CFF;
+background-color: #6e65d5;
 }
 
 #panels {
@@ -688,7 +688,7 @@ padding: 48px 24px;
   transform: translate3d(0, 1px, 0);
   box-shadow: none;
   border-right: none;
-  background-color: #009CFF;
+  background-color: #6e65d5;
 }
 #panel-1-ctrl:checked ~ #tabs-list #li-for-panel-1.last {
   border-right: 1px solid transparent;
@@ -707,7 +707,7 @@ padding: 48px 24px;
   transform: translate3d(0, 1px, 0);
   box-shadow: none;
   border-right: none;
-  background-color: #009CFF;
+  background-color: #6e65d5;
 }
 #panel-2-ctrl:checked ~ #tabs-list #li-for-panel-2.last {
   border-right: 1px solid transparent;
@@ -726,7 +726,7 @@ padding: 48px 24px;
   transform: translate3d(0, 1px, 0);
   box-shadow: none;
   border-right: none;
-  background-color: #009CFF;
+  background-color: #6e65d5;
 }
 #panel-3-ctrl:checked ~ #tabs-list #li-for-panel-3.last {
   border-right: 1px solid transparent;
@@ -745,7 +745,7 @@ padding: 48px 24px;
   transform: translate3d(0, 1px, 0);
   box-shadow: none;
   border-right: none;
-  background-color: #009CFF;
+  background-color: #6e65d5;
 }
 #panel-4-ctrl:checked ~ #tabs-list #li-for-panel-4.last {
   border-right: 1px solid transparent;
@@ -942,7 +942,7 @@ transition: border 0.1s;
 
 .sec_cal .cal_nav .go-prev:hover::before,
 .sec_cal .cal_nav .go-next:hover::before {
-border-color: #009CFF;
+border-color: #6e65d5;
 }
 
 .sec_cal .cal_nav .go-prev::before {

@@ -30,7 +30,7 @@
 	        WHERE 1=1
 	          AND PAYMENTDATE >= TO_DATE(#{startDate}, 'YYYYMMDD') AND PAYMENTDATE < TO_DATE(#{endDate}, 'YYYYMMDD')+1
 	   ) c
-	, ( SELECT SUM(PAYMENTTOTAL) * 0.1 AS payTotal 
+	, ( SELECT SUM(PAYMENTTOTAL) AS payTotal 
 		  FROM USERS u4
 	       JOIN AUTHORITIES s4
 	        ON u4.USERNO = s4.USERNO 
@@ -39,15 +39,15 @@
 	    ) d
     ]]>
 	</select>
-	
-	
-	
+
 	<select id="mainPaymentList" parameterType="AdminPaymentDTO" resultType="AdminPaymentDTO">
 		<![CDATA[
-			SELECT ps.USERID AS seller
-		  	   , us.USERID AS consumer
+		  SELECT ps.USERID AS seller
+		  	   , ps.USERID AS consumer
 		  	   , ps.PDNO
+		  	   , ps.POSTTITLE
 		  	   , ps.PHOTONAME
+		  	   , ps.PHOTOURL
                , ps.PAYMENTNO
                , ps.payno
                , ps.pno
@@ -57,7 +57,9 @@
             		   , ups.USERID
             		   , sp.POSTNO
             		   , pd.PDNO
+            		   , sp.POSTTITLE
             		   , ph.PHOTONAME
+            		   , ph.PHOTOURL
             		   , pay.PAYMENTNO
             		   , pay.USERNO AS payno
             		   , pay.PAYMENTTOTAL
@@ -75,57 +77,10 @@
                      ON pdo.PAYMENTNO = pay.PAYMENTNO
                      ORDER BY pay.PAYMENTDATE DESC
                 ) ps 
-                 JOIN USERS us
-                  ON us.USERNO = ps.payno
                    WHERE 1=1
-                     AND ROWNUM <= 5
-                
-                
-                
-		  
+                     AND ROWNUM >= 1 AND ROWNUM <=5
                ]]>
 	</select>
-	
-		
-<!--  	<select id="mainPaymentList" parameterType="AdminPaymentDTO" resultType="AdminPaymentDTO">
-		<![CDATA[
-		    SELECT ps.USERID AS seller
-		  	   , py.USERID AS consumer
-		  	   , py.PAYMENTNO
-		  	   , ps.PDNO
-		  	   , ps.PHOTONAME
-		  	   , py.PAYMENTTOTAL
-		  	   , py.PAYMENTDATE
-            FROM
-            (SELECT ups.USERNO AS pno, ups.USERID, sp.POSTNO, pd.PDNO, ph.PHOTONAME
-                   FROM POST sp
-                    JOIN USERS ups
-                     ON sp.USERNO = ups.USERNO
-                    JOIN PHOTO  ph
-                     ON sp.POSTNO = ph.POSTNO
-                    JOIN PRODUCT pd
-                     ON  ph.PHOTONO = pd.PHOTONO
-                    JOIN PDORDER pdo
-                     ON pd.PDNO = pdo.PDNO
-                    JOIN PAYMENT pay
-                     ON pdo.PAYMENTNO = pay.PAYMENTNO
-                     WHERE 1=1
-                     AND ROWNUM <= 5
-                     ORDER BY LPAD(pay.PAYMENTDATE, 10, 0) DESC
-                     
-                ) ps, ( SELECT sur.USERNO AS surno, sur.USERID, spy.PAYMENTNO, spy.PAYMENTTOTAL, spy.PAYMENTDATE
-                    FROM PAYMENT spy
-                      JOIN USERS sur
-                   ON spy.USERNO = sur.USERNO
-                   WHERE 1=1
-                   AND ROWNUM <= 5
-                    ORDER BY LPAD(spy.PAYMENTDATE, 10, 0) DESC
-                   ) py
-                   WHERE 1=1
-                   AND ROWNUM <= 5
-                   ORDER BY LPAD(py.PAYMENTDATE, 10, 0) DESC
-               ]]>
-	</select>	-->
 	
 	<select id="mainNoticeList" parameterType="AdminNoticeDTO" resultType="AdminNoticeDTO">
 		<![CDATA[
@@ -139,19 +94,7 @@
 				
 		]]>
 	</select>
-	
-<!--  	<select id="mainQnaList" parameterType="AdminQnaDTO" resultType="AdminQnaDTO">
-	  		<![CDATA[
-			SELECT q.*, u.USERID
-			 FROM QNA q 
-			  JOIN USERS u
-              ON q.USERNO = u.USERNO
-              WHERE 1=1
-              	AND ROWNUM <= 5
-				ORDER BY LPAD(QNADATE, 10, 0) DESC
-		]]>
-	</select>	-->
-	
+		
 	<select id="mainQnaList" parameterType="AdminQnaDTO" resultType="AdminQnaDTO">
 	  		<![CDATA[
 	    SELECT  a.*
@@ -159,10 +102,20 @@
 					  ROWNUM RNUM
 					, b.*   
 				 FROM (
-						SELECT q.*, u.USERID
+						SELECT
+						
+						  q.QNANO
+						, q.USERNO
+						, q.QNATITLE
+						, q.QNACONTENT
+						, q.QNADATE
+						, an.ANSWERTEXT
+						, u.USERID
                          FROM QNA q 
                           JOIN USERS u
                            ON q.USERNO = u.USERNO
+                          LEFT JOIN ANSWER an
+                           ON q.QNANO = an.QNANO
                           WHERE 1=1
 						   ORDER BY q.QNADATE DESC ) b
         ) a
@@ -198,47 +151,7 @@
 			    TO_CHAR(USERDATE, 'YYYYMMDD')
 		]]>
 	</select>
-	
-<!--  	<select id="mainGalleryChart" parameterType="map" resultType="AdminGalleryDTO">
-		<![CDATA[ 
-			 SELECT
-		        TO_CHAR(POSTDATE, 'YYYYMMDD') AS dateDay
-		    ,   COUNT(h.photono) AS photo
-		    ,   COUNT(s.sno) AS story
-		    FROM POST p
-		    LEFT JOIN PHOTO h
-		        ON p.POSTNO = h.POSTNO
-		    LEFT JOIN STORY s
-		        ON p.SNO = s.SNO
-			WHERE
-			     POSTDATE >= TO_DATE(#{startDate}) AND POSTDATE < TO_DATE(#{endDate})+1
-			GROUP BY
-			    TO_CHAR(POSTDATE, 'YYYYMMDD')
-	   ]]>
-	</select>	-->
-	
-	
-<!--  	<select id="mainGalleryChart" parameterType="map" resultType="AdminGalleryDTO">
-	<![CDATA[ 
-	  SELECT TO_CHAR(POSTDATE, 'YYYYMMDD') AS dateDay
-		  ,  COUNT(o.PHOTONO) AS photo
-		  ,  s.cnt AS story
-	    FROM POST p
-	    JOIN PHOTO o
-	        ON p.POSTNO = o.POSTNO
-	    , (SELECT COUNT(*) AS cnt 
-	        FROM STORY r 
-	         JOIN POST t 
-	          ON r.SNO = t.SNO 
-	          WHERE 1=1
-	          AND t.POSTDATE >= TO_DATE(#{startDate}, 'YYYYMMDD') AND t.POSTDATE < TO_DATE(#{endDate}, 'YYYYMMDD')+1
-	          GROUP BY TO_DATE(t.POSTDATE), 'YYYYMMDD') s
-	    WHERE 1=1
-	     AND p.POSTDATE >= TO_DATE(#{startDate}, 'YYYYMMDD') AND p.POSTDATE < TO_DATE(#{endDate}, 'YYYYMMDD')+1
-	    GROUP BY TO_CHAR(POSTDATE, 'YYYYMMDD'), s.cnt
-	   ]]>
-	</select>	-->
-	
+		
 	<select id="mainGalleryChart" parameterType="map" resultType="AdminGalleryDTO">
 	<![CDATA[
 	SELECT p.photo , s.story  FROM (
