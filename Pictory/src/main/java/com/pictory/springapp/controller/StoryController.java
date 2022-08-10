@@ -48,20 +48,20 @@ public class StoryController {
       
       //System.out.println("returnValue: "+returnValue.toString());
       
-      for(StoryDTO storyOne : returnValue) {
+//      for(StoryDTO storyOne : returnValue) {
 //         System.out.println("storyone에 담긴 sNo: "+ storyOne.getSNo());
 //         System.out.println("storyone에 담긴 title: "+ storyOne.getStoryTitle());
 //         System.out.println("storyone에 담긴 desc: "+ storyOne.getStoryDescription());
 //         System.out.println("storyone에 담긴 Thumb: "+ storyOne.getStoryThumbnail());
 //         System.out.println("storyone에 담긴 UserId: "+ storyOne.getUserId());
 //         System.out.println("storyone에 담긴 Nick: "+ storyOne.getUserNickname());
-          storyOne.getSNo();
-          storyOne.getStoryTitle();
-          storyOne.getStoryDescription();
-          storyOne.getStoryThumbnail();
-          storyOne.getUserId();
-          storyOne.getUserNickname();
-      }
+//          storyOne.getSNo();
+//          storyOne.getStoryTitle();
+//          storyOne.getStoryDescription();
+//          storyOne.getStoryThumbnail();
+//          storyOne.getUserId();
+//          storyOne.getUserNickname();
+//      }
       model.addAttribute("returnValue", returnValue);
       return "story/StoryIndex.tiles";
    }
@@ -115,7 +115,7 @@ public class StoryController {
    }//
    
    
-   /*==============썜이 주신 코드
+   /*==============zh==코드
    @CrossOrigin
    @RequestMapping(value="virtualrest.do",produces = "application/json;charset=UTF-8")
    public @ResponseBody String virtualrest() throws JsonProcessingException {

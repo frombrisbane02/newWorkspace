@@ -34,13 +34,15 @@
 			</div>
 			<!-- sort area 삭제함 -->
 		</div>
-		<ul class="fil_sel_list">
+		<ul class="fil_sel_list" id="cartegoryList">
 		<!-- 여기 선택한 필터 리스트 목록 갖고와서 foreach로 뿌리면서 엑스<도 기능하고, 엑스 눌렀을때 체크 해제되게 기능구현  -->
 			<spen id='view_content_order'>
 			<li>
 				<a href=""><img src="<c:url value="/resources/img/story/test_icon16.png"/>" alt=""></a>
 				<p>Clean all</p>
 			</li>
+
+			
 			</spen>
 
 		</ul>
@@ -275,8 +277,20 @@
                     				$('#resultList').empty();
  						console.log("result:",result);
                     				var html ='';
+                    				
+                    				for(var i=0 ; i<checkArray.length ; i++){
+                    				cartegory= $('<li>'+
+             								'<a href="">'+'<img src="<c:url value="/resources/img/story/test_icon16.png"/>" alt="">'+'</a>'+
+             								'<p>'+checkArray[i]+'</p>'+
+             							'</li>')
+             						
+             							$('#cartegoryList').append(cartegory);
+                    				};
+                    				
+                    				
              						result.forEach(function(item, index){
              							console.log('item:',item)
+             							
              							
              							html = $('<li class="photo_area">' +
              		 							'<a href="<c:url value="/gallery/GalleryView.do?postNo='+item.postNo+'"/>" class="photo_link">'	+
@@ -314,11 +328,13 @@
              		 								'</div>'+
              		 							'</li>');
              		 							
+             							
+             									
              		 							$('#resultList').append(html);	
              		 						
              		 							});
                     			
-                    	
+             						
                          
                     },
                     error       :   function(request, status, error){

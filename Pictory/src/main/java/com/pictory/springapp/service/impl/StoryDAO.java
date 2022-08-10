@@ -13,9 +13,6 @@ import com.pictory.springapp.dto.StoryDTO;
 
 @Repository("storyDAO")
 public class StoryDAO<T> {
-
-   @Autowired
-   private SqlSessionFactory sqlMapper;
    
    @Autowired
    private SqlSessionTemplate template;
