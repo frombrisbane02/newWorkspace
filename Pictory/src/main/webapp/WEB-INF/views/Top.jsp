@@ -141,7 +141,7 @@
                                     style="width:30px; height:30px" />
                             <div class="dropdown-content">
                                <a href="<c:url value="/mypage/Index.do"/>" id="nava">My PICTORY</a>
-                               <a href="#" id="nava">Message</a>
+                               <a href="<c:url value="/message/DmList.do"/>" id="nava">Message</a>
                             </div>
                         </li>
                         

@@ -33,6 +33,8 @@ public  class FeedServiceImpl implements FeedService<FeedDTO> {
 		catch(Exception e) {
 			e.printStackTrace();
 		}
+		if(!(dto.getUserProfile().contains("k.kakaocdn.net")))
+		return dto;
 		return dto;
 	}
 

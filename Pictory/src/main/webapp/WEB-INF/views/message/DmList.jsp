@@ -1,43 +1,34 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<jsp:include page="/WEB-INF/views/Top.jsp"/>
+	
+	<link rel="shortcut icon" type="image/x-icon" href="img/favicon.png">
+	
+	<link rel="stylesheet" href="<c:url value="/resources/css/feed/common.css"/>"/>
+	<link rel="stylesheet" href="<c:url value="/resources/css/feed/page2.css"/> "/>
+	<link rel="stylesheet" href="<c:url value="/resources/css/feed/dm.css"/> "/>
+	
 
+    <script src="${pageContext.request.contextPath}/resources/js/feed/html5shiv.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/feed/modernizr.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+   
 
 <!DOCTYPE html>
 <html>
-<head >
- <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
+<head>
 <meta charset="UTF-8">
-<title>Want 사진자랑하기</title>
+<title>Insert title here</title>
 
-
-
-
-
-<!-- CSS File -->
-<link rel="stylesheet" href="<c:url value="/resources/css/feed/message_list.css"/>"/>
-
-
-<!-- 메세지 전송 아이콘(종이비행기) 때문에 필요 -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" type="text/css" rel="stylesheet"/>
 
 </head>
-
 <body>
-
-	<!-- 메뉴바 
-       현재페이지 뭔지 param.thisPage에 넣어서 navbar.jsp에  던짐 -->
-	<jsp:include page="../Top.jsp">
-		<jsp:param value="message" name="thisPage" />
-	</jsp:include>
-
-	<br />
-	<br />
-	<br /> 
-	<br /> 
-	<br /> 
-	
-	<div class="msg-container">
+<br/>
+<br/>
+<br/>
+<br/>
+<div class="msg-container">
 	
 		<div class="messaging">
 	      <div class="inbox_msg">
@@ -84,7 +75,7 @@
 	// 가장 처음 메세지 리스트를 가져온다.
 	const FirstMessageList = function(){
 		$.ajax({
-			url:"message_ajax_list.do",
+			url:"DmAjaxList.do",
 			method:"get",
 			data:{
 			},
@@ -97,13 +88,14 @@
 				$('.chat_list').on('click', function(){
 					//alert('room : '+ $(this).attr('room'));
 					
-					let room = $(this).attr('room');
-					let other_nick = $(this).attr('other-nick');
+					let dmRoom = $(this).attr('dmRoom');
+					
+					let otherNick = $(this).attr('otherNick');
 					
 					// 선택한 메세지빼고 나머지는 active 효과 해제하기
-					$('.chat_list_box').not('.chat_list_box.chat_list_box'+room).removeClass('active_chat');
+					$('.chat_list_box').not('.chat_list_box.chat_list_box'+dmRoom).removeClass('active_chat');
 					// 선택한 메세지만 active 효과 주기
-					$('.chat_list_box'+room).addClass('active_chat');
+					$('.chat_list_box'+dmRoom).addClass('active_chat');
 					
 					let send_msg = "";
 					send_msg += "<div class='type_msg'>";
@@ -124,27 +116,26 @@
 					$('.msg_send_btn').on('click',function(){
 						
 						// 메세지 전송 함수 호출
-						SendMessage(room, other_nick);
+						SendMessage(dmRoom, otherNick);
 						
-						// 전송버튼을 누르면 메세지 리스트가 리로드 되면서 현재 열린 메세지의 선택됨 표시가 사라진다.
-						// 이걸 해결하기 위해 메세지 전송버튼을 누르고 메세지 리스트가 리로드되면 메세지 리스트의 첫번째 메세지(현재 열린 메세지)가 선택됨 표시 되도록 한다.
-						//$('.chat_list_box:first').addClass('active_chat');
+						
 					});
 					
 					
 					// 메세지 내용을 불러오는 함수 호출
-					MessageContentList(room);
+					DmContentList(dmRoom);
 					
 				});
 				
 			}
+		
 		})
 	};
 	
 	// 메세지 리스트를 다시 가져온다.
 	const MessageList = function(){
 		$.ajax({
-			url:"message_ajax_list.do",
+			url:"DmAjaxList.do",
 			method:"get",
 			data:{
 			},
@@ -157,13 +148,14 @@
 				$('.chat_list').on('click', function(){
 					//alert('room : '+ $(this).attr('room'));
 					
-					let room = $(this).attr('room');
-					let other_nick = $(this).attr('other-nick');
+					let dmRoom = $(this).attr('dmRoom');
 					
+					let otherNick = $(this).attr('otherNick');
+					alert(otherNick);
 					// 선택한 메세지빼고 나머지는 active 효과 해제하기
-					$('.chat_list_box').not('.chat_list_box.chat_list_box'+room).removeClass('active_chat');
+					$('.chat_list_box').not('.chat_list_box.chat_list_box'+dmRoom).removeClass('active_chat');
 					// 선택한 메세지만 active 효과 주기
-					$('.chat_list_box'+room).addClass('active_chat');
+					$('.chat_list_box'+dmRoom).addClass('active_chat');
 					
 					let send_msg = "";
 					send_msg += "<div class='type_msg'>";
@@ -184,7 +176,7 @@
 					$('.msg_send_btn').on('click',function(){
 						
 						// 메세지 전송 함수 호출
-						SendMessage(room, other_nick);
+						SendMessage(dmRoom, otherNick);
 						
 						// 전송버튼을 누르면 메세지 리스트가 리로드 되면서 현재 열린 메세지의 선택됨 표시가 사라진다.
 						// 이걸 해결하기 위해 메세지 전송버튼을 누르고 메세지 리스트가 리로드되면 메세지 리스트의 첫번째 메세지(현재 열린 메세지)가 선택됨 표시 되도록 한다.
@@ -192,7 +184,7 @@
 					});
 					
 					// 메세지 내용을 불러오는 함수 호출
-					MessageContentList(room);
+					DmContentList(dmRoom);
 					
 				});
 				
@@ -206,13 +198,13 @@
 	
 	// 메세지 내용을 가져온다.
 	// 읽지 않은 메세지들을 읽음으로 바꾼다.
-	const MessageContentList = function(room) {
+	const DmContentList = function(dmRoom) {
 		
 		$.ajax({
-			url:"message_content_list.do",
+			url:"DmContentList.do",
 			method:"GET",
 			data:{
-				room : room,
+				dmRoom : dmRoom
 			},
 			success:function(data){
 				console.log("메세지 내용 가져오기 성공");
@@ -229,38 +221,38 @@
 			}
 		})
 		
-		$('.unread'+room).empty();
+		$('.unread'+dmRoom).empty();
 	
 	};
 	
 	
 	// 메세지를 전송하는 함수
-	const SendMessage = function(room, other_nick){
+	const SendMessage = function(dmRoom, otherNick){
 		
-		let content = $('.write_msg').val();
+		let dmContent = $('.write_msg').val();
 		//alert("content: " + content);
 		
-		content = content.trim();
+		dmContent = dmContent.trim();
 		
-		if(content == ""){
+		if(dmContent == ""){
 			alert("메세지를 입력하세요!");
 		}else{
 			$.ajax({
-				url:"message_send_inlist.do",
+				url:"DmSendList.do",
 				method:"GET",
 				data:{
-					room : room,
-					other_nick: other_nick,
-					content: content
+					dmRoom : dmRoom,
+					otherNick: otherNick,
+					dmContent: dmContent
 				},
 				success:function(data){
 					console.log("메세지 전송 성공");
-					
+					alert(dmRoom);
 					// 메세지 입력칸 비우기
 					$('.write_msg').val("");
 					
 					// 메세지 내용  리로드
-					MessageContentList(room);
+					DmContentList(dmRoom);
 					
 					// 메세지 리스트 리로드
 					MessageList();
@@ -278,10 +270,6 @@
 		// 메세지 리스트 리로드
 		FirstMessageList();
 	});
-	
-	
-	
-	
 	</script>
 </body>
 </html>

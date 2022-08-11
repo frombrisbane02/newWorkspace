@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="mybatis.mapper.dm">
+
+<!-- ========================= 메세지 ======================= -->
+
+<!-- 메세지 리스트 가져오기 -->
+<select id="messageList" parameterType="com.pictory.springapp.dto.DmDTO" resultType="DmDTO">
+	select dmNo, dmRoom, sendNick, readNick, to_char(sendTime, 'MM-DD HH-MM') sendTime, readTime, dmContent, readCheck
+    from DM
+    where dmNo in (select max(dmNo) from DM group by dmRoom) and (sendNick = #{userId} or readNick=#{userId})
+    order by dmNo DESC
+</select>
+
+<!-- 메세지 list에서 상대방 profile 가져오기 -->
+<select id="getOtherProfile" parameterType="com.pictory.springapp.dto.DmDTO" resultType="String">
+    select userProfile from users
+    <choose>
+        <when test="sendNick == userId">
+            where userId = #{readNick}
+        </when>
+        <otherwise>
+            where userId = #{sendNick}
+        </otherwise>
+    </choose>
+</select>
+
+<!-- 안읽은 메세지 갯수 가져오기 -->
+<select id="countUnread" parameterType="com.pictory.springapp.dto.DmDTO" resultType="Int">
+    select count(dmNo) from DM 
+    where readNick=#{userId} and readCheck=0 and dmRoom=#{dmRoom}
+</select>
+
+<!-- 메세지 내용 가져오기 -->
+<select id="roomContentList" parameterType="com.pictory.springapp.dto.DmDTO" resultType="DmDTO">
+    select d.dmNo, d.dmRoom, d.sendNick, d.readNick, to_char(d.sendTime, 'MM.DD HH:MM') sendTime, d.readTime, d.dmContent, d.readCheck, u.userProfile
+    from DM d left outer join users u
+    on d.sendNick = u.userId
+    <choose>
+        <when test="dmRoom != 0">
+            where dmRoom=#{dmRoom}
+        </when>
+        <otherwise>
+            where (readNick = #{readNick} and sendNick = #{userId}) or (sendNick = #{readNick} and readNick = #{userId})
+        </otherwise>
+    </choose>
+
+</select>
+
+<!-- 메세지 읽음 처리 -->
+<update id="messageReadChk" parameterType="com.pictory.springapp.dto.DmDTO" >
+    update DM set readCheck=1
+    <choose>
+        <when test="dmRoom != 0">
+            where dmRoom=#{dmRoom} and readCheck=0 and readNick=#{userId}
+        </when>
+        <otherwise>
+            where sendNick=#{readNick} and readCheck=0 and readNick=#{userId}
+        </otherwise>
+    </choose>
+
+</update>
+
+<!-- 메세지리스트에서 메세지 보내기 -->
+<insert id="dmSendList" parameterType="com.pictory.springapp.dto.DmDTO">
+    <choose>
+        <when test="dmRoom != 0">
+            insert into DM values(0, #{dmRoom}, #{sendNick}, #{readNick}, default, default, #{dmContent}, 0)
+        </when>
+        <otherwise>
+            insert into DM values(0, #{dmRoom}, #{sendNick}, #{readNick}, default, default, #{dmContent}, 0)
+        </otherwise>
+    </choose>
+</insert>
+
+<!-- room 번호 최댓값 구하기 -->
+<select id="maxRoom"  parameterType="com.pictory.springapp.dto.DmDTO" resultType="int">
+    select max(dmRoom) from DM
+</select>
+
+<!-- 메세지 이력이 있는지 검색 -->
+<select id="existChat" parameterType="com.pictory.springapp.dto.DmDTO" resultType="int">
+    select count(dmNo) from DM 
+    where (readNick = #{readNick} and sendNick=#{sendNick}) or (sendNick = #{readNick} and readNick=#{sendNick})
+</select>
+
+<!-- 기존 메세지 내역의 room 번호를 가져옴 -->
+<select id="selectRoom"  parameterType="com.pictory.springapp.dto.DmDTO" resultType="String">
+    select dmRoom from DM
+    where (readNick = #{readNick} and sendNick=#{sendNick}) or (sendNick = #{readNick} and readNick=#{sendNick})
+    
+</select>
+	
+	
+	
+</mapper>
