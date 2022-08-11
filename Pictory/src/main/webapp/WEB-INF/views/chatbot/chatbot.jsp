@@ -5,10 +5,9 @@
 <link rel="stylesheet" href="<c:url value="/resources/css/chatbot.css"/>">
 
 	<section>
-     <div class="container py-5 mt-5">
-      
+     <div class="container">
           <div class="row d-flex justify-content-center" style="width:100%">
-            <div class="col-md-8 col-lg-6 col-xl-4">
+            <div class="col-md-12 col-lg-8 col-xl-6">
       
               <div class="card" id="chat1" style="border-radius: 15px;">
                 <div
@@ -20,7 +19,7 @@
                 </div>
 
                 <div class="card-body">
-      			  <div class="chat-container" style="width:100%;margin:0px" >
+      			  <div class="chat-container" style="width:100%;margin:0px; " >
 	                  <div class="d-flex flex-row justify-content-start mb-4">
 	                    <img src="<c:url value="/resources/img/chatbot/chatbot.png"/>"
 	                      alt="avatar 1" style="width: 65px; height: 100%;">
@@ -60,8 +59,17 @@ $("#query").on('keypress',function(e) {
         $('#query').val('');
         //스크롤바 아래로
         $(".chat-container").scrollTop($(".chat-container")[0].scrollHeight);
+        $('.chat-container').focus();
         //메시지 전송
         sendMessage(query,"<%=session.getId()%>");
     }
 });
+
+$(document).ready(function() {
+	$('.topBtn').hide();
+	$('.bottomBtn').hide();
+	$('#chatbot').hide();
+	$('.content').hide();
+})
+
 </script>

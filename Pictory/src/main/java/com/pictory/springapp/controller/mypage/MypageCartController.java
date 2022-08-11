@@ -7,9 +7,11 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.pictory.springapp.Constants;
 import com.pictory.springapp.dto.MemberDTO;
@@ -57,16 +59,19 @@ public class MypageCartController {
 		return "mypage/MypageCart.tiles";
 	}
 	
+	@CrossOrigin
+	@ResponseBody
 	@RequestMapping(value = "CartPayment.do", method = {RequestMethod.POST}) 
 	public String cartPayment(HttpSession session, @RequestParam(value="pdNo") List<Integer> productList, @RequestParam(value="total") int total ) {
 		
+		System.out.println("카트페이먼트.DO");
 		String id = (String) session.getAttribute("userId");
 		MemberDTO member = memberService.readMember(id);
 		
 		
 		this.paymentService.payment(member.getUserNo(), productList, total);
 		
-		return "mypage/MypageCart.tiles"; 
+		return "{\"cart\":\"sucsses\"}";
 	}
 	
 	@RequestMapping(value = "Payment.do", method = {RequestMethod.POST}) 

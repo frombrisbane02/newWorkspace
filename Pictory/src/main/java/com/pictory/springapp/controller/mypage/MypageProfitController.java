@@ -54,6 +54,7 @@ public class MypageProfitController {
 	@RequestMapping(value = "InsertProfit.do", method = RequestMethod.POST)
 	public String insertProfit(HttpSession session, Model model, @RequestParam(value="adjAmount") Integer adjAmount, @RequestParam(value="bank") String bank) throws Exception {
 		String id = (String) session.getAttribute("userId");
+		System.out.println("InsertProfile들어왔다!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 		MemberDTO member = memberService.readMember(id);
 		List<SalesDTO> sales = paymentService.selectMySales(member.getUserNo());
 		int preparedTotal = sales.stream()

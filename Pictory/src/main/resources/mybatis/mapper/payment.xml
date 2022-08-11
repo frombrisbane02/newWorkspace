@@ -13,7 +13,6 @@
 		INSERT INTO PICTORY.PAYMENT
 		(PAYMENTNO, USERNO, PAYMENTDATE, PAYMENTTOTAL)
 		VALUES(#{paymentNo}, #{userNo}, #{paymentDate}, #{paymentTotal})
-
 	</insert>
 	
 	<insert id="insertOrder" parameterType="OrderDTO">

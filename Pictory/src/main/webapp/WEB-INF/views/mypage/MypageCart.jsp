@@ -6,8 +6,8 @@
 	<head>
 		<title>mycart</title>
 		<meta charset="utf-8">
-		<!--gallery css-->
-		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/common.css"/>">
+		<!--gallery css
+		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/common.css"/>">--->
 		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/mypage/gallerylist.css"/>">
 		<!--font library-->
 		<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
@@ -88,7 +88,7 @@
 		</div>				
 	</div>
 
-	<div class="container-fluid rounded mt-2 bg-white p-md-5">
+	<div class="container rounded mt-2 bg-white p-md-5">
 		<form action="<c:url value='/mypage/CartPayment.do'/>" method="post" id="paymentForm">
 		<div>
 			<h5>최종결제 금액: <strong>${total}</strong> 원</h5>
@@ -113,7 +113,7 @@
 				<tbody>
 				<c:forEach var="myCart" items="${myCartList}">
 					<tr class="bg-light border-bottom"> 
-						<input type="hidden" name="pdNo" value="${myCart.pdNo}"/>
+						<input type="hidden" name="pdNo" value="${myCart.pdNo}" id="pdNo"/>
 						<td class="pt-3"><h6>${myCart.postTitle}</h6></td>              
 						<td class="pt-3 ml-5" style="text-align:center">
 							<img src="${myCart.photoUrl}" style="width:250px;height:250px;padding-left:20px">		
@@ -136,11 +136,12 @@
  	function purchase(){
  		// console.log('클릭이벤트 발생');
 		let totalPrice= $('#total').val();
+		let pdNo= $('pdNo').val();
  		
  		 IMP.request_pay({ // param
  	          pg: "html5_inicis",
  	          pay_method: "card",
- 	          merchant_uid: "ORD20qwe31-334324seeee",
+ 	          merchant_uid: 'merchant_' + new Date().getTime(),
  	          name: "픽토리", // 홈페이지 이름
  	          amount: totalPrice, // 결제 금액
  	          buyer_email: "gildong@gmail.com", // 사용자 정보
@@ -148,20 +149,20 @@
  	          buyer_tel: "010-4242-4242",
  	          buyer_addr: "서울특별시 강남구 신사동",
  	          buyer_postcode: "01181"
+ 	       
  	      }, function (rsp) { // callback
  	         if (rsp.success) { // 결제 성공 시: 결제 승인 또는 가상계좌 발급에 성공한 경우
- 	        	 console.log(rsp)
+ 	        	 console.log("###tmp###:"+rsp);
  	            // jQuery로 HTTP 요청
- 	            jQuery.ajax({
- 	                url: "http://localhost:4040/mypage/Payment.do", // 예: https://www.myservice.com/payments/complete
+ 	            $.ajax({
+ 	                url: "<c:url value='/mypage/CartPayment.do'/>",
  	                method: "POST",
  	                headers: { "Content-Type": "application/json"},
  	                data: {
  	                    imp_uid: rsp.imp_uid,
- 	                    merchant_uid: rsp.merchant_uid
- 	                    // post -> pdNo 리스트를 서버로 넘겨서 결제 uid 와 매칭해야 됨
- 	                    //
- 	                   
+ 	                    merchant_uid: rsp.merchant_uid,
+ 	                    pdNo: pdNo,
+ 	                    total: totalPrice
  	                }
  	            }).done(function (data) {
  	              // 가맹점 서버 결제 API 성공시 로직
