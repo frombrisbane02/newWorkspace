@@ -51,7 +51,7 @@ public class AuthController {
 		
 		if(flag.equals("ADMIN")) {
 			model.addAttribute("userId",map.get("userId"));
-			return "forward:admin/Index.do";
+			return "admin/Index";
 		
 		}
 		
