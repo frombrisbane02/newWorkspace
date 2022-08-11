@@ -18,9 +18,6 @@ import com.pictory.springapp.dto.GalleryDTO;
 public class FeedArtworkDAO {
 	
 	@Autowired
-	private SqlSessionFactory sqlMapper;
-	
-	@Autowired
 	private SqlSessionTemplate template;
 
 	String resource = Constants.RESOURCE.toString();

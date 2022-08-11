@@ -26,17 +26,10 @@ public  class FeedStoryServiceImpl implements FeedStoryService<FeedDTO> {
 		return dao.virtualList();
 	}
 
-
-	// =====0728
 	@Override
 	public List<FeedDTO> virtualImages(int sNo) {
-		//System.out.println("서비스 virtualImages...오니?");
-		
-		List<FeedDTO> feedStoryImages = dao.virtualImages(sNo);
-		//System.out.println(storyImages);
-	
 
-		return feedStoryImages;
+		return dao.virtualImages(sNo);
 	}
 
 }

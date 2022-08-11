@@ -14,8 +14,6 @@ import com.pictory.springapp.dto.StoryDTO;
 @Repository("feedStoryDAO")
 public class FeedStoryDAO<T> {
 
-   @Autowired
-   private SqlSessionFactory sqlMapper;
    
    @Autowired
    private SqlSessionTemplate template;
@@ -31,13 +29,10 @@ public class FeedStoryDAO<T> {
 
    public List<FeedDTO> virtualImages(int sNo) {
 
-      //System.out.println("****(dao)virtualImages까지는...왔니");
       List<FeedDTO> storyresult = template.selectList("storyimages",sNo);
-      //System.out.println("(dao)storyresult"+storyresult.toString());
       storyresult.toString();
       
       return storyresult;
-      
    }//virtualImages
    
    

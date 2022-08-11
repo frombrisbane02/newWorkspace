@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -130,9 +129,11 @@
                             <div class="dropdown-content">
                                 <a href="<c:url value="/notice/Index.do"/>" id="nava">Notice</a>
                                 <a href="<c:url value="/faq/Index.do"/>" id="nava">FaQ</a>
-                                <% if(session.getAttribute("userId")=="ADMIN"){ %>
+                                
+                                
+                                <c:if test="${sessionScope.userId eq 'ADMIN'}">
                                 <a href="<c:url value="/admin/Index.do"/>" id="nava">Admin</a>
-                                <%}%>
+                                </c:if>
                             </div>
                         </li>
 

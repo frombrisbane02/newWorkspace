@@ -182,17 +182,17 @@
 		<selectKey keyProperty="alarmNo" resultType="int" order="BEFORE">
 			SELECT SEQ_ALARM.NEXTVAL FROM DUAL
 		</selectKey>
-		INSERT INTO ALARM VALUES(SEQ_ALARM.CURRVAL,'좋아요',DEFAULT,DEFAULT,(SELECT userNo FROM POST WHERE postNo=#{postNo}),(SELECT userNickName FROM USERS WHERE userId=#{userId}),(SELECT postTitle FROM POST WHERE postNo=#{postNo}),'좋아요')
+		INSERT INTO ALARM VALUES(SEQ_ALARM.CURRVAL,#{alarmType},DEFAULT,DEFAULT,(SELECT userNo FROM POST WHERE postNo=#{postNo}),(SELECT userNickname FROM USERS WHERE userId=#{userId}),(SELECT postTitle FROM POST WHERE postNo=#{postNo}),#{alarmType})
 	</insert>
 	<delete id="deleteLikeAlarm" parameterType="Map">
-		DELETE ALARM WHERE alarmtype='like' AND receiver IN (SELECT userNo FROM POST WHERE postNo=#{postNo}) AND eventuser IN (SELECT userNickName FROM USERS WHERE userId=#{userId});
+		DELETE ALARM WHERE alarmtype=#{alarmType} AND receiver IN (SELECT userNo FROM POST WHERE postNo=#{postNo}) AND eventuser IN (SELECT userNickname FROM USERS WHERE userId=#{userId})
 	</delete>
 	
 	<insert id="insertCommentAlarm" parameterType="Map">
 		<selectKey keyProperty="alarmNo" resultType="int" order="BEFORE">
 			SELECT SEQ_ALARM.NEXTVAL FROM DUAL
 		</selectKey>
-		INSERT INTO ALARM VALUES(SEQ_ALARM.CURRVAL,'댓글',DEFAULT,DEFAULT,(SELECT userNo FROM POST WHERE postNo=#{postNo}),(SELECT userNickName FROM USERS WHERE userId=#{userId}),(SELECT postTitle FROM POST WHERE postNo=#{postNo}),#{cText})
+		INSERT INTO ALARM VALUES(SEQ_ALARM.CURRVAL,'comment',DEFAULT,DEFAULT,(SELECT userNo FROM POST WHERE postNo=#{postNo}),(SELECT userNickName FROM USERS WHERE userId=#{userId}),(SELECT postTitle FROM POST WHERE postNo=#{postNo}),#{cText})
 	</insert>
 	
 	<select id="getAlarmpostNo" parameterType="String" resultType="int">
