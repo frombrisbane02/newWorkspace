@@ -34,7 +34,6 @@ public class SearchDAO {
 					oneResult.setPhotoUrl(resource+oneResult.getPhotoUrl());
 					oneResult.setUserProfile(resource+oneResult.getUserProfile());
 					
-					
 //					  switch(oneResult.getPostCategory()) { 
 //					  case "landscape":oneResult.setPostCategory("풍경"); break; 
 //					  case "object":oneResult.setPostCategory("정물"); break; 
@@ -56,6 +55,58 @@ public class SearchDAO {
 		//해시태그 가져오기
 		return template.selectList("hashlist");
 	}
+
+	
+
+	public int findCartinList(Map map) {
+		return template.selectOne("findCartinList",map);
+	}
+
+	public int findPdNo(Map map) {
+		return template.selectOne("findPdNo",map);
+	}
+
+	public void deleteCart(Map map) {
+		template.delete("deleteCart",map);
+	}
+
+	public void insertCart(Map map) {
+		template.insert("insertCart",map);		
+	}
+
+	//좋아요 체크
+	public int searchLike(Map<String, Object> map) {
+		int succ=0;
+		succ=template.selectOne("searchLike", map);
+		return succ;
+	}
+
+	public void deleteSearchLikeAlarm(Map<String, Object> map) {
+		template.delete("deleteSearchLikeAlarm",map);
+	}
+
+	//좋아요 해제
+	public void searchlikeDown(Map<String, Object> map) {
+		template.selectOne("searchlikeDown", map);
+		
+	}
+
+	public void searchlikeUp(Map<String, Object> map) {
+		template.selectOne("searchlikeUp", map);
+		
+	}
+
+	public void insertSearchLikeAlarm(Map<String, Object> map) {
+		template.insert("insertSearchLikeAlarm", map);
+	}
+
+	public Integer getsearchlikes(Map map) {
+		return template.selectOne("getsearchlikes", map);
+	}
+	
+
+
+
 	
 	//카테고리 검색
 //	public List<SearchDTO> categorySelect(String postCategory) {

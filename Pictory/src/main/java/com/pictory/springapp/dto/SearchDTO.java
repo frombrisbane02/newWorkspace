@@ -27,6 +27,15 @@ public class SearchDTO {
 		private int postLikes;
 		private Date postDate;
 		
+		
+		//글 총합 저장용
+		private int postCount;
+		
+		//좋아요 눌렀는지 0, 1 저장용
+		private int likeornot;
+		
+		//카트 담았는지 0,1 저장용
+		private int cartornot;
 
 		//TBL_STORY
 		private int sNo;
@@ -60,7 +69,7 @@ public class SearchDTO {
 		
 		
 		//TBL_COMMENT
-		private int commentCount;
+		private int commentCount; //count용
 		private int cNo;
 		private String cText;
 		private int cLevel;

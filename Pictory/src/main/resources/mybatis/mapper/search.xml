@@ -26,8 +26,7 @@
 <mapper namespace="mybatis.mapper.search">	
 	<!-- SearchDao에 searchInsert 추가-->
 	<!-- 통합검색 쿼리문 -->
-	<select id="searchSelect" parameterType="Map" resultType="searchDTO">
-					
+	<select id="searchSelect" parameterType="Map" resultType="searchDTO">					
 		SELECT * from 
 			(SELECT po.postno,
 			            po.postcategory,
@@ -37,6 +36,7 @@
 			            u.userprofile,
 			            u.userno,
 			            po.posthits,
+			            po.postsellornot,
 			            (SELECT COUNT(*) FROM likes lk WHERE lk.postno=po.postno) postlikes,
 			            (SELECT ph.photourl FROM photo ph WHERE ph.postno=po.postno AND ROWNUM = 1) photourl,
 			            (SELECT COUNT(*) FROM likes lk WHERE lk.userno=1 AND lk.postno=po.postno) likecnt,
@@ -51,10 +51,8 @@
 			         ON po.sno = s.sno) a
 			where  a.POSTTITLE LIKE '%'|| #{searchName} || '%' 
 			    OR a.POSTTEXT LIKE '%'|| #{searchName} || '%'  
-			    OR a.hashtag LIKE '%'|| #{searchName} || '%' 
-        
-
-		
+			    OR a.hashtag LIKE '%'|| #{searchName} || '%'
+        	ORDER BY POSTNO DESC
 	</select>
 	
 	<!-- 포스트 최신순 검색 쿼리문 -->
@@ -82,5 +80,37 @@
     	#{postCategory}
     	ORDER BY po.postdate DESC
 	</select>
+	
+	<!-- 검색페이지 좋아요 -->
+	<select id="searchLike" resultType="int" parameterType="Map">
+		SELECT count(*) FROM likes WHERE userNo = (SELECT userNo FROM users WHERE userId=#{userId}) AND postNo=#{postNo}
+	</select>
+	
+	<insert id="searchlikeUp">
+		INSERT INTO likes VALUES((SELECT userNo FROM users WHERE userId=#{userId}),#{postNo})
+	</insert>
+	<delete id="searchlikeDown" parameterType="Map">
+		DELETE FROM LIKES WHERE userNo=(SELECT userNo FROM users WHERE userId=#{userId}) AND postNo=#{postNo}
+	</delete>
+	
+	<select id="getsearchlikes" parameterType="Map" resultType="int">
+		SELECT COUNT(l.postNo) FROM LIKES l WHERE l.postno=#{postNo}
+	</select>
+	
+	<insert id="insertSearchLikeAlarm" parameterType="Map">
+		<selectKey keyProperty="alarmNo" resultType="int" order="BEFORE">
+			SELECT SEQ_ALARM.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO ALARM VALUES(SEQ_ALARM.CURRVAL,#{alarmType},DEFAULT,DEFAULT,(SELECT userNo FROM POST WHERE postNo=#{postNo}),(SELECT userNickname FROM USERS WHERE userId=#{userId}),(SELECT postTitle FROM POST WHERE postNo=#{postNo}),#{alarmType})
+	</insert>
+	
+	<delete id="deleteSearchLikeAlarm" parameterType="Map">
+		DELETE ALARM WHERE alarmtype=#{alarmType} AND receiver IN (SELECT userNo FROM POST WHERE postNo=#{postNo}) AND eventuser IN (SELECT userNickname FROM USERS WHERE userId=#{userId})
+	</delete>
+	
+	
+	
+	
+	
 	
 </mapper>
