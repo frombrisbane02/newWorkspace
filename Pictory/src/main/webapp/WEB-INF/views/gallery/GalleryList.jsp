@@ -12,8 +12,8 @@
  
 	<link rel="shortcut icon" type="image/x-icon" href="img/favicon.png">
 	<link rel="apple-touch-icon" href="img/favicon.png">
-	<link rel="stylesheet" type="text/css" href="http://localhost:4040/springapp/resources/css/galleryview/common.css">
-	<link rel="stylesheet" type="text/css" href="http://localhost:4040/springapp/resources/css/gallerylist/gallerylist.css">
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/galleryview/common.css">
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/gallerylist/gallerylist.css">
 
 	<script src="http://code.jquery.com/jquery-1.8.1.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/gallerylist/modernizr.js"></script>
@@ -263,22 +263,24 @@
                     				
              						result.forEach(function(item, index){
              							
+             							var localhost = 'http://localhost:4040';
+             							
              							
              							html = $('<li class="photo_area">' +
              		 							'<a href="<c:url value="/gallery/GalleryView.do?postNo='+item.postNo+'"/>" class="photo_link">'	+
-             		 									'<div class="img_area" style="background-image: url('+item.photoUrl+');">'+'<img src="http://localhost:4040/springapp/resources/img/gallerylist/fake02.png" alt="">'+'</div>'+
+             		 									'<div class="img_area" style="background-image: url('+item.photoUrl+');">'+'<img src="'+localhost+'/springapp/resources/img/gallerylist/fake02.png" alt="">'+'</div>'+
              		 									'<div class="txt_area">'+
              		 										'<p>'+'<img src="'+item.userProfile+'" alt="" class="pro_p">'+item.userNickname+'</p>'+
-             		 										'<p>'+'<img src="http://localhost:4040/springapp/resources/img/gallerylist/test_icon06.png" alt="" class="pro_icon">'+'<span>'+item.postLikes+'</span>'+'<img src="http://localhost:4040/springapp/resources/img/gallerylist/test_icon07.png" alt="" class="pro_icon">'+'<span>'+item.commentCount+'</span>'+'</p>'+
+             		 										'<p>'+'<img src="'+localhost+'/springapp/resources/img/gallerylist/test_icon06.png" alt="" class="pro_icon">'+'<span>'+item.postLikes+'</span>'+'<img src="http://localhost:4040/springapp/resources/img/gallerylist/test_icon07.png" alt="" class="pro_icon">'+'<span>'+item.commentCount+'</span>'+'</p>'+
              		 									'</div>'+
              		 								'</a>'+
              		 								'<ul class="hover_btn">'+
              		 								'<li>'+'<a id='+item.postNo+' href='+item.postNo+'>'+
              		 									'<c:if test='+item.likeornot == 1+'>'+
-             		 										'<img src="$http://localhost:4040/springapp/resources/img/gallerylist/test_icon06red.png" alt="">'+
+             		 										'<img src="$'+localhost+'/springapp/resources/img/gallerylist/test_icon06red.png" alt="">'+
              		 									'</c:if>'+
              		 									'<c:if test='+item.likeornot == 0+'>'+
-             		 										'<img src="$http://localhost:4040/springapp/resources/img/gallerylist/test_icon06.png" alt="">'+
+             		 										'<img src="$'+localhost+'/springapp/resources/img/gallerylist/test_icon06.png" alt="">'+
              		 									'</c:if>'+
              		 							'Like'+'</a>'+'</li>'+
              		 								'<c:if test='+item.postSellorNot==1+'>'+

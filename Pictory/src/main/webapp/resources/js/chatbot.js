@@ -3,7 +3,7 @@ function sendMessage(message,session_id) {
         
         $.ajax(
         {
-            url:"http://192.168.0.4:9999/message",
+            url:"http://192.168.0.42:9999/message",
             
             data:JSON.stringify({"message": message,"session_id":session_id}),
             contentType:'application/json',

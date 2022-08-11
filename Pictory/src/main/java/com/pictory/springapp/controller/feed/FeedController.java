@@ -40,37 +40,9 @@ public class FeedController {
 	@Autowired
 	private FeedService service;
 	
-	   
-	@RequestMapping("Index.do")
-	public String index(HttpSession session, Model model) {
-		System.out.println("피드 컨트롤러");
-		
-		
-		String id = (String) session.getAttribute("userId");
-		
-		if (id == null) {
-			return "auth/Login.tiles";
-		} else {
-			//서비스안의 회원정보보기 메서드 호출
-			FeedDTO dto = service.feedInfo(id);
-			System.out.println("들어오니 ?"+dto.getUserFing());
-			
-			//정보저장 후 페이지 이동
-			model.addAttribute("feedInfo",dto);
-			
-			
-			if (dto.getUserProfile() == null) {
-				dto.setUserProfile("test_icon06.png");
-			}
-			
-			
-			return "feed/Index.tiles";
-		}
 
-		
-	}
 	
-	@RequestMapping(value = "/Index.do", method = RequestMethod.GET)
+	@RequestMapping(value = "Index.do", method = RequestMethod.GET)
 	public void infoGET(HttpSession session, Model model) throws Exception{
 		
 
@@ -79,7 +51,6 @@ public class FeedController {
 		
 		//서비스안의 회원정보보기 메서드 호출
 		FeedDTO dto = service.feedInfo(id);
-		
 		
 		//정보저장 후 페이지 이동
 		model.addAttribute("feedInfo",dto);

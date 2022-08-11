@@ -145,7 +145,6 @@ public class PostDAO {
 		
 		System.out.println("path 잘 받아왔니?;;: "+map.get("path"));
 		String path = String.valueOf(map.get("path"))+"\\img\\"+String.valueOf(map.get("userId"));
-		//String path = "http://192.168.0.209:4040/springapp/upload/img/"+String.valueOf(map.get("userId"));
 		File dest = new File(path+File.separator+storyThumbnail.getOriginalFilename());
 		try {storyThumbnail.transferTo(dest);}
 		catch (Exception e) {e.printStackTrace();}

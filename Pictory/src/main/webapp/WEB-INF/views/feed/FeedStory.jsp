@@ -38,7 +38,7 @@
 							<c:if test = "${(sessionScope.userId) ==  (record.userId)}"  >
 						<li>
 							<a href="<c:url value="/story/virtualprocess.do?sNo=${record.SNo}"/>">
-								<div class="img_area" style="background-image: url(<c:url value="http://localhost:4040/springapp/upload/img/${record.storyThumbnail}"/>);">
+								<div class="img_area" style="background-image: url(<c:url value="${record.storyThumbnail}"/>);">
 								<img src="<c:url value="/resources/img/story/fake03.png"/>" alt="">
 								
 							
@@ -52,7 +52,7 @@
 										
 									<div class="pro_line">
 										<p>
-											<img src="<c:url value="http://localhost:4040/springapp/upload/img/${record.userProfile}"/>" alt="" class="pro_p">${record.userNickname}
+											<img src="<c:url value="${record.userProfile}"/>" alt="" class="pro_p">${record.userNickname}
 										</p>
 										<p class="gray">
 											<img

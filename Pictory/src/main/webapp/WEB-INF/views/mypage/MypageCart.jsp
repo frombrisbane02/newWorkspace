@@ -6,8 +6,8 @@
 	<head>
 		<title>mycart</title>
 		<meta charset="utf-8">
-		<!--gallery css
-		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/common.css"/>">--->
+		<!--gallery css-->
+		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/common.css"/>">
 		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/mypage/gallerylist.css"/>">
 		<!--font library-->
 		<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
