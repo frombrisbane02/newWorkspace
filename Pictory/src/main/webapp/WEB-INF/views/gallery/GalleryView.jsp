@@ -247,8 +247,8 @@
 <div class="container mb-5 mt-5">
 	<div class="card commentcard">
 		<div class="row">
+			<h4 class="text-left mb-5">댓글</h4>
 			<div class="col-md-12 motherComment">
-				<h4 class="text-left mb-5">댓글</h4>
 				<c:choose>
 					<c:when test="${empty comments}">
 						<h6 class="noComments">등록된 댓글이 없습니다.</h6>
@@ -256,7 +256,7 @@
 					<c:otherwise>
 					<c:forEach var="comments" items="${comments}" varStatus="loop">
 						<c:if test="${comments.CLevel==1}">
-		                   <div class="row mt-3">
+		                   <div class="row mt-3 mb-3">
 		                       <div class="col-md-12">
 		                           <div class="commentmedia">
 		                               <a class="pr-3" href="<c:url value="/feed/FeedIndex.do?userNo=${comments.userNo}"/>">
@@ -345,7 +345,7 @@
 	                
 		 			//댓글 바꿔주기
 		 			var commentHTML = "<div class='row'><div class='col-md-12'><div class='commentmedia'><a class='pr-3' href=#><img class='mr-3 rounded-circle' alt='userProfile' src='"+userProfile+"' style='width:30px; height:30px;'/></a><div class='media-body'><div class='row'><div class='col-8 d-flex'><a class='pr-3'><h5>"+userNickname+"</h5></a><span>"+today+"</span></div></div>"+commentText;
-					document.querySelector('.motherComment').insertAdjacentHTML('beforeend',commentHTML);
+					document.querySelector('.motherComment').insertAdjacentHTML('afterbegin',commentHTML);
 					
 					$(".noComments").hide();
 					
