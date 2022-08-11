@@ -42,15 +42,6 @@
         WHERE USERID=#{userId}
 	</select>
 	
-	<!-- 스토리가 #번인 사진 전부 가져오기 -->
-
-	
-		<!--  SELECT ph.photoUrl, s.sNo, ph.photoNo
-		FROM PHOTO ph
-		RIGHT OUTER JOIN POST p ON ph.postNo=p.postNo
-		RIGHT OUTER JOIN STORY s ON p.sNo=s.sNo
-		  where s.sNo = #{value} -->
-	
 	<select id="likesList" resultType="FeedDTO">
 		SELECT p.postCategory, p.postTitle, p.PostLikes, p.PostNo, u.userId, u.userNickname, u.userProfile,
 		(SELECT ph.photoUrl FROM PHOTO po WHERE po.postno=p.postno AND ROWNUM = 1) photoUrl
@@ -76,6 +67,9 @@
 				   ON po.userno = u.userno
 				    WHERE u.userno=#{userNo}
 				   ORDER BY po.postNo DESC
+	</select>
+	<select id="feedInfoOther" parameterType="int" resultType="FeedDTO">
+		SELECT * FROM USERS WHERE userNo=#{userNo}
 	</select>
 	
 </mapper>

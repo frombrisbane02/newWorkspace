@@ -51,6 +51,13 @@ public  class FeedServiceImpl implements FeedService<FeedDTO> {
 		 
 		 return tmp;
 	}
+
+
+	@Override
+	public FeedDTO feedInfoOther(int userNo) {
+		
+		return dao.feedInfoOther(userNo);
+	}
 }
 
 

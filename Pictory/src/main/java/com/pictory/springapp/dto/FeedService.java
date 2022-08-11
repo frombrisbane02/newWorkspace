@@ -10,5 +10,8 @@ public interface FeedService<T>{
 	List<FeedDTO> replyselect(int userNo);
 
 
+	FeedDTO feedInfoOther(int userNo);
+
+
 	
 }

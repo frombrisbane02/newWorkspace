@@ -64,24 +64,12 @@ public class PostController {
 		return "gallery/Upload2.tiles";
 	}
 	
-
-	/*
-	@GetMapping("post/AddMap.do")
-	public String addMap(HttpSession session, Model model) {
-		
-		String userId = (String)session.getAttribute("userId");
-		System.out.println("EditImage이동전 아이디!!: "+userId);
-		
-		return "gallery/UploadMap.tiles";
-	}*/
-	
-	
 	@PostMapping("post/SellUpload.do")
 	public String sellUpload(@ModelAttribute("userId") String userId, @RequestParam Map map,
 			@RequestParam(value="hashtags") List<String> hashtag,
 			@RequestParam("uploadImage") MultipartFile uploadImage, HttpServletRequest req) {
 		
-		//1) 일단 map에 userId 넣고 시작
+		//1) 일단 map에 userId 저장
 		map.put("userId", userId);
 		
 		//2) 파일 디렉토리 생성 + 업로드
@@ -121,7 +109,6 @@ public class PostController {
 			String markerLocation = map.get("alat")+","+map.get("alng");
 			map.put("markerLocation", markerLocation);
 		}
-		
 		
 		//1) 파일 디렉토리 생성 + 업로드 호출
 		String path = req.getSession().getServletContext().getRealPath("/upload");

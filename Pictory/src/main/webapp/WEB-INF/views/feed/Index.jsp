@@ -23,7 +23,7 @@
 		<div class="main_area">
 			<div class="left_pro">
 				<div class="top_pro">
-					<img src="<c:url value="http://localhost:4040/springapp/upload/img/${feedInfo.userProfile}"/>" alt="" class="pro_img">
+					<img src="<c:url value="${feedInfo.userProfile}"/>" alt="" class="pro_img">
 					<div class="txt_area">
 						<h3><c:url value="${feedInfo.userNickname}"/></h3>
 						
@@ -31,10 +31,9 @@
 						<!-- <p>고길동님과 둘리님이 팔로우중입니다.</p> 나중에 구현 -->
 					</div>
 				</div>
-
 				<ul class="count_list">
 					<li>
-						<h3>${feedInfo.postNo }</h3>
+						<h3>${feedInfo.postNo}</h3>
 						<p>게시글</p>
 					</li>
 					<li>
@@ -50,29 +49,25 @@
 						<p>팔로워</p>
 					</li>
 				</ul>
-
 				<ul class="btn_area">
 					<li><a href="" class="black_icon"><img src="<c:url value="/resources/img/feed/test_icon02.png"/>">Following</a></li>
 					<li><a href="" class="white_icon" id="addClass"><span></span>DM</a></li>
 					
 				</ul>
-
 				<div class="best_project">
 					<h3 class="sub_tit">Best Project</h3>
 					<div class="img_box" style="background-image: url(<c:url value="/resources/img/feed/test_img03.jpg)"/>"><a href=""><img src="<c:url value="/resources/img/feed/fake01.png"/>" alt=""></a></div>
 				</div>
-
 				<div class="about_me">
 					<h3 class="sub_tit">About me</h3>
 					<p>${feedInfo.userSelf}</p>
 				</div>
-
-				<div class="contacts">
+<!-- 			<div class="contacts">
 					<h3 class="sub_tit">Contacts</h3>
 					<p><img src="<c:url value="/resources/img/feed/test_icon04.png"/>" alt="">이거는 뭘까요</p>
 					<p><img src="<c:url value="/resources/img/feed/test_icon05.png"/>" alt="">010-0000-0000</p>
 					<p><img src="<c:url value="/resources/img/feed/test_icon01.png"/>" alt="">서울시 서울구 서울동 12-345</p>
-				</div>
+				</div> -->
 			</div>
 			<div class="right_list">
 				<ul class="top_tab" role="tablist" id="tab">
@@ -101,7 +96,7 @@
  <script>
 	$(document).ready(function(){
 		
-		$(".tabContent").load("<c:url value='/feed/Artwork.do'/>");
+		$(".tabContent").load("<c:url value='/feed/Artwork.do?userNo=${feedInfo.userNo}'/>");
 		
 		//탭 클릭시마다 
 		$("#tab li a").on("click", function(e){
@@ -118,11 +113,10 @@
 	<script>
 	$(document).ready(function(){
 		
-		
 		//탭 클릭시마다 
 		$("#addClass").on("click", function(e){
 			e.preventDefault();
-			$(".dmList").load("<c:url value='/message/Dm.do'/>");
+			$(".dmList").load("<c:url value='/feed/FeedIndex.do?userNo=${feedInfo.userNo}'/>");
 			$('#sidebar_secondary').addClass('popup-box-on')
 		});
 			///

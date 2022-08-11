@@ -55,11 +55,12 @@
 	</select>
 	
 	<select id="userInfo" resultType="GalleryDTO" parameterType="_integer">
-		SELECT (SELECT COUNT(p.postNo) FROM post p, users u WHERE p.userno=u.userno and u.userno=(SELECT p.userno FROM POST p WHERE p.postNo=#{postNo})) postCount,
-			   (SELECT ph.photourl FROM photo ph WHERE ph.postno=p.postno AND ROWNUM = 1) photoUrl,
-			   postNo
+	SELECT (SELECT COUNT(p.postNo) FROM post p, users u WHERE p.userno=u.userno and u.userno=(SELECT p.userno FROM POST p WHERE p.postNo=#{postNo})) postCount,
+			u.userNo,
+			u.userNickname,
+			u.userProfile
 		 FROM post p INNER JOIN users u ON p.userno = u.userno
-		 WHERE u.userno=(SELECT p.userno FROM POST p WHERE p.postNo=#{postNo})
+		 WHERE u.userno IN (SELECT p.userno FROM POST p WHERE p.postNo=#{postNo})
      	ORDER BY p.postNo DESC
 	</select>
 	

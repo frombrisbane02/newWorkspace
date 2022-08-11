@@ -80,15 +80,30 @@
 	}
 
     .watermarkpic{
-	 position: absolute;
+	  position: absolute;
 	  bottom: 0;
+	  top:0;
+	  left:250px;
+	  right:0;
 	  height:100%;
+	  z-index:1;
+	  opacity:0.7;
+	  no-repeat;
 	  
     }
 	
 	a {
 	 text-decoration-line:none;
 	}
+	
+	.profileimg{
+	
+	width:100%;
+	height:100%;
+	
+	
+	}
+	
 </style>
 <body>
 <body oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
@@ -114,7 +129,7 @@
                     <c:forEach var="photo" items="${photoUrls}" varStatus="loop">
 	                    <c:if test="${not empty isSellorNot}">
 	                    <div class="sell_div" style="position:relative; margin:0 auto;">
-		                    	<img class="watermarkpic" src="${pageContext.request.contextPath}/resources/img/galleryview/pictorywatermark.png" alt="">
+		                    	<img class="watermarkpic" src="${pageContext.request.contextPath}/resources/img/galleryview/waternarkpic.png" alt="">
 		                    	<img class="postImages_sell" src="${photo.photoUrl}" alt="">
 		                </div>
 		                <p class="text-center"><small>* 자동 워터마크 적용된 이미지로 구매시 원본을 다운로드할 수 있습니다.</small></p>
@@ -188,21 +203,23 @@
  <!-- 작가의 다른 작품 보기 영역(작가 프로필, 글 좋아요) -->
 <div class="container mt-5 mb-5 bg-white" style="width:40%;">
     <div class="row no-gutters">
-        <div class="col-md-4 col-lg-4"><img class="profileimg" src="https://i.imgur.com/aCwpF7V.jpg"></div>
+        <div class="col-md-4 col-lg-4">
+        	<img class="profileimg" src="${createrProfile}">
+        </div>
         <div class="col-md-8 col-lg-8">
             <div class="d-flex flex-column">
                 <div class="d-flex flex-row justify-content-between align-items-center p-5 text-dark">
-                    <h3 class="display-5">Amelly Anderson</h3>
-                </div> 
-                <div class="p-3">
-                    <h6></h6>
-                </div>
-                <div class="d-flex flex-row justify-content-center text-white">
-                	<button class="btn btn-sm btn-outline-dark mr-1">FEED</button>
-                	<button class="btn btn-sm btn-outline-dark mr-1">LIKE</button>
-                	<button class="btn btn-sm btn-outline-dark mr-1">FOLLOW</button>
-                	<button class="btn btn-sm btn-outline-dark">DM</button>
-                </div>
+	                    <h3 class="display-5">${createrNickname}</h3>
+	                </div> 
+	                <div class="p-3">
+	                    <h6>${createrPostCount}개의 글을 보유한 크리에이터입니다.</h6>
+	                </div>
+	                <div class="d-flex flex-row justify-content-center text-white">
+	                	<button class="btn btn-sm btn-outline-dark mr-1"><a style="text-decoration:none; color:black;" href="<c:url value="/feed/FeedIndex.do?userNo=${createrUserNo}"/>">FEED</a></button>
+	                	<button class="btn btn-sm btn-outline-dark mr-1"><a style="text-decoration:none; color:black;" href="${createrUserNo}">LIKE</a></button>
+	                	<button class="btn btn-sm btn-outline-dark mr-1 diabled" >FOLLOW</button>
+	                	<button class="btn btn-sm btn-outline-dark diabled" >DM</button>
+	                </div>
             </div>
         </div>
     </div>
@@ -239,47 +256,34 @@
 					<c:otherwise>
 					<c:forEach var="comments" items="${comments}" varStatus="loop">
 						<c:if test="${comments.CLevel==1}">
-		                   <div class="row">
+		                   <div class="row mt-3">
 		                       <div class="col-md-12">
 		                           <div class="commentmedia">
-		                               <a class="pr-3" href="<c:url value="/feed/Artwork.do?userNo=${comments.userNo}"/>">
+		                               <a class="pr-3" href="<c:url value="/feed/FeedIndex.do?userNo=${comments.userNo}"/>">
 		                               	<img class="mr-3 rounded-circle" style="width:30px; height:30px;" alt="userProfile" src="${comments.userProfile}"/>
 		                               </a>
 		                               <div class="media-body">
 		                                   <div class="row">
 		                                       <div class="col-8 d-flex">
-		                                       <a class="pr-3" href="<c:url value="/feed/Artwork.do?userNo=${comments.userNo}"/>" style="text-decoration:none; color: black;">
-		                                           <h5>${comments.userNickname}</h5>
+		                                       <a class="pr-3" href="<c:url value="/feed/FeedIndex.do?userNo=${comments.userNo}"/>" style="text-decoration:none; color: black; text-weight:bold;">
+		                                           <h6>${comments.userNickname}</h6>
 		                                       </a>
 		                                           <span>${comments.CDate}</span>
 		                                       </div>
+		                                    </div>
 		                                       <div class="col-4">
 		                                           <div class="pull-right reply">
 		                                               <a href="#"><span><i class="fa fa-reply"></i></span></a>
 		                                           </div>
 		                                       </div>
-		                                   </div>${comments.CText}
-	                 	</c:if>
-										<c:if test="${comments.parentCNo==comments.CNo}">
-					                        <div class="commentmedia mt-4">
-					                            <a class="pr-3" href="<c:url value="/feed/Artwork.do?userNo=${comments.userNo}"/>"><img class="rounded-circle" alt="reply" src="${comments.userProfile}"/></a>
-					                            <div class="media-body">
-					                                <div class="row">
-					                                    <div class="col-12 d-flex">
-					                                        <a class="pr-3" href="<c:url value="/feed/Artwork.do?userNo=${comments.userNo}"/>">
-					                                        	<h5>${comments.userNickname}</h5>
-					                                        </a>
-					                                		   <span>${comments.CDate}</span>
-					                                    </div>
-					                                </div>${comments.CText}
-												</div>
-											</div>
-										</c:if>
+		                                </div>${comments.CText}
+		                             </div>
 								</div>
 							</div>
-						</div>
+	                 	</c:if>
+	                 </c:forEach>
 					</div>
-					</c:forEach>
+				</div>
 					</c:otherwise>
 				</c:choose>
 			</div>

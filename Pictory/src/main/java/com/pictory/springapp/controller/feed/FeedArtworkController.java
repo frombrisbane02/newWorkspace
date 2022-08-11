@@ -37,7 +37,8 @@ public class FeedArtworkController {
 	@Autowired
 	private FeedService<FeedDTO> feedService;
 		
-		
+	//url 저장용 상수
+	String resource = Constants.RESOURCE.toString();
 
 	
 	@GetMapping("Artwork.do")
@@ -47,15 +48,10 @@ public class FeedArtworkController {
 
 		List<FeedDTO> lists = artworkService.artworkList();
 		model.addAttribute("listsreply",lists);
-		System.out.println("###아트웍스lists###:"+lists);
-		System.out.println("###userNo###:"+userNo);
-			
 		List<FeedDTO> replpostNo=feedService.replyselect(userNo);
-		System.out.println("##컨트롤러 replpostNo###:"+replpostNo);
 
 		for(FeedDTO replpostNos : replpostNo) {
-			System.out.println("###컨트롤러url###"+replpostNos.getPhotoUrl());
-			System.out.println("####컨트롤러postno####:"+replpostNos.getPostNo());
+			replpostNos.setUserProfile(resource+replpostNos.getUserProfile());
 		}
 		model.addAttribute("replpostNo", replpostNo);
 		

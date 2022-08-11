@@ -102,6 +102,12 @@ public class GalleryController {
 		
 		//3. 작가의 다른 정보 위해 각 포스트 몇개인지 총합, 각 포스트 썸네일, 포스트 no 가져와야함
 		List<GalleryDTO> infoLists = galleryService.galleryInfo(postNo);
+		GalleryDTO createrInfo = infoLists.get(0);
+		System.out.println("view 들어갈때 한번만 찍어보자 진짜 마지막: "+ createrInfo);
+		model.addAttribute("createrProfile",createrInfo.getUserProfile());
+		model.addAttribute("createrNickname",createrInfo.getUserNickname());
+		model.addAttribute("createrPostCount",createrInfo.getPostCount());
+		model.addAttribute("createrUserNo",createrInfo.getUserNo());
 		
 		//4. 수정 삭제용 세션 아이디 저장
 		model.addAttribute("userId",map.get("userId"));
@@ -153,9 +159,9 @@ public class GalleryController {
 		model.addAttribute("comments",comments);
 		model.addAttribute("photoUrls",photoLists);
 		model.addAttribute("viewLists",viewLists);
-		model.addAttribute("infoLists", infoLists);
-		model.addAttribute("otherWorks",infoLists.get(0).getPostCount());
-		model.addAttribute("postLikes",infoLists.get(0).getPostLikes());
+		//model.addAttribute("infoLists", infoLists);
+		//model.addAttribute("otherWorks",infoLists.get(0).getPostCount());
+		//model.addAttribute("postLikes",infoLists.get(0).getPostLikes());
 		model.addAttribute("userProfile",viewLists.get(0).getUserProfile());
 		model.addAttribute("userNickname",viewLists.get(0).getUserNickname());
 		model.addAttribute("postLikes",viewLists.get(0).getPostLikes());

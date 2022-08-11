@@ -19,28 +19,23 @@ import com.pictory.springapp.dto.StoryDTO;
 @Repository("feedDAO")
 public class FeedDAO {
 
-	@Autowired
-	private SqlSessionFactory sqlMapper;
 	
 	@Autowired
 	private SqlSessionTemplate template;
 	
 	
 	public List<FeedDTO> replyselect(int userNo){
-		
-		List<FeedDTO> tmp = template.selectList("replyselect", userNo);
-		
-		return tmp;
+		return template.selectList("replyselect", userNo);
 	}
-
-	
-	
-	
 		   
 	public FeedDTO feedInfo (String id) {
-		SqlSession session= sqlMapper.openSession();
-		FeedDTO dto = session.selectOne("feedInfo", id);
-		return dto;
+		return template.selectOne("feedInfo",id);
+	}
+
+
+
+	public FeedDTO feedInfoOther(int userNo) {
+		return template.selectOne("feedInfoOther", userNo);
 	}
 
 
