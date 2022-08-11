@@ -62,7 +62,7 @@ public class GalleryDAO {
 	public List<GalleryDTO> selectPhotoList(int postNo) {
 
 		return template.selectList("photoList",postNo);
-
+	}
 
 
 	public List<GalleryDTO> selectGalleryView(int postNo) {
