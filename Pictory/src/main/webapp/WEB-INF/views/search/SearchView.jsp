@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<jsp:include page="/WEB-INF/views/Top.jsp" />
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,10 +34,10 @@
 	
 	<div>
 		<div class="form-group row" style="padding-left: 100px;">
-			<select id="" name="" class="form-control col-sm-1" style="width: 150px;">
+			<!-- <select id="" name="" class="form-control col-sm-1" style="width: 150px;">
 				<option value="gallery" selected>작품</option>
 				<option value="users">사람</option>
-			</select> 
+			</select>  -->
 			<select id="postCategory" name="postCategory" class="form-control col-sm-1" style="width: 150px;"">
 				<option value="">카테고리</option>
 				<option value="figure" >인물</option>
@@ -45,14 +45,14 @@
 				<option value="landscape" >풍경</option>
 				<option value="etc" >기타</option>
 			</select> 
-			<select id="" name="" class="form-control col-sm-1" style="width: 150px;">
+			<!-- <select id="" name="" class="form-control col-sm-1" style="width: 150px;">
 				<option value="recent" selected>최신순</option>
 				<option value="search">조회순</option>
 				<option value="like">좋아요순</option>
-			</select>
+			</select> -->
 
-			<div class="chk_sale">
-				<input type="checkbox" id="chk_sale" class="ipt_chk"> <label
+			<div class="chk_sale" style="margin-left:20px; margin-top:8px;">
+				<input type="checkbox" id="chk_sale" class="ipt_chk" name="chkbox"> <label
 					for="chk_sale">판매중인 사진 보기</label>
 			</div>
 		</div>
@@ -70,19 +70,10 @@
 			<c:if test="${empty lists}" var="isEmpty">
 				<li>검색결과없음</li>
 			</c:if>
-			<%-- <c:if test="${categorys=='landscape'}" var="isEmpty">
-				
-				풍경 사진들
-				
-			</c:if>
-			<c:if test="${categorys=='figure'}" var="isEmpty">
-				
-				
-				
-			</c:if> --%>
+			
 			<c:if test="${not isEmpty}">
 				<c:forEach var="list" items="${lists}" varStatus="loop">
-					<li class="photo_area cate_${list.postCategory}">
+					<li class="photo_area cate_${list.postCategory} sell_${list.postSellorNot}">
 					<a href="<c:url value="/gallery/GalleryView.do?postNo=${list.postNo}"/>
 					"class="photo_link">
 							<div class="img_area"
@@ -93,23 +84,32 @@
 							</div>
 
 							<div class="txt_area">
-								<p>
-									<img src="${list.userProfile}" alt="" class="pro_p">${list.userNickname}</p>
-								<p>
-									<img
-										src="${pageContext.request.contextPath}/resources/img/gallerylist/test_icon06.png"
-										alt="" class="pro_icon"><span>${list.postLikes}</span><img
-										src="${pageContext.request.contextPath}/resources/img/gallerylist/test_icon07.png"
-										alt="" class="pro_icon"><span>0</span>
-								</p>
+								<p><img src="${list.userProfile}" alt="" class="pro_p">${list.userNickname}</p>
+								<p><img src="${pageContext.request.contextPath}/resources/img/gallerylist/test_icon06.png" alt="" class="pro_icon"><span id="plike${list.postNo}">${list.postLikes}</span><img src="${pageContext.request.contextPath}/resources/img/gallerylist/test_icon07.png" alt="" class="pro_icon"><span>${list.commentCount}</span></p>
 							</div>
 					</a>
 
-						<ul class="hover_btn">
-							<li><a href=""><img
-									src="${pageContext.request.contextPath}/resources/img/gallerylist/test_icon06.png"
-									alt="">Like</a></li>
-							<li><a href="">Save</a></li>
+						<ul class="hover_btn list-unstyled">
+							<!-- 좋아요 버튼 -->
+						<li><a id="aprevent${list.postNo}" href="${list.postNo}">
+							<c:if test="${list.likeornot == 1}">
+								<img src="${pageContext.request.contextPath}/resources/img/gallerylist/test_icon06red.png" alt="">
+							</c:if>
+							<c:if test="${list.likeornot == 0}">
+								<img src="${pageContext.request.contextPath}/resources/img/gallerylist/test_icon06.png" alt="">
+							</c:if>Like</a></li>
+							
+							<!-- 판매글 카트 버튼-->
+						<c:if test="${list.postSellorNot==1}">
+							<li><a id="cart${list.postNo}" href="${list.postNo}">
+								<c:if test="${list.cartornot==0}">
+									<img src="${pageContext.request.contextPath}/resources/img/gallerylist/nocart.png" alt="">
+								</c:if>
+								<c:if test="${list.cartornot==1}">
+									<img src="${pageContext.request.contextPath}/resources/img/gallerylist/yescart.png" alt="">
+								</c:if>
+							Cart</a></li>
+						</c:if>
 						</ul>
 
 						<div class="hover_txt">
@@ -130,20 +130,67 @@
 			<!-- ===========================절취선================================= -->
 		</ul>
 	</div>
+	
+	<form>
+       <input id="getuserId" type="hidden" value="${userId}"/>
+    </form>
+	
 
-<!-- 카테고리 검색 -->
+  <!-- 카테고리 검색 -->
  <script type="text/javascript">	  
   $(document).ready(function(){
 		$('#postCategory').change(function(){
-			/*
-			$(" li[class^='cate_']").hide();
-			$('cate_' + $(this).val()).show();;
-			*/
 			$('.photo_area').hide();
 			$('.cate_' + $(this).val()).show();
 			$('#listLength').text($('.cate_' + $(this).val()).length);
 		});		
 	});
+  <!-- 판매중인 사진 보기 -->
+  $(document).ready(function(){
+	  $('#chk_sale').click(function(){
+		  if($("#chk_sale").prop("checked")){
+			  $("input[type=checkbox]").prop("checked",true);  
+			  $('.photo_area').hide(); 
+			  $('.sell_' +'1').show();
+			  $('#listLength').text($('.sell_' + '1').length);
+		  }else{
+			  $("input[type=checkbox]").prop("checked",false); 
+			  $('.photo_area').show(); 
+			  $('#listLength').text($('.sell_' + '2').length + Number($('.sell_' + '1').length));
+		  }		  
+	  });
+  });
+  
+  <!-- 좋아요 -->
+  $(".hover_btn > li:nth-child(1) >a").click(function(e){  
+		
+      const postNo = $(this).attr('href');
+      const postNum = Number(postNo);
+      const userId = document.getElementById('getuserId').value;
+      console.log('postNo:',postNo);
+  	  console.log('userId:',userId);
+      
+      var likesrc = $(this).children("img").attr("src")==='${pageContext.request.contextPath}/resources/img/gallerylist/test_icon06.png' ? "${pageContext.request.contextPath}/resources/img/gallerylist/test_icon06red.png" : "${pageContext.request.contextPath}/resources/img/gallerylist/test_icon06.png";
+  	$(this).children('img').attr('src',likesrc);
+  	
+  	$.ajax({
+	        type:"POST",
+	        url:"<c:url value='search/Likes.do'/>",
+	        data: "postNo="+postNo+"&userId="+userId
+	        }).done(function(data){
+	        	console.log('성공했냐');
+	        	console.log('postNo',postNo)
+	        	console.log('userId',userId)
+	       	 $('li:nth-last-child('+ postNum +') > a > div> p > span:nth-child(2)').text(data);
+	       
+	   	
+	     }).fail(function(request,status,error){
+	       console.log('제정신이냐')
+	     });   
+	e.preventDefault(); 
+	});
+  
+  
 
 </script>
 </body>
