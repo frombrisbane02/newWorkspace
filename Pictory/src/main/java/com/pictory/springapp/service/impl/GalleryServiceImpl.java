@@ -200,4 +200,15 @@ public class GalleryServiceImpl implements GalleryService<GalleryDTO> {
 		return dao.findPdNo(map);
 	}
 
+	@Override
+	public int getAlarmpostNo(String postTitle) {
+		
+		return dao.getPostNo(postTitle);
+	}
+
+	@Override
+	public String getAlarmUserId(int userNo) {
+		return dao.getUserId(userNo);
+	}
+
 }

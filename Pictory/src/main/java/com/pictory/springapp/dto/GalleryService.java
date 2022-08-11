@@ -68,6 +68,11 @@ public interface GalleryService<T> {
 	int findCartinList(Map map);
 
 	int findPdNo(Map map);
+
+	int getAlarmpostNo(String postTitle);
+
+	String getAlarmUserId(int userNo);
+
 	
 	
 	

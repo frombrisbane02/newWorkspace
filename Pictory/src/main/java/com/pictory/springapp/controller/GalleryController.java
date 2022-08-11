@@ -323,4 +323,113 @@ public class GalleryController {
 			return "{\"cart\":\"sucsses\"}";
 		}
 	   
+	   
+	   @GetMapping("GalleryAlarm.do")
+		public String GalleryAlarm(Model model,@RequestParam("postTitle") String postTitle, @RequestParam("userNo") int userNo, Map map) {
+			
+			Map postMap = new HashMap<>();
+		
+			postMap.put("userNo", userNo);
+			postMap.put("postTitle",postTitle);
+			
+			int postNo = galleryService.getAlarmpostNo(postTitle);
+			String userId = galleryService.getAlarmUserId(userNo);
+			
+			
+			
+			//1. photoUrl 먼저 가져오기
+			List<GalleryDTO> photoLists = galleryService.galleryPhoto(postNo);
+			for(GalleryDTO photoUrls : photoLists) {
+				//상수로 ip 주소 붙이기
+				photoUrls.setPhotoUrl(resource+photoUrls.getPhotoUrl());
+			}
+			
+			//2. 나머지 본문 정보 추출
+			List<GalleryDTO> viewLists = galleryService.galleryView(postNo);
+			
+			for(GalleryDTO viewList : viewLists) {
+				switch(viewList.getPostCategory()) {
+				case "landscape": viewList.setPostCategory("풍경"); break;
+				case "object": viewList.setPostCategory("정물"); break;
+				case "figure": viewList.setPostCategory("인물"); break;
+				default: viewList.setPostCategory("기타"); break;
+				}	
+			}
+			
+			//3. 작가의 다른 정보 위해 각 포스트 몇개인지 총합, 각 포스트 썸네일, 포스트 no 가져와야함
+			List<GalleryDTO> infoLists = galleryService.galleryInfo(postNo);
+			GalleryDTO createrInfo = infoLists.get(0);
+			System.out.println("view 들어갈때 한번만 찍어보자 진짜 마지막: "+ createrInfo);
+			model.addAttribute("createrProfile",createrInfo.getUserProfile());
+			model.addAttribute("createrNickname",createrInfo.getUserNickname());
+			model.addAttribute("createrPostCount",createrInfo.getPostCount());
+			model.addAttribute("createrUserNo",createrInfo.getUserNo());
+			
+			//4. 수정 삭제용 세션 아이디 저장
+			model.addAttribute("userId",userId);
+			
+			//5. 댓글 코멘트 갖고 오기(postNo 넘기고!)
+			List<GalleryDTO> comments = galleryService.getComments(postNo);
+			
+			//6. 판매하는 경우 상품 정보 가져오기
+			int isSellorNot = galleryService.isSellorNot(postNo);
+			if(isSellorNot==1) {
+				model.addAttribute("isSellorNot",isSellorNot);
+				GalleryDTO product = galleryService.getProductInfo(postNo);
+				model.addAttribute("product", product);
+				model.addAttribute("pdNo",product.getPdNo());
+				model.addAttribute("photoNo",product.getPhotoNo());
+				model.addAttribute("pdPrice",product.getPdPrice());
+				model.addAttribute("pdSalesNo",product.getPdSalesNo());
+				model.addAttribute("pdDate",product.getPdDate());
+				
+				//카트정보 저장해 뿌리기
+				map.put("userId", userId);
+				map.put("postNo", postNo);
+				int isAdded = galleryService.findCart(map);
+				
+				model.addAttribute("isCart",isAdded);
+			}
+			
+			
+			
+			//7. MAP 첨부했는지 체크해서 가져오기
+			int isMapAttached = galleryService.isMapAttached(postNo);
+			
+			if(isMapAttached==1) {
+				GalleryDTO mapInfo = galleryService.getMapInfo(postNo);
+				String markerLocation = mapInfo.getMarkerLocation();
+				String lat=markerLocation.split(",")[0];
+				String lng=markerLocation.split(",")[1];
+				
+				model.addAttribute("lat",lat);
+				model.addAttribute("lng",lng);
+			}
+			
+			//8. 로그인 한 사람 정보 다 갖고오기
+			GalleryDTO loginUser = galleryService.getLoginInfo(userId);
+			model.addAttribute("loginUser",loginUser);
+			
+			//8. Model에 정보 저장 후 돌아가기
+			model.addAttribute("postNo",postNo);
+			model.addAttribute("comments",comments);
+			model.addAttribute("photoUrls",photoLists);
+			model.addAttribute("viewLists",viewLists);
+			//model.addAttribute("infoLists", infoLists);
+			//model.addAttribute("otherWorks",infoLists.get(0).getPostCount());
+			//model.addAttribute("postLikes",infoLists.get(0).getPostLikes());
+			model.addAttribute("userProfile",viewLists.get(0).getUserProfile());
+			model.addAttribute("userNickname",viewLists.get(0).getUserNickname());
+			model.addAttribute("postLikes",viewLists.get(0).getPostLikes());
+			model.addAttribute("postHits",viewLists.get(0).getPostHits());
+			model.addAttribute("postSellorNot",viewLists.get(0).getPostSellorNot());
+			model.addAttribute("postTitle",viewLists.get(0).getPostTitle());
+			
+			
+			return "gallery/GalleryView.tiles";
+		}
+	   
+	   
+	   
+	   
 }

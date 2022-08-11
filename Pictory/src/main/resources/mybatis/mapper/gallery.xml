@@ -194,4 +194,11 @@
 		</selectKey>
 		INSERT INTO ALARM VALUES(SEQ_ALARM.CURRVAL,'댓글',DEFAULT,DEFAULT,(SELECT userNo FROM POST WHERE postNo=#{postNo}),(SELECT userNickName FROM USERS WHERE userId=#{userId}),(SELECT postTitle FROM POST WHERE postNo=#{postNo}),#{cText})
 	</insert>
+	
+	<select id="getAlarmpostNo" parameterType="String" resultType="int">
+		SELECT postNo FROM POST WHERE postTitle=#{postTitle}
+	</select>
+	<select id="getAlarmUserId" parameterType="int" resultType="String">
+		SELECT userID FROM USERS WHERE userNo=#{userNo}
+	</select>
 </mapper>

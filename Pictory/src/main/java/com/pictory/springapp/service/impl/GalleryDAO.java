@@ -229,4 +229,14 @@ public class GalleryDAO {
 	public void insertCommentAlarm(Map map) {
 		template.insert("insertCommentAlarm",map);
 	}
+
+
+	public int getPostNo(String postTitle) {
+		return template.selectOne("getAlarmpostNo",postTitle);
+	}
+
+
+	public String getUserId(int userNo) {
+		return template.selectOne("getAlarmUserId",userNo);
+	}
 }
