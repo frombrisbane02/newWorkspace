@@ -136,7 +136,7 @@
  	function purchase(){
  		// console.log('클릭이벤트 발생');
 		let totalPrice= $('#total').val();
-		let pdNo= $('pdNo').val();
+		let pdNo= $('#pdNo').val();
  		
  		 IMP.request_pay({ // param
  	          pg: "html5_inicis",
@@ -150,29 +150,28 @@
  	          buyer_addr: "서울특별시 강남구 신사동",
  	          buyer_postcode: "01181"
  	       
- 	      }, function (rsp) { // callback
+ 	      }, function(rsp) { // callback
  	         if (rsp.success) { // 결제 성공 시: 결제 승인 또는 가상계좌 발급에 성공한 경우
  	        	 console.log("###tmp###:"+rsp);
- 	            // jQuery로 HTTP 요청
- 	            $.ajax({
+  	            // jQuery로 HTTP 요청
+ 	             
+  	            $.ajax({
+  	            	type:"POST",
  	                url: "<c:url value='/mypage/CartPayment.do'/>",
  	                method: "POST",
- 	                headers: { "Content-Type": "application/json"},
- 	                data: {
- 	                    imp_uid: rsp.imp_uid,
- 	                    merchant_uid: rsp.merchant_uid,
- 	                    pdNo: pdNo,
- 	                    total: totalPrice
- 	                }
+ 	                data:"pdNo="+pdNo+"&total="+totalPrice
  	            }).done(function (data) {
  	              // 가맹점 서버 결제 API 성공시 로직
- 	                	 console.log(data)
- 	                	   	 
- 	            })
+ 	                	 console.log(data);
+ 	                	 location.reload();
+ 	                	
+ 	                	 
+ 	            }).fail(function(request,status,erre){
+ 	            	alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+ 	            });
  	          } else {
  	            alert("결제에 실패하였습니다. 에러 내용: " +  rsp.error_msg);
  	          }
  	      });
  	    } 	
  </script>
-

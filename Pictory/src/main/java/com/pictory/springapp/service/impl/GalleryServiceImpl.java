@@ -23,19 +23,6 @@ public class GalleryServiceImpl implements GalleryService<GalleryDTO> {
 
 	@Override
 	public List<GalleryDTO> galleryList(String userID) {
-		//필요 인자: 카테고리, 해시태그, 첫번째 이미지 url(썸네일용), 좋아요수, 댓글 수, 유저프사, 유저닉네임
-		//postNo 받아올때마다 for문 돌면서 해당 postNo에 대한 cart 여부 받아오기
-		/*
-		List<GalleryDTO> Lists = dao.selectGalleryList(userID);
-		Map map = new HashMap();
-		map.put("userId", userID);
-		
-		for(GalleryDTO oneList : Lists) {
-			map.put("postNo", oneList.getPostNo());
-			int cartornot = dao.findCartinList(map);
-			oneList.setCartornot(cartornot);
-		}
-		*/
 		return dao.selectGalleryList(userID);
 	}
 	
@@ -102,7 +89,6 @@ public class GalleryServiceImpl implements GalleryService<GalleryDTO> {
 		
 		dao.likeUp(map);
 		
-		//오빠 저 윤진인데 alarm 테이블 insert 여기서 했어요
 		map.put("alarmType", "좋아요");
 		dao.insertLikeAlarm(map);
 	}
@@ -113,7 +99,6 @@ public class GalleryServiceImpl implements GalleryService<GalleryDTO> {
 		map.put("postNo", postNo);
 		map.put("userId", userId);
 		
-		//alarm 테이블 delete 여기서 했어여!
 		map.put("alarmType", "좋아요");
 		dao.deleteLikeAlarm(map);
 		
@@ -206,7 +191,6 @@ public class GalleryServiceImpl implements GalleryService<GalleryDTO> {
 
 	@Override
 	public int getAlarmpostNo(String postTitle) {
-		
 		return dao.getPostNo(postTitle);
 	}
 

@@ -61,8 +61,10 @@ public class MypageCartController {
 	
 	@CrossOrigin
 	@ResponseBody
-	@RequestMapping(value = "CartPayment.do", method = {RequestMethod.POST}) 
-	public String cartPayment(HttpSession session, @RequestParam(value="pdNo") List<Integer> productList, @RequestParam(value="total") int total ) {
+	@RequestMapping(value="CartPayment.do", produces = "application/json;charset=UTF-8") 
+	public String cartPayment(HttpSession session, 
+							@RequestParam(value="pdNo") List<Integer> productList,
+							@RequestParam(value="total") int total) {
 		
 		System.out.println("카트페이먼트.DO");
 		String id = (String) session.getAttribute("userId");
