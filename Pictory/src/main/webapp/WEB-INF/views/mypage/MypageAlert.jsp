@@ -73,6 +73,7 @@
 										<h6 class="user pt-2 ">${alarm.eventUser}</h6>
 										<c:if test = "${alarm.alarmType eq '좋아요' || alarm.alarmType eq '댓글'}">
 											<p class="text">회원님의 게시글에 <strong>${alarm.alarmType}</strong>(이)가 추가되었습니다.</p>
+											<a href="" style="text-decoration:none;color:#A999FF"><p class="text"><i class="fa-solid fa-circle-arrow-right">&nbsp</i>${alarm.subject}</p></a>
 										</c:if>
 										<c:if test = "${alarm.alarmType eq '관리자'}">
 											<p class="text"><strong>문의: </strong> ${alarm.subject}</p>

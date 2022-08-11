@@ -72,7 +72,7 @@
 	 	<selectKey keyProperty="alarmNo" resultType="int" order="BEFORE">
 			SELECT SEQ_ALARM.NEXTVAL FROM DUAL
 		</selectKey>
-		INSERT INTO ALARM VALUES(SEQ_ALARM.CURRVAL,'qna',DEFAULT,DEFAULT,#{userNo},1,#{qnaTitle},#{answerText})
+		INSERT INTO ALARM VALUES(SEQ_ALARM.CURRVAL,'관리자',DEFAULT,DEFAULT,#{userNo},'관리자',#{qnaTitle},#{answerText})
 	 </insert>
 	 
 </mapper>
