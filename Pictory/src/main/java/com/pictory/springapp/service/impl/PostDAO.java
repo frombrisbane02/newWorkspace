@@ -43,6 +43,13 @@ public class PostDAO {
 		return  template.insert("photoUpload", fileInfo);
 	}
 	
+	//ADD START DONGMI SHIN
+	public int insertPhoto(Map<String,Object> map) {
+		template.insert("photoUpload",map);
+		return Integer.parseInt(String.valueOf(map.get("photoNo")));
+	}
+	//ADD END DONGMI SHIN
+	
 	
 	public int getPostNo() {
 		//postUpload 이후 가져온 postNo

@@ -14,6 +14,12 @@ public class GalleryDTO {
 	//USERS
 	private String userNickname;
 	private String userProfile;
+	private String userSelf;
+    private String userfwerCnt;
+    private String userfingCnt;
+    private String myfingCnt;
+
+    private String creatorNo;
 	
 	//POST
 	private String postNo;
@@ -38,8 +44,25 @@ public class GalleryDTO {
 	private String storyThumbnail;
 	private String storyDescription;
 	
+	//PRODUCT
+	private String pdNo;
+	private String pdPrice;
+	private String pdSalesNo;
+	private java.sql.Date pdDate;
+	
+	//PAYMENT
+    private String paymentNo;    
+    private String paymentTotal;
+    private java.sql.Date paymentDate;
+	
 	//COMMENT_TBL count 
 	private String commentCnt;
+	
+	//LIKES count
+	private String likeCnt;
+	
+	//cart count
+	private String cartCnt;	
 	
 	
 }

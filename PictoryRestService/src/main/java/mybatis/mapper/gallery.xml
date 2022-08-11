@@ -12,7 +12,8 @@
                u.userprofile,
                u.userno,
                po.posthits,
-	           po.postlikes,
+	           (SELECT COUNT(*) FROM likes lk WHERE lk.postno=po.postno) postlikes,
+	           (SELECT COUNT(*) FROM likes lk WHERE lk.userno=#{userNo} AND lk.postno=po.postno) likecnt,
 	           (SELECT ph.photourl FROM photo ph WHERE ph.postno=po.postno AND ROWNUM = 1) photourl,
 	           (SELECT COUNT(ct.cno) FROM comment_tbl ct WHERE ct.postno=po.postno) commentcnt,
 	           s.sno,
@@ -34,8 +35,9 @@
 			   u.userprofile,
 			   u.userno,
 			   po.posthits,
-			   po.postlikes,
+			   (SELECT COUNT(*) FROM likes lk WHERE lk.postno=po.postno) postlikes,
 			   (SELECT ph.photourl FROM photo ph WHERE ph.postno=po.postno AND ROWNUM = 1) photourl,
+			   (SELECT COUNT(*) FROM likes lk WHERE lk.userno=#{userNo} AND lk.postno=po.postno) likecnt,
 			   (SELECT COUNT(ct.cno) FROM comment_tbl ct WHERE ct.postno=po.postno) commentcnt,
 			   s.sno,
 			   s.storytitle,
@@ -44,9 +46,12 @@
 	        ON po.userno = u.userno
 	LEFT OUTER JOIN story s
 			ON po.sno = s.sno
-		 WHERE 1=1
+		 WHERE po.postsellornot = 2
 		 <if test="postCategory !=null">
 		   AND po.postcategory LIKE '%' || #{postCategory} || '%'
+		 </if>
+		 <if test="sNo !=null">
+		   AND s.sno = #{sNo}
 		 </if>
 	  ORDER BY 
 	  	 <choose>
@@ -62,7 +67,7 @@
   			   st.storydescription,
   			   st.storythumbnail,
   			   st.userno 
-  		  FROM(SELECT s.*,
+  		  FROM (SELECT s.*,
   					  (SELECT po.userno FROM post po WHERE po.sno=s.sno AND ROWNUM = 1) AS userno
 				 FROM story s)st
 			    WHERE 1=1
@@ -83,6 +88,211 @@
       ORDER BY ph.photono DESC
   	</select>
   	
+  	<select id="salesGalleryListTop" resultType="galleryDto">
+  		SELECT g.postno,
+			   g.photono,
+			   g.photourl,
+			   g.pdsalesno
+		  FROM (SELECT ph.postno,
+					  ph.photono,
+					  ph.photourl,
+					  pd.pdsalesno
+				 FROM photo ph INNER JOIN product pd
+				   ON ph.photono = pd.photono
+			 ORDER BY pd.pdsalesno DESC) g
+			 WHERE <![CDATA[ ROWNUM <= 10 ]]>
+  	</select>
   	
+  	<select id="createrList" parameterType="galleryDto" resultType="galleryDto">
+  		SELECT g.userno,
+			   g.usernickname,
+			   g.userprofile,
+			   g.pdsalesno
+		  FROM (SELECT u.userno,
+					   u.usernickname,
+					   u.userprofile,
+					   (SELECT SUM(pd.pdsalesno) 
+						  FROM (SELECT ph.photono,
+        							   po.userno
+								  FROM post po INNER JOIN photo ph
+									ON po.postno = ph.postno
+								 WHERE po.postsellornot = 1) a
+							INNER JOIN product pd
+							   		ON a.photono = pd.photono 
+								 WHERE a.userno = u.userno
+							  GROUP BY a.userno) pdsalesno
+				  FROM users u
+			  ORDER BY pdsalesno desc) g
+				 WHERE <![CDATA[ ROWNUM <= 8 ]]>
+				   AND g.userno != #{userNo}
+				   AND g.pdsalesno IS NOT NUll
+  	</select>
+  	
+  	<select id="salesGalleryList" parameterType="galleryDto" resultType="galleryDto">
+		SELECT po.postno,
+			   ph.photourl
+		  FROM photo ph INNER JOIN post po
+		    ON ph.postno = po.postno
+		 WHERE po.postsellornot = 1
+		 <if test="postCategory !=null">
+		   AND po.postcategory LIKE '%' || #{postCategory} || '%'
+		 </if>
+		 <if test="userNo !=null">
+		   AND po.userno = #{userNo}
+		 </if>
+	  ORDER BY po.postdate	
+  	</select>
+  	
+  	<select id="galleryView" parameterType="galleryDto" resultType="galleryDto">
+  		SELECT u.usernickname,
+			   po.postno,
+			   po.posttitle,
+			   po.sno,
+			   po.postdate,
+			   po.posttext,
+			   po.posthits,
+			   po.postsellornot,
+			   (SELECT count(*) 
+			      FROM cart c 
+			     WHERE c.userno=#{userNo}
+			       AND c.pdno=(SELECT pd.pdno
+                 				 FROM photo ph INNER JOIN product pd
+                 				   ON ph.photono=pd.photono
+                 				WHERE ph.postno=#{postNo})) cartCnt,
+			   (SELECT COUNT(*) FROM likes lk WHERE lk.postno=po.postno) postlikes,
+			   (SELECT COUNT(*) FROM likes lk WHERE lk.userno=#{userNo} AND lk.postno=po.postno) likecnt,
+			   (SELECT COUNT(ct.cno) FROM comment_tbl ct WHERE ct.postno=po.postno) commentcnt
+		  FROM users u INNER JOIN post po
+			ON u.userno = po.userno
+	     WHERE po.postno=#{postNo}
+  	</select>
+  	
+  	<select id="galleryViewPhotoList" parameterType="galleryDto" resultType="galleryDto">
+  		SELECT photourl
+		  FROM photo 
+		 WHERE postno=#{postNo}
+  	</select>
+  	
+  	<update id="updatePosthits" parameterType="galleryDto">
+  		UPDATE post SET posthits=posthits+1 WHERE postno=#{postNo}
+  	</update>
+  	
+  	<insert id="insertLikes" parameterType="galleryDto">
+		INSERT INTO likes VALUES(#{userNo}, #{postNo})
+	</insert>
 	
+	<delete id="deleteLikes" parameterType="galleryDto">
+		DELETE FROM likes WHERE userNo=#{userNo} AND postNo=#{postNo}
+	</delete>
+	
+	<select id="cartList" parameterType="galleryDto" resultType="galleryDto">
+  		 SELECT c.userno,
+		        u.usernickname,
+		        (SELECT po.posttitle FROM post po WHERE po.postno=ph.postno) posttitle,
+		        pd.pdno,
+		        pd.photono,
+		        pd.pdprice,
+		        ph.photoname,
+		        ph.photourl
+		   FROM cart c INNER JOIN product pd
+		     ON c.pdno = pd.pdno
+   	 INNER JOIN photo ph
+		     ON pd.photono = ph.photono
+     INNER JOIN users u
+		     ON c.userno = u.userno
+		  WHERE u.userno=#{userNo}
+  	</select>
+  	
+  	<delete id="deleteCart" parameterType="galleryDto">
+		DELETE FROM cart WHERE userno=#{userNo} and pdno=#{pdNo}
+	</delete>
+  	
+  	<insert id="insertCart" parameterType="galleryDto">
+		INSERT INTO cart VALUES(2,(select pd.pdno
+									 FROM photo po INNER JOIN product pd
+									   ON po.photono=pd.photono
+									WHERE po.postno=#{postNo}))
+	</insert>
+  	
+  	<insert id="insertPayment" parameterType="Map" >
+		<!-- 
+		keyProperty:인자로 전달된 맵에 저장할 키값 설정
+		resultType:키값의 타입
+		order:순서로 아래 INSERT문다 먼저 실행된다(BEFORE일때)
+		 -->
+		 <selectKey keyProperty="paymentNo" resultType="int" order="BEFORE">
+		 	SELECT SEQ_PAYMENT.NEXTVAL FROM DUAL
+		 </selectKey>
+		 INSERT INTO payment VALUES(SEQ_PAYMENT.CURRVAL,#{userNo},SYSDATE,#{paymentTotal})
+	</insert>
+  	
+  	<insert id="insertPdorder" parameterType="galleryDto">
+		INSERT INTO pdorder VALUES(#{paymentNo},#{pdNo},0)
+	</insert>
+	
+	<update id="updatePdsalesno" parameterType="galleryDto">
+  		UPDATE product SET pdsalesno=pdsalesno+1 WHERE pdno=#{pdNo}
+  	</update>
+  	
+  	<select id="orderDayList" parameterType="galleryDto" resultType="galleryDto">
+  		SELECT paymentno,paymentdate
+		  FROM payment 
+		 WHERE userno=#{userNo}
+		 ORDER BY paymentdate DESC
+  	</select>
+  	
+  	<select id="orderList" parameterType="galleryDto" resultType="galleryDto">
+  		SELECT a.posttitle,
+  			   a.photourl,
+  			   b.pdprice
+  		  FROM (SELECT po.posttitle,ph.photono,ph.photourl
+				  FROM post po INNER JOIN photo ph
+				    ON po.postno = ph.postno) a 
+	INNER JOIN (SELECT pro.photono,pdo.paymentno,pro.pdPrice
+				  FROM pdorder pdo INNER JOIN product pro
+					ON pdo.pdno = pro.pdno) b
+			ON a.photono=b.photono
+		 WHERE b.paymentno = #{paymentNo}  	
+  	</select>  	
+  	
+  	<insert id="insertPost" parameterType="Map" >
+		 <selectKey keyProperty="postNo" resultType="int" order="BEFORE">
+		 	SELECT SEQ_POST.NEXTVAL FROM DUAL
+		 </selectKey>
+		
+		 <choose>
+		 	<when test="sNo==-1">
+		 		INSERT INTO POST VALUES(SEQ_POST.CURRVAL,#{userNo},null,#{postTitle},DEFAULT,#{postSellOrNot},#{postCategory},#{postText},DEFAULT,SYSDATE)
+		 	</when>
+		 	<otherwise>
+		 	 	INSERT INTO POST VALUES(SEQ_POST.CURRVAL,#{userNo},#{sNo},#{postTitle},DEFAULT,#{postSellOrNot},#{postCategory},#{postText},DEFAULT,SYSDATE)
+		 	</otherwise>
+		 
+		 </choose>
+	</insert>
+	
+	<select id="storyView" parameterType="galleryDto" resultType="galleryDto">
+  		SELECT sno,
+  			   storythumbnail,
+  			   storydescription,
+  			   storytitle
+		  FROM story 
+		 WHERE sno=#{sNo}
+  	</select>
+  	
+  	<select id="creatorView" parameterType="galleryDto" resultType="galleryDto">
+  		SELECT userno,
+			   usernickname,
+			   (SELECT COUNT(followtargetid) FROM follow f WHERE f.userno = u.userno) userfwerCnt,
+			   (SELECT COUNT(userno) FROM follow f WHERE f.followtargetid = u.userno) userfingCnt,
+			   (SELECT COUNT(userno) FROM follow f WHERE f.followtargetid = #{userNo}) myfingCnt,
+			   userprofile,
+			   userself
+		  FROM users u
+		 WHERE userno=#{creatorNo}
+  	</select>
+  	
+  	
+  	
+  	
 </mapper>

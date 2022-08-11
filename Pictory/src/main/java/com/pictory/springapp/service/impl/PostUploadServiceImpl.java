@@ -166,9 +166,28 @@ public class PostUploadServiceImpl implements PostUploadService<PostDTO> {
 
 	//파일 DB에 넣기
 	@Override
-	public int photoInsert(Map fileList) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int photoInsert(Map map) {
+		//ADD START DONGMI SHIN
+		System.out.println("postNo:"+map.get("postNo"));
+		System.out.println("photoSize:"+map.get("photoSize"));
+		System.out.println("photoName:"+map.get("photoName"));
+		System.out.println("photoUrl:"+map.get("photoUrl"));
+		System.out.println("productPrice:"+map.get("productPrice"));
+		
+		int photoNo = dao.insertPhoto(map);
+		
+		if(map.get("productPrice") !=null && !String.valueOf(map.get("productPrice")).equals("")) {
+			map.put("photoNo", String.valueOf(photoNo));
+			map.put("price", map.get("productPrice"));
+			
+			System.out.println("photoNo:"+photoNo);
+			System.out.println("price:"+map.get("productPrice"));
+			
+			int sucess = dao.productInsert(map);
+			System.out.println("productSucess:"+sucess);
+		}
+		return photoNo;
+		//ADD END DONGMI SHIN
 	}
 	
 
@@ -181,15 +200,6 @@ public class PostUploadServiceImpl implements PostUploadService<PostDTO> {
 	public int postUpdate(Map map) {
 		return dao.postUpdate(map);
 	}
-
-
-
-	
-
-
-
-
-
 
 	
 

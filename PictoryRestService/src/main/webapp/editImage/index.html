@@ -1,0 +1,300 @@
+<!--https://github.com/scaleflex/filerobot-image-editor-->
+<!-- https://www.npmjs.com/package/@filerobot/readme-->
+<!-- 신동미  : 안드로이드용--->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  
+  
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+  <script src="https://scaleflex.cloudimg.io/v7/plugins/filerobot-image-editor/latest/filerobot-image-editor.min.js"></script>
+  <script>
+      window.addEventListener('DOMContentLoaded',function(){
+        var file=document.querySelector('#add-image');
+        var img = document.querySelector('#img_plus');
+        
+    	console.log("height111:",document.querySelector("div.konvajs-content"))
+    	
+       
+        //이미지 클릭시 type="file"요소에 클릭 이벤트가 발생하도록 트리거를 건다
+        img.onclick=function(){
+          var fileClick=new MouseEvent("click", {
+              bubbles: true,
+              cancelable: true,
+              view: window});
+          
+          //type="file"요소에 마우스 클릭 이벤트 발송
+          file.dispatchEvent(fileClick);
+
+        };
+        
+      });
+
+  </script>
+  
+</head>
+<body>
+ 
+  <input style="display:none" class="add-img" type="file" accept="image/*" name="image" id="add-image">
+  <img src="../images/plus_icon.png" alt="업로드" id="img_plus" style="width:400px;height:50px"/>
+  <div id="editor_container" style="height:710px; width: 100%;">
+
+  </div>
+  <!--  
+  <img id="display_image" alt="보정이미지 표시" style="display:none"/>
+	-->
+  
+  
+  <script>
+  const { TABS, TOOLS } = FilerobotImageEditor;
+  const config = {
+  source: '../images/2.png',
+  language:'ko',
+  onSave: (editedImageObject, designState) =>{
+    
+    console.log('saved', editedImageObject, designState);
+    var src=editedImageObject.imageBase64.split(',')
+    var data=src[1];
+    console.log('src[1]:',src[1])
+    //var data = atob(src[1])
+    console.log('data:',data)
+    console.log('editedImageObject.imageBase64:',editedImageObject.imageBase64)
+    console.log('editedImageObject.fullName:',editedImageObject.fullName)
+    console.log('editedImageObject.mimeType:',editedImageObject.mimeType);
+    
+    //안드로이드 웹뷰의 자스 호출
+    window.Android.showBottomSheet(data,editedImageObject.fullName);
+    
+    /*
+    //보정된 이미지 서버에 업로드 : 안드로이드에서 동시에 업로드 할거라 아래 ajax요청 주석
+    $.ajax({
+      url:"http://192.168.0.25:9191/springapp/image.do",
+      data:"base64="+encodeURIComponent(data)+"&filename="+editedImageObject.fullName,
+      dataType:'json',
+      method:'post'
+
+    }).done(function(d){
+      //console.log('성공:',d);
+      //안드로이드 웹뷰의 자스 호출
+      //window.Android.showBottomSheet(data,editedImageObject.fullName);
+      
+      //보정이미지 표시
+      document.querySelector("#display_image").style.display='';
+      document.querySelector("#display_image").src=editedImageObject.imageBase64
+      //다운로드 코드 구현
+      var a= document.createElement('a');
+     
+      a.setAttribute("style", 'display:none');
+      a.setAttribute("href", editedImageObject.imageBase64);
+      a.setAttribute("download", editedImageObject.fullName);      
+      a.click();
+      setTimeout(function(){document.body.removeChild(a)},100);
+
+    }).fail(function(e){console.log('에러:',e)});*/
+  },
+    //console.log('imageBase64:',editedImageObject.imageBase64),
+    //editedImageObject.fullName
+   
+    
+  annotationsCommon: {
+    fill: '#ff0000',
+  },
+  Text: { text: 'Filerobot...' },
+  translations: {
+    
+    profile: '프로필',
+    coverPhoto: 'Cover photo',
+    facebook: '페이스북',
+    socialMedia: '소셜미디어',
+    fbProfileSize: '180x180px',
+    fbCoverPhotoSize: '820x312px',
+    name: '이름',
+  save: '저장',
+  saveAs: '다른 이름으로 저장',
+  back: '뒤로',
+  loading: '로드 중...',
+  resetOperations: '모든 작업 재설정/삭제',
+  changesLoseConfirmation: '모든 변경 사항이 손실됩니다',
+  changesLoseConfirmationHint: '계속하시겠습니까??',
+  cancel: '취소',
+  continue: '계속',
+  undoTitle: '마지막 작업 실행 취소',
+  redoTitle: '마지막 작업 다시 실행',
+  showImageTitle: '원본 이미지 표시',
+  zoomInTitle: '확대',
+  zoomOutTitle: '축소',
+  toggleZoomMenuTitle: '확대/축소 메뉴 전환',
+  adjustTab: '조정',
+  finetuneTab: '미세조정',
+  filtersTab: '필터',
+  watermarkTab: '워터마크',
+  annotateTab: '그리기',
+  resize: '크기 조정',
+  resizeTab: '크기 조정',
+  invalidImageError: '잘못된 이미지가 제공되었습니다.',
+  uploadImageError: '이미지를 업로드하는 동안 오류가 발생했습니다.',
+  areNotImages: '이미지가 아닙니다',
+  isNotImage: '이미지가 아닙니다',
+  toBeUploaded: '업로드 예정',
+  cropTool: '자르기',
+  original: '원본',
+  custom: '사용자 정의',
+  square: '사각형',
+  landscape: '풍경',
+  portrait: '초상화',
+  ellipse: '타원',
+  classicTv: '클래식 TV',
+  cinemascope: '시네마스코프',
+  arrowTool: '화살표',
+  blurTool: '흐리게',
+  brightnessTool: '밝기',
+  contrastTool: '대비',
+  ellipseTool: '타원',
+  unFlipX: 'Un-Flip X',
+  flipX: 'Flip X',
+  unFlipY: 'Un-Flip Y',
+  flipY: 'Flip Y',
+  hsvTool: 'HSV',
+  hue: '색조',
+  saturation: '채도',
+  value: '값',
+  imageTool: '이미지',
+  importing: '가져오는 중...',
+  addImage: '+ 이미지 추가',
+  lineTool: '선',
+  penTool: '펜',
+  polygonTool: '다각형',
+  sides: '측면',
+  rectangleTool: '사각형',
+  cornerRadius: '모서리 반경',
+  resizeWidthTitle: '픽셀 단위의 너비',
+  resizeHeightTitle: '픽셀 단위 높이',
+  toggleRatioLockTitle: '비율 잠금 전환',
+  reset: '재설정',
+  resetSize: '원래 이미지 크기로 재설정',
+  rotateTool: '회전',
+  textTool: '텍스트',
+  textSpacings: '텍스트 간격',
+  textAlignment: '텍스트 정렬',
+  fontFamily: '글꼴 패밀리',
+  size: '크기',
+  letterSpacing: '문자 간격',
+  lineHeight: '줄 높이',
+  warmthTool: '따뜻함',
+  addWatermark: '+ 워터마크 추가',
+  addWatermarkTitle: '워터마크 유형 선택',
+  uploadWatermark: '워터마크 업로드',
+  addWatermarkAsText: '텍스트로 추가',
+  padding: '패딩',
+  shadow: '그림자',
+  horizontal: '수평',
+  vertical: '세로',
+  blur: '흐림',
+  opacity: '불투명도',
+  position: '위치',
+  stroke: 'Stroke',
+  saveAsModalLabel: '이미지를 다른 이름으로 저장',
+  extension: '확장자',
+  nameIsRequired: '이름은 필수입니다.',
+  quality: 'Quality',
+  imageDimensionsHoverTitle: '저장된 이미지 크기(너비 x 높이)',
+  cropSizeLowerThanResizedWarning:
+    '선택한 자르기 영역이 적용된 크기보다 낮아 품질이 저하될 수 있습니다',
+  actualSize: '실제 크기(100%)',
+  fitSize: '맞춤 크기'
+  },
+  Crop: {
+    presetsItems: [
+      {
+        titleKey: 'classicTv',
+        descriptionKey: '4:3',
+        ratio: 4 / 3,
+        // icon: CropClassicTv, // optional, CropClassicTv is a React Function component. Possible (React Function component, string or HTML Element)
+      },
+      {
+        titleKey: 'cinemascope',
+        descriptionKey: '21:9',
+        ratio: 21 / 9,
+        // icon: CropCinemaScope, // optional, CropCinemaScope is a React Function component.  Possible (React Function component, string or HTML Element)
+      },
+    ],
+    presetsFolders: [
+      {
+        titleKey: 'socialMedia', // will be translated into Social Media as backend contains this translation key
+        // icon: Social, // optional, Social is a React Function component. Possible (React Function component, string or HTML Element)
+        groups: [
+          {
+            titleKey: 'facebook',
+            items: [
+              {
+                titleKey: 'profile',
+                width: 180,
+                height: 180,
+                descriptionKey: 'fbProfileSize',
+              },
+              {
+                titleKey: 'coverPhoto',
+                width: 820,
+                height: 312,
+                descriptionKey: 'fbCoverPhotoSize',
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  //,TABS.FILTERS,TABS.FINETUNE 추가함
+  tabsIds: [TABS.ADJUST, TABS.ANNOTATE, TABS.WATERMARK,TABS.FILTERS,TABS.FINETUNE], // or ['Adjust', 'Annotate', 'Watermark']
+  defaultTabId: TABS.ANNOTATE, // or 'Annotate'
+  defaultToolId: TOOLS.TEXT, // or 'Text'
+};
+
+// Assuming we have a div with id="editor_container"
+const filerobotImageEditor = new FilerobotImageEditor(
+  document.querySelector('#editor_container'),
+  config,
+);
+
+filerobotImageEditor.render({
+  onClose: (closingReason) => {
+    console.log('Closing reason', closingReason);
+    filerobotImageEditor.terminate();
+  },
+});
+
+
+
+document.querySelector('#add-image').onchange=function(){
+
+    //document.querySelector("#display_image").style.display='none';
+   
+
+    filerobotImageEditor.defaultTabId=TABS.FINETUNE;
+    console.log('filerobotImageEditor:',filerobotImageEditor);
+    console.log('filerobotImageEditor.config.source:',filerobotImageEditor.config.source)  
+    if (this.files && this.files[0]) {
+      var reader = new FileReader();
+       reader.readAsDataURL(this.files[0]);
+        reader.onload = function(e) {
+        //config.source=e.target.result;  
+        filerobotImageEditor.render({source: e.target.result})
+      };
+
+      
+    }
+  }
+  
+
+console.log('config:',config)
+  </script>
+
+  
+</body>
+</html>
