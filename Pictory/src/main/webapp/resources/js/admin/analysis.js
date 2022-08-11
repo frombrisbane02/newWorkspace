@@ -844,7 +844,7 @@ var myInfoData = "";
   		for(var i = 0; i < userData[0].length; i++){
   			var v = userData[0][i];
   			if(userNo == v.userNo){
-  				$('.modal0').attr('src', v.userProfile);
+  				$('.modal0').attr('src', imgUrl + v.userProfile);
   				$('.modal1').val(v.userNo);
   				$('.modal2').val(v.userId);
   				$('.modal3').val(v.userPassword);

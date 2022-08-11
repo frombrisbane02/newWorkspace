@@ -32,7 +32,7 @@ public class FaqController {
 	@RequestMapping(value="/qnaSave.do", method = {RequestMethod.POST})
 	public boolean qnaSave(@RequestBody List<HashMap<String, Object>> params) throws Exception {		
 		try {
-			System.out.println("params" + params);
+		//	System.out.println("params" + params);
 			
 			boolean result = faqService.faqSave(params);
 			return result;

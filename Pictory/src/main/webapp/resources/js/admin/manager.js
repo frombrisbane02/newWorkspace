@@ -91,7 +91,7 @@ var myInfoData = "";
 	
 	// 내 정보 MODAL
 	$(document).on('click', '#myInfo', function(){
-		console.log("myInfoData : ", myInfoData);
+	
 		if(myInfoData.length == 0){
 			alert("회원정보가 없습니다");
 			return false;
@@ -514,7 +514,8 @@ var myInfoData = "";
 				  }
 				});
     }
-  
+    
+  //최근 구매 판매 목록
   	var ajaxData = "";
   
   	function paymentListAjax(){
@@ -588,17 +589,16 @@ var myInfoData = "";
   		
   		keyword =  $('#keyword').val();
   		
-  		console.log("choiceValue : ", choiceValue);
-  		console.log("keyword : ", keyword);
+  		
 
   		if( choiceValue != 'ALL' && !keyword){
-			console.log("검색어 1");
+			
   			alert("검색어를 입력해주세요");
   			return false;
   		}
   		
   		if(choiceValue == 'ALL' && keyword){
-			console.log("검색어 2");
+			
 			alert("검색 키워드를 선택해주세요");
 			return false;
 		}

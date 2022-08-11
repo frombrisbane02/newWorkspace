@@ -38,7 +38,7 @@ var myInfoData = "";
 					for(var i = 0; i < data.length; i++){
 						var v = data[i];
 						
-						console.log("vvv : ", v);
+						//console.log("vvv : ", v);
 						
 						$('.userInfo0').attr('src', imgUrl + v.userProfile);
 						$('.userInfo1').text(v.userId);
@@ -59,7 +59,7 @@ var myInfoData = "";
 	
 	// 내 정보 MODAL
 	$(document).on('click', '#myInfo', function(){
-		console.log("myInfoData : ", myInfoData);
+	//	console.log("myInfoData : ", myInfoData);
 		if(myInfoData.length == 0){
 			alert("회원정보가 없습니다");
 			return false;
@@ -68,7 +68,7 @@ var myInfoData = "";
 		for(var i = 0; i < myInfoData.length; i++){
 			var v = myInfoData[i];
 			
-			console.log("vv : ", v);
+		//	console.log("vv : ", v);
 			
 			$('.modal0').attr('src', imgUrl + v.userProfile);
 			$('.modal1').val(v.userNo);
@@ -327,7 +327,7 @@ var myInfoData = "";
 			xhttp.send(JSON.stringify(weekArr));
 			xhttp.onload = () => {
 				if(xhttp.status != 200){
-					console.log("ERROR : ", xhttp.status);
+				//	console.log("ERROR : ", xhttp.status);
 					return false;
 				}
 				
@@ -778,7 +778,7 @@ var myInfoData = "";
 		
 		// 공지사항 삭제
 		$(document).on('click', '#mainNoticeDelete', function(){
-			console.log("공지사항 삭제");
+			//console.log("공지사항 삭제");
 			
 			
 			

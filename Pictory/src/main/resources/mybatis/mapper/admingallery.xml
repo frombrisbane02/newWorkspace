@@ -6,15 +6,13 @@
 	<!-- 갤러리 -->
 	<select id="galleryChart" parameterType="HashMap" resultType="AdminGalleryDTO">
 	<![CDATA[ 
-	  SELECT COUNT(*) AS photo
-	       , p.POSTDATE AS photoDate 
-	    FROM POST p
-         JOIN PHOTO h
-          ON p.POSTNO = h.POSTNO
-        	WHERE 1=1
-             AND p.POSTDATE >= #{startDate} AND p.POSTDATE <= #{endDate} 
-             GROUP BY p.POSTDATE
-             ORDER BY p.POSTDATE ASC
+	SELECT COUNT(*) AS photo
+          , POSTDATE AS photoDate 
+       FROM POST
+           WHERE 1=1
+             AND POSTDATE >= #{startDate} AND POSTDATE <= #{endDate} 
+             GROUP BY POSTDATE
+             ORDER BY POSTDATE ASC
 	   ]]>
 	</select>
 	

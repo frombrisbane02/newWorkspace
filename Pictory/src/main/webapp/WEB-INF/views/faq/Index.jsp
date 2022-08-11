@@ -27,19 +27,17 @@
 			</div>
 			<br><br>
 			
-			<b>Shippping</b>	
+			<b>BUY / SELL</b>	
 			<br><br>
 			<div class="text-left">
 			<div class="row">
-				<div class="col-sm-11">명탐정 코난!</div>
+				<div class="col-sm-11">Story에 있는 사진 작품을 사고 싶은데 구입할수 없는건가요?</div>
 				<h3><div class="col-sm-1"  onclick="myFunction()" id="button1">-</div></h3>
 				<br><br></div>
 				<div id="first">
-					Hello My mr.yesterday. 전해주지 않을래? <br>
-					꿈이 이루어지는 그때 꼭 다시 만나자고.<br>
-					미치도록 내달려도 앞이 보이지 않아 덩그러니 홀로 남겨져 길 위에 털썩 주저앉아<br>
-					애써 눈물을 참으려 했어
-					초라한 내가 싫어서..
+					답변 : Story에 있는 작품은 사실상 구매를 할 수는 없습니다 <br>
+						  그러나 정말로 마음에 드는 작품을 구매하고 싶다면 작가님에게 DM으로 요청하여<br>
+						  해당 작품을 구매 가능하도록 업로드 부탁드린다고 요청하시면 가능합니다<br>
 				</div>
 			</div>
 			
@@ -47,14 +45,13 @@
 
 			<div class="text-left">
 			<div class="row">
-				<div class="col-sm-11">원피스!</div>
+				<div class="col-sm-11">전문작가가 아닌데 사진을 업로드해서 판매가 가능할까요?</div>
 				<h3><div class="col-sm-1" onclick="myFunction1()" id="button2">-</div></h3>
 				<br><br></div>
 				<div id="second">
-					내 어린 시절 우연히 들었던 믿지 못할 한마디<br> 
-					이세상을 다준다는 매혹적인 얘기 내게 꿈을 심어주었어<br>
-					말도 안돼 고개 저어도 내안의 나 나를 보고 속삭여<br> 
-					세상은 꿈꾸는 자의 것이라고 용기를 내 넌 할 수 있어
+					답변 : 네 가능합니다<br> 
+						  저희 PICTORY에서는 전문 작가 뿐만 아니라 아마추어 작가 및 초보 작가들 까지 상관없이<br>
+						  누구든지 제한 없이 업로드 및 구매/판매 까지 가능합니다<br> 
 				</div>
 			</div>
 		
@@ -62,34 +59,29 @@
 			<br>
 			<br>
 
-			<b>Order Process</b>	
+			<b>ETC</b>	
 			<br><br>
 			<div class="text-left">
 			<div class="row">
-				<div class="col-sm-11">꾸러기 수비대!</div>
+				<div class="col-sm-11">관리자가 되고 싶은데 어떻게 해야하나요?</div>
 				<h3><div class="col-sm-1"  onclick="myFunction2()" id="button3">-</div></h3>
 				<br><br></div>
 				<div id="third">
-					똘기 떵이 호치 새초미 자축인묘<br>
-					드라고 요롱이 마초 미미 진사오미<br>
-					뭉치 키키 강다리 찡찡이 신유술해<br>
-					우리끼리 꾸러기 꾸러기 우리들은 열두 동물<br>
-					열두간지 꾸러기 수비대
+					답변 : 현재로서는 관리자를 채용하지 않습니다<br>
+						  그러나 추후에 모집을 할 계획이오니 공지사항을 확인해주시면 감사하겠습니다<br>
 				</div>
 			</div>
 			<hr>
-			<br><br>
+			
 			<div class="text-left">
 			<div class="row">
-				<div class="col-sm-11">나루토!</div>
+				<div class="col-sm-11">프로필 사진을 변경하고 싶은데 어디에서 올려야하나요?</div>
 				<h3><div class="col-sm-1"  onclick="myFunction3()" id="button4">-</div></h3>
 				<br><br></div>
 				<div id="four">
-					내게 허락된 건 힘겹기만한 거친 미래라 해도<br>
-					나를 깨운 꿈엔 모든 걸 걸고 달려갈꺼야<br>
-					나뭇잎 끝에 흩어지는 바람에 나의 꿈이 흔들려<br>
-					하지만 아직 내게 깃든 운명을 탓할 필요는 없지<br>
-					모두가 날 알아줄 그날이 언젠가 찾아올테니
+					답변 : 현재 회원가입을 하실 때에는 기본 프로필 사진만 제공합니다<br>
+						  그러나 기본 프로필 사진을 변경하고 싶으실 때나 자기소개를 작성하고 싶을 때는<br>
+						  마이페이지에서 수정 및 작성이 가능합니다<br>
 				</div>
 			</div>
 			
@@ -98,8 +90,8 @@
 			</div>
 			<div class="column">
 				<br><br><h4>질문을 찾지 못하였습니까</h4>
-				<br><p>Q&A로 넘어가시죠</p>
-				<a href="" class="filter_btn">Filter</a>
+				<br><p></p>
+				<a href="" class="filter_btn">Q&A로 넘어가시죠</a>
 				<input type="text" id="faqUserId" style="display:none" value="${sessionScope.userId}" />
 			</div>
 	</div>

@@ -53,7 +53,7 @@ public class NoticeController {
 			List<NoticeDTO> list=noticeService.noticeSelectList(map);	
 			
 			for(NoticeDTO dto : list) {
-				System.out.println(dto.getNoticeCategory());
+			//	System.out.println(dto.getNoticeCategory());
 				System.out.println(dto.getNoticeCode());
 				System.out.println(dto.getNoticeContent());
 				System.out.println(dto.getNoticeNo());

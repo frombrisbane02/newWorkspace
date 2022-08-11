@@ -68,7 +68,7 @@ function AdminLoginInfo(){
 	
 	// 내 정보 MODAL
 	$(document).on('click', '#myInfo', function(){
-		console.log("myInfoData : ", myInfoData);
+	//	console.log("myInfoData : ", myInfoData);
 		if(myInfoData.length == 0){
 			alert("회원정보가 없습니다");
 			return false;
@@ -380,7 +380,7 @@ $('.sidebar-toggler').click(function () {
 //		  $('.modalQnaRemove').text('');
 		  $('.modalQnaRemove').val('');
 		  
-		  console.log("noticeAjaxData : ", noticeAjaxData);
+		 // console.log("noticeAjaxData : ", noticeAjaxData);
 		  
 		  for(var i = 0; i < noticeAjaxData[0].length; i++){
 			  var v = noticeAjaxData[0][i];
