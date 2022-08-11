@@ -28,6 +28,8 @@ public class MemberDTO {
 	private String userSelf;
 	private Date userDate;
 	
+	private int enabled;
+	
 	//@Builder 어노테이션 사용하면 toString() 필요 없음
 	/*
 	@Override

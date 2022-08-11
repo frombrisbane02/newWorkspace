@@ -198,12 +198,6 @@
          
          var likesrc = $(this).children("img").attr("src")==='${pageContext.request.contextPath}/resources/img/gallerylist/test_icon06.png' ? "${pageContext.request.contextPath}/resources/img/gallerylist/test_icon06red.png" : "${pageContext.request.contextPath}/resources/img/gallerylist/test_icon06.png";
      	$(this).children('img').attr('src',likesrc);
-     	
-       	 //$('li:nth-last-child('+ postNo +') > a > div> p > span:nth-child(2)').text('ddd');
-    	/* const i =$(this).attr("id");
-       	const pxnum = Number(i.substring(8));
-     	console.log("pxnum:"+pxnum);
- */
 
          $.ajax({
                  type:"POST",

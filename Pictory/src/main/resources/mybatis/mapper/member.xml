@@ -9,6 +9,10 @@
 		SELECT a.authorities,b.* FROM authorities a JOIN users b ON a.userno=b.userno WHERE userId=#{userId} AND userPassword=#{userPassword}
 	</select>
 	
+	<select id="userenbaled" parameterType="Map" resultType="int">
+		select enabled from authorities where userNo=(select userNo from users where userId=#{userId} and userPassword=#{userPassword})
+	</select>
+	
 	<select id="memberCheck" parameterType="Map" resultType="int">
 		SELECT count(*) from USERS where userId='#{userId}'
 	</select>

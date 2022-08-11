@@ -45,6 +45,12 @@
 		  <strong>Failure!</strong> ${NotMember}
 		</div>
 	</c:if>
+	<c:if test="${not empty Block }">
+		<div class="alert alert-success">
+		  <button type="button" class="close" data-dismiss="alert">&times;</button>
+		  <strong>Failure!</strong> ${Block}
+		</div>
+	</c:if>
 	
 
 	<c:if test="${empty sessionScope.userId}" var="isLogin">
@@ -79,10 +85,10 @@
 			&mdash;	or &mdash;</span>
 		</form>
 		</c:if>
-		
+
 		<c:if test="${not isLogin }">
 		<div class="alert alert-success">
-		  <strong>Success!</strong> ${userId}님 즐감하세요!
+		  <strong>Success!</strong> ${userId}님 환영합니다!
 		</div>
 		 <a class="nav-link" href="<c:url value="/auth/Logout.do"/>">로그아웃</a></li>
 		</c:if>

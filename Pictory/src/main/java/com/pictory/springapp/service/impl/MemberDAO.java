@@ -32,6 +32,9 @@ public class MemberDAO {
 	public String isLogin(Map map) {
 		return template.selectOne("memberIsLogin", map);
 	}
+	public Integer getEnabled(Map map) {
+		return template.selectOne("userenbaled", map);
+	}
 	
 	
 	public boolean isExist(Map map) {

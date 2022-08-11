@@ -35,6 +35,11 @@ public class MemberServiceImpl implements MemberService<MemberDTO>{
 		
 		return dao.isLogin(map);
 	}
+	
+	@Override
+	public Integer getEnabled(Map map) {
+		return dao.getEnabled(map);
+	}
 
 	public boolean isExist(String userId) {
 		Map<String, String> map = new HashMap<String, String>();

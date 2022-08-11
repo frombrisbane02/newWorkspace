@@ -56,6 +56,13 @@ public class AuthController {
 			model.addAttribute("userId",map.get("userId"));			
 		}
 		
+		int enabled = memberService.getEnabled(map);
+
+		if(enabled==2) {
+			status.setComplete();
+			model.addAttribute("Block","너 이새끼 활동정지 먹은거야 알아들어?");
+		}
+		
 		return "auth/Login.tiles";
 	}
 	//로그아웃 처리]

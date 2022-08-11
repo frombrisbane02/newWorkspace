@@ -31,4 +31,6 @@ public interface MemberService<T> {
 	
 	//좋아요 저장소에서 취소
 	void deleteLikePost(int postNo);
+
+	Integer getEnabled(Map map);
 }
