@@ -116,7 +116,7 @@
 }
 
 /* 상단 필터 선택 항목 */
-.fil_sel_list {
+.fil_sel_list  {
 	display: flex;
 	flex-wrap: wrap;
 	margin-bottom: 20px;
@@ -133,7 +133,7 @@
 	font-size: 12px;
 }
 
-.fil_sel_list li a img {
+.fil_sel_list li img {
 	width: 7px;
 	margin-right: 5px;
 	margin-top: -2px;

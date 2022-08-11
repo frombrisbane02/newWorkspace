@@ -27,19 +27,14 @@
 	<div class="gall_list">
 		<div class="top_filter">
 			<div class="filter_left">
-				<a href="" class="filter_btn"><img src="<c:url value="/resources/img/story/test_icon12.png"/>"alt="">Filter</a>
-				<p class="count"><span>${fn:length(lists)}</span>개의 글</p>
+				<button type="button" class="filter_btn"><img src="<c:url value="/resources/img/story/test_icon12.png"/>"alt="">Filter</button>
+				<p class="count"  id="cartegoryCount"><span>${fn:length(lists)}</span>개의 글</p>
 			</div>
 		</div>
 		
 		<ul class="fil_sel_list" id="cartegoryList">
-		<!-- 여기 선택한 필터 리스트 목록 갖고와서 foreach로 뿌리면서 엑스<도 기능하고, 엑스 눌렀을때 체크 해제되게 기능구현  -->
-			<span id='view_content_order'>
-			<li>
-				<a href=""><img src="<c:url value="/resources/img/story/test_icon16.png"/>" alt=""></a>
-				<p>Clean all</p>
-			</li>
-			</span>
+		<!-- 기 선택한 필터 리스트 목록 갖고와서 foreach로 뿌리면서 엑스<도 기능하고, 엑스 눌렀을때 체크 해제되게 기능구현  -->
+
 		</ul>
 		
 	<!-- ===========================글 리스트================================= -->
@@ -249,18 +244,27 @@
                     type        :   "post",
                     data        :   checkParams,
                     success     :   function(result){
+                   				 	$('#cartegoryCount').empty();
                     				$('#resultList').empty();
                     				$('#cartegoryList').empty();
                     				var html ='';
                     				
-                    				for(var i=0 ; i<checkArray.length ; i++){
-                    				cartegory= $('<li>'+
+                    				var count=$(
+                    				'<p class="count">'+'<span>'+result.length+'</span>개의 글</p>'
+                    				);
+                    				$('#cartegoryCount').append(count);
+    
+                    				
+
+                    				
+                    			for(var i=0 ; i<checkArray.length ; i++){
+                    				var cartegory= $('<li>'+
              								'<a href="">'+'<img src="<c:url value="/resources/img/story/test_icon16.png"/>" alt="">'+'</a>'+
              								'<p>'+checkArray[i]+'</p>'+
              							'</li>')
              						
              							$('#cartegoryList').append(cartegory);
-                    				};
+                    			};
                     				
                     				
              						result.forEach(function(item, index){
