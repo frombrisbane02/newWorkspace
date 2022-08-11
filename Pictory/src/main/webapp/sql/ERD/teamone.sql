@@ -52,8 +52,8 @@ CREATE TABLE ALARM
 	isChecked number DEFAULT 0,
 	-- userId 참조
 	receiver number,
-	-- userId 참조
-	eventUser number,
+	-- userNickname
+	eventUser nvarchar2(30),
 	-- like/comment/sales - postTitle로 지정
 	-- qna - 글제목
 	subject nvarchar2(50),
@@ -397,12 +397,6 @@ ALTER TABLE ADJUSTMENT
 
 ALTER TABLE ALARM
 	ADD FOREIGN KEY (receiver)
-	REFERENCES USERS (userNo)
-;
-
-
-ALTER TABLE ALARM
-	ADD FOREIGN KEY (eventUser)
 	REFERENCES USERS (userNo)
 ;
 

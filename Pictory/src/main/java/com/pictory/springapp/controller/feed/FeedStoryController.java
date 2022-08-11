@@ -59,7 +59,6 @@ public class FeedStoryController {
 	      return "story/Virtual.tiles";
 	   }
 
-	   
 
 
 	   @Autowired
@@ -94,9 +93,6 @@ public class FeedStoryController {
 	      
 	      return mapper.writeValueAsString(resultMap);
 	   }//
-	   
-	   
-
 
 
 }
