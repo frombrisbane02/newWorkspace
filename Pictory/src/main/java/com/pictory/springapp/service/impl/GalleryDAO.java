@@ -60,8 +60,9 @@ public class GalleryDAO {
 	
 
 	public List<GalleryDTO> selectPhotoList(int postNo) {
+
 		return template.selectList("photoList",postNo);
-	}
+
 
 
 	public List<GalleryDTO> selectGalleryView(int postNo) {
@@ -82,7 +83,6 @@ public class GalleryDAO {
 	
 	//2public List<GalleryDTO> selectFilter(String[] postCategory) 
 		public List<GalleryDTO> selectFilter(String[] postCategory){
-		System.out.println("종근===갤러리 dao");
 		
 		List<GalleryDTO> filters = template.selectList("filter",postCategory);
 		for(GalleryDTO filter : filters) {
@@ -97,8 +97,6 @@ public class GalleryDAO {
 		}
 			
 		}
-		System.out.println("11======================");
-		System.out.println("filters"+filters);
 		return filters;
 	}
 
@@ -120,7 +118,10 @@ public class GalleryDAO {
 
 
 	public GalleryDTO getProductInfo(int postNo) {
-		return template.selectOne("getProductInfo",postNo);
+		// 상품정보 가져오기
+		GalleryDTO pdInfo = template.selectOne("getProductInfo",postNo);
+		return pdInfo;
+
 	}
 	
 	public int isSellorNot(int postNo) {
@@ -141,35 +142,26 @@ public class GalleryDAO {
 
 	//좋아요 체크
 	public int findLike(Map<String, Object> map) {
-		System.out.println("###갤러리dao###");
 		int succ=0;
-		System.out.println("###DAO###:"+map);
 		succ=template.selectOne("findLike", map);
-		System.out.println("###succ###:"+succ);
 		return succ;
 	}
 
 	//좋아요 해제
 	public void likeDown(Map<String, Object> map) {
-		System.out.println("###좋아요 해제DAO###");
 		template.selectOne("likeDown", map);
 		
 	}
 
 
 	public void likeUp(Map<String, Object> map) {
-		System.out.println("###좋아요 업DAO###");
 		template.selectOne("likeUp", map);
 		
 	}
 
 	//갤러리리스트에서 로그인한 유저가 좋아요 버튼 누른 것들 표시
 	public List findUserPostno(Map<String, Object> map) {
-		
-		System.out.println("###포스트넘버 체크DAO###");
-		System.out.println("###포스트넘버 map###:"+map);
 		List lists=template.selectList("findUserPostno",map);
-		System.out.println("###tmp###:"+lists);
 		return lists;
 	}
 	

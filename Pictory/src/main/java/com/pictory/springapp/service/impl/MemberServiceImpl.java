@@ -39,7 +39,6 @@ public class MemberServiceImpl implements MemberService<MemberDTO>{
 	public boolean isExist(String userId) {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("userId", userId);
-		System.out.println("@@@@@");
 		return dao.isExist(map);
 	}
 	//회원가입
@@ -47,7 +46,6 @@ public class MemberServiceImpl implements MemberService<MemberDTO>{
 	public int signUp(MemberDTO dto) {
 		int resultCnt=0;
 		resultCnt = dao.signUp(dto);
-		System.out.println("에러후 여기로 들어오나요???resultCnt:"+resultCnt);
 		return resultCnt;
 		
 	}
@@ -120,7 +118,6 @@ public class MemberServiceImpl implements MemberService<MemberDTO>{
             
 			// 결과 코드가 200이라면 성공
 			int responseCode = conn.getResponseCode();
-			System.out.println("responseCode : " + responseCode);
             
 			// 요청을 통해 얻은 JSON타입의 Response 메세지 읽어오기
 			BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
@@ -130,7 +127,6 @@ public class MemberServiceImpl implements MemberService<MemberDTO>{
 			while ((line = br.readLine()) != null) {
 				result += line;
 			}
-			System.out.println("response body : " + result);
             
 			// Gson 라이브러리에 포함된 클래스로 JSON파싱 객체 생성
 			JsonParser parser = new JsonParser();
@@ -139,9 +135,7 @@ public class MemberServiceImpl implements MemberService<MemberDTO>{
 			access_Token = element.getAsJsonObject().get("access_token").getAsString();
 			refresh_Token = element.getAsJsonObject().get("refresh_token").getAsString();
             
-			System.out.println("access_token : " + access_Token);
-			System.out.println("refresh_token : " + refresh_Token);
-            
+			
 			br.close();
 			bw.close();
 		} catch (IOException e) {
@@ -163,7 +157,7 @@ public class MemberServiceImpl implements MemberService<MemberDTO>{
 			conn.setRequestProperty("Authorization", "Bearer " + access_Token);
 
 			int responseCode = conn.getResponseCode();
-			System.out.println("responseCode : " + responseCode);
+		
 
 			BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 
@@ -173,19 +167,16 @@ public class MemberServiceImpl implements MemberService<MemberDTO>{
 			while ((line = br.readLine()) != null) {
 				result += line;
 			}
-			System.out.println("response body : " + result);
+	
 
 			JsonParser parser = new JsonParser();
 			JsonElement element = parser.parse(result);
 			JsonObject properties = element.getAsJsonObject().get("properties").getAsJsonObject();
 			JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
-			System.out.println("#########account#####:"+kakao_account);
 			String nickname = properties.getAsJsonObject().get("nickname").getAsString();
 			String email = kakao_account.getAsJsonObject().get("email").getAsString();
 			String id = element.getAsJsonObject().get("id").getAsString();
 			String profileimg = properties.getAsJsonObject().get("profile_image").getAsString();
-			System.out.println("%%%%%%%id%%%%%:"+id);
-			System.out.println("%%%%%%%profile_image_url%%%%%:"+profileimg);
 			userInfo.put("userNickname", nickname);
 			userInfo.put("userEmail", email);
 			userInfo.put("userId", id);
@@ -201,19 +192,15 @@ public class MemberServiceImpl implements MemberService<MemberDTO>{
 		
 	public String kakaoLogIn(Model model ,Map<String, Object> userInfo){
 		String mem = dao.isLogin(userInfo);
-		System.out.println("!!!!!!!!!!!mem:"+mem);
 		
 		if(mem==null) {
-			System.out.println("카카오비회원");
 			int newUser = dao.kakaosignUp(userInfo);
 			if(newUser > 0) {
-				System.out.println("$$$$$$$$$$newUser:"+newUser);
 				dao.isLogin(userInfo);
 			}
 		}
 		
 		else if(mem.equals("USER")) {
-			System.out.println("카카오유저로 들어오면 여기");
 		}
 		model.addAttribute("userNo",userInfo.get("userNo"));
 		model.addAttribute("userId",userInfo.get("userId"));
@@ -233,7 +220,6 @@ public class MemberServiceImpl implements MemberService<MemberDTO>{
 	        conn.setRequestProperty("Authorization", "Bearer " + access_Token);
 	        
 	        int responseCode = conn.getResponseCode();
-	        System.out.println("responseCode : " + responseCode);
 	        
 	        BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 	        
@@ -243,7 +229,6 @@ public class MemberServiceImpl implements MemberService<MemberDTO>{
 	        while ((line = br.readLine()) != null) {
 	            result += line;
 	        }
-	        System.out.println("test"+result);
 	    } catch (IOException e) {
 	        e.printStackTrace();
 	    }

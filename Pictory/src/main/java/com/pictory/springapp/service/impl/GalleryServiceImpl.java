@@ -60,7 +60,6 @@ public class GalleryServiceImpl implements GalleryService<GalleryDTO> {
 
 	@Override
 	public List<GalleryDTO> galleryFilter(String[] postCategory) {
-		System.out.println("종근===갤러리 서비스 임풀");
 		return dao.selectFilter(postCategory);
 	}
 
@@ -129,21 +128,15 @@ public class GalleryServiceImpl implements GalleryService<GalleryDTO> {
 	@Override
 	public Integer findLike(int postNo, String userId) {
 		
-		System.out.println("###갤러리서비스임플###");
 		Map<String, Object> map = new HashMap<>();
 		map.put("postNo", postNo);
 		map.put("userId", userId);
-		
-		System.out.println("###서비스일픔postNo:"+postNo);
-		System.out.println("###서비스일픔userId:"+userId);
 		int counts= dao.findLike(map);
-		System.out.println("###counts###:"+counts);
 		return counts;
 	}
 	
 	@Override
 	public List findUserPostno(String userId) {
-		System.out.println("###갤러리서비스임플###");
 		Map<String, Object> map = new HashMap<>();
 		map.put("userId", userId);
 		

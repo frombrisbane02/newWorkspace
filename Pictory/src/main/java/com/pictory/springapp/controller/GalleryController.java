@@ -56,11 +56,8 @@ public class GalleryController {
 		List<GalleryDTO> lists = galleryService.galleryList(userId);
 		List<GalleryDTO> hashs = galleryService.hashList();
 		
-		System.out.println("###lists:"+lists.get(0));
 		model.addAttribute("lists",lists);
-		System.out.println("###lists###:"+lists);
 		List postNum = galleryService.findUserPostno(userId);
-		System.out.println("###postNum###:"+postNum);
 		model.addAttribute("hashs",hashs);
 		model.addAttribute("userId", userId);
 		model.addAttribute("postlists", postNum);
@@ -107,7 +104,6 @@ public class GalleryController {
 		List<GalleryDTO> infoLists = galleryService.galleryInfo(postNo);
 		
 		//4. 수정 삭제용 세션 아이디 저장
-		System.out.println("소리코의 sessionId: 갖고오니..?;;"+map.get("userId"));
 		model.addAttribute("userId",map.get("userId"));
 		
 		//5. 댓글 코멘트 갖고 오기(postNo 넘기고!)
@@ -150,13 +146,11 @@ public class GalleryController {
 		
 		//8. 로그인 한 사람 정보 다 갖고오기
 		GalleryDTO loginUser = galleryService.getLoginInfo(userId);
-		System.out.println("login한애 정보 다 갖고오니?: "+loginUser);
 		model.addAttribute("loginUser",loginUser);
 		
 		//8. Model에 정보 저장 후 돌아가기
 		model.addAttribute("postNo",postNo);
 		model.addAttribute("comments",comments);
-		System.out.println("###comments###:"+comments);
 		model.addAttribute("photoUrls",photoLists);
 		model.addAttribute("viewLists",viewLists);
 		model.addAttribute("infoLists", infoLists);
@@ -233,22 +227,16 @@ public class GalleryController {
 	                           HttpSession session, Model model,
 	                           HttpServletRequest req) throws JsonProcessingException{
 	 
-	      System.out.println("컨트롤러에서 받은 userId:"+userId);
-	      System.out.println("컨트롤러에서 받은 postNo:"+postNo);
 	    
 	      int like = galleryService.findLike(postNo, userId);
-	      System.out.println("like:"+like);
 	      if(like>=1) {
-	    	 System.out.println("좋아요 취소!");
 	  		 galleryService.likeDown(postNo, userId);
 	      }
 	      else {
-	  		System.out.println("좋아요 업!");
 			galleryService.likeUp(postNo,userId);
 
 	      }
 	      int getpostlikes = galleryService.getpostlikes(postNo);
-	      System.out.println("###getpostlikes###:"+getpostlikes);
 	      return getpostlikes;
 	   }
 	
@@ -277,14 +265,9 @@ public class GalleryController {
 	   
 	   @RequestMapping(value="filter.do", produces = "application/json;charset=UTF-8")
 	   @ResponseBody
-	   public String filter(Model model,@RequestParam(value="checkList[]") String[] postCategory) throws JsonProcessingException{
-		   
-		   System.out.println("======filter.do 도착(종근)");
-		   System.out.println(postCategory);
+	   public String filter(Model model,@RequestParam(value="checkList[]") String[] postCategory) throws JsonProcessingException{	 
 		   List<GalleryDTO> result = galleryService.galleryFilter(postCategory);
-
 		   
-			System.out.println("22======================");
 			model.addAttribute("lists",result);
 			
 

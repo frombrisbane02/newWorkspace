@@ -99,22 +99,6 @@ background: linear-gradient(to right, rgba(132, 250, 176, 1), rgba(143, 211, 244
 
 <script>
 
-
-	/*
-	function submitForm() {
-		const form = document.querySelector("form");
-		return Promise.resolve(() => form.submit());
-	}
-	
-	
-	async function asyncSubmit() {
-		const doSubmit = await checkId(false);
-		if (doSubmit) {
-			submitForm();
-		}
-	}
-	*/
-	
 	async function checkId(doAlarm) {
 		const inputId = document.querySelector("input[name='userId']").value;
 	    let isValid = 0;
@@ -176,7 +160,6 @@ background: linear-gradient(to right, rgba(132, 250, 176, 1), rgba(143, 211, 244
 	}
 	
 	function createInvalidAlarm(type) {
-		console.log(type);
 		Swal.fire(
 				
 				  '유효성 확인',
@@ -187,7 +170,6 @@ background: linear-gradient(to right, rgba(132, 250, 176, 1), rgba(143, 211, 244
 
 	function isValid(type) {
 		const form = document.querySelector("#joinForm");
-		console.log(type+"ddddddd");
 		switch (type) {
 			case 'userId':
 				const userId = form.userId.value;
@@ -209,7 +191,6 @@ background: linear-gradient(to right, rgba(132, 250, 176, 1), rgba(143, 211, 244
 		for(key in checkees) {
 			if (!isValid(key)) {
 				createInvalidAlarm(key);
-				console.log("sadfsdfasdfa");
 				e.preventDefault();
 				return false;
 			}

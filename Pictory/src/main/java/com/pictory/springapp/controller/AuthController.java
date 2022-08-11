@@ -32,7 +32,6 @@ public class AuthController {
 	////////
 	@RequestMapping("Login.do")
 	public String login() {
-		System.out.println("로그인 컨트롤러");
 		return "auth/Login.tiles";
 	}
 	//로그인 처리] 
@@ -40,10 +39,8 @@ public class AuthController {
 	public String process(@RequestParam Map map, Model model, SessionStatus status) {
 		//서비스 호출]
 		String flag = memberService.isLogin(map);
-		System.out.println("@@@@@LoginProcess.do@@@flag:"+flag);
-		
+				
 		if(flag==null) {
-		System.out.println("여기 들어오니?? 제발....");
 		status.setComplete();
 		model.addAttribute("NotMember","아이디와 비번 불일치");
 		return "auth/Login.tiles";
@@ -56,7 +53,6 @@ public class AuthController {
 		}
 		
 		else if(flag.equals("USER")) {
-			System.out.println("너여기들어오니?????");
 			model.addAttribute("userId",map.get("userId"));			
 		}
 		

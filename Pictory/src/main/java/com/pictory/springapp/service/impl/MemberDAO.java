@@ -22,17 +22,7 @@ import com.pictory.springapp.dto.SavePostDTO;
 
 @Repository
 public class MemberDAO {
-	/*
-	private static SqlSessionFactory sqlMapper;
-	static {
-		try {
-		String resource = "mybatis/configuration.xml";
-		Reader reader = Resources.getResourceAsReader(resource);
-		sqlMapper = new SqlSessionFactoryBuilder().build(reader);
-		}
-		catch(IOException e) {e.printStackTrace();}
-		
-	}*/
+
 	@Autowired
 	private SqlSessionFactory sqlMapper;
 	
@@ -40,19 +30,16 @@ public class MemberDAO {
 	private SqlSessionTemplate template;
 
 	public String isLogin(Map map) {
-		System.out.println("@@@@@@@isLogin@@@@@@:"+map);
 		return template.selectOne("memberIsLogin", map);
 	}
 	
 	
 	public boolean isExist(Map map) {
-		System.out.println("@@@@@@isExist:"+map);
 		int count = template.selectOne("memberCheck", map);
 		return count == 1;
 	}
 	
 	public int signUp(MemberDTO dto) {
-		System.out.println("회원가입dao:"+dto);
 		int succ=0;
 		try {
 		succ=template.insert("memberInsert",dto);
@@ -63,7 +50,6 @@ public class MemberDAO {
 		return succ;
 	}
 	public int kakaosignUp(Map<String, Object> userInfo) {
-		System.out.println("회원가입userInfo:"+userInfo);
 		int succ=0;
 		try {
 		succ=template.insert("kakaoInsert",userInfo);
@@ -73,19 +59,6 @@ public class MemberDAO {
 		}
 		return succ;
 	}
-	/*
-	public boolean isLogin(Map map) {
-		System.out.println("@@MemberDAO_isLogin@@");
-		SqlSession session= sqlMapper.openSession();
-		int count= session.selectOne("memberIsLogin", map);
-		System.out.println("map:"+map);
-		System.out.println("count:"+count);
-		System.out.println("session:"+session);
-		session.close();
-		return count==1 ? true:false;
-	}*/
-	
-
 	
 	public MemberDTO readMember(String id) {
 		SqlSession session= sqlMapper.openSession();

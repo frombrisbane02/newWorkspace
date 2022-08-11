@@ -198,11 +198,9 @@
 		$(".hover_btn > li:nth-child(1) >a").click(function(e){  
 			
          const postNo = $(this).attr('href');
-         const postNum = 1+Number(postNo);
+         const postNum = Number(postNo);
          const userId = document.getElementById('getuserId').value;
-         console.log(e.target.id);
-         console.log('postNo :', postNo);
-         console.log('userId :', userId);
+         
          var likesrc = $(this).children("img").attr("src")==='${pageContext.request.contextPath}/resources/img/gallerylist/test_icon06.png' ? "${pageContext.request.contextPath}/resources/img/gallerylist/test_icon06red.png" : "${pageContext.request.contextPath}/resources/img/gallerylist/test_icon06.png";
      	$(this).children('img').attr('src',likesrc);
      	
@@ -217,36 +215,13 @@
                  url:"<c:url value='post/Likes.do'/>",
                  data: "postNo="+postNo+"&userId="+userId
                  }).done(function(data){
-                	//$('li:nth-last-child(6) > a > div> p > span:nth-child(2)').text(data);
                 	 $('li:nth-last-child('+ postNum +') > a > div> p > span:nth-child(2)').text(data);
-                	 console.log("성공");
-                    //var srcsrc = ($(this).children("img").attr('src')==='${pageContext.request.contextPath}/resources/img/gallerylist/test_icon06.png')) ? '${pageContext.request.contextPath}/resources/img/gallerylist/test_icon06red.png' : '${pageContext.request.contextPath}/resources/img/gallerylist/test_icon06.png';
-                	//$(this).children('img').attr('src',srcsrc);
-                	 
-                	 //var anchor = $('#aprevent'+postNo);
-                	 //if($('#aprevent'+postNo))
-                	 
-                	 /*
-                	 if(data==1){
-                		 
-                		 $(this).children('img').attr("src","${pageContext.request.contextPath}/resources/img/gallerylist/test_icon06.png");
-                		 //$(".hover_btn>li>a>img").attr("src","${pageContext.request.contextPath}/resources/img/gallerylist/test_icon06.png");
-                		 console.log("좋아요 취소1",data);
-                	 }else if(data==0 && postNo){
-                		 $(this).children('img').attr("src","${pageContext.request.contextPath}/resources/img/gallerylist/test_icon06red.png");
-                		 //$(".hover_btn>li>a>img").attr("src","${pageContext.request.contextPath}/resources/img/gallerylist/test_icon06red.png");
-                		 console.log("좋아요 2",data);
-                     	 }*/
-                		
+                
+            	
               }).fail(function(request,status,error){
                 alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-              
-                 console.log('무슨 실패입니까?');
-              });
-         
-         e.preventDefault();
-         console.log('e.preventDefault() 실행');
-         
+              });   
+         e.preventDefault(); 
       });
 	
 			
@@ -260,9 +235,7 @@
                 $('input[name="postCategory"]:checked').each(function(i){//체크된 리스트 저장
                 	checkArray.push($(this).val());
                 });
-                
-                console.log('checkArray :', checkArray);
-                
+                                
                 var checkParams = {
                         //"user"      : $("#user").val(), //유저 저장
                         "checkList" : checkArray        //체크배열 저장
@@ -278,7 +251,6 @@
                     success     :   function(result){
                     				$('#resultList').empty();
                     				$('#cartegoryList').empty();
- 						console.log("result:",result);
                     				var html ='';
                     				
                     				for(var i=0 ; i<checkArray.length ; i++){
@@ -292,7 +264,6 @@
                     				
                     				
              						result.forEach(function(item, index){
-             							console.log('item:',item)
              							
              							
              							html = $('<li class="photo_area">' +
@@ -341,7 +312,6 @@
                          
                     },
                     error       :   function(request, status, error){
-                        console.log("AJAX_ERROR(종근)");
                     }
                 });
                 
@@ -366,15 +336,12 @@
                  url:"<c:url value='post/CartInList.do'/>",
                  data: "postNo="+postNo+"&userId="+userId
                  }).done(function(data){
-                	 console.log("성공");
                 		
               }).fail(function(request,status,error){
                 alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-                 console.log('무슨 실패입니까?');
               });
          
          e.preventDefault();
-         console.log('e.preventDefault() 실행');
       });
 		
 	</script>
