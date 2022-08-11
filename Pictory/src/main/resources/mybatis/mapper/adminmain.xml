@@ -42,41 +42,53 @@
 
 	<select id="mainPaymentList" parameterType="AdminPaymentDTO" resultType="AdminPaymentDTO">
 		<![CDATA[
-		  SELECT ps.USERID AS seller
-		  	   , ps.USERID AS consumer
-		  	   , ps.PDNO
-		  	   , ps.POSTTITLE
-		  	   , ps.PHOTONAME
-		  	   , ps.PHOTOURL
-               , ps.PAYMENTNO
-               , ps.payno
-               , ps.pno
-		  	   , ps.PAYMENTTOTAL
-		  	   , ps.PAYMENTDATE
-            FROM (SELECT ups.USERNO AS pno
-            		   , ups.USERID
-            		   , sp.POSTNO
-            		   , pd.PDNO
-            		   , sp.POSTTITLE
-            		   , ph.PHOTONAME
-            		   , ph.PHOTOURL
-            		   , pay.PAYMENTNO
-            		   , pay.USERNO AS payno
-            		   , pay.PAYMENTTOTAL
-            		   , pay.PAYMENTDATE
-                   FROM POST sp
-                    JOIN USERS ups
-                     ON sp.USERNO = ups.USERNO
-                    JOIN PHOTO  ph
-                     ON sp.POSTNO = ph.POSTNO
-                    JOIN PRODUCT pd
-                     ON  ph.PHOTONO = pd.PHOTONO
-                    JOIN PDORDER pdo
-                     ON pd.PDNO = pdo.PDNO
-                    JOIN PAYMENT pay
-                     ON pdo.PAYMENTNO = pay.PAYMENTNO
-                     ORDER BY pay.PAYMENTDATE DESC
-                ) ps 
+		  SELECT *
+					FROM
+					(
+					    SELECT ROWNUM AS RNUM
+					              ,a.*
+					    FROM
+					    ( 
+					     SELECT     
+					                   ps.USERID AS seller
+					                   , us.USERID AS consumer
+					                   , ps.PDNO
+					                   , ps.POSTTITLE
+					                   , ps.PHOTONAME
+					                   , ps.PHOTOURL
+					                   , ps.PAYMENTNO
+					                   , ps.payno
+					                   , ps.pno
+					                   , ps.PAYMENTTOTAL
+					                   , ps.PAYMENTDATE
+					                FROM (SELECT ups.USERNO AS pno
+					                           , ups.USERID
+					                           , sp.POSTNO
+					                           , pd.PDNO
+					                           , sp.POSTTITLE
+					                           , ph.PHOTOURL
+					                           , ph.PHOTONAME
+					                           , pay.PAYMENTNO
+					                           , pay.USERNO AS payno
+					                           , pay.PAYMENTTOTAL
+					                           , pay.PAYMENTDATE
+					                       FROM POST sp
+					                        JOIN USERS ups
+					                         ON sp.USERNO = ups.USERNO
+					                        JOIN PHOTO  ph
+					                         ON sp.POSTNO = ph.POSTNO
+					                        JOIN PRODUCT pd
+					                         ON  ph.PHOTONO = pd.PHOTONO
+					                        JOIN PDORDER pdo
+					                         ON pd.PDNO = pdo.PDNO
+					                        JOIN PAYMENT pay
+					                         ON pdo.PAYMENTNO = pay.PAYMENTNO
+					                    ) ps 
+					                     JOIN USERS us
+					                      ON us.USERNO = ps.payno
+					                    ORDER BY ps.PAYMENTDATE DESC
+					    ) a
+					) 
                    WHERE 1=1
                      AND ROWNUM >= 1 AND ROWNUM <=5
                ]]>

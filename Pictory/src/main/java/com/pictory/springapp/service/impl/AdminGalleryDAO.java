@@ -1,5 +1,6 @@
 package com.pictory.springapp.service.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,17 +27,9 @@ public class AdminGalleryDAO {
 	public List<AdminGalleryDTO> galleryChart(List<HashMap<String, Object>> params) throws Exception {
 		SqlSession session = sqlMapper.openSession();
 		try {
-			
-			Map<String, String> map = new HashMap<String, String>();
-			
-			for(int i = 0; i < params.size(); i++) {
-				map.put("startDate", (String) params.get(i).get("startDate"));
-				map.put("endDate", (String) params.get(i).get("endDate"));
-			}
-			
-			List<AdminGalleryDTO> list =  session.selectList("galleryChart", map);
-			
-			return list;
+		
+			List<AdminGalleryDTO> gallery = session.selectList("galleryChart", params.get(0));
+			return gallery;
 			
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -46,6 +39,21 @@ public class AdminGalleryDAO {
 		
 		//참고용! template.selectList("selectList", param);
 		return null;
+	}
+	
+	public List<AdminGalleryDTO> storyChart(List<HashMap<String, Object>> params) throws Exception {
+		SqlSession session = sqlMapper.openSession();
+		try {
+			
+			List<AdminGalleryDTO> story = session.selectList("storyChart", params.get(0));
+			return story;
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			session.close();
+		}
+			return null;
 	}
 	
 	

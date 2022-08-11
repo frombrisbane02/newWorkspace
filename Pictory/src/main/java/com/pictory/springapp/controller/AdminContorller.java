@@ -362,15 +362,29 @@ public class AdminContorller {
 	@RequestMapping(value="/galleryChart.do", method = { RequestMethod.POST }, produces="text/plain;charset=UTF-8")
 	public String gallery(@RequestBody List<HashMap<String, Object>>   param) throws Exception {
 		ObjectMapper obj = new ObjectMapper();
-		String jsonStr = "";
+		String jsonStr1 = "";
+		String jsonStr2 = "";
 		
 		try {
 		
-			List<AdminGalleryDTO> list = galleryService.gelleryChart(param);
+			List<String> addList = new ArrayList<String>();
+			Map<String, Object> map = new HashMap<String, Object>();
 			
-			jsonStr = obj.writeValueAsString(list);
+			List<AdminGalleryDTO> gallery = galleryService.gelleryChart(param);
+			List<AdminGalleryDTO> story = galleryService.storyChart(param);
 			
-			return jsonStr;
+			
+			jsonStr1 = obj.writeValueAsString(gallery);
+			jsonStr2 = obj.writeValueAsString(story);
+			
+			map.put("gallery", jsonStr1);
+			map.put("story", jsonStr2);
+			
+			jsonStr1 = obj.writeValueAsString(map);
+			
+			addList.add(jsonStr1);
+			
+			return addList.toString();
 			
 		} catch (Exception e) {
 			e.printStackTrace();

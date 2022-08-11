@@ -2,45 +2,38 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!--  <mapper namespace="com.pictory.springapp.dto.AdminGalleryDTO"> -->
 <mapper namespace="mybatis.mapper.admingallery">
-
-<!--  	<select id="galleryChart" parameterType="map" resultType="AdminGalleryDTO">
-	<![CDATA[ 
-	  SELECT
-        TO_CHAR(POSTDATE, 'YYYYMMDD') AS dateDay
-    ,   COUNT(h.photono) AS photo
-    ,   COUNT(s.sno) AS story
-    FROM POST p
-    LEFT JOIN PHOTO h
-        ON p.POSTNO = h.POSTNO
-    LEFT JOIN STORY s
-        ON p.SNO = s.SNO
-	WHERE
-	     POSTDATE >= TO_DATE(#{startDate}) AND POSTDATE < TO_DATE(#{endDate})+1
-	GROUP BY
-	    TO_CHAR(POSTDATE, 'YYYYMMDD')
-	   ]]>
-	</select>	-->
 	
-	<select id="galleryChart" parameterType="map" resultType="AdminGalleryDTO">
+	<!-- 갤러리 -->
+	<select id="galleryChart" parameterType="HashMap" resultType="AdminGalleryDTO">
 	<![CDATA[ 
-	  SELECT TO_CHAR(POSTDATE, 'YYYYMMDD') AS dateDay
-		  ,  COUNT(o.PHOTONO) AS photo
-		  ,  s.cnt AS story
+	  SELECT COUNT(*) AS photo
+	       , p.POSTDATE AS photoDate 
 	    FROM POST p
-	    JOIN PHOTO o
-	        ON p.POSTNO = o.POSTNO
-	    , (SELECT COUNT(*) AS cnt 
-	        FROM STORY r 
-	         JOIN POST t 
-	          ON r.SNO = t.SNO 
-	          WHERE 1=1
-	          AND t.POSTDATE >= TO_DATE(#{startDate}, 'YYYYMMDD') AND t.POSTDATE < TO_DATE(#{endDate}, 'YYYYMMDD')+1
-	          GROUP BY TO_DATE(t.POSTDATE), 'YYYYMMDD') s
-	    WHERE 1=1
-	     AND p.POSTDATE >= TO_DATE(#{startDate}, 'YYYYMMDD') AND p.POSTDATE < TO_DATE(#{endDate}, 'YYYYMMDD')+1
-	    GROUP BY TO_CHAR(POSTDATE, 'YYYYMMDD'), s.cnt
+         JOIN PHOTO h
+          ON p.POSTNO = h.POSTNO
+        	WHERE 1=1
+             AND p.POSTDATE >= #{startDate} AND p.POSTDATE <= #{endDate} 
+             GROUP BY p.POSTDATE
+             ORDER BY p.POSTDATE ASC
 	   ]]>
 	</select>
+	
+	<!-- 스토리 -->
+	<select id="storyChart" parameterType="HashMap" resultType="AdminGalleryDTO">
+	<![CDATA[ 
+		  SELECT COUNT(*) AS Story
+		       , p.POSTDATE AS storyDate 
+		   FROM POST p 
+			JOIN STORY s
+			 ON p.SNO = s.SNO
+		    WHERE 1=1
+			 AND p.POSTDATE >= #{startDate} AND p.POSTDATE <= #{endDate} 
+			  GROUP BY p.POSTDATE
+			  ORDER BY p.POSTDATE
+	   ]]>
+	</select>
+	
+	
 	
 	
 	

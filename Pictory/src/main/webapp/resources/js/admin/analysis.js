@@ -411,7 +411,7 @@ var myInfoData = "";
 	    	var dateValue = i >= 10 ? i : '0' + i;
 	    	dateValue = String(dateValue);
 	    	var dateVal = yearValue + monthValue + dateValue;
-	    	
+	    
 	    	if(tabText == "회원"){
 	    		
 		    	if( i <= 10){
@@ -558,85 +558,165 @@ var myInfoData = "";
 	 		$('.storyCount3').append('<th scope="row">스토리 수</th>');
 	 		
 	 		
-	 		if(ajaxData.length != 0){
-
-		 		
-		 		
-			  	  for(var i = 0; i < dateArr.length; i++){
-			  		  var v = dateArr[i];
-			  		  
-			  		  for(var y = 0; y < ajaxData.length; y++){
-			  			  var vv = ajaxData[y];
-			  			  
-			  			  if(v.dateDay == vv.dateDay){
-			  				vv.idx = v.idx;
-			  				dataArr2.push(vv);
-			  			  }
-			  		  }
-			  	  }
-			    
-				  	var aaArr = [...new Set([...dataArr2, ...dateArr])];
+	 			var galleryDataArr = JSON.parse(ajaxData[0].gallery);
+				var storyDataArr = JSON.parse(ajaxData[0].story);
+				
+				
+				// 갤러리 차트 데이터 세팅
+				if(galleryDataArr.length != 0){
+					
+					var gaArr = [];
+					var gaArr1 = [];
+				  
+					for(var y = 0; y < galleryDataArr.length; y++){
+						var vv = galleryDataArr[y];
+						var dateDay = vv.photoDate.substring(0, 10);
+						var dateDay =  dateDay.split("-").join("");
+						var obj = {"photo" : vv.photo, "dateDay" : dateDay};
+						gaArr.push(obj);
+					}
+					
+					for(var i = 0; i < dateArr.length; i++){
+						var v = dateArr[i];
+						
+						for(var y = 0; y < gaArr.length; y++){
+							var vv = gaArr[y];
+							
+							if(v.dateDay == vv.dateDay){
+								vv.idx = v.idx;
+								gaArr1.push(vv);
+							}
+						}
+				  	}
+				  	
+				  	var aaArr = [...new Set([...gaArr1, ...dateArr])];
 				  	var aa = aaArr.filter(
 		  				(arr, index, callback) => index === callback.findIndex(t => t.idx === arr.idx));
 				  	
+					 //정렬
+					var getResult = aa.sort(function (a, b) {
+					  	    return a.idx - b.idx;
+					});
+					
+					
+					for(var i = 0; i < getResult.length; i++){
+						var v = getResult[i];
+						
+   						if(i < 10){
+				 			$('.galleryCount1').append('<td>'+ v.photo +'</td>');
+				 		
+				 		}else if(i <= 20 && i > 10){
+							$('.galleryCount2').append('<td>'+ v.photo +'</td>');
+				 		}else{
+				 			$('.galleryCount3').append('<td>'+ v.photo +'</td>');
+				 		}
+						
+						
+						sum += v.photo;
+						yValues.push(v.photo);
+					}
+					
+						$('#galleryTotal').text(sum);
 				  	
-				 //정렬
-				  var geResult = aa.sort(function (a, b) {
-				  	    return a.idx - b.idx;
-				  });
-				 
-				 
-				 for(var i = 0; i < geResult.length; i++){
-					 var v = geResult[i];
-					 
+					
+					
+				}else{
+					
+					for(var i = 0; i < dateArr.length; i++){
+						var v = dateArr[i];
+						
 						if(i < 10){
 				 			$('.galleryCount1').append('<td>'+ v.photo +'</td>');
+				 		
+				 		}else if(i <= 20 && i > 10){
+							$('.galleryCount2').append('<td>'+ v.photo +'</td>');
+				 		}else{
+				 			$('.galleryCount3').append('<td>'+ v.photo +'</td>');
+				 		}
+						
+						
+						sum += v.photo;
+						yValues.push(v.photo);
+					}
+					
+						$('#galleryTotal').text(sum);
+					
+				}
+				
+				// 스토리 차트 데이터 세팅
+				if(storyDataArr.length != 0){
+					var stArr =[];
+					var stArr1 =[];
+					for(var y = 0; y < storyDataArr.length; y++){
+						var vv = storyDataArr[y];						
+						var dateDay = vv.storyDate.substring(0, 10);
+						var dateDay =  dateDay.split("-").join("");
+						var obj = {"story" : vv.story, "dateDay" : dateDay};
+						stArr.push(obj);
+					}
+				
+					for(var i = 0; i < dateArr.length; i++){
+						var v = dateArr[i];
+						
+						for(var y = 0; y < stArr.length; y++){
+							var vv = stArr[y];
+							
+							if(v.dateDay == vv.dateDay){
+								vv.idx = v.idx;
+								stArr1.push(vv);
+							}		
+							
+						}
+					}
+					
+					
+					var aaArr = [...new Set([...stArr1, ...dateArr])];
+				  	var aa = aaArr.filter(
+		  				(arr, index, callback) => index === callback.findIndex(t => t.idx === arr.idx));
+				  	
+					 //정렬
+					var getResult = aa.sort(function (a, b) {
+					  	    return a.idx - b.idx;
+					});
+					
+					for(var i = 0; i < getResult.length; i++){
+						var v = getResult[i];
+						
+   						if(i < 10){
 				 			$('.storyCount1').append('<td>'+ v.story +'</td>');
 				 		
 				 		}else if(i <= 20 && i > 10){
-							  $('.galleryCount2').append('<td>'+ v.photo +'</td>');
 							  $('.storyCount2').append('<td>'+ v.story +'</td>');
 				 		}else{
-				 			  $('.galleryCount3').append('<td>'+ v.photo +'</td>');
 				 			  $('.storyCount3').append('<td>'+ v.story +'</td>');
 				 		}
-				
-					 sum += v.photo;
-					 sum2 += v.story;
+						
+						sum2 += v.story;
+						yValuesTwo.push(v.story);
+					}
 					
-					 yValues.push(v.photo);
-					 yValuesTwo.push(v.story);
-				 }
+						$('#storyTotal').text(sum2);
+						
+				}else{
+					
+					for(var i = 0; i < dateArr.length; i++){
+						var v = dateArr[i];
+						
+						if(i < 10){
+				 			$('.storyCount1').append('<td>'+ v.story +'</td>');
 				 		
-		 			$('#galleryTotal').text(sum);
-		 			$('#storyTotal').text(sum2);
-				 
-	 		}else{
-	 			
-	 			
-	 			for(var i = 0; i < xValues.length; i++){
-	 				
-	 				if(i < 10){
-			 			  $('.galleryCount1').append('<td>0</td>');
-			 			  $('.storyCount1').append('<td>0</td>');
-			 		
-			 		}else if(i <= 20 && i > 10){
-						  $('.galleryCount2').append('<td>0</td>');
-						  $('.storyCount2').append('<td>0</td>');	
-			 		}else{
-			 			  $('.galleryCount3').append('<td>0</td>');	
-			 			  $('.storyCount3').append('<td>0</td>');	
-			 		}
-	 				
-	 				
-					 yValues.push(0);
-					 yValuesTwo.push(0);	
-	 			}
-	 			
-	 			$('#galleryTotal').text(0);
-	 			$('#storyTotal').text(0);
-	 		}
-
+				 		}else if(i <= 20 && i > 10){
+							$('.storyCount2').append('<td>'+ v.story +'</td>');
+				 		}else{
+				 			$('.storyCount3').append('<td>'+ v.story +'</td>');
+				 		}
+						
+						
+						sum2 += v.story;
+						yValuesTwo.push(v.story);
+					}
+						$('#storyTotal').text(sum2);
+				}
 	 		
 			// 차트 세팅
 			  new Chart("galleryChartID", {
