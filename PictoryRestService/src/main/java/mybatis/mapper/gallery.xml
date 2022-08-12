@@ -208,7 +208,7 @@
 	</delete>
   	
   	<insert id="insertCart" parameterType="galleryDto">
-		INSERT INTO cart VALUES(2,(select pd.pdno
+		INSERT INTO cart VALUES(#{userNo},(select pd.pdno
 									 FROM photo po INNER JOIN product pd
 									   ON po.photono=pd.photono
 									WHERE po.postno=#{postNo}))
