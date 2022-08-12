@@ -124,7 +124,9 @@
 				  FROM users u
 			  ORDER BY pdsalesno desc) g
 				 WHERE <![CDATA[ ROWNUM <= 8 ]]>
+				 <if test="userNo !=null">
 				   AND g.userno != #{userNo}
+				 </if>
 				   AND g.pdsalesno IS NOT NUll
   	</select>
   	
