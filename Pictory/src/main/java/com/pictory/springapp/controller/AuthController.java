@@ -3,6 +3,7 @@ package com.pictory.springapp.controller;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
+import com.pictory.springapp.Constants;
 import com.pictory.springapp.dto.MemberDTO;
 import com.pictory.springapp.service.impl.MemberServiceImpl;
 
@@ -22,8 +24,10 @@ import com.pictory.springapp.service.impl.MemberServiceImpl;
 @RequestMapping("/auth")
 public class AuthController {
 	//서비스 주입
+
 	@Autowired
 	private MemberServiceImpl memberService;
+
 	
 	@RequestMapping("JoinAgree.do")
 	public String joinagree() {
@@ -36,7 +40,7 @@ public class AuthController {
 	}
 	//로그인 처리] 
 	@RequestMapping("LoginProcess.do")
-	public String process(@RequestParam Map map, Model model, SessionStatus status) {
+	public String process(@RequestParam Map map, HttpSession session,Model model, SessionStatus status) {
 		//서비스 호출]
 		String flag = memberService.isLogin(map);
 				
@@ -62,8 +66,11 @@ public class AuthController {
 			status.setComplete();
 			model.addAttribute("Block","너 이새끼 활동정지 먹은거야 알아들어?");
 		}
-		
-		return "auth/Login.tiles";
+
+		String id = (String) session.getAttribute("userId");
+	
+
+		return "redirect:/mypage/Profile.do";
 	}
 	//로그아웃 처리]
 	@RequestMapping("Logout.do")
