@@ -16,7 +16,9 @@
 	<script src="${pageContext.request.contextPath}/resources/js/gallerylist/modernizr.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/gallerylist/html5shiv.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/gallerylist/tab.js"></script>
-
+	
+	<script src="http://code.jquery.com/jquery-1.8.1.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <body>
 <form method="post" action="<c:url value="/feed/Index.do?userNo=${feedInfo.userNo}"/>" accept-charset="UTF-8">
 	<div class="gray_box">

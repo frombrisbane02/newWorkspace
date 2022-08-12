@@ -166,17 +166,15 @@
     </div>
     
     <!-- 쳇봇 버튼 -->
-	<div style="position:fixed; bottom:8.3rem; right:-0.6rem; z-index:99;"> 
+	<div id="chatbot-div" style="position:fixed; bottom:8.3rem; right:-0.6rem; z-index:99;"> 
 		<a href='#'>
-		  <img src="<c:url value="http://localhost:4040/springapp/upload/img/chatbot.png"/>" style="width:100px" id="show"> 
+		  <img src="${pageContext.request.contextPath}/resources/upload/img/chatbot.png" style="width:100px" id="show"> 
 		</a>
 	</div>
     
    <!-- 스크롤 버튼 -->
-	<div class="topBtn"><img src="<c:url value="http://localhost:4040/springapp/resources/img/topbutton.png"/>" style="width:50px;"></div>
-    <div class="bottomBtn"><img src="<c:url value="http://localhost:4040/springapp/resources/img/downbutton.png"/>" style="width:50px;"></div>
-    
-    
+	<div class="topBtn"><img src="${pageContext.request.contextPath}/resources/img/topbutton.png" style="width:50px;"></div>
+    <div class="bottomBtn"><img src="${pageContext.request.contextPath}/resources/img/downbutton.png" style="width:50px;"></div>
 </body>
 <script>
 
@@ -198,7 +196,7 @@ bottomBtn.addEventListener("click", function(){
 
 $(document).ready(function(){ 
 	   $('#show').on("click", function(){
-	      window.open('<c:url value="/Chatbot.do"/>','_blank','toolbar=no, menubar=no, width=500, height=800').focus();
+	      window.open('<c:url value="/Chatbot.do"/>','_blank','toolbar=no, scrollbars=no, menubar=no, width=500, height=800').focus();
 	   });
 	});
 

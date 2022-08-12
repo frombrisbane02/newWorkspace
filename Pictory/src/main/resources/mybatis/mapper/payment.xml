@@ -24,18 +24,12 @@
 	
 	<!-- 정산 조회용 쿼리 -->
 	<select id="selectMySales" parameterType="int" resultType="SalesDTO">
-	    SELECT PRODUCT.PDNO AS productNo, payment.PAYMENTDATE AS soldDate
-		, post.POSTTITLE  AS productName, PRODUCT.PDPRICE AS profit
-		FROM PDORDER orders 
-		INNER JOIN PRODUCT product
-		ON orders.PDNO = product.PDNO
-		INNER JOIN PHOTO photo
-		ON photo.PHOTONO  = product.PHOTONO 
-		INNER JOIN POST post
-		ON post.POSTNO = photo.POSTNO 
-		INNER JOIN PAYMENT payment
-		ON payment.PAYMENTNO = orders.PAYMENTNO
-		WHERE payment.USERNO = #{userNo}
+	    SELECT  pd.pdNo as productNo,
+        pay.paymentdate as soldDate,
+        p.postTitle as productName,
+        pd.pdPrice as profit
+	FROM PDORDER o, PRODUCT pd, POST p, PAYMENT pay
+	WHERE o.paymentNo=pay.paymentNo AND pd.pdNo=o.pdNo AND p.postNo IN (SELECT postNo FROM PHOTO ph WHERE ph.photoNo=pd.photoNo) and p.userNo=#{userNo}
 	</select>
 	
 	<insert id="insertAdjustment" parameterType="AdjustmentDTO">

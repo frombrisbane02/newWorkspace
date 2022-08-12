@@ -92,12 +92,19 @@ public class GalleryController {
 		List<GalleryDTO> viewLists = galleryService.galleryView(postNo);
 		
 		for(GalleryDTO viewList : viewLists) {
+			
 			switch(viewList.getPostCategory()) {
 			case "landscape": viewList.setPostCategory("풍경"); break;
 			case "object": viewList.setPostCategory("정물"); break;
 			case "figure": viewList.setPostCategory("인물"); break;
 			default: viewList.setPostCategory("기타"); break;
 			}	
+			
+			if(!(viewList.getUserProfile().contains("k.kakaocdn.net"))) {
+				viewList.setUserProfile(resource+viewList.getUserProfile());
+			}
+			
+			
 		}
 		
 		//3. 작가의 다른 정보 위해 각 포스트 몇개인지 총합, 각 포스트 썸네일, 포스트 no 가져와야함

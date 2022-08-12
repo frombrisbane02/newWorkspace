@@ -45,7 +45,6 @@ public class FeedController {
 	@RequestMapping(value = "Index.do", method = RequestMethod.GET)
 	public void infoGET(HttpSession session, Model model) throws Exception{
 		
-
 		//세션 객체 안에 있는 ID정보 저장
 		String id = (String) session.getAttribute("userId");
 		

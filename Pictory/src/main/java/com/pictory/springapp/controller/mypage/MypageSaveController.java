@@ -85,7 +85,6 @@ public class MypageSaveController {
 	@GetMapping("/download.do")
 	public void fileDownload(HttpServletRequest request, HttpServletResponse response, @RequestParam("name") String name) throws Exception {
 		
-		//http://localhost:4040/springapp/upload/img/KIM/KKK.JPG
 		String[] names=name.split("/");
 		System.out.println("파일명:"+names[names.length-1]);
 		System.out.println("다운로드 경로:"+String.format("/%s/%s/%s", names[4],names[5],names[6]));

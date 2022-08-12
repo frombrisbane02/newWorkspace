@@ -39,7 +39,7 @@
 	
 	.postImages_sell{
 		display: block;
-		width: auto;
+		width: 100%; 
 		height: auto;
 		max-width: 1000px;
 		margin-bottom: 10px;
@@ -83,12 +83,14 @@
 	  position: absolute;
 	  bottom: 0;
 	  top:0;
-	  left:250px;
-	  right:0;
+	  left:50%;
+	  transform: translate(-50%);
 	  height:100%;
 	  z-index:1;
 	  opacity:0.7;
 	  no-repeat;
+	  width:100%;
+	  max-width: 1000px;
 	  
     }
 	
@@ -128,10 +130,14 @@
                 <div class="imageArea">
                     <c:forEach var="photo" items="${photoUrls}" varStatus="loop">
 	                    <c:if test="${not empty isSellorNot}">
+	                    <!-- 동글아 여기야 여기 -->
+	                    
 	                    <div class="sell_div" style="position:relative; margin:0 auto;">
 		                    	<img class="watermarkpic" src="${pageContext.request.contextPath}/resources/img/galleryview/waternarkpic.png" alt="">
 		                    	<img class="postImages_sell" src="${photo.photoUrl}" alt="">
 		                </div>
+		                
+		                 <!-- 동글아 여기야 여기 -->
 		                <p class="text-center"><small>* 자동 워터마크 적용된 이미지로 구매시 원본을 다운로드할 수 있습니다.</small></p>
 	                    </c:if>
 	                    <c:if test="${empty isSellorNot}">

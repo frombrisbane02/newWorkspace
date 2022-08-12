@@ -58,7 +58,7 @@ public class GalleryController {
 		
 		for(GalleryDTO photo:photos) {
 			Map<String,String> map = new HashMap<>();
-			map.put("image_url","http://192.168.1.83:4040/springapp/upload/img/"+photo.getPhotoUrl());
+			map.put("image_url","http://localhost:4040/springapp/upload/img/"+photo.getPhotoUrl());
 			map.put("image_title",photo.getPhotoName());
 			map.put("image_id",photo.getPhotoNo());
 			lists.add(map);
@@ -149,8 +149,8 @@ public class GalleryController {
 	@CrossOrigin
 	@PostMapping("/galley/insertCart")
 	public void insertCart(GalleryDTO dto) {		
-		//System.out.println("userNo:"+dto.getUserNo());
-		//System.out.println("postNo:"+dto.getPostNo());
+		System.out.println("userNo:"+dto.getUserNo());
+		System.out.println("postNo:"+dto.getPostNo());
 		
 		int affected = galleryService.insertCart(dto);		
 		/*	

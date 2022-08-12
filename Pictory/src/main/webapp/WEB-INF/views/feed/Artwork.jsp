@@ -3,6 +3,18 @@
    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
+	<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/gallerylist/modernizr.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/gallerylist/html5shiv.js"></script>
+
+	<link rel="shortcut icon" type="image/x-icon" href="img/favicon.png">
+	<link rel="apple-touch-icon" href="img/favicon.png">
+
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/gallerylist/gallerylist.css">
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/feed/page2.css">
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/feed/common.css">
+
 <ul class="gall_list_wrap">
 		<!-- li~li까지 데이터 저장후 받아와서 foreach로 뿌리기 -->
 		<c:if test="${empty listsreply}" var="isEmpty">

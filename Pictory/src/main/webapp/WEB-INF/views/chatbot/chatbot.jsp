@@ -19,7 +19,7 @@
                 </div>
 
                 <div class="card-body">
-      			  <div class="chat-container" style="width:100%;margin:0px; " >
+      			  <div class="chat-container" style="width:100%;margin:0px;" >
 	                  <div class="d-flex flex-row justify-content-start mb-4">
 	                    <img src="<c:url value="/resources/img/chatbot/chatbot.png"/>"
 	                      alt="avatar 1" style="width: 65px; height: 100%;">
@@ -39,37 +39,51 @@
           </div>
       
         </div>
+        
+
     </section>
     
 <script src="${pageContext.request.contextPath}/resources/js/chatbot.js"></script>
 
 <script>
 $("#query").on('keypress',function(e) {
+	
     if (e.keyCode == 13){
+    	
         //e.preventDefault();
-        var query = $(this).val()
+        var query = $(this).val();
         console.log(query)
-        if (!query) {//텍스트를 입력하지 않는 경우
-          return
-        }
+	        if (!query) {//텍스트를 입력하지 않는 경우
+	          return
+	        }
         //chat-container에 사용자의 응답 추가
         $('.chat-container').append(
         '<div class="d-flex flex-row justify-content-end mb-4"><div class="p-3 border" style="border-radius: 15px; background-color: #fbfbfb;"><p class="small mb-0">'+query+'</p></div></div>');
-               
+
+        
         $('#query').val('');
-        //스크롤바 아래로
-        $(".chat-container").scrollTop($(".chat-container")[0].scrollHeight);
-        $('.chat-container').focus();
+        
+        $(document).scrollTop($(document).height());
+        
         //메시지 전송
         sendMessage(query,"<%=session.getId()%>");
+        
     }
+   
+    
 });
+
 
 $(document).ready(function() {
 	$('.topBtn').hide();
 	$('.bottomBtn').hide();
-	$('#chatbot').hide();
+	$('#chatbot-div').hide();
 	$('.content').hide();
 })
+
+
+
+
+
 
 </script>

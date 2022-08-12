@@ -3,7 +3,7 @@ function sendMessage(message,session_id) {
         
         $.ajax(
         {
-            url:"http://192.168.0.42:9999/message",
+            url:"http://localhost:9999/message",
             
             data:JSON.stringify({"message": message,"session_id":session_id}),
             contentType:'application/json',
@@ -13,6 +13,7 @@ function sendMessage(message,session_id) {
       
         function receiveResponse(data) {
            console.log('받은 메시지:',data)
+     
           $('.chat-container').append(`
 	    	  <div class="d-flex flex-row justify-content-start mb-4">
 	           <img src="http://localhost:4040/springapp/upload/img/chatbot.png"
@@ -22,8 +23,11 @@ function sendMessage(message,session_id) {
 	            </div>
 	          </div>
           `)
-
-          $(".chat-container").scrollTop($(".chat-container")[0].scrollHeight);
+          
+      
+      $(document).scrollTop($(document).height());   
+    //$(".chat-container").scrollTop($(".chat-container")[0].height());
+    $('.chat-container').focus();
 
         }
        

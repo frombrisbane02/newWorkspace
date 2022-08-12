@@ -1,6 +1,6 @@
 
-const localhost = 'http://localhost:4040/springapp/admin';
-const imgUrl = 'http://localhost:4040/springapp/upload/img/';
+const localhost = 'http://localhost.0.27:4040/springapp/admin';
+const imgUrl = 'http://localhost.0.27:4040/springapp/upload/img/';
 
 var urlChange = '/userChart.do';
 

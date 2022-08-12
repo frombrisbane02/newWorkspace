@@ -204,8 +204,6 @@
 				<img id="openMap" src="${pageContext.request.contextPath}/resources/img/upload/btnmap.jpg" style="width:50px;"/>
 			</label>
 			<input type="hidden" name="addMap" id="addMap" value="" class="form-control m-2" hidden />
-			
-
 		</div>
 
 		<!-- =================================== 판매안할때 스토리 생성 추가=================================== -->
