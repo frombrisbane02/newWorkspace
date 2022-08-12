@@ -283,15 +283,22 @@
   	<select id="creatorView" parameterType="galleryDto" resultType="galleryDto">
   		SELECT userno,
 			   usernickname,
-			   (SELECT COUNT(followtargetid) FROM follow f WHERE f.userno = u.userno) userfwerCnt,
-			   (SELECT COUNT(userno) FROM follow f WHERE f.followtargetid = u.userno) userfingCnt,
-			   (SELECT COUNT(userno) FROM follow f WHERE f.followtargetid = #{userNo}) myfingCnt,
+			   (SELECT COUNT(followtargetid) FROM follow f WHERE f.userno = u.userno) userfingCnt,
+			   (SELECT COUNT(userno) FROM follow f WHERE f.followtargetid = u.userno) userfwerCnt,
+			   (SELECT COUNT(followtargetid) FROM follow f WHERE f.userno = #{userNo} AND f.followtargetid=#{creatorNo}) myfingCnt,
 			   userprofile,
 			   userself
 		  FROM users u
 		 WHERE userno=#{creatorNo}
   	</select>
   	
+  	<insert id="insertFollow" parameterType="galleryDto">
+		INSERT INTO follow VALUES(#{userNo}, #{creatorNo})
+	</insert>
+	
+	<delete id="deleteFollow" parameterType="galleryDto">
+		DELETE FROM follow WHERE userno=#{userNo} AND followtargetid=#{creatorNo}
+	</delete>
   	
   	
   	

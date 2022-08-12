@@ -126,5 +126,13 @@ public class GalleryService {
 	public GalleryDTO creatorView(GalleryDTO dto) {		
 		return dao.creatorView(dto);
 	}
+	
+	public int insertFollow(GalleryDTO dto) {
+		return dao.insertFollow(dto);
+	}
+	
+	public int deleteFollow(GalleryDTO dto) {
+		return dao.deleteFollow(dto);
+	}
 
 }

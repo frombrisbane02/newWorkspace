@@ -113,5 +113,13 @@ public class GalleryDAO {
 	public GalleryDTO creatorView(GalleryDTO dto) {
 		return template.selectOne("creatorView",dto);
 	}
+	
+	public int insertFollow(GalleryDTO dto) {
+		return template.insert("insertFollow",dto);
+	}
+	
+	public int deleteFollow(GalleryDTO dto) {
+		return template.delete("deleteFollow",dto);
+	}
 
 }

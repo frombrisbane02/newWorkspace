@@ -15,11 +15,15 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.drew.imaging.ImageMetadataReader;
+import com.drew.metadata.Metadata;
+import com.drew.metadata.exif.GpsDirectory;
 import com.pictory.springapp.dto.PostDTO;
 import com.pictory.springapp.dto.PostUploadService;
 
@@ -81,5 +85,34 @@ public class RestController {
 			
 		return map;
 	}/////////////////
+	
+	
+	
+	@CrossOrigin
+	@RequestMapping(value="/gps.do")
+	public @ResponseBody Map<String,String> gps(@RequestParam String filename,HttpServletRequest req) {
+
+		Map<String,String> map = new HashMap<>();
+		//서버의 물리적 경로 얻기
+		String path = req.getSession().getServletContext().getRealPath("/upload/img/");
+		//File객체 생성
+		File file = new File(path+filename);
+		try {
+			Metadata metadata = ImageMetadataReader.readMetadata(file);
+			GpsDirectory gpsDirectory = metadata.getFirstDirectoryOfType(GpsDirectory.class);
+			System.out.println("gpsDirectory:"+gpsDirectory);
+			//위도,경도 호출
+			if(gpsDirectory !=null && gpsDirectory.containsTag(GpsDirectory.TAG_LATITUDE) && gpsDirectory.containsTag(GpsDirectory.TAG_LONGITUDE)) {
+
+				String sLat = String.valueOf(gpsDirectory.getGeoLocation().getLatitude());
+				String sLng = String.valueOf(gpsDirectory.getGeoLocation().getLongitude());
+				System.out.println("위도:"+sLat+"경도:"+sLng);
+				map.put("lat", sLat);
+				map.put("lng", sLng);
+			}
+		}
+		catch(Exception e) {e.printStackTrace();}
+		return map;
+	}
 
 }

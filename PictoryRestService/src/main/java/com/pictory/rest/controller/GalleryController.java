@@ -209,4 +209,28 @@ public class GalleryController {
 		return galleryService.creatorView(dto);
 	}
 	
+	@CrossOrigin
+	@PostMapping("/gallery/insertFollow")
+	public void insertFollow(GalleryDTO dto) {
+		System.out.println("userNo:"+dto.getUserNo());
+		System.out.println("creatorNo:"+dto.getCreatorNo());
+		
+		int affected = galleryService.insertFollow(dto);
+
+		if (affected > 0) {System.out.println("팔로우 완료");}
+		else {System.out.println("팔로우 실패");}
+	}
+	
+	@CrossOrigin
+	@PostMapping("/gallery/deleteFollow")
+	public void deleteFollow(GalleryDTO dto) {
+		System.out.println("userNo:"+dto.getUserNo());
+		System.out.println("creatorNo:"+dto.getCreatorNo());
+		
+		int affected = galleryService.deleteFollow(dto);
+	
+		if (affected > 0) {System.out.println("팔로우 삭제 완료");}
+		else {System.out.println("팔로우 삭제 실패");}
+	}
+	
 }
