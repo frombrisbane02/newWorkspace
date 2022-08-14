@@ -37,9 +37,14 @@ public class MemberDAO {
 	}
 	
 	
-	public boolean isExist(Map map) {
+	public int isExist(Map map) {
 		int count = template.selectOne("memberCheck", map);
-		return count == 1;
+		return count;
+	}
+	
+	public int isExist2(Map map) {
+		int count = template.selectOne("emailCheck", map);
+		return count;
 	}
 	
 	public int signUp(MemberDTO dto) {

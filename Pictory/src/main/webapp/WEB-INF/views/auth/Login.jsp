@@ -10,15 +10,12 @@
 <!-- Required meta tags -->
 <meta charset="utf-8">
 <meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	content="width=device-width,initial-scale=1.0,minimum-scale=0,maximum-scale=1">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"/>
 <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/login/fontstyle.css">
 <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-cion">
-
-<!-- Bootstrap CSS -->
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/login/bootstrap.min.css">
 
 <!-- Style -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/login/style.css">
@@ -88,10 +85,10 @@
 
 		<c:if test="${not isLogin }">
 		<div class="alert alert-success">
-		  <strong>Success!</strong> ${userId}님 환영합니다!
+		  카카오 계정으로 회원가입을 성공했습니다.
 		</div>
-		 <a class="nav-link" href="<c:url value="/auth/Logout.do"/>">로그아웃</a></li>
-		</c:if>
+<%-- 		 <a class="nav-link" href="<c:url value="/auth/Logout.do"/>">로그아웃</a></li>--%>
+ 		</c:if>
 			<div class="social-login">
 			<!-- kakao/naver Login -->
 			<jsp:include page="/WEB-INF/views/kakaoLogin.jsp" />

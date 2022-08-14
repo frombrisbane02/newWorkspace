@@ -40,11 +40,17 @@ public class MemberServiceImpl implements MemberService<MemberDTO>{
 	public Integer getEnabled(Map map) {
 		return dao.getEnabled(map);
 	}
-
-	public boolean isExist(String userId) {
+	
+	public int isExist(String userId) {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("userId", userId);
 		return dao.isExist(map);
+	}
+	
+	public int isExist2(String userEmail) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("userEmail", userEmail);
+		return dao.isExist2(map);
 	}
 	//회원가입
 	@Override
@@ -202,6 +208,10 @@ public class MemberServiceImpl implements MemberService<MemberDTO>{
 			int newUser = dao.kakaosignUp(userInfo);
 			if(newUser > 0) {
 				dao.isLogin(userInfo);
+				model.addAttribute("userNo",userInfo.get("userNo"));
+				model.addAttribute("userId",userInfo.get("userId"));
+				model.addAttribute("userPassword",userInfo.get("userPassword"));
+				return "auth/Login.tiles";
 			}
 		}
 		
@@ -212,7 +222,7 @@ public class MemberServiceImpl implements MemberService<MemberDTO>{
 		model.addAttribute("userPassword",userInfo.get("userPassword"));
 
 		
-		return "auth/Login.tiles";
+		return "redirect:/mypage/Profile.do";
 	}
 	
 

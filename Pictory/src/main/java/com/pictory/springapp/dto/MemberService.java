@@ -9,7 +9,7 @@ public interface MemberService<T> {
 	//로그인 용]
 	String isLogin(Map map);
 	
-	public boolean isExist(String id);
+	public int isExist(String id);
 	
 	//회원가입
 	public int signUp(MemberDTO dto);

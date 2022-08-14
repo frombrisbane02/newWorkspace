@@ -240,7 +240,6 @@ public class GalleryController {
 	      }
 	      else {
 			galleryService.likeUp(postNo,userId);
-
 	      }
 	      int getpostlikes = galleryService.getpostlikes(postNo);
 	      return getpostlikes;

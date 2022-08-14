@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -11,7 +13,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
-    
+    <script src="http://code.jquery.com/jquery-1.8.1.min.js"></script>
 
     <title>Sign up</title>
 </head>
@@ -44,30 +46,39 @@ background: linear-gradient(to right, rgba(132, 250, 176, 1), rgba(143, 211, 244
             <div class="card" style="border-radius: 15px;">
               <div class="card-body p-5">
                 <h2 class="text-uppercase text-center mb-5">Create an account</h2>
-  
-                <form action="<c:url value="/member/Insert.do"/>" method="POST"  id="joinForm">
   				
-  				<div class="form-outline mb-4">
-                    <input type="text" class="form-control form-control-lg" name="userId" placeholder="ID"/>
-                    <c:if test="${not empty idError}">${idError}</c:if>
+                <form action="<c:url value="/member/Validation.do"/>" method="POST"  id="joinForm">
+  				
+  				<div class="form-outline mb-4" >
+                    <input type="text" class="form-control form-control-lg" value="${param.userId }" name="userId" id="inputid" placeholder="ID"/>
+                      <input type="button" class="btn btn-outline-secondary btn-sm"  id="idcheck" value="중복확인"/>
+                      <c:if test="${not empty idError}"><strong id="idmsg" style="color:red;">${idError }</strong></c:if>
+                 
                   </div>
                   <div class="form-outline mb-4">
-                    <input type="text" class="form-control form-control-lg" name="userName" placeholder="Name"/>
-                  </div>
-  
-                  <div class="form-outline mb-4">
-                    <input type="email" class="form-control form-control-lg" name="userEmail" placeholder="Email"/>
-                    <c:if test="${not empty emailError}">${emailError}</c:if>
-                  </div>
-  
-                  <div class="form-outline mb-4">
-                    <input type="password" class="form-control form-control-lg" name="userPassword" placeholder="Password"/>
-                    <c:if test="${not empty passwordError}">${passwordError}</c:if>
+                    <input type="text" class="form-control form-control-lg" name="userName" value="${param.userName }" placeholder="Name"/>
+                  <c:if test="${not empty nameError}"><strong id="namemsg" style="color:red;">${nameError}</strong></c:if>
+                
                   </div>
   
                   <div class="form-outline mb-4">
-                    <input type="password" class="form-control form-control-lg" name="pwd2" placeholder="Repeat your password"/>
-                    
+                    <input type="email" class="form-control form-control-lg" name="userEmail" value="${param.userEmail }" id="inputemail" placeholder="Email"/>
+                    <input type="button" class="btn btn-outline-secondary btn-sm"  id="emailcheck" value="이메일 중복확인"/>
+                    <c:if test="${not empty emailError}"><strong id="emailmsg" style="color:red;">${emailError}</strong></c:if>
+              
+                  </div>
+  
+                  <div class="form-outline mb-4">
+                    <input type="password" class="form-control form-control-lg" name="userPassword" value="${param.userPassword }" placeholder="Password"/>
+                    <c:if test="${not empty passwordError}"><strong id="pw1msg" style="color:red;">${passwordError}</strong></c:if>
+                 
+                  </div>
+  
+                  <div class="form-outline mb-4">
+                    <input type="password" class="form-control form-control-lg" name="password2" value="${param.password2 }" placeholder="Repeat your password"/>
+                    <c:if test="${not empty password1Error}"><strong id="pw2msg" style="color:red;">${password1Error}</strong></c:if>
+                    <c:if test="${not empty password2Error}"><strong id="pw2msg" style="color:red;">${password2Error}</strong></c:if>
+          
                   </div>
   
                   <div class="d-flex justify-content-center">
@@ -75,131 +86,88 @@ background: linear-gradient(to right, rgba(132, 250, 176, 1), rgba(143, 211, 244
                   </div>
   
                   <p class="text-center text-muted mt-5 mb-0">Have already an account? 
-                    <a href="Login.html" class="fw-bold text-body"><u>Login here</u></a></p>
+                    <a href="<c:url value="/auth/Login.do"/>" class="fw-bold text-body"><u>Login here</u></a></p>
                 </form>
   
-              </div>
-              <!-- 
-              <c:if test="${not empty param.userName }">
-              <hr/>
-              <h3>입력한 값들 출력</h3>
-              <ul class="list-group list-group-flush">
-              	<li class = "list-group-item">이름 : ${param.userName }</li>
-              </ul>
-              </c:if>
-               -->
+              </div>           
             </div>
           </div>
         </div>
       </div>
     </div>
   </section> 
+  </div>
 </body>
 </html>
-
 <script>
+var box=document.getElementsByClassName('form-control');
+for(var i=0; i<box.length; i++){
+	var boxs = box[i];
+	boxs.addEventListener('focus',function emptytxt() {
+		  document.getElementById("idmsg").innerHTML = "";});
+	boxs.addEventListener('focus',function emptytxt() {
+		  document.getElementById("namemsg").innerHTML = "";});
+	boxs.addEventListener('focus',function emptytxt() {
+		  document.getElementById("emailmsg").innerHTML = "";});
+	boxs.addEventListener('focus',function emptytxt() {
+		  document.getElementById("pw1msg").innerHTML = "";});
+	boxs.addEventListener('focus',function emptytxt() {
+		  document.getElementById("pw2msg").innerHTML = "";});
+};
 
-	async function checkId(doAlarm) {
-		const inputId = document.querySelector("input[name='userId']").value;
-	    let isValid = 0;
-	    // 유효한 경우
-		if (validityChecker("userId", userId)) {
-			await $.ajax({
-				type: "GET",
-				url: "<c:url value='/member/IdCheck.do'/>" + "?userId=" + userId,
-				dataType: "json",
-		        // 중복체크
-		        success : (data) => {
-					if(JSON.parse(data.isDuplicated)) {
-						isValid = false;
-						Swal.fire('중복', '다른 아이디를 입력하세요', 'error');
-					}
-					else {
-						isValid = true;
-					
-			        		Swal.fire('가능', '해당 아이디는 사용 가능합니다', 'success');							
-						
-					}
-				}
-			});
-			// 유효 + 비중복
-			if(isValid) {
-				return true;
-			}
-			// 유효 but 중복
-			else {
-				return false;
-			}
-		}
-		// 비유효
-		else {
-			createInvalidAlarm("userId");
-			return false;
-	    }
-	}
-	
-	function validityChecker(type, data) {
-		switch (type) {
-			case 'userId':
-				const idValid1 = data.length >= 2;
-				//const idValid2 = data.match(/[0-9]/) !== null ? true : false; // Number
-				const idValid3 = data.match(/[a-zA-Z]/) !== null ? true : false; // English
-		    	return idValid1  && idValid3;
-		  
-		  	default:
-		  		return false;
-		}
-	}
- 
-	const checkees = {
-			userId : "아이디는 2자 이상이어야한다.",
-			userName : "이름이 작성되지 않았습니다.",
-			userEmail : "이메일이 작성되지 않았습니다",
-			userPassword : "비밀번호가 일치하지 않습니다.",
-			
-	}
-	
-	function createInvalidAlarm(type) {
-		Swal.fire(
-				
-				  '유효성 확인',
-				  checkees[type],
-				  'error'
-				);
-	}
 
-	function isValid(type) {
-		const form = document.querySelector("#joinForm");
-		switch (type) {
-			case 'userId':
-				const userId = form.userId.value;
-		    	return validityChecker(type, userId);
-			case 'userPassword':
-			case 'pwd2':
-				const userPassword = form.userPassword.value;
-				const pwd2 = form.pwd2.value;
-				return userPassword == pwd2 && userPassword.length > 0;
-			default:
-				const name = form.userName.value;
-		  		return name.length > 0;
-		}
-	}
 	
-	window.addEventListener("submit", function(e) {
-		const form = e.target;
-		// 유효성 체크
-		for(key in checkees) {
-			if (!isValid(key)) {
-				createInvalidAlarm(key);
-				e.preventDefault();
-				return false;
-			}
+$('#idcheck').click(function(e){
+	
+	const userId=$('#inputid').val();
+	
+	console.log(userId);
+	if(userId==""){
+		return alert("아이디를 입력하세요");
 		}
 		
-	
-	});
+	$.ajax({
+		url : "<c:url value='/member/IdCheck.do'/>",
+		type : "GET",
+		data : "userId="+ userId,
+		success : function(data){
+			console.log(data);
+			if(data >= 1){
+				alert("중복된 아이디입니다.");
+			}else if(data == 0){
+				alert("사용 가능한 아이디입니다.");
+			}
+		}
+	})
+});
 
+$('#emailcheck').click(function(e){
 	
+	const userEmail=$('#inputemail').val();
+	
+	console.log(userEmail);
+	if(userEmail==""){
+		return alert("이메일을 입력하세요");
+		}
+		
+	$.ajax({
+		url : "<c:url value='/member/emailCheck.do'/>",
+		type : "GET",
+		data : "userEmail="+ userEmail,
+		success : function(data){
+			console.log(data);
+			if(data >= 1){
+				alert("중복된 이메일입니다.");
+			}else if(data == 0){
+				alert("사용 가능한 이메일입니다.");
+			}
+		}
+	})
+});
+
+
+
+
 </script>
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
    

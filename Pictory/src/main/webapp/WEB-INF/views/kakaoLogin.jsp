@@ -9,7 +9,8 @@
 <body>
 	<c:choose>
 		<c:when test="${nickname!=null}">
-			<h2>'${nickname}'님 <br> 환영합니다!</h2>
+			<h2>'${nickname}'님 <br> 환영합니다! <br> 
+			앞으로 카카오 계정으로 간편로그인이 가능합니다.</h2>
 			<br/>
 			<!-- 
 			<a href="http://localhost:4040/springapp/member/kakaounlink.do"
