@@ -1,4 +1,4 @@
-const localhost = 'http://localhost:4040/springapp/admin';
+const localurl = 'http://localhost:4040/springapp/admin';
 const imgUrl = 'http://localhost:4040/springapp/upload/img/';
 
 var userId = "";
@@ -20,7 +20,7 @@ var myInfoData = "";
 	function AdminLoginInfo(){
 			$.ajax({
 			 //컨트롤러 주소값
-			 	url: localhost + '/LoginUserInfo.do',
+			 	url: localurl + '/LoginUserInfo.do',
 			    type: "POST",
 			    //비동기
 			    cache: false,
@@ -122,7 +122,7 @@ var myInfoData = "";
 		
 			$.ajax({
 			 //컨트롤러 주소값
-			 	url: localhost + '/salesofweek.do',
+			 	url: localurl + '/salesofweek.do',
 			    type: "POST",
 			    //비동기
 			    cache: false,
@@ -161,7 +161,7 @@ var myInfoData = "";
 		weekArr.push(obj);
 		
 			 $.ajax({
-			    url: localhost + '/mainPaymentChart.do',
+			    url: localurl + '/mainPaymentChart.do',
 			    type: "POST",
 			    cache: false,
 			    dataType: "json",
@@ -322,7 +322,7 @@ var myInfoData = "";
 			var obj = {"startDate" : weekDay[0], "endDate" : weekDay[6]};
 			weekArr.push(obj);
 			var xhttp = new XMLHttpRequest();
-			xhttp.open('POST', localhost + '/mainUsersChart.do', true);
+			xhttp.open('POST', localurl + '/mainUsersChart.do', true);
 			xhttp.setRequestHeader('Content-Type', 'application/json');
 			xhttp.send(JSON.stringify(weekArr));
 			xhttp.onload = () => {
@@ -438,7 +438,7 @@ var myInfoData = "";
 			weekArr.push(obj);
 			
 			 $.ajax({
-					    url: localhost + '/mainGalleryChart.do',
+					    url: localurl + '/mainGalleryChart.do',
 					    type: "POST",
 					    cache: false,
 					    dataType: "json",
@@ -508,7 +508,7 @@ var myInfoData = "";
 		 function paymentAjax(){
 			
 			 $.ajax({
-			    url: localhost + '/mainPaymentList.do',
+			    url: localurl + '/mainPaymentList.do',
 			    type: "POST",
 			    cache: false,
 			    dataType: "json",
@@ -573,7 +573,7 @@ var myInfoData = "";
 	function noticeAjax(){
 		
 		$.ajax({
-				    url: localhost + '/mainNoticeList.do',
+				    url: localurl + '/mainNoticeList.do',
 				    type: "POST",
 				    cache: false,
 				    dataType: "json",
@@ -626,7 +626,7 @@ var myInfoData = "";
 	function mainQnaAjax(){
 		
 			$.ajax({
-			    url: localhost + '/mainQnaList.do',
+			    url: localurl + '/mainQnaList.do',
 			    type: "POST",
 			    cache: false,
 			    dataType: "json",
@@ -756,7 +756,7 @@ var myInfoData = "";
 	  var obj = {"noticeNo" : noticeNo, "noticeTitle" : noticeTitle, "noticeContent" : noticeContent};
 	  
 		 $.ajax({
-			    url: localhost + "/noticeUpdate.do",
+			    url: localurl + "/noticeUpdate.do",
 			    type: "POST",
 			    cache: false,
 			    dataType: "json",
@@ -793,7 +793,7 @@ var myInfoData = "";
 		 var obj = { "noticeNo" : noticeNo };
 	    
 		 $.ajax({
-			    url: localhost + '/noticeDelete.do',
+			    url: localurl + '/noticeDelete.do',
 			    type: "POST",
 			    cache: false,
 			    dataType: "json",
@@ -835,7 +835,7 @@ var myInfoData = "";
 			var obj = [{"qnaNo" : qnaNo, "answerText" : answerText}];
 	
 			 $.ajax({
-				    url: localhost + URLInfo,
+				    url: localurl + URLInfo,
 				    type: "POST",
 				    cache: false,
 				    dataType: "json",
@@ -872,7 +872,7 @@ var myInfoData = "";
 			var obj = { "qnaNo" : qnaNo };
 						
 			 $.ajax({
-			    url: localhost + delUrl,
+			    url: localurl + delUrl,
 			    type: "POST",
 			    cache: false,
 			    dataType: "json",

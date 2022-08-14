@@ -14,7 +14,7 @@
 //    });
 
 
-const localhost = 'http://localhost:4040/springapp/admin';
+const localurl = 'http://localhost:4040/springapp/admin';
 const imgUrl = 'http://localhost:4040/springapp/upload/img/';
 
 var monthDay = '';
@@ -55,7 +55,7 @@ var myInfoData = "";
   function AdminLoginInfo(){
 			$.ajax({
 			 //컨트롤러 주소값
-			 	url: localhost + '/LoginUserInfo.do',
+			 	url: localurl + '/LoginUserInfo.do',
 			    type: "POST",
 			    //비동기
 			    cache: false,
@@ -184,7 +184,7 @@ var myInfoData = "";
 		weekArr.push(obj);
 		
 		 $.ajax({
-			 	url: localhost + '/salesofweek.do',
+			 	url: localurl + '/salesofweek.do',
 			    type: "POST",
 			    cache: true,
 			    dataType: "json",
@@ -326,7 +326,7 @@ var myInfoData = "";
     	var obj = [{"startDate" : startDate, "endDate" : endDate}];
     	
      	$.ajax({
-    	 	url: localhost + "/paymentChart.do",
+    	 	url: localurl + "/paymentChart.do",
     	    type: "POST",
     	    cache: false,
             dataType: "json",
@@ -528,7 +528,7 @@ var myInfoData = "";
 		var obj = [{'page' : page, 'ppp' : ppp}];
 	  		
   	 	$.ajax({
-  		 	url: localhost + '/paymentList.do',
+  		 	url: localurl + '/paymentList.do',
   		    type: "POST",
   		    cache: false,
   	        dataType: "json",
@@ -606,7 +606,7 @@ var myInfoData = "";
 		var obj = [{"keyword" : keyword, 'choiceValue' : choiceValue, 'page' : page, 'ppp' : ppp}];
 	
   	 	$.ajax({
-  		 	url: localhost + '/paymentSearch.do',
+  		 	url: localurl + '/paymentSearch.do',
   		    type: "POST",
   		    cache: false,
   	        dataType: "json",

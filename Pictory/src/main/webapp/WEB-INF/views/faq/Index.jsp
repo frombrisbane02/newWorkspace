@@ -146,7 +146,7 @@
 </body>
 <script>
 
-const localhost = 'http://localhost:4040/springapp/faq';
+const localurl = 'http://localhost:4040/springapp/faq';
 
     $(window).load(function(){
         $('.filter_btn').click(function(){
@@ -293,7 +293,7 @@ const localhost = 'http://localhost:4040/springapp/faq';
 			var qnaArr = [obj];
 			
 			 $.ajax({
-				    url: localhost + '/qnaSave.do',
+				    url: localurl + '/qnaSave.do',
 				    type: "POST",
 				    cache: false,
 				    dataType: "json",

@@ -168,7 +168,7 @@
     <!-- 쳇봇 버튼 -->
 	<div id="chatbot-div" style="position:fixed; bottom:8.3rem; right:-0.6rem; z-index:99;"> 
 		<a href='#'>
-		  <img src="${pageContext.request.contextPath}/resources/upload/img/chatbot.png" style="width:100px" id="show"> 
+		  <img src="${pageContext.request.contextPath}/resources/img/chatbot/chatbot.png" style="width:100px" id="show"> 
 		</a>
 	</div>
     

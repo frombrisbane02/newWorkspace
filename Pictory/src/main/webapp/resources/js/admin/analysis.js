@@ -1,5 +1,5 @@
 
-const localhost = 'http://localhost.0.27:4040/springapp/admin';
+const localurl = 'http://localhost.0.27:4040/springapp/admin';
 const imgUrl = 'http://localhost.0.27:4040/springapp/upload/img/';
 
 var urlChange = '/userChart.do';
@@ -188,7 +188,7 @@ var myInfoData = "";
 		weekArr.push(obj);
 		
 		 $.ajax({
-			 	url: localhost + '/salesofweek.do',
+			 	url: localurl + '/salesofweek.do',
 			    type: "POST",
 			    cache: false,
 			    dataType: "json",
@@ -336,7 +336,7 @@ var myInfoData = "";
   var obj = [{"startDate" : startDate, "endDate" : endDate}];
   	  
  	$.ajax({
-	 	url: localhost + urlChange,
+	 	url: localurl + urlChange,
 	    type: "POST",
 	    cache: false,
         dataType: "json",
@@ -774,7 +774,7 @@ var myInfoData = "";
 		var obj = [{'type' : 'ALL', 'keyword' : keyword, 'ppp' : ppp, 'page' : page, 'orderby' : orderby}];
 			
 	 	$.ajax({
-		 	url: localhost + "/userData.do",
+		 	url: localurl + "/userData.do",
 		    type: "POST",
 		    cache: false,
 	        dataType: "json",
@@ -875,7 +875,7 @@ var myInfoData = "";
 			var obj = [{'type' : 'UPDATE', 'userNo' : userNo, 'enabled' : enData, 'page' : page, 'ppp' : ppp, 'keyword' : keyword, 'orderby' : orderby }];
   		
   		 $.ajax({
- 		    url: localhost + "/userData.do",
+ 		    url: localurl + "/userData.do",
  		    type: "POST",
  		    cache: false,
  		    dataType: "json",
@@ -947,7 +947,7 @@ var myInfoData = "";
 		var obj = [{'type' : 'SEARCH', 'keyword' : keyword, 'ppp' : ppp, 'page' : page, 'orderby' : orderby}];
   		
  		 $.ajax({
-  		    url: localhost + "/userData.do",
+  		    url: localurl + "/userData.do",
   		    type: "POST",
   		    cache: false,
   		    dataType: "json",

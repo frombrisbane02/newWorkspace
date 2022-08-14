@@ -13,6 +13,8 @@ function sendMessage(message,session_id) {
       
         function receiveResponse(data) {
            console.log('받은 메시지:',data)
+           
+
      
           $('.chat-container').append(`
 	    	  <div class="d-flex flex-row justify-content-start mb-4">

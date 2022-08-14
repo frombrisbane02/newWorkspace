@@ -281,24 +281,24 @@
                             				
                             				result.forEach(function(item, index){
                      							
-                     							var localhost = 'http://localhost:4040';
+                            					var localurl = 'http://localhost:4040';
                      							
                      							
                      							html = $('<li class="photo_area">' +
                      		 							'<a href="<c:url value="/gallery/GalleryView.do?postNo='+item.postNo+'"/>" class="photo_link">'	+
-                     		 									'<div class="img_area" style="background-image: url('+item.photoUrl+');">'+'<img src="'+localhost+'/springapp/resources/img/gallerylist/fake02.png" alt="">'+'</div>'+
+                     		 									'<div class="img_area" style="background-image: url('+item.photoUrl+');">'+'<img src="'+localurl+'/springapp/resources/img/gallerylist/fake02.png" alt="">'+'</div>'+
                      		 									'<div class="txt_area">'+
                      		 										'<p>'+'<img src="'+item.userProfile+'" alt="" class="pro_p">'+item.userNickname+'</p>'+
-                     		 										'<p>'+'<img src="'+'{pageContext.request.contextPath}'+'/springapp/resources/img/gallerylist/test_icon06.png" alt="" class="pro_icon">'+'<span>'+item.postLikes+'</span>'+'<img src="http://localhost:4040/springapp/resources/img/gallerylist/test_icon07.png" alt="" class="pro_icon">'+'<span>'+item.commentCount+'</span>'+'</p>'+
+                     		 										'<p>'+'<img src="'+localurl+'/springapp/resources/img/gallerylist/test_icon06.png" alt="" class="pro_icon">'+'<span>'+item.postLikes+'</span>'+'<img src="http://localhost:4040/springapp/resources/img/gallerylist/test_icon07.png" alt="" class="pro_icon">'+'<span>'+item.commentCount+'</span>'+'</p>'+
                      		 									'</div>'+
                      		 								'</a>'+
                      		 								'<ul class="hover_btn">'+
                      		 								'<li>'+'<a id='+item.postNo+' href='+item.postNo+'>'+
                      		 									'<c:if test='+item.likeornot == 1+'>'+
-                     		 										'<img src="$'+'{pageContext.request.contextPath}'+'/springapp/resources/img/gallerylist/test_icon06red.png" alt="">'+
+                     		 										'<img src="$'+localurl+'/springapp/resources/img/gallerylist/test_icon06red.png" alt="">'+
                      		 									'</c:if>'+
                      		 									'<c:if test='+item.likeornot == 0+'>'+
-                     		 										'<img src="$'+'{pageContext.request.contextPath}'+'/springapp/resources/img/gallerylist/test_icon06.png" alt="">'+
+                     		 										'<img src="$'+localurl+'/springapp/resources/img/gallerylist/test_icon06.png" alt="">'+
                      		 									'</c:if>'+
                      		 							'Like'+'</a>'+'</li>'+
                      		 								'<c:if test='+item.postSellorNot==1+'>'+
@@ -406,24 +406,24 @@
                     				
              						result.forEach(function(item, index){
              							
-             							var localhost = 'http://localhost:4040';
+             							var localurl = 'http://localhost:4040';
              							
              							
              							html = $('<li class="photo_area">' +
              		 							'<a href="<c:url value="/gallery/GalleryView.do?postNo='+item.postNo+'"/>" class="photo_link">'	+
-             		 									'<div class="img_area" style="background-image: url('+item.photoUrl+');">'+'<img src="'+localhost+'/springapp/resources/img/gallerylist/fake02.png" alt="">'+'</div>'+
+             		 									'<div class="img_area" style="background-image: url('+item.photoUrl+');">'+'<img src="'+localurl+'/springapp/resources/img/gallerylist/fake02.png" alt="">'+'</div>'+
              		 									'<div class="txt_area">'+
              		 										'<p>'+'<img src="'+item.userProfile+'" alt="" class="pro_p">'+item.userNickname+'</p>'+
-             		 										'<p>'+'<img src="'+localhost+'/springapp/resources/img/gallerylist/test_icon06.png" alt="" class="pro_icon">'+'<span>'+item.postLikes+'</span>'+'<img src="http://localhost:4040/springapp/resources/img/gallerylist/test_icon07.png" alt="" class="pro_icon">'+'<span>'+item.commentCount+'</span>'+'</p>'+
+             		 										'<p>'+'<img src="'+localurl+'/springapp/resources/img/gallerylist/test_icon06.png" alt="" class="pro_icon">'+'<span>'+item.postLikes+'</span>'+'<img src="http://localhost:4040/springapp/resources/img/gallerylist/test_icon07.png" alt="" class="pro_icon">'+'<span>'+item.commentCount+'</span>'+'</p>'+
              		 									'</div>'+
              		 								'</a>'+
              		 								'<ul class="hover_btn">'+
              		 								'<li>'+'<a id='+item.postNo+' href='+item.postNo+'>'+
              		 									'<c:if test='+item.likeornot == 1+'>'+
-             		 										'<img src="$'+localhost+'/springapp/resources/img/gallerylist/test_icon06red.png" alt="">'+
+             		 										'<img src="$'+localurl+'/springapp/resources/img/gallerylist/test_icon06red.png" alt="">'+
              		 									'</c:if>'+
              		 									'<c:if test='+item.likeornot == 0+'>'+
-             		 										'<img src="$'+localhost+'/springapp/resources/img/gallerylist/test_icon06.png" alt="">'+
+             		 										'<img src="$'+localurl+'/springapp/resources/img/gallerylist/test_icon06.png" alt="">'+
              		 									'</c:if>'+
              		 							'Like'+'</a>'+'</li>'+
              		 								'<c:if test='+item.postSellorNot==1+'>'+
@@ -461,8 +461,6 @@
             })
             
         });
-		
-		
 		
 		//cart 담기 버튼
 		$(".hover_btn > li:nth-child(2) >a").click(function(e){  

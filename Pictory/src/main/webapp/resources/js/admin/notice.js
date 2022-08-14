@@ -1,4 +1,4 @@
-const localhost = 'http://localhost:4040/springapp/admin';
+const localurl = 'http://localhost:4040/springapp/admin';
 const imgUrl = 'http://localhost:4040/springapp/upload/img/';
 
 var tabText = '공지';
@@ -32,7 +32,7 @@ var ppp = 10;
 function AdminLoginInfo(){
 			$.ajax({
 			 //컨트롤러 주소값
-			 	url: localhost + '/LoginUserInfo.do',
+			 	url: localurl + '/LoginUserInfo.do',
 			    type: "POST",
 			    //비동기
 			    cache: false,
@@ -126,7 +126,7 @@ function salesOfWeek(){
 	weekArr.push(obj);
 	
 	 $.ajax({
-		 	url: localhost + '/salesofweek.do',
+		 	url: localurl + '/salesofweek.do',
 		    type: "POST",
 		    cache: true,
 		    dataType: "json",
@@ -227,7 +227,7 @@ $('.sidebar-toggler').click(function () {
 		var obj = [{"qnaNo" : qnaNo, "answerText" : answerText}];
 	
 		 $.ajax({
-			    url: localhost + URLInfo,
+			    url: localurl + URLInfo,
 			    type: "POST",
 			    cache: false,
 			    dataType: "json",
@@ -271,7 +271,7 @@ $('.sidebar-toggler').click(function () {
 	  }
 
 	 $.ajax({
-		    url: localhost + URLInfo,
+		    url: localurl + URLInfo,
 		    type: "POST",
 		    cache: false,
 		    dataType: "json",
@@ -418,7 +418,7 @@ $('.sidebar-toggler').click(function () {
 	   $('#updateNoticeBtn').attr('data-dismiss', "modal");
 	  
 		 $.ajax({
-			    url: localhost + "/noticeUpdate.do",
+			    url: localurl + "/noticeUpdate.do",
 			    type: "POST",
 			    cache: false,
 			    dataType: "json",
@@ -463,7 +463,7 @@ $('.sidebar-toggler').click(function () {
 		}
 	    
 		 $.ajax({
-			    url: localhost + delUrl,
+			    url: localurl + delUrl,
 			    type: "POST",
 			    cache: false,
 			    dataType: "json",
@@ -494,7 +494,7 @@ $('.sidebar-toggler').click(function () {
 	  $('#noticeInsertBtn').attr('data-dismiss', "modal");
 	  
 	 $.ajax({
-		    url: localhost + "/noticeInsert.do",
+		    url: localurl + "/noticeInsert.do",
 		    type: "POST",
 		    cache: false,
 		    dataType: "json",
