@@ -20,7 +20,7 @@ public interface GalleryService<T> {
 	//작가 정보 가져오기
 	List<GalleryDTO> galleryInfo(int postNo);
 	
-	//List<GalleryDTO> galleryFilter(String postCategory);
+	//갤러리 필터 정보
 	List<GalleryDTO> galleryFilter(String[] postCategory);
 	
 
@@ -73,6 +73,8 @@ public interface GalleryService<T> {
 
 	String getAlarmUserId(int userNo);
 
+	//갤러리 판매중인 사진 
+	List<GalleryDTO> gallerySell(String postSellorNot);
 	
 	
 	

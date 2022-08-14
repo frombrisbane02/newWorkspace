@@ -92,19 +92,12 @@ public class GalleryController {
 		List<GalleryDTO> viewLists = galleryService.galleryView(postNo);
 		
 		for(GalleryDTO viewList : viewLists) {
-			
 			switch(viewList.getPostCategory()) {
 			case "landscape": viewList.setPostCategory("풍경"); break;
 			case "object": viewList.setPostCategory("정물"); break;
 			case "figure": viewList.setPostCategory("인물"); break;
 			default: viewList.setPostCategory("기타"); break;
 			}	
-			
-			if(!(viewList.getUserProfile().contains("k.kakaocdn.net"))) {
-				viewList.setUserProfile(resource+viewList.getUserProfile());
-			}
-			
-			
 		}
 		
 		//3. 작가의 다른 정보 위해 각 포스트 몇개인지 총합, 각 포스트 썸네일, 포스트 no 가져와야함
@@ -253,40 +246,6 @@ public class GalleryController {
 	      return getpostlikes;
 	   }
 	
-	
-	/*
-	   @RequestMapping("filter.do")
-	   public String filter(Model model,@RequestParam String[] postCategory){
-		   
-		   System.out.println("======filter.do 도착(종근)");
-		   System.out.println("postCategory"+postCategory);
-		   /*
-		   List<String> lists =new Vector<>();
-		   for(int i=0 ; i <postCategory.length ; i++ ) {
-			   lists.add(postCategory[i]);
-		   
-		   }
-		   List<GalleryDTO> result = galleryService.galleryFilter(postCategory);
-		   //System.out.println(map);
-			
-			model.addAttribute("lists",result);
-			
-
-			return "gallery/GalleryList";
-	   }
-	 */
-	   
-	   @RequestMapping(value="filter.do", produces = "application/json;charset=UTF-8")
-	   @ResponseBody
-	   public String filter(Model model,@RequestParam(value="checkList[]") String[] postCategory) throws JsonProcessingException{	 
-		   List<GalleryDTO> result = galleryService.galleryFilter(postCategory);
-		   
-			model.addAttribute("lists",result);
-			
-
-			return objectMapper.writeValueAsString(result);
-	   }
-	   
 	   
 	   @CrossOrigin
 	   @RequestMapping(value="post/AddCartInView.do",produces = "application/json;charset=UTF-8")
@@ -436,6 +395,37 @@ public class GalleryController {
 			return "gallery/GalleryView.tiles";
 		}
 	   
+	   
+	   //필터 
+	   @RequestMapping(value="filter.do", produces = "application/json;charset=UTF-8")
+	   @ResponseBody
+	   public String filter(Model model,@RequestParam(value="checkList[]") String[] postCategory) throws JsonProcessingException{	 
+		   
+		   
+		   
+		   List<GalleryDTO> result = galleryService.galleryFilter(postCategory);
+		   
+			model.addAttribute("lists",result);
+			
+
+			return objectMapper.writeValueAsString(result);
+	   }
+	   
+	   
+	   
+	   //판매중인 사진보기
+	   @RequestMapping(value="sellCheck.do", produces = "application/json;charset=UTF-8")
+	   @ResponseBody
+	   public String filter(Model model, @RequestParam(value="sellList") String postSellorNot) throws JsonProcessingException{	 
+		  
+		   System.out.println("sell.do 시작????");
+		   List<GalleryDTO> result = galleryService.gallerySell(postSellorNot);
+		   
+			model.addAttribute("lists",result);
+			
+			  System.out.println(result);
+			return objectMapper.writeValueAsString(result);
+	   }
 	   
 	   
 	   

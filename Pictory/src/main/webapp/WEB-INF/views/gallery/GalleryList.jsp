@@ -26,10 +26,26 @@
 <br>
 	<div class="gall_list">
 		<div class="top_filter">
+		
+<!-- 			<div class="sell_box" id="sell_checkbox">
+				<button type="button" class="sell_btn"><input type="checkbox"  name="sellpost" value="sellpost" id="chk_sale">판매중인 사진</button>
+				<div class="check_btn"></div>
+			</div> -->
+
+
 			<div class="filter_left">
 				<button type="button" class="filter_btn"><img src="<c:url value="/resources/img/story/test_icon12.png"/>"alt="">Filter</button>
-				<p class="count"  id="cartegoryCount"><span>${fn:length(lists)}</span>개의 글</p>
+			
 			</div>
+			
+			<div class="sort_area">
+				<label for="sellpost"> <input type="checkbox"  name="sellpost" value="chk_sale" id="sellpost">  판매중인 사진 </label>
+ 
+			<p class="count" id="cartegoryCount"><span id="listLength">${fn:length(lists)}</span>개의 글</p>
+				
+			</div>
+			
+			
 		</div>
 		
 		<ul class="fil_sel_list" id="cartegoryList">
@@ -44,7 +60,7 @@
 		</c:if>
 		<c:if test="${not isEmpty}">
 		     <c:forEach var="list" items="${lists}" varStatus="loop">
-				<li class="photo_area">
+				<li class="photo_area sell_${list.postSellorNot}">
 					<a href="<c:url value="/gallery/GalleryView.do?postNo=${list.postNo}"/>" class="photo_link">					
 						<div class="img_area" style="background-image: url(${list.photoUrl});"><img src="${pageContext.request.contextPath}/resources/img/gallerylist/fake02.png" alt=""></div>	
 	
@@ -203,7 +219,7 @@
                  type:"POST",
                  url:"<c:url value='post/Likes.do'/>",
                  data: "postNo="+postNo+"&userId="+userId
-                 }).done(function(data){
+                 }).done(function(data){ 
                 	 $('li:nth-last-child('+ postNum +') > a > div> p > span:nth-child(2)').text(data);
                 
             	
@@ -213,6 +229,132 @@
          e.preventDefault(); 
       });
 	
+		
+		
+		/*
+	 $(document).ready(function(){
+		  $('#chk_sale').click(function(){
+			  if($("#chk_sale").prop("checked")){
+				  $("input[type=checkbox]").prop("checked",true);  
+				  $('.photo_area').hide(); 
+				  $('.sell_' +'1').show();
+				  $('#cartegoryCount').text($('.sell_' + '1').length);
+			  }else{
+				  $("input[type=checkbox]").prop("checked",false); 
+				  $('.photo_area').show(); 
+				  $('#cartegoryCount').text($('.sell_' + '2').length + Number($('.sell_' + '1').length));
+			  }		  
+		  });
+	  });
+		*/
+		
+		
+        //=========종근(판매중인 사진 )
+         $(document).ready(function(){
+            
+        	 
+        	 
+            $("#sellpost").click(function(){
+                var sellCheck = $(this).attr("checked");
+                
+                var sellParam = {
+                        "sellList" : sellCheck  
+                }
+               
+               
+                console.log('sellCheck :', sellCheck);
+                //ajax 호출
+                $.ajax({
+                    url         :   "<c:url value="/gallery/sellCheck.do"/>",
+                    dataType    :   "json",
+                    contentType :   "application/x-www-form-urlencoded; charset=UTF-8",
+                    type        :   "post",
+                    data        :   sellParam,
+                    success     :   function(result){
+                     				$('#cartegoryCount').empty();
+                     				$('#resultList').empty();
+                     	
+                     				var count=$(
+                            				'<p class="count">'+'<span>'+result.length+'</span>개의 글</p>'
+                            				);
+                            				$('#cartegoryCount').append(count);
+                            				
+                            				result.forEach(function(item, index){
+                     							
+                     							var localhost = 'http://localhost:4040';
+                     							
+                     							
+                     							html = $('<li class="photo_area">' +
+                     		 							'<a href="<c:url value="/gallery/GalleryView.do?postNo='+item.postNo+'"/>" class="photo_link">'	+
+                     		 									'<div class="img_area" style="background-image: url('+item.photoUrl+');">'+'<img src="'+localhost+'/springapp/resources/img/gallerylist/fake02.png" alt="">'+'</div>'+
+                     		 									'<div class="txt_area">'+
+                     		 										'<p>'+'<img src="'+item.userProfile+'" alt="" class="pro_p">'+item.userNickname+'</p>'+
+                     		 										'<p>'+'<img src="'+'{pageContext.request.contextPath}'+'/springapp/resources/img/gallerylist/test_icon06.png" alt="" class="pro_icon">'+'<span>'+item.postLikes+'</span>'+'<img src="http://localhost:4040/springapp/resources/img/gallerylist/test_icon07.png" alt="" class="pro_icon">'+'<span>'+item.commentCount+'</span>'+'</p>'+
+                     		 									'</div>'+
+                     		 								'</a>'+
+                     		 								'<ul class="hover_btn">'+
+                     		 								'<li>'+'<a id='+item.postNo+' href='+item.postNo+'>'+
+                     		 									'<c:if test='+item.likeornot == 1+'>'+
+                     		 										'<img src="$'+'{pageContext.request.contextPath}'+'/springapp/resources/img/gallerylist/test_icon06red.png" alt="">'+
+                     		 									'</c:if>'+
+                     		 									'<c:if test='+item.likeornot == 0+'>'+
+                     		 										'<img src="$'+'{pageContext.request.contextPath}'+'/springapp/resources/img/gallerylist/test_icon06.png" alt="">'+
+                     		 									'</c:if>'+
+                     		 							'Like'+'</a>'+'</li>'+
+                     		 								'<c:if test='+item.postSellorNot==1+'>'+
+                     		 								'<li>'+'<a href='+item.postNo+'>Cart+'</a>'+'</li>'+
+                     		 								'</c:if>'+
+                     		 		               '</ul>'+
+                     		 			                  	'<div class="hover_txt">'+
+                     		 									'<h3>'+item.postTitle+'</h3>'+
+                     		 									'<p class="sub_txt">'+
+                     		 									 '<c:forEach var="hash" items='+item.hashs+' varStatus="loop">'+
+                     		 										 '<c:if test='+item.postNo==item.postNo+'>'+
+                     		 										+#item.hashtag+
+                     		 										'</c:if>'+
+                     		 									'</c:forEach>'+
+                     		 									'</p>'+
+                     		 									'<p class="sub_txt">'+
+                     		 									'</p>'+
+                     		 									'<p class="bot_txt">'+item.postCategory+'</p>'+
+                     		 								'</div>'+
+                     		 							'</li>');
+                     		 							
+                     							
+                     									
+                     		 							$('#resultList').append(html);	
+                     		 						
+                     		 							});
+                            			
+                     						
+                                 
+                            },		
+ 
+                    error       :   function(request, status, error){
+                    }
+                });
+                
+            })
+            
+        });
+        
+        
+        
+        /*
+        $("#sellpost").click(function(){
+        	
+    		if($(this).attr("checked")){
+    			console.log("cke")
+    		}
+    		else{
+    			
+    			console.log("no")
+    		}
+        	
+        });*/
+		
+
+		
 			
 		//===========종근(필터 Ajax)
 		  $(document).ready(function(){
@@ -224,7 +366,8 @@
                 $('input[name="postCategory"]:checked').each(function(i){//체크된 리스트 저장
                 	checkArray.push($(this).val());
                 });
-                                
+                
+
                 var checkParams = {
                         //"user"      : $("#user").val(), //유저 저장
                         "checkList" : checkArray        //체크배열 저장
@@ -242,7 +385,7 @@
                     				$('#resultList').empty();
                     				$('#cartegoryList').empty();
                     				var html ='';
-                    				
+                 				
                     				var count=$(
                     				'<p class="count">'+'<span>'+result.length+'</span>개의 글</p>'
                     				);

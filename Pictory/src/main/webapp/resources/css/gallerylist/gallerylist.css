@@ -11,7 +11,7 @@
 	padding: 20px 10px;
 	margin-bottom: 20px;
 	display: flex;
-	justify-content: space-between;
+	justify-content: flex-start;
 }
 
 .gall_list .top_filter .filter_left {
@@ -28,6 +28,56 @@
 	margin-right: 15px;
 	transition: 0.3s;
 }
+
+
+
+/*------sell*/
+.gall_list .top_filter  .sell_box .sell_btn {
+	background: #111111;
+	border-radius: 5px;
+	padding: 0 10px;
+	line-height: 30px;
+	color: #ffffff;
+	margin-right: 15px;
+	transition: 0.3s;
+}
+
+/*
+.gall_list .top_filter input[type="checkbox"] {
+	width: 22px; 
+	height: 22px; 
+	position: absolute; 
+	top: 0; 
+	left: 0; 
+	margin: 0 !important; 
+	opacity: 0; 
+	z-index: 2;
+}
+
+
+.gall_list .top_filter .sell_box {
+	width: 22px; 
+	height: 22px; 
+	background: url("../../../resources/img/gallerylist/test_icon14.png") no-repeat center center;
+	background-size: cover; 
+	position: absolute; 
+	top: 0; 
+	left: 0;
+}
+
+.filter_modal .modal_white input[type="checkbox"]:checked + .check_btn {
+	background: url("../../../resources/img/gallerylist/test_icon15.png") no-repeat center center;
+	background-size: cover; 
+}
+
+*/
+
+
+
+
+
+
+
 
 .gall_list .top_filter .filter_left .filter_btn:hover {
 	text-decoration: none;

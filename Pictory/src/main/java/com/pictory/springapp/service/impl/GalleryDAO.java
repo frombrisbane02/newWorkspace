@@ -83,6 +83,7 @@ public class GalleryDAO {
 	
 	//2public List<GalleryDTO> selectFilter(String[] postCategory) 
 		public List<GalleryDTO> selectFilter(String[] postCategory){
+	
 		
 		List<GalleryDTO> filters = template.selectList("filter",postCategory);
 		for(GalleryDTO filter : filters) {
@@ -239,4 +240,16 @@ public class GalleryDAO {
 	public String getUserId(int userNo) {
 		return template.selectOne("getAlarmUserId",userNo);
 	}
+	
+	public List<GalleryDTO> selectSell(String postSellorNot){
+		System.out.println("종근 sell dto");
+	List<GalleryDTO> seller = template.selectList("sell",postSellorNot);
+	for(GalleryDTO sell : seller) {
+		sell.setPhotoUrl(resource+sell.getPhotoUrl());
+		sell.setUserProfile(resource+sell.getUserProfile());	
+	}
+	System.out.println("종근22222 sell dto");
+	return seller;
+	}
+	
 }

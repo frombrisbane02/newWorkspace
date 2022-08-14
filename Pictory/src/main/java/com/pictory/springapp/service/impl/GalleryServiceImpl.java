@@ -50,6 +50,12 @@ public class GalleryServiceImpl implements GalleryService<GalleryDTO> {
 		return dao.selectFilter(postCategory);
 	}
 
+	@Override
+	public List<GalleryDTO> gallerySell(String postSellorNot) {
+		return dao.selectSell(postSellorNot);
+	}
+
+	
 
 	@Override
 	public List<GalleryDTO> getComments(int postNo) {

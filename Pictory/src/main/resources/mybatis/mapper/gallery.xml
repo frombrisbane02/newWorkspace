@@ -84,16 +84,18 @@
 		WHERE photoNo = (SELECT ph.photono FROM PHOTO ph WHERE ph.postno=#{postNo})
 	</select>
 
+	<!-- 필요 인자: 카테고리, 해시태그, 첫번째 이미지 url(썸네일용), 좋아요수, 댓글 수 -->
 	<select id="filter" resultType="GalleryDTO" parameterType="List">
-	  SELECT po.postno,
+  SELECT po.postno,
       		po.postcategory,
             po.posttitle,
+            po.postsellornot,
             u.usernickname,
             u.userprofile,
             u.userno,
             po.posthits,
             (SELECT COUNT(l.postNo) FROM LIKES l WHERE l.postno=po.postno) postLikes,
-            (SELECT ph.photourl FROM photo ph WHERE ph.postno=po.postno AND ROWNUM = 1) photoUrl,
+            (SELECT ph.photourl FROM photo ph WHERE ph.postno=po.postno AND ROWNUM = 1) photourl,
             (SELECT COUNT(ct.cno) FROM comment_tbl ct WHERE ct.postno=po.postno) commentCount
         FROM post po INNER JOIN users u
            ON po.userno = u.userno
@@ -201,4 +203,26 @@
 	<select id="getAlarmUserId" parameterType="int" resultType="String">
 		SELECT userID FROM USERS WHERE userNo=#{userNo}
 	</select>
+	
+		<select id="sell" resultType="GalleryDTO" parameterType="String">
+    SELECT p.postno,
+      	p.postcategory,
+            p.posttitle,
+            p.postText,
+            p.postDate,
+            p.postSellorNot,
+            u.usernickname,
+            u.userprofile,
+            u.userno,
+            u.userId,
+            p.posthits,
+            p.postLikes,
+            ph.photoName,
+            ph.photoUrl
+        FROM post p
+        inner join users u on p.userno = u.userno
+        inner join photo ph on p.postno = ph.postno
+     WHERE p.postSellorNot=1
+	</select>
+	
 </mapper>
