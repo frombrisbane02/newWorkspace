@@ -127,7 +127,7 @@ public class MemberController<T> {
 			
 		}
 		else if (mem==0) {
-			request.setAttribute("msg", "회원가입이 실패했습니다.");
+			request.setAttribute("msg", "아이디와 이메일 중복확인을 하세요.");
 			request.setAttribute("url", "/springapp/member/Join.do");
 			
 		}
