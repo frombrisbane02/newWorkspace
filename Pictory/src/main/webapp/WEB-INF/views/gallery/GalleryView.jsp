@@ -117,11 +117,11 @@
         <c:if test="${not empty viewLists}">
             <c:forEach var="list" items="${viewLists}">
                 <div class="text-right mr-6">
-                    <c:if test="${sessionId==list.userId}">
-                        <a href="<c:url value=" /gallery/bbs/Edit.do?no=${list.postNo}"/>" class="btn-outline-dark btn-sm">수정</a>
-                        <a href="<c:url value=" /gallery/bbs/Delete.do?no=${list.postNo}"/>" class="btn-outline-dark btn-sm">삭제</a>
+                    <c:if test="${userId==list.userId}">
+                        <a href="<c:url value="/gallery/bbs/Edit.do?no=${list.postNo}"/>" class="btn-outline-dark btn-sm">수정</a>
+                        <a id= "postdel" href="${list.postNo}" class="btn-outline-dark btn-sm">삭제</a>
                     </c:if>
-                    <a href="<c:url value="/gallery/GalleryList.do"/>" class="btn-outline-dark btn-sm">목록</a>
+                   <a href="<c:url value="/gallery/GalleryList.do"/>" class="btn-outline-dark btn-sm">목록</a>
                 </div>
                 <div>
                     <h3 class="postTitleArea" style="text-weight:bold;">&nbsp;${list.postTitle}</h3>
@@ -332,6 +332,29 @@
 	     document.querySelector('#pdPrice').innerHTML = money;
 		}
 	};//function
+	
+	//게시글 삭제처리
+	$("#postdel").click(function(e){
+		
+        const postNo = $(this).attr('href');
+        console.log('postNo :', postNo);
+
+       /*  var likesrc = $(this).children("img").attr("src")==='${pageContext.request.contextPath}/resources/img/galleryview/addcart.png' ? "${pageContext.request.contextPath}/resources/img/galleryview/minuscart.png" : "${pageContext.request.contextPath}/resources/img/galleryview/addcart.png";
+    	$(this).children('img').attr('src',likesrc); */
+
+        $.ajax({
+                type:"GET",
+                url:"<c:url value='/gallery/bbs/Delete.do'/>",
+                data: "postNo="+postNo
+                }).done(function(data){
+                	alert("게시글이 삭제 되었습니다"),
+                	location.href = data;
+               	}).fail(function(request,status,error){
+               alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+             });
+        
+        e.preventDefault();
+     }); 
 
 	
 	//댓글 등록처리

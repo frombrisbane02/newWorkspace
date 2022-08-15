@@ -75,6 +75,8 @@ public interface GalleryService<T> {
 
 	//갤러리 판매중인 사진 
 	List<GalleryDTO> gallerySell(String postSellorNot);
+
+	void postDelete(int postNo);
 	
 	
 	

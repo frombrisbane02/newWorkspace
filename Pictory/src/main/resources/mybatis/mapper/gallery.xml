@@ -225,4 +225,8 @@
      WHERE p.postSellorNot=1
 	</select>
 	
+	<delete id="postDelete" parameterType="Map">
+		DELETE FROM POST WHERE postNo=#{postNo}
+	</delete>
+	
 </mapper>

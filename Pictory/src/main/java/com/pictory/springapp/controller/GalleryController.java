@@ -72,6 +72,13 @@ public class GalleryController {
 		return "gallery/GalleryList.tiles";
 		
 	}
+	@ResponseBody
+	@GetMapping("bbs/Delete.do")
+	public String GalleryDelete(@RequestParam("postNo") int postNo) {
+		galleryService.postDelete(postNo);
+		
+		return "GalleryList.do";
+	}
 	
 	
 	@GetMapping("GalleryView.do")

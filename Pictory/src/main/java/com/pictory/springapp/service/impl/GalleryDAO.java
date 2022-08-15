@@ -252,4 +252,8 @@ public class GalleryDAO {
 	return seller;
 	}
 	
+	public void postDelete(int postNo) {
+		template.delete("postDelete", postNo);
+	}
+	
 }

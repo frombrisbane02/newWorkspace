@@ -204,5 +204,11 @@ public class GalleryServiceImpl implements GalleryService<GalleryDTO> {
 	public String getAlarmUserId(int userNo) {
 		return dao.getUserId(userNo);
 	}
+	
+	@Override
+	public void postDelete(int postNo) {
+		
+		dao.postDelete(postNo);
+	}
 
 }
