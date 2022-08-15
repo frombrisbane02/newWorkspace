@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -20,11 +21,11 @@ import com.pictory.springapp.dto.AdminUsersDTO;
 public class AdminMainDAO {
 	
 	@Autowired
-	private SqlSessionFactory sqlMapper;
+	private SqlSessionTemplate template;
 	
 	
 	public List<AdminDTO> adminSalesOfWeek(List<HashMap<String, Object>> params) throws Exception {
-		SqlSession session = sqlMapper.openSession();
+		
 		try {
 			
 			Map<String, String> map = new HashMap<String, String>();
@@ -34,13 +35,12 @@ public class AdminMainDAO {
 				map.put("endDate", (String) params.get(i).get("endDate"));
 			}
 			
-			List<AdminDTO> list = session.selectList("salesofweek", map);
+			List<AdminDTO> list = template.selectList("salesofweek", map);
 		
 			return list;
 		}catch (Exception e) {
 			e.printStackTrace();
 		}finally {
-			session.close();
 		}
 	
 		return null;
@@ -48,51 +48,46 @@ public class AdminMainDAO {
 	
 	public List<AdminPaymentDTO> mainPaymentList() throws Exception {
 		
-		SqlSession session = sqlMapper.openSession();
 		
 		try {
 			
-			List<AdminPaymentDTO> list = session.selectList("mainPaymentList");
+			List<AdminPaymentDTO> list = template.selectList("mainPaymentList");
 			
 			return list;
 			
 		}catch (Exception e) {
 			e.printStackTrace();
 		}finally {
-			session.close();
 		}
 		
 		return null;
 	}
 	
 	public List<AdminNoticeDTO> mainNoticeList() throws Exception {
-		SqlSession session = sqlMapper.openSession();
 		try{
 			
-			List<AdminNoticeDTO> list = session.selectList("mainNoticeList");
+			List<AdminNoticeDTO> list = template.selectList("mainNoticeList");
 			
 			return list;
 			
 		}catch (Exception e) {
 			e.printStackTrace();
 		}finally {
-			session.close();
 		}
 		
 		return null;
 	}
 	
 	public List<AdminQnaDTO> mainQnaList() throws Exception {
-		SqlSession session = sqlMapper.openSession();
+		
 		try {
 			
-			List<AdminQnaDTO> list = session.selectList("mainQnaList");
+			List<AdminQnaDTO> list = template.selectList("mainQnaList");
 			return list;
 			
 		}catch (Exception e) {
 			e.printStackTrace();
 		}finally {
-			session.close();
 		}
 		 return null;
 		
@@ -101,7 +96,7 @@ public class AdminMainDAO {
 	
 	// 차트
 	public List<AdminPaymentDTO> mainPaymentChart(List<HashMap<String, Object>> params) throws Exception{
-		SqlSession session = sqlMapper.openSession();
+		
 		try {
 			
 			Map<String, String> map = new HashMap<String, String>();
@@ -111,21 +106,20 @@ public class AdminMainDAO {
 				map.put("endDate", (String) params.get(i).get("endDate"));
 			}
 			
-			List<AdminPaymentDTO> list = session.selectList("mainPaymentChart", map);
+			List<AdminPaymentDTO> list = template.selectList("mainPaymentChart", map);
 			
 			return list;
 			
 		}catch (Exception e) {
 			e.printStackTrace();
 		}finally {
-			session.close();
 		}
 		
 		return null;
 	}
 	
 	public List<AdminUsersDTO> mainUsersChart(List<HashMap<String, Object>> params) throws Exception {
-		SqlSession session = sqlMapper.openSession();
+		
 		try {
 			
 			Map<String, String> map = new HashMap<String, String>();
@@ -135,21 +129,19 @@ public class AdminMainDAO {
 				map.put("endDate", (String) params.get(i).get("endDate"));
 			}
 			
-			List<AdminUsersDTO> list = session.selectList("mainUserChart", map);
+			List<AdminUsersDTO> list = template.selectList("mainUserChart", map);
 			
 			return list;
 		}catch (Exception e) {
 			e.printStackTrace();
-		}finally {
-			session.close();
-		}
+		}finally {		}
 		
 		return null;
 		
 	}
 	
 	public List<AdminGalleryDTO> mainGalleryChart(List<HashMap<String, Object>> params) throws Exception {
-			SqlSession session = sqlMapper.openSession();
+			
 			try {
 				
 				Map<String, String> map = new HashMap<String, String>();
@@ -159,14 +151,13 @@ public class AdminMainDAO {
 					map.put("endDate", (String) params.get(i).get("endDate"));
 				}
 				
-				List<AdminGalleryDTO> list = session.selectList("mainGalleryChart", map);
+				List<AdminGalleryDTO> list = template.selectList("mainGalleryChart", map);
 				
 				return list;
 				
 			}catch (Exception e) {
 				e.printStackTrace();
 			}finally {
-				session.close();
 			}
 		
 		return null;

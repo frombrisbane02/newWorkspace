@@ -1,6 +1,6 @@
 
-const localurl = 'http://localhost.0.27:4040/springapp/admin';
-const imgUrl = 'http://localhost.0.27:4040/springapp/upload/img/';
+const localurl = 'http://192.168.0.27:4040/springapp/admin';
+const imgUrl = 'http://192.168.0.27:4040/springapp/upload/img/';
 
 var urlChange = '/userChart.do';
 
@@ -37,7 +37,7 @@ var myInfoData = "";
 	 
 	  	if(!userId){
 			alert("로그인을 해주세요\n로그인 페이지로 이동합니다");
-			window.location.href = "http://localhost:4040/springapp/auth/Logout.do";
+			window.location.href = "http://192.168.0.27:4040/springapp/auth/Logout.do";
 			return false;
 		}
 	  
@@ -48,7 +48,7 @@ var myInfoData = "";
   	function AdminLoginInfo(){
 			$.ajax({
 			 //컨트롤러 주소값
-			 	url: localhost + '/LoginUserInfo.do',
+			 	url: 192.168.0.27 + '/LoginUserInfo.do',
 			    type: "POST",
 			    //비동기
 			    cache: false,

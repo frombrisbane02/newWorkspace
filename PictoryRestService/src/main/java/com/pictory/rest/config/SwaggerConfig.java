@@ -17,7 +17,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @Configuration
 @EnableSwagger2 //Swagger2 버전 활성화
-public class SwaggerConfig {//http://localhost:5050/swagger-ui.html
+public class SwaggerConfig {//http://192.168.0.27:5050/swagger-ui.html
 	
 	@Bean
 	public Docket openApi() {//Docket : Swagger 설정의 핵심 클래스
@@ -36,7 +36,7 @@ public class SwaggerConfig {//http://localhost:5050/swagger-ui.html
 				"REST API Documentation",
                 "OpenApi 사용 설명서입니다",  
                 "1.0",                                           
-                "localhost:5050",
+                "192.168.0.27:5050",
                 new Contact("Shin Dong Mi","http://shin.com","shindong8264@nate.com"), 
                 "SDM 2.0", 
                 "https://springfox.github.io",
@@ -47,7 +47,7 @@ public class SwaggerConfig {//http://localhost:5050/swagger-ui.html
 				.title("REST API Documentation")
 				.description("OpenApi 사용 설명서입니다")
 				.version("1.0")
-				.termsOfServiceUrl("localhost:5050")
+				.termsOfServiceUrl("192.168.0.27:5050")
 				.contact(new Contact("Shin Dong Mi","http://shin.com","shindong8264@nate.com"))
 				.license("SDM 2.0")
 				.licenseUrl("https://springfox.github.io")

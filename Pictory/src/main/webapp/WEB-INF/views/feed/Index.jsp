@@ -29,9 +29,10 @@
 					<img src="${feedInfo.userProfile}" alt="" class="pro_img">
 					<div class="txt_area">
 						<h3>${feedInfo.userNickname}</h3>
-						
+						<p>${feedInfo.userSelf}</p>
+						<!--
 						<p><img src="<c:url value="/resources/img/feed/test_icon01.png"/>" alt="">대한민국</p>
-						<!-- <p>고길동님과 둘리님이 팔로우중입니다.</p> 나중에 구현 -->
+						 <p>고길동님과 둘리님이 팔로우중입니다.</p> 나중에 구현 -->
 					</div>
 				</div>
 				<ul class="count_list">
@@ -43,6 +44,7 @@
 						<h3>${feedInfo.postLikes}</h3>
 						<p>좋아요</p>
 					</li>
+					<!-- 
 					<li>
 						<h3>${feedInfo.userFing}</h3>
 						<p>팔로잉</p>
@@ -50,13 +52,16 @@
 					<li>
 						<h3>${feedInfo.userFwer}</h3>
 						<p>팔로워</p>
-					</li>
+					</li>-->
+					 
 				</ul>
+				<!-- 
 				<ul class="btn_area">
 					<li><a href="" class="black_icon"><img src="${pageContext.request.contextPath}/resources/img/feed/test_icon02.png"/>Following</a></li>
 					<li><a href="" class="white_icon" id="addClass" style="color:black;">DM</a></li>
 					
 				</ul>
+				 -->
 				<div class="best_project">
 					<h3 class="sub_tit">Best Project</h3>
 					<div class="img_box" style="background-image: url(${pageContext.request.contextPath}/resources/img/feed/test_img03.jpg)">
@@ -65,16 +70,20 @@
 						</a>
 					</div>
 				</div>
+				<!-- 
 				<div class="about_me">
 					<h3 class="sub_tit">About me</h3>
 					<p>${feedInfo.userSelf}</p>
 				</div>
+				 -->
+				<!-- 
 				<div class="contacts">
 					<h3 class="sub_tit">Contacts</h3>
 					<p><img src="<c:url value="/resources/img/feed/test_icon04.png"/>" alt="">이거는 뭘까요</p>
 					<p><img src="<c:url value="/resources/img/feed/test_icon05.png"/>" alt="">010-0000-0000</p>
 					<p><img src="<c:url value="/resources/img/feed/test_icon01.png"/>" alt="">서울시 서울구 서울동 12-345</p>
 				</div>
+				 -->
 			</div>
 			<div class="right_list">
 				<ul class="top_tab" role="tablist" id="tab">

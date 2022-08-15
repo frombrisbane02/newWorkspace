@@ -89,9 +89,9 @@
 				
 			</div>
 			<div class="column">
-				<br><br><h4>질문을 찾지 못하였습니까</h4>
+				<br><br><h4>원하는 질문이 없으신가요?</h4>
 				<br><p></p>
-				<a href="" class="filter_btn">Q&A로 넘어가시죠</a>
+				<a href="" class="filter_btn">1:1 문의 남기기</a>
 				<input type="text" id="faqUserId" style="display:none" value="${sessionScope.userId}" />
 			</div>
 	</div>
@@ -146,7 +146,7 @@
 </body>
 <script>
 
-const localurl = 'http://localhost:4040/springapp/faq';
+const localurl = 'http://192.168.0.27:4040/springapp/faq';
 
     $(window).load(function(){
         $('.filter_btn').click(function(){
@@ -272,7 +272,7 @@ const localurl = 'http://localhost:4040/springapp/faq';
 	
 			if(!userId){
 				alert("로그인을 해주세요\n로그인 페이지로 이동합니다");
-				window.location.href = "http://localhost:4040/springapp/auth/Logout.do";
+				window.location.href = "http://192.168.0.27:4040/springapp/auth/Logout.do";
 				return false;
 			}
 			

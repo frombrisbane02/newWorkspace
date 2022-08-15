@@ -6,21 +6,15 @@
 <head>
 <title>Upload2</title>
 <meta charset="utf-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1 shrink-to-fit=no">
+<meta name="viewport" content="width=device-width, initial-scale=1 shrink-to-fit=no">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
 <!-- Image Edit용 example 추가 -->
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js" integrity="sha256-xLD7nhI62fcsEZK2/v8LsBcb4lG7dgULkuXoXB/j91c=" crossorigin="anonymous"></script>
 
 <!--text에디터용-->
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
-	integrity="sha512-PgQMlq+nqFLV4ylk1gwUOgm6CtIIXkKwaIHp/PAIWHzig/lKZSEGKEysh0TCVbHJXCLN7WetD8TFecIky75ZfQ=="
-	crossorigin="anonymous" />
-<link rel="stylesheet"
-	href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
-	integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
-	crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" integrity="sha512-PgQMlq+nqFLV4ylk1gwUOgm6CtIIXkKwaIHp/PAIWHzig/lKZSEGKEysh0TCVbHJXCLN7WetD8TFecIky75ZfQ==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
 
 <!--기본 bootstrap4용-->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
@@ -29,6 +23,11 @@
 
 </head>
 <style>
+
+*{font-family: 'Noto Sans KR', sans-serif;}
+
+
+
 * {
 	box-sizing: border-box;
 }
@@ -155,7 +154,7 @@
 		<div class="maparea" id="mapattached" style="width:500px; height:250px;"></div>
 		
 		
-		<!-- ===================================text 영역=================================== -->
+		<!-- ===================================text 영역===================================-->
 		<div class="form-group border-secondary border justify-item-center mt-3">
 			<div class="text-center">
 				<button type="button" onclick="f1()"
@@ -187,13 +186,13 @@
 		<div class="form-group text-center">
 			<label for="uploadImage" class="btn btn-ouline-dark m-2" style="display: inline-block;">
 				<c:if test="${postSellorNot eq 'sell'}">
-					<img src="${pageContext.request.contextPath}/resources/img/upload/btnimage.jpg" style="width:50px;"/>
+					<img src="${pageContext.request.contextPath}/resources/img/upload/addImage.png" style="width:50px;"/>
 			</label>
 			<input name="uploadImage" id="uploadImage" type="file" accept="image/*" class="form-control btn btn-ouline-dark m-2" hidden />
 			</c:if>
 			
 			<c:if test="${postSellorNot eq 'notsell'}">
-				<img src="${pageContext.request.contextPath}/resources/img/upload/btnimage.jpg" style="width:50px;"/>
+				<img src="${pageContext.request.contextPath}/resources/img/upload/addImage.png" style="width:50px;"/>
 			</label>
 			<input name="uploadImage" id="uploadImage" type="file" accept="image/*" class="form-control m-2" multiple hidden />
 			</c:if>
@@ -201,7 +200,7 @@
 			
 			<!-- ===================================지도=================================== -->
 			<label for="addMap" class="btn btn-ouline-dark m-2" style="display: inline-block;">
-				<img id="openMap" src="${pageContext.request.contextPath}/resources/img/upload/btnmap.jpg" style="width:50px;"/>
+				<img id="openMap" src="${pageContext.request.contextPath}/resources/img/upload/addMap.png" style="width:50px;"/>
 			</label>
 			<input type="hidden" name="addMap" id="addMap" value="" class="form-control m-2" hidden />
 		</div>
@@ -223,17 +222,15 @@
 			<!--기존 스토리 있으면 뿌려주는 공간-->
 			<c:if test="${not empty storyLists}">
 				<c:forEach var="story" items="${storyLists}" varStatus="loop">
-				
 					<li class="list-group-item form-check overflow-x: auto; border-0">
 						<div>
 							<input type="radio" class="form-check-input storyradio" id="story${story.SNo}" name="storyradio" hidden />
 							<label for="story${story.SNo}" style="position: relative;">
 								<img src="${story.storyThumbnail}" class="thumbstory" width="100px;">
 							</label>
-							<p><small>${story.storyTitle}<small></p>
+							<p>${story.storyTitle}</p>
 						</div>
 					</li>
-					
 				</c:forEach>
 			</c:if>
 		</ul>
@@ -262,28 +259,26 @@
 			</div>
 			<div class="form-group">
 				<label for="warning">정책 유의사항</label>
-				<textarea class="form-control bg-light" id="warning" rows="3"
-					style="min-height: 200px; max-height: 200px;" disabled>판매금액에서 수수료 10%를 제외한 금액은 작가의 정산금으로 어쩌구저쩌구저쩌구됩니다. 인출시 어쩌구저쩌구 남의 것 도용하지 마시고 어쩌구 저쩌구 저쩌구 어쩌구 저쩌구 어쩌구 저쩌구 화이팅 픽토리 정책에 의거하여 화이팅 어쩌구저쩌구</textarea>
+				<textarea class="form-control bg-light" id="warning" rows="3" style="min-height: 200px; max-height: 200px;" disabled>- 판매 금액의 10%는 수수료로 해당 플랫폼 픽토리의 수익으로 정산됩니다.
+- 크리에이터가 올리는 모든 사진에 대한 책임은 크리에이터 본인에게 있습니다.
+- 해당 사진에 대한 저작권 침해 사실이 인정되는 경우 저작권법 등에 따라 법적 책임을 질 수 있습니다.
+- 타인을 대신해 판매하거나 권리를 양도받을 수 없습니다.
+- 판매하는 자신에는 자동으로 워터마크가 표시되며, 이를 원치 않는 경우 업로드를 중지할 수 있습니다.
+- 판매 내역, 판매 금액, 정산 관련 내역은 마이페이지에서 확인 가능합니다.</textarea>
 			</div>
 			<div class="form-check">
-				<label class="form-check-label"> <input type="checkbox"
-					class="form-check-input" value="checkit">모든 내용을 읽었고 확인어쩌구
+				<label class="form-check-label">
+				<input type="checkbox" class="form-check-input" value="checkit"><p><small>판매 사진 업로드에 관한 상기 정책을 확인하였습니다.</small></p>
 				</label>
 			</div>
 		</c:if>
 
 		<!-- ===================================제출버튼=================================== -->
 		<div class="form-group text-center">
-			<button type="button" class="btn-lg btn-outline-dark m-2" onclick="leavePage()">Leave</button>
-			<button type="submit" id="uploadButton" class="btn-lg btn-outline-dark m-2">Upload</button>
+			<button type="button" class="btn-sm btn-outline-dark m-2" onclick="leavePage()">Leave</button>
+			<button type="submit" id="uploadButton" class="btn-sm btn-outline-dark m-2">Upload</button>
 		</div>
 </form>
-
-
-
-
-
-
 
 
 </div>
@@ -334,7 +329,7 @@
         });
     }
 
-    
+
     document.getElementById("uploadImage").addEventListener("change", function(ev){
 	        let files = ev.currentTarget.files;
 	        let readers = [];
@@ -360,12 +355,12 @@
 		console.log('index:',index);
 		console.log('base64:',base64[index]);
 		
-		childWin=window.open('http://localhost:4040/springapp/editImage/EditImage.jsp','childpop','_blank','toolbar=no, menubar=no,scrollbars=no, width=1000, height=800').focus();
+		childWin=window.open('http://192.168.0.27:4040/springapp/editImage/EditImage.jsp','childpop','_blank','toolbar=no, menubar=no,scrollbars=no, width=1000, height=800').focus();
 	   	
 		document.frm.base64.value=base64[index];
 		document.frm.base64Index.value=index;
 	   	document.frm.target="childpop";
-	   	document.frm.action="http://localhost:4040/springapp/editImage/EditImage.jsp";
+	   	document.frm.action="http://192.168.0.27:4040/springapp/editImage/EditImage.jsp";
 	   	document.frm.submit();
 }
     var base64=[];
@@ -375,7 +370,7 @@
 	$('#openMap').click(function() {
 		
 		console.log('지도 버튼 클릭 했으');
-		window.open('http://localhost:4040/springapp/kakaomap/UploadMap.jsp', 'uploadMap','_blank','toolbar=no, menubar=no, scrollbars=no, width=1000, height=1000').focus();
+		window.open('http://192.168.0.27:4040/springapp/kakaomap/UploadMap.jsp', 'uploadMap','_blank','toolbar=no, menubar=no, scrollbars=no, width=1000, height=1000').focus();
 		
 	});
 	

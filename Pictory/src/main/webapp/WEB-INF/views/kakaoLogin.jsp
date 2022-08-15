@@ -13,7 +13,7 @@
 			앞으로 카카오 계정으로 간편로그인이 가능합니다.</h2>
 			<br/>
 			<!-- 
-			<a href="http://localhost:4040/springapp/member/kakaounlink.do"
+			<a href="http://192.168.0.27:4040/springapp/member/kakaounlink.do"
 				class="kakao btn d-flex justify-content-center align-items-center">
 				<span class="iconify" data-icon="ri:kakao-talk-fill" data-width="24"
 				data-height="24"></span>&nbsp; Logout with Kakao
@@ -24,7 +24,7 @@
 	
 		<c:otherwise>
 			<a
-				href="https://kauth.kakao.com/oauth/authorize?client_id=864c0c83f5039090b5065e41a69f1f0f&redirect_uri=http://localhost:4040/springapp/member/kakaoLogin.do&response_type=code"
+				href="https://kauth.kakao.com/oauth/authorize?client_id=864c0c83f5039090b5065e41a69f1f0f&redirect_uri=http://192.168.0.27:4040/springapp/member/kakaoLogin.do&response_type=code"
 				class="kakao btn d-flex justify-content-center align-items-center">
 				<span class="iconify" data-icon="ri:kakao-talk-fill" data-width="24"
 				data-height="24"></span>&nbsp; Login with Kakao

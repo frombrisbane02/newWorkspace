@@ -2,10 +2,6 @@ package com.pictory.springapp.service.impl;
 
 
 	import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionTemplate;
 	import org.springframework.beans.factory.annotation.Autowired;
 	import org.springframework.stereotype.Repository;

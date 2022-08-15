@@ -22,9 +22,6 @@ import com.pictory.springapp.dto.SavePostDTO;
 
 @Repository
 public class MemberDAO {
-
-	@Autowired
-	private SqlSessionFactory sqlMapper;
 	
 	@Autowired
 	private SqlSessionTemplate template;
@@ -69,19 +66,21 @@ public class MemberDAO {
 	}
 	
 	public MemberDTO readMember(String id) {
-		SqlSession session= sqlMapper.openSession();
-		MemberDTO memberDTO = session.selectOne("readMember", id);
+		
+		MemberDTO memberDTO = template.selectOne("readMember", id);
+		
 		return memberDTO;
+		
 	}
 
 	public void updateMember(MemberDTO dto) {
-		SqlSession session= sqlMapper.openSession();
-		session.update("updateMember", dto);
+		
+		template.update("updateMember", dto);
+		
 	}
 
 	public void updateMemberPassword(MemberDTO dto) {
-		SqlSession session= sqlMapper.openSession();
-		session.update("updateMemberPassword", dto);
+		template.update("updateMemberPassword", dto);
 	}
 	
 	public List<SavePostDTO> selectLikePost(int userNo) {

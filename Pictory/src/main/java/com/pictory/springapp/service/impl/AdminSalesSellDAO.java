@@ -13,17 +13,14 @@ import com.pictory.springapp.dto.AdminSalesSellDTO;
 @Repository("adminsalessellDAO")
 public class AdminSalesSellDAO {
 	
-	@Autowired
-	private SqlSessionFactory sqlMapper;
-	//- SqlSessionTemplate사용: 위 프로그래밍 순서 가, 나에서는 commit(), 다의 close()호출 불필요
-	
+
 	@Autowired
 	private SqlSessionTemplate template;
 
 	
 
 	public List<AdminSalesSellDTO> SalesSellList() {
-		//template.selectList("searchList")
+		//template.selectList("searchList");
 
 		return null;
 	}

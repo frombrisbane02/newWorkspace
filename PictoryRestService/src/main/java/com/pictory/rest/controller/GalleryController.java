@@ -58,7 +58,7 @@ public class GalleryController {
 		
 		for(GalleryDTO photo:photos) {
 			Map<String,String> map = new HashMap<>();
-			map.put("image_url","http://localhost:4040/springapp/upload/img/"+photo.getPhotoUrl());
+			map.put("image_url","http://192.168.0.27:4040/springapp/upload/img/"+photo.getPhotoUrl());
 			map.put("image_title",photo.getPhotoName());
 			map.put("image_id",photo.getPhotoNo());
 			lists.add(map);

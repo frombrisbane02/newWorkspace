@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,21 +18,20 @@ import com.pictory.springapp.dto.AdminNoticeDTO;
 public class AdminNoticeDAO {
 	
 	@Autowired
-	private SqlSessionFactory sqlMapper;
+	private SqlSessionTemplate template;
 	
 	// 카운트
 	public int getNoticeTotalCount(HashMap<String, Object> params) throws Exception {
-		SqlSession session = sqlMapper.openSession();
+		
 		try {
 			
-			int result = session.selectOne("noticeTotalCount", params);
+			int result = template.selectOne("noticeTotalCount", params);
 			
 			return result;
 			
 		}catch (Exception e) {
 			e.printStackTrace();
 		}finally {
-			session.close();
 		}
 		
 		return 0;
@@ -40,17 +40,15 @@ public class AdminNoticeDAO {
 	// 리스트
 	public List<AdminNoticeDTO> noticeList(HashMap<String, Object> params) throws Exception {
 		
-		SqlSession session = sqlMapper.openSession();
 		
 		try {
 			
-			List<AdminNoticeDTO> list = session.selectList("noticeList", params);
+			List<AdminNoticeDTO> list = template.selectList("noticeList", params);
 			return list;
 			
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
-			session.close();
 		}
 		
 		return null;
@@ -60,13 +58,13 @@ public class AdminNoticeDAO {
 	// 저장
 	@Transactional
 	public boolean noticeInsert(List<HashMap<String, Object>> map) throws Exception {
-		SqlSession session = sqlMapper.openSession();
+		
 		try {
 			
 			 boolean result = false;
 			
 			for(int i = 0; i < map.size(); i++) {
-				int list = session.insert("noticeInsert", map.get(i));
+				int list = template.insert("noticeInsert", map.get(i));
 				
 				if(list == 1) {
 					result = true;
@@ -78,7 +76,6 @@ public class AdminNoticeDAO {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
-			session.close();
 		}
 		
 			return false;
@@ -87,11 +84,11 @@ public class AdminNoticeDAO {
 	// 업데이트
 	@Transactional
 	public boolean noticeUpdate(HashMap<String, Object> map) throws Exception {
-		 SqlSession session = sqlMapper.openSession();
+		 
 		try {
 			
 			boolean result = false;
-			int check = session.update("noticeUpdate", map);
+			int check = template.update("noticeUpdate", map);
 			
 			if(check == 1) {
 				result = true;
@@ -100,7 +97,6 @@ public class AdminNoticeDAO {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
-			session.close();
 		}
 		
 		 return false;
@@ -111,12 +107,11 @@ public class AdminNoticeDAO {
 	@Transactional
 	public boolean noticeDelete(int map) throws Exception {
 		
-		SqlSession session = sqlMapper.openSession();
 		
 		try {
 		 
 			boolean result = false;
-			int check = session.delete("noticeDelete", map);
+			int check = template.delete("noticeDelete", map);
 			
 			if(check == 1) {
 				result = true;
@@ -127,7 +122,6 @@ public class AdminNoticeDAO {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
-			session.close();
 		}
 		
 			return false;

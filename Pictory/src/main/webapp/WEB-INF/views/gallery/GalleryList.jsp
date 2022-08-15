@@ -281,7 +281,7 @@
                             				
                             				result.forEach(function(item, index){
                      							
-                            					var localurl = 'http://localhost:4040';
+                            					var localurl = 'http://192.168.0.27:4040';
                      							
                      							
                      							html = $('<li class="photo_area">' +
@@ -289,7 +289,7 @@
                      		 									'<div class="img_area" style="background-image: url('+item.photoUrl+');">'+'<img src="'+localurl+'/springapp/resources/img/gallerylist/fake02.png" alt="">'+'</div>'+
                      		 									'<div class="txt_area">'+
                      		 										'<p>'+'<img src="'+item.userProfile+'" alt="" class="pro_p">'+item.userNickname+'</p>'+
-                     		 										'<p>'+'<img src="'+localurl+'/springapp/resources/img/gallerylist/test_icon06.png" alt="" class="pro_icon">'+'<span>'+item.postLikes+'</span>'+'<img src="http://localhost:4040/springapp/resources/img/gallerylist/test_icon07.png" alt="" class="pro_icon">'+'<span>'+item.commentCount+'</span>'+'</p>'+
+                     		 										'<p>'+'<img src="'+localurl+'/springapp/resources/img/gallerylist/test_icon06.png" alt="" class="pro_icon">'+'<span>'+item.postLikes+'</span>'+'<img src="http://192.168.0.27:4040/springapp/resources/img/gallerylist/test_icon07.png" alt="" class="pro_icon">'+'<span>'+item.commentCount+'</span>'+'</p>'+
                      		 									'</div>'+
                      		 								'</a>'+
                      		 								'<ul class="hover_btn">'+
@@ -406,7 +406,7 @@
                     				
              						result.forEach(function(item, index){
              							
-             							var localurl = 'http://localhost:4040';
+             							var localurl = 'http://192.168.0.27:4040';
              							
              							
              							html = $('<li class="photo_area">' +
@@ -414,7 +414,7 @@
              		 									'<div class="img_area" style="background-image: url('+item.photoUrl+');">'+'<img src="'+localurl+'/springapp/resources/img/gallerylist/fake02.png" alt="">'+'</div>'+
              		 									'<div class="txt_area">'+
              		 										'<p>'+'<img src="'+item.userProfile+'" alt="" class="pro_p">'+item.userNickname+'</p>'+
-             		 										'<p>'+'<img src="'+localurl+'/springapp/resources/img/gallerylist/test_icon06.png" alt="" class="pro_icon">'+'<span>'+item.postLikes+'</span>'+'<img src="http://localhost:4040/springapp/resources/img/gallerylist/test_icon07.png" alt="" class="pro_icon">'+'<span>'+item.commentCount+'</span>'+'</p>'+
+             		 										'<p>'+'<img src="'+localurl+'/springapp/resources/img/gallerylist/test_icon06.png" alt="" class="pro_icon">'+'<span>'+item.postLikes+'</span>'+'<img src="http://192.168.0.27:4040/springapp/resources/img/gallerylist/test_icon07.png" alt="" class="pro_icon">'+'<span>'+item.commentCount+'</span>'+'</p>'+
              		 									'</div>'+
              		 								'</a>'+
              		 								'<ul class="hover_btn">'+

@@ -87,10 +87,27 @@ public class MypageProfileController {
 		String id = (String) session.getAttribute("userId");
 				
 		if (file != null) {
-			String uploadPath = req.getSession().getServletContext().getRealPath("/").concat("upload/img/");
+
+			String uploadPath = req.getSession().getServletContext().getRealPath("/").concat("upload\\img");
 			String fileName = file.getOriginalFilename();
-			String realFileName = id + "." + fileName.substring(fileName.lastIndexOf(".") + 1);
+			System.out.println("filename"+fileName);
+			String realFileName = id+"\\"+fileName;
+			System.out.println("realfilename"+realFileName);
 			String imgUploadPath = uploadPath + File.separator + realFileName;
+			System.out.println("imguploadpath"+imgUploadPath);
+			
+			//폴더 없을때 만들기
+			String path = uploadPath+"\\"+id;
+			System.out.println("path 잘 합쳐졌는지 확인갈겨 : "+path);
+			
+			File Folder = new File(path);
+		
+			if (!Folder.exists()) {
+				    Folder.mkdir();
+				    System.out.println("폴더 생성!");
+			}
+			else {System.out.println("이미 폴더 있음;;");}
+			
 			
 			file.transferTo(new File(imgUploadPath));
 			memberDTO.setUserProfile(realFileName);

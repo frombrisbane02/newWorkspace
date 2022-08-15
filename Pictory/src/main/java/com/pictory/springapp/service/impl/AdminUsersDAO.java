@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -18,19 +19,17 @@ import com.pictory.springapp.dto.AdminUsersDTO;
 public class AdminUsersDAO {
 	
 	@Autowired
-	private SqlSessionFactory sqlMapper;
+	private SqlSessionTemplate template;
 	
 	
 	// 회원 전체 갯수
 	public int usersCount() throws Exception {
-		SqlSession session = sqlMapper.openSession();
 		try {
 			
-			return session.selectOne("usersCount");
+			return template.selectOne("usersCount");
 		}catch (Exception e) {
 			e.printStackTrace();
 		}finally {
-			session.close();
 		}
 		
 			return 0;
@@ -39,35 +38,32 @@ public class AdminUsersDAO {
 	
 	// 회원 검색 조회
 	public int searchUsersCount(HashMap<String, Object> params) throws Exception {
-		SqlSession session = sqlMapper.openSession();
 		try {
 			
 			
 			String keyword = (String) params.get("keyword");
 						
-			int result = session.selectOne("searchCount", keyword);
+			int result = template.selectOne("searchCount", keyword);
 			return result;
 		}catch (Exception e) {
 			e.printStackTrace();
-		}finally {
-			session.close();
-		}
+		}finally {		}
 		
 		return 0;
 	}
 	
 	// 회원 전체 조회
 	public List<AdminUsersDTO> userList(HashMap<String, Object> params) throws Exception {
-		SqlSession session = sqlMapper.openSession();
+		
 		try {
 			
-			List<AdminUsersDTO> list = session.selectList("userList", params);
+			List<AdminUsersDTO> list = template.selectList("userList", params);
 	        return list;
 
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
-			session.close();
+			template.close();
 		}
 		
 		return null;
@@ -75,16 +71,15 @@ public class AdminUsersDAO {
 	
 	// 로그인한 회원정보
 	public List<AdminUsersDTO> readMember(String id) throws Exception {
-		SqlSession session= sqlMapper.openSession();
+		
 		try {
 			
-			List<AdminUsersDTO> result = session.selectList("readUser", id);
+			List<AdminUsersDTO> result = template.selectList("readUser", id);
 			
 			return result;
 		}catch (Exception e) {
 			e.printStackTrace();
 		}finally {
-			session.close();
 		}
 		
 			return null;
@@ -92,20 +87,19 @@ public class AdminUsersDAO {
 	
 	// 회원 검색
 	public List<AdminUsersDTO> searchList(HashMap<String, Object> params)throws Exception {
-		SqlSession session = sqlMapper.openSession();
+		
 		
 		try {
 			
 			String keyword = (String) params.get("keyword");
 			
-			List<AdminUsersDTO> list = session.selectList("searchList", params);
+			List<AdminUsersDTO> list = template.selectList("searchList", params);
 			
 			return list;
 			
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
-			session.close();
 		}
 		
 		return null;
@@ -113,16 +107,15 @@ public class AdminUsersDAO {
 	}
 	
 	public int updateEnabled(HashMap<String, Object> params) throws Exception{
-		SqlSession session = sqlMapper.openSession();
+		
 		
 		try {
 			
-			return session.update("updateEnabled", params);
+			return template.update("updateEnabled", params);
 			
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
-			session.close();
 		}
 		
 		return 0;
@@ -130,7 +123,7 @@ public class AdminUsersDAO {
 	
 	
 	public List<AdminUsersDTO> userChart(List<HashMap<String, Object>> params) throws Exception {
-			SqlSession session = sqlMapper.openSession();
+			
 		try {
 			
 			Map<String, String> map = new HashMap<String, String>();
@@ -140,13 +133,12 @@ public class AdminUsersDAO {
 				map.put("endDate", (String) params.get(i).get("endDate"));
 			}
 			
-			List<AdminUsersDTO> list = session.selectList("userChart", map);
+			List<AdminUsersDTO> list = template.selectList("userChart", map);
 			return list;
 			
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
-			session.close();
 		}
 		
 		return null;

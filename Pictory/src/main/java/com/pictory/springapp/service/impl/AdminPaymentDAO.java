@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -17,14 +18,14 @@ import com.pictory.springapp.dto.PageDTO;
 public class AdminPaymentDAO {
 	
 	@Autowired
-	private SqlSessionFactory sqlMapper;
+	private SqlSessionTemplate template;
+	
 
 	// 최근 거래내역 총 갯수
 	public int paymentTotalCount() throws Exception {
-		SqlSession session = sqlMapper.openSession();
 		try {
 			
-			int result = session.selectOne("paymentTotalCount");
+			int result = template.selectOne("paymentTotalCount");
 			return result;
 			
 		}catch (Exception e) {
@@ -37,18 +38,16 @@ public class AdminPaymentDAO {
 	// 최근거래내역 전체 LIST
 	public List<AdminPaymentDTO> paymentList(AdminCriteriaDTO cri) throws Exception {
 		
-		SqlSession session = sqlMapper.openSession();
 		
 		try {
 			
-			List<AdminPaymentDTO> list = session.selectList("paymentList", cri);
+			List<AdminPaymentDTO> list = template.selectList("paymentList", cri);
 			
 			return list;
 			
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
-			session.close();
 		}
 		
 		return null;
@@ -57,7 +56,6 @@ public class AdminPaymentDAO {
 	
 	// 검색 카운트
 	public int paymentSearchCount(HashMap<String, Object> params) throws Exception {
-		SqlSession session = sqlMapper.openSession();
 		int result = 0;
 		try {
 			
@@ -78,14 +76,13 @@ public class AdminPaymentDAO {
 				params.put("column", "a.PDNO");
 			}
 			
-			result = session.selectOne("paymentSearchCount", params);
+			result = template.selectOne("paymentSearchCount", params);
 			
 			return result;
 			
 		}catch (Exception e) {
 			e.printStackTrace();
 		}finally {
-			session.close();
 		}
 			
 		return 0;
@@ -94,7 +91,7 @@ public class AdminPaymentDAO {
 	
 	// 최근 거래내역 검색 리스트
 	public List<AdminPaymentDTO> paymentSearch(HashMap<String, Object> params) throws Exception {
-		SqlSession session = sqlMapper.openSession();
+		
 		try {
 			
 			// 구매자
@@ -114,14 +111,13 @@ public class AdminPaymentDAO {
 				params.put("column", "a.PDNO");
 			}
 			
-			List<AdminPaymentDTO> list = session.selectList("paymentSearch", params);
+			List<AdminPaymentDTO> list = template.selectList("paymentSearch", params);
 			
 			return list;
 			
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
-			session.close();
 		}
 		
 		return null;
@@ -129,7 +125,7 @@ public class AdminPaymentDAO {
 	
 	
 	public List<AdminPaymentDTO> paymentChart(List<HashMap<String, Object>> params) throws Exception {
-		SqlSession session = sqlMapper.openSession();
+		
 		try {
 					
 			Map<String, String> map = new HashMap<String, String>();
@@ -139,14 +135,13 @@ public class AdminPaymentDAO {
 				map.put("endDate", (String) params.get(i).get("endDate"));
 			}
 			
-			List<AdminPaymentDTO> list = session.selectList("paymentChart", map);
+			List<AdminPaymentDTO> list = template.selectList("paymentChart", map);
 			
 			return list;
 			
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
-			session.close();
 		}
 		
 		return null;

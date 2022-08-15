@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,13 +18,12 @@ import com.pictory.springapp.dto.AdminUsersDTO;
 public class FaqDAO {
 	
 	@Autowired
-	private SqlSessionFactory sqlMapper;
+	private SqlSessionTemplate template;
 	
 	
 	@Transactional
 	public boolean faqSave(List<HashMap<String, Object>> params) throws Exception {
 		
-		SqlSession session = sqlMapper.openSession();
 		
 		try {
 		
@@ -36,14 +36,14 @@ public class FaqDAO {
 				map.put("userId", (String) params.get(i).get("userId"));
 			}
 	
-			List<AdminUsersDTO> list = session.selectList("faquserInfo", map);
+			List<AdminUsersDTO> list = template.selectList("faquserInfo", map);
 			
 			for(AdminUsersDTO list2 : list) {
 				params.get(0).remove("userId");
 				params.get(0).put("userNo", list2.getUserNo());
 			}
 		
-			check = session.insert("faqSave", params);
+			check = template.insert("faqSave", params);
 			
 			if(check == 1) {
 				result = true;
@@ -56,7 +56,6 @@ public class FaqDAO {
 		}catch (Exception e) {
 			e.printStackTrace();
 		}finally {
-			session.close();
 		}
 		
 		return false;

@@ -220,12 +220,14 @@
 	                <div class="p-3">
 	                    <h6>${createrPostCount}개의 글을 보유한 크리에이터입니다.</h6>
 	                </div>
+	                <!-- 
 	                <div class="d-flex flex-row justify-content-center text-white">
 	                	<button class="btn btn-sm btn-outline-dark mr-1"><a style="text-decoration:none; color:black;" href="<c:url value="/feed/FeedIndex.do?userNo=${createrUserNo}"/>">FEED</a></button>
 	                	<button class="btn btn-sm btn-outline-dark mr-1"><a style="text-decoration:none; color:black;" href="${createrUserNo}">LIKE</a></button>
 	                	<button class="btn btn-sm btn-outline-dark mr-1 diabled" >FOLLOW</button>
 	                	<button class="btn btn-sm btn-outline-dark diabled" >DM</button>
 	                </div>
+	                 -->
             </div>
         </div>
     </div>

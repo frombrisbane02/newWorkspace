@@ -37,7 +37,6 @@
 
     <script>
       var file = document.querySelector('input[type="file"]');
-      //console.log(file.getAttribute);
 
       const reader = new FileReader();
       reader.addEventListener('loadend',()=>{
@@ -54,15 +53,7 @@
 	  const config = {
 	  source: '<%=base64%>',
 	  language:'ko',
-	  onSave: (editedImageObject, designState) =>{//저장 버튼 클릭시 콜백 함수
-		//editedImageObject이 보정된 이미지에 대한 정보가 담긴 객체
-		
-		//console.log('saved', editedImageObject, designState);
-		//console.log('src[1]:',src[1]);
-		//console.log('data:',data);
-		//console.log('editedImageObject.imageBase64:',editedImageObject.imageBase64);
-		console.log('editedImageObject.fullName:',editedImageObject.fullName);
-		console.log('editedImageObject.mimeType:',editedImageObject.mimeType);
+	  onSave: (editedImageObject, designState) =>{
 		
 		//1. 보정한 이미지를 담아 본문 내 이미지 교체
 		opener.document.getElementById('pictoryImage<%=base64Index%>').src=editedImageObject.imageBase64;
@@ -72,26 +63,16 @@
 		var fullName = editedImageObject.fullName.trim();
 		var data = src[1];
         var mime = src[0].match(/:(.*?);/)[1].trim();
-        console.log('mime type::',mime)
-        //var mime = editedImageObject.mimeType;
         var bstr = atob(data);
         var n = bstr.length;
         var u8arr = new Uint8Array(n);
-        
-        console.log('data: ',data);
-		console.log('n: ',n);
-		console.log('u8arr: ',u8arr);
-		console.log('fullName:',fullName);
 	        
        	while(n--){
        		u8arr[n] = bstr.charCodeAt(n);
        	}
-       //console.log('new File!!: ',new File([u8arr], fullName, {type:mime}));
        const editedImage = new File([u8arr], fullName, {type:mime});
-       console.log('editedImage 새거 읽어오니? %O',editedImage);
        
        //3. 파일 객체 전달하기(아이디 uploadImages)
-       //달려있던 multiple 파일 중 target 잡아서 삭제하고 새로 달아주기
      
        //3.1) 들어온 인덱스의 파일 갈아끼우기
 		//어떻게 할거냐면, for문을 돌면서 files 다 꺼내와서 dataTransfer에 다 저장을 하는데
@@ -99,11 +80,8 @@
 		
         const base64Index = <%=base64Index%>;
         const targetFile = opener.document.getElementById('uploadImage').files[base64Index];
-        console.log('target파일 잘 가져왔니???:%O',targetFile);
         const files = opener.document.getElementById('uploadImage').files;
-        console.log('file배열인데 다 가지고 왔니?? %O',files);
         const dataTransfer = new DataTransfer();
-		console.log('dataTransfer가 왜없니?;; %O', dataTransfer);
 		
         Array.from(files).forEach(file => {
         	if(file==targetFile){
@@ -115,8 +93,7 @@
         });
         
         
-        console.log('file배열 다시 찍어봐도 되겠니?? %O',files);
-	
+        //console.log('file배열 다시 찍어봐도 되겠니?? %O',files);
         //원본 마지막에 저장하기 하면...흠 이거 나중에 판매용땜에 생각해봐야함
         //여기다가 새로 생긴 타겟파일 추가해야함    
         opener.document.getElementById('uploadImage').files = dataTransfer.files;
@@ -247,19 +224,16 @@
 			titleKey: 'classicTv',
 			descriptionKey: '4:3',
 			ratio: 4 / 3,
-			// icon: CropClassicTv, // optional, CropClassicTv is a React Function component. Possible (React Function component, string or HTML Element)
-		  },
+		},
 		  {
 			titleKey: 'cinemascope',
 			descriptionKey: '21:9',
 			ratio: 21 / 9,
-			// icon: CropCinemaScope, // optional, CropCinemaScope is a React Function component.  Possible (React Function component, string or HTML Element)
 		  },
 		],
 		presetsFolders: [
 		  {
-			titleKey: 'socialMedia', // will be translated into Social Media as backend contains this translation key
-			// icon: Social, // optional, Social is a React Function component. Possible (React Function component, string or HTML Element)
+			titleKey: 'socialMedia', 
 			groups: [
 			  {
 				titleKey: 'facebook',

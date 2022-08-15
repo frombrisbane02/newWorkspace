@@ -14,14 +14,15 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
-    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+    <!-- <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet"> -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/ScrollButton.css" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 </head>
 
 <style>
 	#show:hover {
-    	content: url('http://localhost:4040/springapp/upload/img/chatbotHi.png');
+    	content: url('http://192.168.0.27:4040/springapp/upload/img/chatbotHi.png');
 	}
 	.background {
 	  position: fixed;
@@ -100,9 +101,10 @@
                             <a href="<c:url value="/auth/Login.do"/>">Upload</a>
                         </li>
                         <%}else{ %>
+                        <!-- 
                         <li class="nav-item">
                             <a href="<c:url value="/feed/Index.do"/>" id="nava">Feed</a>
-                        </li>
+                        </li> -->
                         <li class="nav-item">
                             <a href="<c:url value="/gallery/GalleryList.do"/>" id="nava">Gallery</a>
                         </li>
@@ -142,16 +144,17 @@
                                     style="width:30px; height:30px" />
                             <div class="dropdown-content">
                                <a href="<c:url value="/mypage/Index.do"/>" id="nava">My PICTORY</a>
-                               <a href="<c:url value="/message/DmList.do"/>" id="nava">Message</a>
+                              <!--  <a href="<c:url value="/message/DmList.do"/>" id="nava">Message</a>-->
                             </div>
                         </li>
-                        
+                        <!-- 
                         <li class="nav-item">
                         	<img src="${pageContext.request.contextPath}/resources/img/notification.png"
                                     style="width:30px; height:30px" />
                             <a href="#"></a>
                         </li>
-
+ 						-->
+ 						
                         <!-- Navbar Form -->
                         <form action="<c:url value="/search/Search.do"/>" method="post" class="navbar-form navbar-right">
                             <div class="form-group d-inline-flex">
