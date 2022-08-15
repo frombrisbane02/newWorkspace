@@ -64,7 +64,7 @@ public class AuthController {
 
 		if(enabled==2) {
 			status.setComplete();
-			model.addAttribute("Block","너 이새끼 활동정지 먹은거야 알아들어?");
+			model.addAttribute("Block","활동정지 계정입니다");
 			String id = (String) session.getAttribute("userId");
 			return "auth/Login.tiles";
 		}
