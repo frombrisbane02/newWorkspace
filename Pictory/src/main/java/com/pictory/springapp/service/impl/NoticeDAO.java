@@ -20,21 +20,15 @@ import com.pictory.springapp.dto.SearchDTO;
 @Repository
 public class NoticeDAO {
 	
-	@Autowired
-	private SqlSessionFactory sqlMapper;
 	
 	@Autowired
 	private SqlSessionTemplate template;
 
 	
 	public boolean isLogin(Map map) {
-		//스프링 지원 마이바티스 API(SqlSessionTemplate) 미 사용시
-		//1]SqlSession얻기
-		SqlSession session=sqlMapper.openSession();
 		//2]selectOne()호출
-		int count=session.selectOne("noticeIsLogin", map);
+		int count=template.selectOne("noticeIsLogin", map);
 		//3]close()호출
-		session.close();
 		return count==1 ? true : false;
 	}
 
@@ -44,14 +38,9 @@ public class NoticeDAO {
 
 	public int insert(Map map) {
 		//스프링 지원 마이바티스 API(SqlSessionTemplate) 미 사용시
-		//1]SqlSession얻기
-		SqlSession session=sqlMapper.openSession();
 		//2]insert()호출
-		int affected=session.insert("noticeInsert", map);
-		//3]commit()호출
-		session.commit();
-		//4]close()호출
-		session.close();
+		int affected=template.insert("noticeInsert", map);
+		
 		return affected;
 	}
 	

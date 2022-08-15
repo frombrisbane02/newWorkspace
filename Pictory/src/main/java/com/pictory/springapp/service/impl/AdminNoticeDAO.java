@@ -23,35 +23,17 @@ public class AdminNoticeDAO {
 	// 카운트
 	public int getNoticeTotalCount(HashMap<String, Object> params) throws Exception {
 		
-		try {
-			
-			int result = template.selectOne("noticeTotalCount", params);
-			
-			return result;
-			
-		}catch (Exception e) {
-			e.printStackTrace();
-		}finally {
-		}
+		int result = template.selectOne("noticeTotalCount", params);
 		
-		return 0;
+		return result;
 	}
 	
 	// 리스트
 	public List<AdminNoticeDTO> noticeList(HashMap<String, Object> params) throws Exception {
 		
 		
-		try {
-			
-			List<AdminNoticeDTO> list = template.selectList("noticeList", params);
-			return list;
-			
-		}catch(Exception e) {
-			e.printStackTrace();
-		}finally {
-		}
-		
-		return null;
+		List<AdminNoticeDTO> list = template.selectList("noticeList", params);
+		return list;
 	}
 	
 	
@@ -59,9 +41,7 @@ public class AdminNoticeDAO {
 	@Transactional
 	public boolean noticeInsert(List<HashMap<String, Object>> map) throws Exception {
 		
-		try {
-			
-			 boolean result = false;
+		 boolean result = false;
 			
 			for(int i = 0; i < map.size(); i++) {
 				int list = template.insert("noticeInsert", map.get(i));
@@ -72,34 +52,20 @@ public class AdminNoticeDAO {
 			}
 			
 			return result;
-			
-		}catch(Exception e) {
-			e.printStackTrace();
-		}finally {
-		}
-		
-			return false;
 	}
 	
 	// 업데이트
 	@Transactional
 	public boolean noticeUpdate(HashMap<String, Object> map) throws Exception {
 		 
-		try {
-			
-			boolean result = false;
-			int check = template.update("noticeUpdate", map);
-			
-			if(check == 1) {
-				result = true;
-			}
-			return result;
-		}catch(Exception e) {
-			e.printStackTrace();
-		}finally {
-		}
+
+		boolean result = false;
+		int check = template.update("noticeUpdate", map);
 		
-		 return false;
+		if(check == 1) {
+			result = true;
+		}
+		return result;
 	}
 	
 	
@@ -108,23 +74,14 @@ public class AdminNoticeDAO {
 	public boolean noticeDelete(int map) throws Exception {
 		
 		
-		try {
-		 
-			boolean result = false;
-			int check = template.delete("noticeDelete", map);
-			
-			if(check == 1) {
-				result = true;
-			}
-			
-			return result;
-			
-		}catch(Exception e) {
-			e.printStackTrace();
-		}finally {
+		boolean result = false;
+		int check = template.delete("noticeDelete", map);
+		
+		if(check == 1) {
+			result = true;
 		}
 		
-			return false;
+		return result;
 		
 	}
 

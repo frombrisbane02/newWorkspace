@@ -68,7 +68,6 @@ public class MemberDAO {
 	public MemberDTO readMember(String id) {
 		
 		MemberDTO memberDTO = template.selectOne("readMember", id);
-		
 		return memberDTO;
 		
 	}

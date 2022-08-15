@@ -25,7 +25,6 @@ public class FaqDAO {
 	public boolean faqSave(List<HashMap<String, Object>> params) throws Exception {
 		
 		
-		try {
 		
 			boolean result = false;
 			int check = 0;
@@ -53,12 +52,7 @@ public class FaqDAO {
 		
 			return result;
 		
-		}catch (Exception e) {
-			e.printStackTrace();
-		}finally {
-		}
 		
-		return false;
 		
 	}
 

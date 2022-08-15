@@ -23,41 +23,22 @@ public class AdminPaymentDAO {
 
 	// 최근 거래내역 총 갯수
 	public int paymentTotalCount() throws Exception {
-		try {
-			
-			int result = template.selectOne("paymentTotalCount");
-			return result;
-			
-		}catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-			return 0;
+		int result = template.selectOne("paymentTotalCount");
+		return result;
 	}
 	
 	// 최근거래내역 전체 LIST
 	public List<AdminPaymentDTO> paymentList(AdminCriteriaDTO cri) throws Exception {
+		List<AdminPaymentDTO> list = template.selectList("paymentList", cri);
 		
-		
-		try {
-			
-			List<AdminPaymentDTO> list = template.selectList("paymentList", cri);
-			
-			return list;
-			
-		}catch(Exception e) {
-			e.printStackTrace();
-		}finally {
-		}
-		
-		return null;
+		return list;
 	}
 	
 	
 	// 검색 카운트
 	public int paymentSearchCount(HashMap<String, Object> params) throws Exception {
 		int result = 0;
-		try {
+		
 			
 			// 구매자
 			if("CONSUMER".equals(params.get("choiceValue"))) {
@@ -80,19 +61,13 @@ public class AdminPaymentDAO {
 			
 			return result;
 			
-		}catch (Exception e) {
-			e.printStackTrace();
-		}finally {
-		}
-			
-		return 0;
+	
 	}
 	
 	
 	// 최근 거래내역 검색 리스트
 	public List<AdminPaymentDTO> paymentSearch(HashMap<String, Object> params) throws Exception {
 		
-		try {
 			
 			// 구매자
 			if("CONSUMER".equals(params.get("choiceValue"))) {
@@ -115,35 +90,21 @@ public class AdminPaymentDAO {
 			
 			return list;
 			
-		}catch(Exception e) {
-			e.printStackTrace();
-		}finally {
-		}
 		
-		return null;
 	}
 	
 	
 	public List<AdminPaymentDTO> paymentChart(List<HashMap<String, Object>> params) throws Exception {
 		
-		try {
-					
-			Map<String, String> map = new HashMap<String, String>();
-			
-			for(int i = 0; i < params.size(); i++) {
-				map.put("startDate", (String) params.get(i).get("startDate"));
-				map.put("endDate", (String) params.get(i).get("endDate"));
-			}
-			
-			List<AdminPaymentDTO> list = template.selectList("paymentChart", map);
-			
-			return list;
-			
-		}catch(Exception e) {
-			e.printStackTrace();
-		}finally {
+		Map<String, String> map = new HashMap<String, String>();
+		
+		for(int i = 0; i < params.size(); i++) {
+			map.put("startDate", (String) params.get(i).get("startDate"));
+			map.put("endDate", (String) params.get(i).get("endDate"));
 		}
 		
-		return null;
+		List<AdminPaymentDTO> list = template.selectList("paymentChart", map);
+		
+		return list;
 	}
 }

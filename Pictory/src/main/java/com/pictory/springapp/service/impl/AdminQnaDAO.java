@@ -23,94 +23,65 @@ public class AdminQnaDAO {
 	// 총 갯수
 	public int qnaTotalCount(HashMap<String, Object> params) throws Exception{
 		
-		try {
+		if("ANSWER".equals(params.get("answerChk"))) {		
 			
-			if("ANSWER".equals(params.get("answerChk"))) {		
-				
-				params.put("column", "AND NOT a.ANSWERTEXT IS NULL");
-				
-			}else if("NOTANSWER".equals(params.get("answerChk"))) {
-				
-				params.put("column", "AND a.ANSWERTEXT IS NULL");
-				
-			}else {
-				
-				params.put("column", "");
-			}
+			params.put("column", "AND NOT a.ANSWERTEXT IS NULL");
 			
-			int result = template.selectOne("qnaTotalCount", params);
-			return result;
+		}else if("NOTANSWER".equals(params.get("answerChk"))) {
 			
-		}catch (Exception e) {
-			e.printStackTrace();
-		}finally {
+			params.put("column", "AND a.ANSWERTEXT IS NULL");
+			
+		}else {
+			
+			params.put("column", "");
 		}
 		
-		return 0;
+		int result = template.selectOne("qnaTotalCount", params);
+		return result;
 	}
 	
 	
 	// 리스트 조회
 	public List<AdminQnaDTO> qnaList(HashMap<String, Object> params) throws Exception {
 		
-		
-		try {
+		if("ANSWER".equals(params.get("answerChk"))) {
 			
-			if("ANSWER".equals(params.get("answerChk"))) {
-				
-				params.put("column", "AND NOT a.ANSWERTEXT IS NULL");
-				
-			} else if("NOTANSWER".equals(params.get("answerChk"))) {
-				
-				params.put("column", "AND a.ANSWERTEXT IS NULL");
-				
-			} else {
-				
-				params.put("column", "");
-			}
+			params.put("column", "AND NOT a.ANSWERTEXT IS NULL");
 			
-			List<AdminQnaDTO> list = template.selectList("qnaList", params);
-
-			return list;
+		} else if("NOTANSWER".equals(params.get("answerChk"))) {
 			
-		}catch(Exception e) {
-			e.printStackTrace();
-		}finally {
+			params.put("column", "AND a.ANSWERTEXT IS NULL");
+			
+		} else {
+			
+			params.put("column", "");
 		}
 		
-		return null;
+		List<AdminQnaDTO> list = template.selectList("qnaList", params);
+
+		return list;
 	}
 	
 	
 	@Transactional
 	public boolean qnaAnswer(List<HashMap<String, Object>> params) throws Exception {
 		
-		try {
-			
-			boolean result = false;
-			int check = 0;
-			
-			check = template.insert("adminQnaAnswer", params.get(0));
-			
-			if(check > 0) {
-				result = true;
-			}
-			
-			return result;
-			
-		}catch (Exception e) {
-			e.printStackTrace();
-		}finally {
+		boolean result = false;
+		int check = 0;
+		
+		check = template.insert("adminQnaAnswer", params.get(0));
+		
+		if(check > 0) {
+			result = true;
 		}
 		
-			return false;
+		return result;
 	}
 	
 	
 	@Transactional
 	public boolean qnaAnswerUpdate(List<HashMap<String, Object>> params) throws Exception {
 		
-		try {
 			
 			boolean result = false;
 		
@@ -118,14 +89,10 @@ public class AdminQnaDAO {
 			
 			if(check > 0) {
 				result = true;
+				return result;
 			}
 
-			return result;
 			
-		}catch (Exception e) {
-			e.printStackTrace();
-		}finally {
-		}
 		
 			return false;
 	}
@@ -135,22 +102,15 @@ public class AdminQnaDAO {
 		
 		boolean result = false;
 		
-		try{
-			
+		
 			int check1 = template.delete("qnaDelete", qnaNo);
 			int check2 = template.delete("answerDelete", qnaNo);
 			
 			if(check1 == 1 && check2 == 1) {
 				result = true;
+				return result;
 			}
 			
-			return result;
-			
-		}catch(Exception e) {
-			e.printStackTrace();
-		}finally {
-		}
-		
 		return false;
 	}
 

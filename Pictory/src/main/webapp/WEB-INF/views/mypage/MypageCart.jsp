@@ -144,11 +144,11 @@
  	          merchant_uid: 'merchant_' + new Date().getTime(),
  	          name: "픽토리", // 홈페이지 이름
  	          amount: totalPrice, // 결제 금액
- 	          buyer_email: "gildong@gmail.com", // 사용자 정보
- 	          buyer_name: "홍길동",
- 	          buyer_tel: "010-4242-4242",
- 	          buyer_addr: "서울특별시 강남구 신사동",
- 	          buyer_postcode: "01181"
+ 	          buyer_email: "hwangin@naver.com", // 사용자 정보
+ 	          buyer_name: "황인곤",
+ 	          buyer_tel: "010-1234-5678",
+ 	          buyer_addr: "경기도 수원시 권선구",
+ 	          buyer_postcode: "01234"
  	       
  	      }, function(rsp) { // callback
  	         if (rsp.success) { // 결제 성공 시: 결제 승인 또는 가상계좌 발급에 성공한 경우

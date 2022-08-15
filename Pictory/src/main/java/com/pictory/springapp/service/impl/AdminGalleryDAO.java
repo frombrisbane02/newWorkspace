@@ -22,35 +22,14 @@ private SqlSessionTemplate template;
 
 	public List<AdminGalleryDTO> galleryChart(List<HashMap<String, Object>> params) throws Exception {
 		
-		try {
-		
-			List<AdminGalleryDTO> gallery = template.selectList("galleryChart", params.get(0));
-			return gallery;
-			
-		}catch(Exception e) {
-			e.printStackTrace();
-		}finally {
-			
-		}
-		
-		//참고용! template.selectList("selectList", param);
-		return null;
+		List<AdminGalleryDTO> gallery = template.selectList("galleryChart", params.get(0));
+		return gallery;
 	}
 	
 	public List<AdminGalleryDTO> storyChart(List<HashMap<String, Object>> params) throws Exception {
-		
-		try {
-			
-			List<AdminGalleryDTO> story = template.selectList("storyChart", params.get(0));
-			return story;
-			
-		}catch (Exception e) {
-			e.printStackTrace();
-		}finally {
-		}
-			return null;
+		List<AdminGalleryDTO> story = template.selectList("storyChart", params.get(0));
+		return story;
 	}
-	
 	
 	
 }

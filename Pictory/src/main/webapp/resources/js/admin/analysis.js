@@ -48,7 +48,7 @@ var myInfoData = "";
   	function AdminLoginInfo(){
 			$.ajax({
 			 //컨트롤러 주소값
-			 	url: 192.168.0.27 + '/LoginUserInfo.do',
+			 	url: localurl + '/LoginUserInfo.do',
 			    type: "POST",
 			    //비동기
 			    cache: false,

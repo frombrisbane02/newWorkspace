@@ -169,6 +169,9 @@ public class GalleryController {
 		//model.addAttribute("infoLists", infoLists);
 		//model.addAttribute("otherWorks",infoLists.get(0).getPostCount());
 		//model.addAttribute("postLikes",infoLists.get(0).getPostLikes());
+		model.addAttribute("loginUserProfile",loginUser.getUserProfile());
+		
+		System.out.println("loginUserProfile:로그인한애 프로필 ㅇㅇ"+loginUser.getUserProfile());
 		model.addAttribute("userProfile",viewLists.get(0).getUserProfile());
 		model.addAttribute("userNickname",viewLists.get(0).getUserNickname());
 		model.addAttribute("postLikes",viewLists.get(0).getPostLikes());
@@ -179,37 +182,6 @@ public class GalleryController {
 		
 		return "gallery/GalleryView.tiles";
 	}
-//	@ModelAttribute("userId") 
-//	@GetMapping("/getlike.do")
-//	public Object getlike(HttpSession session,Model model,String userId,@ModelAttribute("postNo")int postNo) {
-//		System.out.println("###getlike###컨트롤러 페이지");
-//		LikeDTO dto = new LikeDTO();
-//		Map<String, Object> map = new HashMap<>();
-//		map.put("userId", "userId");
-//		int userNo=galleryService.userNum(map);
-//		model.addAttribute("userNo",userNo);
-//		System.out.println("###flag.userNo###:"+userNo);
-//		System.out.println("###post###:"+postNo);
-//		System.out.println("###userId###:"+userId);
-//		
-//		List<GalleryDTO> postNum = galleryService.galleryView(postNo);
-//		model.addAttribute("postNo", postNo);
-//		map.put("userNo", "userNo");
-//		map.put("postNo", "postNo");
-//		
-//		dto.setPostNo(postNo);
-//		dto.setUserNo(userNo);
-//	
-//		System.out.println("####userNo####:"+userNo);
-//		System.out.println("####postNo####:"+postNo);
-//		
-//		int like = galleryService.findLike(map, postNo, userNo);
-//		model.addAttribute("likes", map);
-//		model.addAttribute("like",like);
-//		session.setAttribute("like",like);
-//		System.out.println("###like###:"+like);
-//		return map;
-//	}
 	
 	@CrossOrigin
 	@RequestMapping(value="post/SubmitComment.do",produces = "application/json;charset=UTF-8")
@@ -231,6 +203,7 @@ public class GalleryController {
 	
 		return "{\"comment\":\"sucsses\"}";
 	}
+
 
 	   @CrossOrigin
 	   @RequestMapping(value="post/Likes.do",produces = "application/json;charset=UTF-8")

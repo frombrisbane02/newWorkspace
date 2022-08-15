@@ -88,16 +88,16 @@ public class MypageProfileController {
 				
 		if (file != null) {
 
-			String uploadPath = req.getSession().getServletContext().getRealPath("/").concat("upload\\img");
+			String uploadPath = req.getSession().getServletContext().getRealPath("/").concat("upload/img");
 			String fileName = file.getOriginalFilename();
 			System.out.println("filename"+fileName);
-			String realFileName = id+"\\"+fileName;
+			String realFileName = id+"/"+fileName;
 			System.out.println("realfilename"+realFileName);
 			String imgUploadPath = uploadPath + File.separator + realFileName;
 			System.out.println("imguploadpath"+imgUploadPath);
 			
 			//폴더 없을때 만들기
-			String path = uploadPath+"\\"+id;
+			String path = uploadPath+"/"+id;
 			System.out.println("path 잘 합쳐졌는지 확인갈겨 : "+path);
 			
 			File Folder = new File(path);
