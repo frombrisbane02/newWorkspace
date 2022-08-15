@@ -65,6 +65,8 @@ public class AuthController {
 		if(enabled==2) {
 			status.setComplete();
 			model.addAttribute("Block","너 이새끼 활동정지 먹은거야 알아들어?");
+			String id = (String) session.getAttribute("userId");
+			return "auth/Login.tiles";
 		}
 
 		String id = (String) session.getAttribute("userId");
