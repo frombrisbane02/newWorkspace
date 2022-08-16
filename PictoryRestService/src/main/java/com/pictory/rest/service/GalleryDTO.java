@@ -20,6 +20,7 @@ public class GalleryDTO {
     private String myfingCnt;
 
     private String creatorNo;
+    private String orderCnt;
 	
 	//POST
 	private String postNo;

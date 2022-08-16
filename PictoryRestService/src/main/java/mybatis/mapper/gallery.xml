@@ -154,13 +154,25 @@
 			   po.posttext,
 			   po.posthits,
 			   po.postsellornot,
-			   (SELECT count(*) 
+			   (SELECT pd.pdprice
+                  FROM photo ph INNER JOIN product pd
+                    ON ph.photono=pd.photono
+                WHERE ph.postno=po.postno) pdprice,
+			   (SELECT COUNT(*) 
 			      FROM cart c 
 			     WHERE c.userno=#{userNo}
 			       AND c.pdno=(SELECT pd.pdno
                  				 FROM photo ph INNER JOIN product pd
                  				   ON ph.photono=pd.photono
                  				WHERE ph.postno=#{postNo})) cartCnt,
+               (SELECT COUNT(*) 
+                  FROM payment pm INNER JOIN pdorder pd
+                    ON pm.paymentno=pd.paymentno
+                 WHERE pm.userno=#{userNo}
+                   AND pd.pdno=(SELECT p.pdno
+                                  FROM product p INNER JOIN photo po
+                                    ON p.photono=po.photono
+                                 WHERE po.postno=#{postNo})) orderCnt,
 			   (SELECT COUNT(*) FROM likes lk WHERE lk.postno=po.postno) postlikes,
 			   (SELECT COUNT(*) FROM likes lk WHERE lk.userno=#{userNo} AND lk.postno=po.postno) likecnt,
 			   (SELECT COUNT(ct.cno) FROM comment_tbl ct WHERE ct.postno=po.postno) commentcnt

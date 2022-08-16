@@ -131,6 +131,7 @@ public class GalleryController {
 	@CrossOrigin
 	@PostMapping("/galley/cartList")
 	public List<GalleryDTO> cartList(GalleryDTO dto) {	
+		System.out.println("userNo:"+dto.getUserNo());
 		return galleryService.cartList(dto);
 	}
 	
