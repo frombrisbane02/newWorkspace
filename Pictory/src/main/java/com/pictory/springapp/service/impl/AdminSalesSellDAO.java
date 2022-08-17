@@ -31,7 +31,6 @@ public class AdminSalesSellDAO {
 
 
 	public List<AdminSalesSellDTO> searchList(AdminSalesSellDTO params) {
-		//template.
 		return null;
 	}
 }

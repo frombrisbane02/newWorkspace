@@ -120,7 +120,6 @@ public class MemberController<T> {
 		
 		int mem = 0;
 		mem = memberService.signUp(dto);
-		System.out.println("###mem###:"+mem);
 		if(mem!=0) {
 			request.setAttribute("msg", "회원가입이 완료되었습니다.");
 			request.setAttribute("url", "/springapp/auth/Login.do");

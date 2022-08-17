@@ -11,7 +11,7 @@
 </body>
 <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
 <script>
-	const 192.168.0.27 = 'http://192.168.0.27:4040/springapp/admin';
+	const localhost = 'http://localhost:4040/springapp/admin';
 	
 	$(document).ready(function(){
 		console.log("데이터 넣기");
@@ -24,7 +24,7 @@
 		
 		
 	 	$.ajax({
-		 	url: 192.168.0.27 + "/post.do",
+		 	url: localhost + "/post.do",
 		    type: "POST",
 		    cache: false,
 	        dataType: "json",

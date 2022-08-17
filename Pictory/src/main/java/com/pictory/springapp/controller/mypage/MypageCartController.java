@@ -36,7 +36,7 @@ public class MypageCartController {
 	
 	@RequestMapping("Cart.do")
 	public String cart(HttpSession session, Model model) {
-		System.out.println("마이페이지 장바구니 컨트롤러");
+		
 		
 		String id = (String) session.getAttribute("userId");
 		List<MyCartDTO> list = cartService.selectMyCartDTO(id);
@@ -66,7 +66,7 @@ public class MypageCartController {
 							@RequestParam(value="pdNo") List<Integer> productList,
 							@RequestParam(value="total") int total) {
 		
-		System.out.println("카트페이먼트.DO");
+		
 		String id = (String) session.getAttribute("userId");
 		MemberDTO member = memberService.readMember(id);
 		

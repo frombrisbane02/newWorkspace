@@ -3,185 +3,183 @@
 <mapper namespace="mybatis.mapper.adminmain">
 
 
-	<select id="salesofweek" parameterType="map" resultType="AdminDTO">
-	<![CDATA[
-		SELECT NVL(a.cnt, 0) AS userTotal
-		     , NVL(b.cnt2, 0) AS userWeek
-		     , NVL(c.payWeek, 0) AS payWeek
-		     , NVL(d.payTotal, 0) AS payTotal
-    	FROM ( SELECT COUNT(*) AS cnt 
-    			FROM USERS u 
-    			 JOIN AUTHORITIES s
-        		  ON u.USERNO = s.USERNO
-		)a
-	, (SELECT COUNT(*) AS cnt2 
-		FROM USERS u2 
-		 JOIN AUTHORITIES s2
+   <select id="salesofweek" parameterType="map" resultType="AdminDTO">
+   <![CDATA[
+      SELECT NVL(a.cnt, 0) AS userTotal
+           , NVL(b.cnt2, 0) AS userWeek
+           , NVL(c.payWeek, 0) AS payWeek
+           , NVL(d.payTotal, 0) AS payTotal
+       FROM ( SELECT COUNT(*) AS cnt 
+             FROM USERS u 
+              JOIN AUTHORITIES s
+                ON u.USERNO = s.USERNO
+      )a
+   , (SELECT COUNT(*) AS cnt2 
+      FROM USERS u2 
+       JOIN AUTHORITIES s2
           ON u2.USERNO = s2.USERNO
          WHERE 1=1
           AND USERDATE >= TO_DATE(#{startDate}, 'YYYYMMDD') AND USERDATE < TO_DATE(#{endDate}, 'YYYYMMDD')+1
        ) b
-	, ( SELECT SUM(PAYMENTTOTAL) * 0.1 AS payWeek 
-		 FROM USERS u3 
-	      JOIN AUTHORITIES s3 
-	        ON u3.USERNO = s3.USERNO 
-	      JOIN PAYMENT t3 
-	        ON u3.USERNO = t3.USERNO
-	        WHERE 1=1
-	          AND PAYMENTDATE >= TO_DATE(#{startDate}, 'YYYYMMDD') AND PAYMENTDATE < TO_DATE(#{endDate}, 'YYYYMMDD')+1
-	   ) c
-	, ( SELECT SUM(PAYMENTTOTAL) AS payTotal 
-		  FROM USERS u4
-	       JOIN AUTHORITIES s4
-	        ON u4.USERNO = s4.USERNO 
-	       JOIN PAYMENT t4 
-	        ON u4.USERNO = t4.USERNO
-	    ) d
+   , ( SELECT SUM(PAYMENTTOTAL) * 0.1 AS payWeek 
+       FROM USERS u3 
+         JOIN AUTHORITIES s3 
+           ON u3.USERNO = s3.USERNO 
+         JOIN PAYMENT t3 
+           ON u3.USERNO = t3.USERNO
+           WHERE 1=1
+             AND PAYMENTDATE >= TO_DATE(#{startDate}, 'YYYYMMDD') AND PAYMENTDATE < TO_DATE(#{endDate}, 'YYYYMMDD')+1
+      ) c
+   , ( SELECT SUM(PAYMENTTOTAL) AS payTotal 
+        FROM USERS u4
+          JOIN AUTHORITIES s4
+           ON u4.USERNO = s4.USERNO 
+          JOIN PAYMENT t4 
+           ON u4.USERNO = t4.USERNO
+       ) d
     ]]>
-	</select>
+   </select>
 
-	<select id="mainPaymentList" parameterType="AdminPaymentDTO" resultType="AdminPaymentDTO">
-		<![CDATA[
-		  SELECT *
-					FROM
-					(
-					    SELECT ROWNUM AS RNUM
-					              ,a.*
-					    FROM
-					    ( 
-					     SELECT     
-					                   ps.USERID AS seller
-					                   , us.USERID AS consumer
-					                   , ps.PDNO
-					                   , ps.POSTTITLE
-					                   , ps.PHOTONAME
-					                   , ps.PHOTOURL
-					                   , ps.PAYMENTNO
-					                   , ps.payno
-					                   , ps.pno
-					                   , ps.PAYMENTTOTAL
-					                   , ps.PAYMENTDATE
-					                FROM (SELECT ups.USERNO AS pno
-					                           , ups.USERID
-					                           , sp.POSTNO
-					                           , pd.PDNO
-					                           , sp.POSTTITLE
-					                           , ph.PHOTOURL
-					                           , ph.PHOTONAME
-					                           , pay.PAYMENTNO
-					                           , pay.USERNO AS payno
-					                           , pay.PAYMENTTOTAL
-					                           , pay.PAYMENTDATE
-					                       FROM POST sp
-					                        JOIN USERS ups
-					                         ON sp.USERNO = ups.USERNO
-					                        JOIN PHOTO  ph
-					                         ON sp.POSTNO = ph.POSTNO
-					                        JOIN PRODUCT pd
-					                         ON  ph.PHOTONO = pd.PHOTONO
-					                        JOIN PDORDER pdo
-					                         ON pd.PDNO = pdo.PDNO
-					                        JOIN PAYMENT pay
-					                         ON pdo.PAYMENTNO = pay.PAYMENTNO
-					                    ) ps 
-					                     JOIN USERS us
-					                      ON us.USERNO = ps.payno
-					                    ORDER BY ps.PAYMENTDATE DESC
-					    ) a
-					) 
+   <select id="mainPaymentList" parameterType="AdminPaymentDTO" resultType="AdminPaymentDTO">
+      <![CDATA[
+        SELECT *
+               FROM
+               (
+                   SELECT ROWNUM AS RNUM
+                             ,a.*
+                   FROM
+                   ( 
+                    SELECT     
+                                  ps.USERID AS seller
+                                  , us.USERID AS consumer
+                                  , ps.PDNO
+                                  , ps.POSTTITLE
+                                  , ps.PHOTONAME
+                                  , ps.PHOTOURL
+                                  , ps.PAYMENTNO
+                                  , ps.payno
+                                  , ps.pno
+                                  , ps.PAYMENTTOTAL
+                                  , ps.PAYMENTDATE
+                               FROM (SELECT ups.USERNO AS pno
+                                          , ups.USERID
+                                          , sp.POSTNO
+                                          , pd.PDNO
+                                          , sp.POSTTITLE
+                                          , ph.PHOTOURL
+                                          , ph.PHOTONAME
+                                          , pay.PAYMENTNO
+                                          , pay.USERNO AS payno
+                                          , pay.PAYMENTTOTAL
+                                          , pay.PAYMENTDATE
+                                      FROM POST sp
+                                       JOIN USERS ups
+                                        ON sp.USERNO = ups.USERNO
+                                       JOIN PHOTO  ph
+                                        ON sp.POSTNO = ph.POSTNO
+                                       JOIN PRODUCT pd
+                                        ON  ph.PHOTONO = pd.PHOTONO
+                                       JOIN PDORDER pdo
+                                        ON pd.PDNO = pdo.PDNO
+                                       JOIN PAYMENT pay
+                                        ON pdo.PAYMENTNO = pay.PAYMENTNO
+                                   ) ps 
+                                    JOIN USERS us
+                                     ON us.USERNO = ps.payno
+                                   ORDER BY ps.PAYMENTDATE DESC
+                   ) a
+               ) 
                    WHERE 1=1
                      AND ROWNUM >= 1 AND ROWNUM <=5
                ]]>
-	</select>
-	
-	<select id="mainNoticeList" parameterType="AdminNoticeDTO" resultType="AdminNoticeDTO">
-		<![CDATA[
-			SELECT n.*, u.USERID
-			 FROM NOTICE n 
-			  JOIN USERS u
+   </select>
+   
+   <select id="mainNoticeList" parameterType="AdminNoticeDTO" resultType="AdminNoticeDTO">
+      <![CDATA[
+         SELECT n.*, u.USERID
+          FROM NOTICE n 
+           JOIN USERS u
               ON n.USERNO = u.USERNO
               WHERE 1=1
               AND ROWNUM <= 5
               ORDER BY NOTICEDATE DESC
-				
-		]]>
-	</select>
-		
-	<select id="mainQnaList" parameterType="AdminQnaDTO" resultType="AdminQnaDTO">
-	  		<![CDATA[
-	    SELECT  a.*
-		 FROM ( SELECT 
-					  ROWNUM RNUM
-					, b.*   
-				 FROM (
-						SELECT
-						
-						  q.QNANO
-						, q.USERNO
-						, q.QNATITLE
-						, q.QNACONTENT
-						, q.QNADATE
-						, an.ANSWERTEXT
-						, u.USERID
+            
+      ]]>
+   </select>
+      
+   <select id="mainQnaList" parameterType="AdminQnaDTO" resultType="AdminQnaDTO">
+           <![CDATA[
+       SELECT  a.*
+       FROM ( SELECT 
+                 ROWNUM RNUM
+               , b.*   
+             FROM (
+                  SELECT
+                  
+                    q.QNANO
+                  , q.USERNO
+                  , q.QNATITLE
+                  , q.QNACONTENT
+                  , q.QNADATE
+                  , an.ANSWERTEXT
+                  , u.USERID
                          FROM QNA q 
                           JOIN USERS u
                            ON q.USERNO = u.USERNO
                           LEFT JOIN ANSWER an
                            ON q.QNANO = an.QNANO
                           WHERE 1=1
-						   ORDER BY q.QNADATE DESC ) b
+                     ORDER BY q.QNADATE DESC ) b
         ) a
         WHERE RNUM >= 1 AND RNUM <= 5
-		]]>
-	</select>
-	
-	<select id="mainPaymentChart" parameterType="map" resultType="AdminPaymentDTO">
-		<![CDATA[
-			SELECT  
-					TO_CHAR(PAYMENTDATE, 'YYYYMMDD') AS dateDay
-				  , SUM(PAYMENTTOTAL) * 0.1 AS persent 
-				  , SUM(PAYMENTTOTAL) AS paymentTotal
- 			 FROM PAYMENT
- 			  WHERE
-	     	   PAYMENTDATE >= #{startDate} AND PAYMENTDATE < LAST_DAY(TO_DATE(#{endDate}, 'YYYYMMDD')) 
-	 		GROUP BY
-	    	 TO_CHAR(PAYMENTDATE, 'YYYYMMDD')
-	      ]]>
-	</select>
-	
-	<select id="mainUserChart" parameterType="map" resultType="AdminUsersDTO">
-	   	<![CDATA[ 
-			 SELECT
-		        TO_CHAR(USERDATE, 'YYYYMMDD') AS dateDay
-		    ,   COUNT(*) AS totalCount
-			 FROM USERS u 
-		        JOIN AUTHORITIES a
-		         ON u.USERNO = a.USERNO
-			 WHERE
-			     USERDATE >= #{startDate} AND USERDATE < LAST_DAY(TO_DATE(#{endDate}, 'YYYYMMDD')+1) 
-			 GROUP BY
-			    TO_CHAR(USERDATE, 'YYYYMMDD')
-		]]>
-	</select>
-		
-	<select id="mainGalleryChart" parameterType="map" resultType="AdminGalleryDTO">
-	<![CDATA[
-	SELECT p.photo , s.story  FROM (
-                            SELECT COUNT(h.postno) AS photo
-                            FROM PHOTO h 
-                             JOIN POST p 
-                             ON h.postno = p.postno
+      ]]>
+   </select>
+   
+   <select id="mainPaymentChart" parameterType="map" resultType="AdminPaymentDTO">
+      <![CDATA[
+         SELECT  
+               TO_CHAR(PAYMENTDATE, 'YYYYMMDD') AS dateDay
+              , SUM(PAYMENTTOTAL) * 0.1 AS persent 
+              , SUM(PAYMENTTOTAL) AS paymentTotal
+           FROM PAYMENT
+            WHERE
+              PAYMENTDATE >= #{startDate} AND PAYMENTDATE < LAST_DAY(TO_DATE(#{endDate}, 'YYYYMMDD')) 
+          GROUP BY
+           TO_CHAR(PAYMENTDATE, 'YYYYMMDD')
+         ]]>
+   </select>
+   
+   <select id="mainUserChart" parameterType="map" resultType="AdminUsersDTO">
+         <![CDATA[ 
+          SELECT
+              TO_CHAR(USERDATE, 'YYYYMMDD') AS dateDay
+          ,   COUNT(*) AS totalCount
+          FROM USERS u 
+              JOIN AUTHORITIES a
+               ON u.USERNO = a.USERNO
+          WHERE
+              USERDATE >= #{startDate} AND USERDATE < LAST_DAY(TO_DATE(#{endDate}, 'YYYYMMDD')+1) 
+          GROUP BY
+             TO_CHAR(USERDATE, 'YYYYMMDD')
+      ]]>
+   </select>
+      
+   <select id="mainGalleryChart" parameterType="map" resultType="AdminGalleryDTO">
+   <![CDATA[
+         SELECT p.photo , s.story  FROM (
+                      SELECT COUNT(*) AS photo
+                      FROM POST
+                       WHERE 1=1
+                          AND POSTDATE >= TO_DATE(#{startDate}, 'YYYYMMDD') AND POSTDATE < TO_DATE(#{endDate}, 'YYYYMMDD')+1
+                      ) p , (
+                          SELECT COUNT(*) AS story
+                            FROM STORY s 
+                             JOIN POST p
+                             ON s.sno = p.sno
                              WHERE 1=1
-                                AND p.POSTDATE >= TO_DATE(#{startDate}, 'YYYYMMDD') AND p.POSTDATE < TO_DATE(#{endDate}, 'YYYYMMDD')+1
-                            ) p , (
-                                SELECT COUNT(s.sno) AS story
-                                  FROM STORY s 
-                                   JOIN POST p
-                                   ON s.sno = p.sno
-                                   WHERE 1=1
-                                AND p.POSTDATE >= TO_DATE(#{startDate}, 'YYYYMMDD') AND p.POSTDATE < TO_DATE(#{endDate}, 'YYYYMMDD')+1
-                            ) s
-		]]>
-	</select>
-	
+                          AND p.POSTDATE >= TO_DATE(#{startDate}, 'YYYYMMDD') AND p.POSTDATE < TO_DATE(#{endDate}, 'YYYYMMDD')+1
+                      ) s
+      ]]>
+   </select>
+   
 </mapper>

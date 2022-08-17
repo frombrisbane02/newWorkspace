@@ -42,7 +42,6 @@ public class DmController {
 		ArrayList<DmDTO> list = dao.messageList(to);
 
 		request.setAttribute("list", list);
-		System.out.println("dm 끝까지 로딩?");
 		return "message/DmList";
 		}
 	}
@@ -57,12 +56,12 @@ public class DmController {
 		DmDTO dto = new DmDTO();
 		dto.setUserId(nick);
 		
-		System.out.println(nick);
+		
 		// 메세지 리스트
 		List<DmDTO> list = dao.messageList(dto);
 
 		request.setAttribute("list", list);
-		System.out.println("dm끝까지 로딩?"+list.get(0));
+		
 		return "message/DmAjaxList";
 		
 	}
@@ -80,7 +79,7 @@ public class DmController {
 		
 		// 메세지 내용을 가져온다.
 		ArrayList<DmDTO> clist = dao.roomContentList(to);
-		System.out.println(clist+"작동중?");
+		
 		request.setAttribute("clist", clist);
 
 		return "message/DmContentList";

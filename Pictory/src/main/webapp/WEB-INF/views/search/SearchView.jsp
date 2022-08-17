@@ -9,7 +9,7 @@
 <meta charset="UTF-8">
 <title>SearchView</title>
 <script
-	src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+	src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
 <script
 	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 
@@ -53,6 +53,8 @@
 				<option value="figure">인물</option>
 				<option value="object">정물</option>
 				<option value="landscape">풍경</option>
+				<option value="" id="">동물</option>
+				<option value="" id="">음식</option>
 				<option value="etc">기타</option>
 			</select>
 			<!-- <select id="" name="" class="form-control col-sm-1" style="width: 150px;">

@@ -25,7 +25,7 @@ public class MypageAlertController {
 	
 	@RequestMapping("Alert.do")
 	public String alert(HttpSession session, Model model) {
-		System.out.println("마이페이지 장바구니 컨트롤러");
+		
 		
 		String id = (String) session.getAttribute("userId");
 		MemberDTO member = memberService.readMember(id);
@@ -39,7 +39,7 @@ public class MypageAlertController {
 	
 	@RequestMapping(value = "UpdateAlert.do", method = RequestMethod.POST)
 	public String updateAlert(HttpSession session, Model model, @RequestParam(value="alarmNo") Integer alarmNo) {
-		System.out.println("마이페이지 장바구니 컨트롤러");
+		
 		
 		
 		String id = (String) session.getAttribute("userId");

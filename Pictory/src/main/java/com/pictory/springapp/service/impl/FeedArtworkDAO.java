@@ -38,7 +38,6 @@ public class FeedArtworkDAO {
 			rawList.setPhotoUrl(resource+rawList.getPhotoUrl());
 			rawList.setUserProfile(resource+rawList.getUserProfile());
 		}
-		System.out.println("데이터 받아오기 "+rawLists.get(2));
 		
 		return rawLists;
 	}

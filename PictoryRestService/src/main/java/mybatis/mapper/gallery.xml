@@ -55,8 +55,8 @@
 		 </if>
 	  ORDER BY 
 	  	 <choose>
-	  	 	<when test="orderCode == 'postLikes'">po.postlikes DESC</when>
-	  	 	<when test="orderCode == 'postHits'">po.posthits DESC</when>
+	  	 	<when test="orderCode == 'postLikes'">postlikes DESC</when>
+	  	 	<when test="orderCode == 'postHits'">posthits DESC</when>
 	  	 	<otherwise>po.postdate DESC</otherwise>
 	  	 </choose>
   	</select>
@@ -124,7 +124,7 @@
 				  FROM users u
 			  ORDER BY pdsalesno desc) g
 				 WHERE <![CDATA[ ROWNUM <= 8 ]]>
-				 <if test="userNo !=null">
+				 <if test="userNo !=null or userNo.equals('')">
 				   AND g.userno != #{userNo}
 				 </if>
 				   AND g.pdsalesno IS NOT NUll

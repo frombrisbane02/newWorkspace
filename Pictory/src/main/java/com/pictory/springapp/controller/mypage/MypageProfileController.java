@@ -33,7 +33,7 @@ public class MypageProfileController {
 	//탑에서 마이페이지로 들어왔을 때 첫 컨트롤러
 	@RequestMapping("Index.do")
 	public String profile(HttpSession session) {
-		System.out.println("Index 컨트롤러 들어옴");
+		
 		
 		String id = (String) session.getAttribute("userId");
 		if (id == null) {
@@ -45,7 +45,6 @@ public class MypageProfileController {
 	//마이페이지 index페이지에서 프로필 정보 뿌려주는 컨드롤러
 	@RequestMapping("Profile.do")
 	public String index(HttpSession session, Model model) {
-		System.out.println("Profile 컨트롤러 들어옴");
 
 		String id = (String) session.getAttribute("userId");
 		MemberDTO dto = service.readMember(id);
@@ -90,23 +89,18 @@ public class MypageProfileController {
 
 			String uploadPath = req.getSession().getServletContext().getRealPath("/").concat("upload/img");
 			String fileName = file.getOriginalFilename();
-			System.out.println("filename"+fileName);
 			String realFileName = id+"/"+fileName;
-			System.out.println("realfilename"+realFileName);
 			String imgUploadPath = uploadPath + File.separator + realFileName;
-			System.out.println("imguploadpath"+imgUploadPath);
 			
 			//폴더 없을때 만들기
 			String path = uploadPath+"/"+id;
-			System.out.println("path 잘 합쳐졌는지 확인갈겨 : "+path);
 			
 			File Folder = new File(path);
 		
 			if (!Folder.exists()) {
 				    Folder.mkdir();
-				    System.out.println("폴더 생성!");
 			}
-			else {System.out.println("이미 폴더 있음;;");}
+			else {}
 			
 			
 			file.transferTo(new File(imgUploadPath));

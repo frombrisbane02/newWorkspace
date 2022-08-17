@@ -40,11 +40,8 @@ public class FeedStoryController {
 	   
 	@RequestMapping("/feed/FeedStory.do")
 	   public String index(HttpSession session , Model model) {
-	     System.out.println("여기로 들어와야지");
 	     String id = (String) session.getAttribute("userId");
 	      List<FeedDTO> returnValue = feedStoryService.virtualList();
-	      
-	      System.out.println("스토리 제목:"+returnValue.get(1));
 	      
 	      model.addAttribute("returnValue", returnValue);
 	      return "feed/FeedStory";
@@ -69,11 +66,9 @@ public class FeedStoryController {
 	   @CrossOrigin
 	   @RequestMapping(value="virtualrest.do",produces = "application/json;charset=UTF-8")
 	   public @ResponseBody String virtualrest(HttpServletRequest req) throws JsonProcessingException {
-	      //System.out.println("스토리 가상"+ req.getParameter("sNo"));
-	  
+	      
 	      List<Map<String,String>> lists=new Vector<>();
 	     
-	      //System.out.println("이미지 for문 끝");
 	      List<FeedDTO> feedstoryimages = feedStoryService.virtualImages(Integer.parseInt(req.getParameter("sNo")));
 	      for(FeedDTO dto:feedstoryimages) {
 	    	 Map<String,String> map = new HashMap<>();

@@ -104,7 +104,6 @@ public class MemberDAO {
 	
 	public void deleteLikePost(int postNo) {
 		template.delete("deleteLikePost", postNo);
-		System.out.println("여기는 디에이오"+postNo);
 	}
 		
 }

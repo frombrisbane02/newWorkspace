@@ -1,5 +1,5 @@
-const localurl = 'http://192.168.0.27:4040/springapp/admin';
-const imgUrl = 'http://192.168.0.27:4040/springapp/upload/img/';
+const localurl = 'http://localhost:4040/springapp/admin';
+const imgUrl = 'http://localhost:4040/springapp/upload/img/';
 
 var tabText = '공지';
 var orderby = "ASC";
@@ -21,7 +21,7 @@ var ppp = 10;
 		
 		if(!userId){
 			alert("로그인을 해주세요\n로그인 페이지로 이동합니다");
-			window.location.href = "http://192.168.0.27:4040/springapp/auth/Logout.do";
+			window.location.href = "http://localhost:4040/springapp/auth/Logout.do";
 			return false;
 		}
 		

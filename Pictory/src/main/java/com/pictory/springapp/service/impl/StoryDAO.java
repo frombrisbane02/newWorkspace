@@ -38,12 +38,9 @@ public class StoryDAO<T> {
 
    public List<StoryDTO> virtualImages(int sNo) {
 
-      //System.out.println("****(dao)virtualImages까지는...왔니");
       List<StoryDTO> storyresult = template.selectList("storyimages",sNo);
-      //System.out.println("(dao)storyresult"+storyresult.toString());
       for(StoryDTO list: storyresult) {
 		   list.setStoryThumbnail(resource+list.getStoryThumbnail());
-		  
 	   }
       storyresult.toString();
       

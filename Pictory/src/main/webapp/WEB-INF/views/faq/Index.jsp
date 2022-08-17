@@ -146,7 +146,7 @@
 </body>
 <script>
 
-const localurl = 'http://192.168.0.27:4040/springapp/faq';
+const localurl = 'http://localhost:4040/springapp/faq';
 
     $(window).load(function(){
         $('.filter_btn').click(function(){
@@ -272,7 +272,7 @@ const localurl = 'http://192.168.0.27:4040/springapp/faq';
 	
 			if(!userId){
 				alert("로그인을 해주세요\n로그인 페이지로 이동합니다");
-				window.location.href = "http://192.168.0.27:4040/springapp/auth/Logout.do";
+				window.location.href = "http://localhost:4040/springapp/auth/Logout.do";
 				return false;
 			}
 			

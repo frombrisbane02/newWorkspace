@@ -46,7 +46,6 @@ public  class FeedServiceImpl implements FeedService<FeedDTO> {
 		 for(FeedDTO tmps : tmp) {
 			 tmps.setPostNo(userNo);
 			 tmps.setPhotoUrl(resource+tmps.getPhotoUrl());
-			 System.out.println("###tmps for###:"+ tmps.getPhotoUrl());
 		 }
 		 
 		 

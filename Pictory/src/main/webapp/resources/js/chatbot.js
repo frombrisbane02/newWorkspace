@@ -3,7 +3,7 @@ function sendMessage(message,session_id) {
         
         $.ajax(
         {
-            url:"http://192.168.0.27:9999/message",
+            url:"http://localhost:9999/message",
             
             data:JSON.stringify({"message": message,"session_id":session_id}),
             contentType:'application/json',
@@ -18,9 +18,9 @@ function sendMessage(message,session_id) {
      
           $('.chat-container').append(`
 	    	  <div class="d-flex flex-row justify-content-start mb-4">
-	           <img src="http://192.168.0.27:4040/springapp/upload/img/chatbot.png"
+	           <img src="http://localhost:4040/springapp/upload/img/chatbot.png"
 	                      alt="avatar 1" style="width: 65px; height: 100%;">
-	            <div class="p-3 ms-3" style="border0-radius: 15px; background-color: rgba(57, 192, 237,.2);">
+	            <div class="p-3 ms-3" style="border-radius: 15px; background-color: #E5D1FF;">
 	              <p class="small mb-0">${data.message}</p>
 	            </div>
 	          </div>

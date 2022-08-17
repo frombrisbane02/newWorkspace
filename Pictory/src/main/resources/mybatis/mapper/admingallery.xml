@@ -2,37 +2,37 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!--  <mapper namespace="com.pictory.springapp.dto.AdminGalleryDTO"> -->
 <mapper namespace="mybatis.mapper.admingallery">
-	
-	<!-- 갤러리 -->
-	<select id="galleryChart" parameterType="HashMap" resultType="AdminGalleryDTO">
-	<![CDATA[ 
-	SELECT COUNT(*) AS photo
-          , POSTDATE AS photoDate 
+   
+   <!-- 갤러리 -->
+   <select id="galleryChart" parameterType="HashMap" resultType="AdminGalleryDTO">
+   <![CDATA[ 
+   SELECT COUNT(*) AS photo
+          , TO_CHAR(POSTDATE, 'YYYYMMDD') AS photoDate 
        FROM POST
            WHERE 1=1
              AND POSTDATE >= #{startDate} AND POSTDATE <= #{endDate} 
-             GROUP BY POSTDATE
-             ORDER BY POSTDATE ASC
-	   ]]>
-	</select>
-	
-	<!-- 스토리 -->
-	<select id="storyChart" parameterType="HashMap" resultType="AdminGalleryDTO">
-	<![CDATA[ 
-		  SELECT COUNT(*) AS Story
-		       , p.POSTDATE AS storyDate 
-		   FROM POST p 
-			JOIN STORY s
-			 ON p.SNO = s.SNO
-		    WHERE 1=1
-			 AND p.POSTDATE >= #{startDate} AND p.POSTDATE <= #{endDate} 
-			  GROUP BY p.POSTDATE
-			  ORDER BY p.POSTDATE
-	   ]]>
-	</select>
-	
-	
-	
-	
-	
+             GROUP BY TO_CHAR(POSTDATE, 'YYYYMMDD')
+             ORDER BY TO_CHAR(POSTDATE, 'YYYYMMDD') ASC
+      ]]>
+   </select>
+   
+   <!-- 스토리 -->
+   <select id="storyChart" parameterType="HashMap" resultType="AdminGalleryDTO">
+   <![CDATA[ 
+        SELECT COUNT(*) AS Story
+             ,TO_CHAR(p.POSTDATE, 'YYYYMMDD') AS storyDate 
+         FROM POST p 
+         JOIN STORY s
+          ON p.SNO = s.SNO
+          WHERE 1=1
+          AND p.POSTDATE >= #{startDate} AND p.POSTDATE <= #{endDate} 
+           GROUP BY TO_CHAR(p.POSTDATE, 'YYYYMMDD')
+           ORDER BY TO_CHAR(p.POSTDATE, 'YYYYMMDD')
+      ]]>
+   </select>
+   
+   
+   
+   
+   
 </mapper>

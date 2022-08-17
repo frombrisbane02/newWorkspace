@@ -30,7 +30,6 @@ public class MypageProfitController {
 	
 	@RequestMapping("Profit.do")
 	public String profit(HttpSession session, Model model) {
-		System.out.println("마이페이지 장바구니 컨트롤러");
 		
 		String id = (String) session.getAttribute("userId");
 		MemberDTO member = memberService.readMember(id);
@@ -54,7 +53,6 @@ public class MypageProfitController {
 	@RequestMapping(value = "InsertProfit.do", method = RequestMethod.POST)
 	public String insertProfit(HttpSession session, Model model, @RequestParam(value="adjAmount") Integer adjAmount, @RequestParam(value="bank") String bank) throws Exception {
 		String id = (String) session.getAttribute("userId");
-		System.out.println("InsertProfile들어왔다!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 		MemberDTO member = memberService.readMember(id);
 		List<SalesDTO> sales = paymentService.selectMySales(member.getUserNo());
 		int preparedTotal = sales.stream()

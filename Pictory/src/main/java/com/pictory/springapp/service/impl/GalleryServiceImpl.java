@@ -85,7 +85,6 @@ public class GalleryServiceImpl implements GalleryService<GalleryDTO> {
 		// 로그인 한 유저 정보 갖고오기 (user 테이블에 있는거)
 		GalleryDTO loginInfo = dao.getLoginInfo(userId);
 		loginInfo.setUserProfile(resource+loginInfo.getUserProfile());
-		System.out.println("봐봐 이거 뭔지!!!!kim/어쩌구일케 있어야대"+loginInfo.getUserProfile());
 		return loginInfo;
 	}
 	@Override

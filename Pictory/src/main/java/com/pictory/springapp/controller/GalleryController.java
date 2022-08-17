@@ -110,7 +110,6 @@ public class GalleryController {
 		//3. 작가의 다른 정보 위해 각 포스트 몇개인지 총합, 각 포스트 썸네일, 포스트 no 가져와야함
 		List<GalleryDTO> infoLists = galleryService.galleryInfo(postNo);
 		GalleryDTO createrInfo = infoLists.get(0);
-		System.out.println("view 들어갈때 한번만 찍어보자 진짜 마지막: "+ createrInfo);
 		model.addAttribute("createrProfile",createrInfo.getUserProfile());
 		model.addAttribute("createrNickname",createrInfo.getUserNickname());
 		model.addAttribute("createrPostCount",createrInfo.getPostCount());
@@ -171,7 +170,6 @@ public class GalleryController {
 		//model.addAttribute("postLikes",infoLists.get(0).getPostLikes());
 		model.addAttribute("loginUserProfile",loginUser.getUserProfile());
 		
-		System.out.println("loginUserProfile:로그인한애 프로필 ㅇㅇ"+loginUser.getUserProfile());
 		model.addAttribute("userProfile",viewLists.get(0).getUserProfile());
 		model.addAttribute("userNickname",viewLists.get(0).getUserNickname());
 		model.addAttribute("postLikes",viewLists.get(0).getPostLikes());
@@ -304,7 +302,6 @@ public class GalleryController {
 			//3. 작가의 다른 정보 위해 각 포스트 몇개인지 총합, 각 포스트 썸네일, 포스트 no 가져와야함
 			List<GalleryDTO> infoLists = galleryService.galleryInfo(postNo);
 			GalleryDTO createrInfo = infoLists.get(0);
-			System.out.println("view 들어갈때 한번만 찍어보자 진짜 마지막: "+ createrInfo);
 			model.addAttribute("createrProfile",createrInfo.getUserProfile());
 			model.addAttribute("createrNickname",createrInfo.getUserNickname());
 			model.addAttribute("createrPostCount",createrInfo.getPostCount());
@@ -397,12 +394,10 @@ public class GalleryController {
 	   @ResponseBody
 	   public String filter(Model model, @RequestParam(value="sellList") String postSellorNot) throws JsonProcessingException{	 
 		  
-		   System.out.println("sell.do 시작????");
 		   List<GalleryDTO> result = galleryService.gallerySell(postSellorNot);
 		   
 			model.addAttribute("lists",result);
 			
-			  System.out.println(result);
 			return objectMapper.writeValueAsString(result);
 	   }
 	   

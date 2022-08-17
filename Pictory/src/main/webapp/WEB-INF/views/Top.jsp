@@ -22,7 +22,7 @@
 
 <style>
 	#show:hover {
-    	content: url('http://192.168.0.27:4040/springapp/upload/img/chatbotHi.png');
+    	content: url('http://localhost:4040/springapp/upload/img/chatbotHi.png');
 	}
 	.background {
 	  position: fixed;
@@ -88,9 +88,11 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="nav navbar-nav navbar-left ">
                     	<% if(session.getAttribute("userId")==null){ %>
+                    	<!-- 
                         <li class="nav-item">
                             <a href="<c:url value="/auth/Login.do"/>" id="nava">Feed</a>
                         </li>
+                         -->
                         <li class="nav-item">
                             <a href="<c:url value="/auth/Login.do"/>" id="nava">Gallery</a>
                         </li>
@@ -125,23 +127,28 @@
                             <a href="<c:url value="/auth/Logout.do"/>">Logout</a>
                         </li>
                         <%} %>
+                        <li class="nav-item">
+                            <a href="<c:url value="/notice/Index.do"/>" id="nava">Notice</a>
+                        </li>
                         
-                        <!-- Dropdown -->   
+                        <!-- Dropdown   
                         <li class="dropdown">Service
                             <div class="dropdown-content">
                                 <a href="<c:url value="/notice/Index.do"/>" id="nava">Notice</a>
-                                <a href="<c:url value="/faq/Index.do"/>" id="nava">FaQ</a>
                                 
+                                
+                                <a href="<c:url value="/faq/Index.do"/>" id="nava">FaQ</a>
+                               
                                 
                                 <c:if test="${sessionScope.userId eq 'ADMIN'}">
                                 <a href="<c:url value="/admin/Index.do"/>" id="nava">Admin</a>
                                 </c:if>
                             </div>
                         </li>
+                        --> 
 
                         <li class="dropdown">
-                            <img src="${pageContext.request.contextPath}/resources/img/userIcon.png"
-                                    style="width:30px; height:30px" />
+                            <img src="${pageContext.request.contextPath}/resources/img/userIcon.png" style="width:30px; height:30px" />
                             <div class="dropdown-content">
                                <a href="<c:url value="/mypage/Index.do"/>" id="nava">My PICTORY</a>
                               <!--  <a href="<c:url value="/message/DmList.do"/>" id="nava">Message</a>-->

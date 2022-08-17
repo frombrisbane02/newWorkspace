@@ -52,15 +52,6 @@ public class NoticeController {
 			//map.put(PagingUtil.NOW_PAGE, nowPage);
 			List<NoticeDTO> list=noticeService.noticeSelectList(map);	
 			
-			for(NoticeDTO dto : list) {
-			//	System.out.println(dto.getNoticeCategory());
-				System.out.println(dto.getNoticeCode());
-				System.out.println(dto.getNoticeContent());
-				System.out.println(dto.getNoticeNo());
-				System.out.println(dto.getNoticeTitle());
-				System.out.println(dto.getUserNo());
-				System.out.println(dto.getNoticeDate());
-			}
 			
 			//데이타 저장]		
 			model.addAttribute("list",list);
@@ -75,12 +66,10 @@ public class NoticeController {
 		public String noticeView(
 				@RequestParam Map map,Model model){
 			//서비스 호출]
-			System.out.println("넝어논아:"+map.get("noticeNo"));
 			NoticeDTO record= noticeService.selectOne(map);
 			
 			//데이타 저장]		
 			model.addAttribute("record", record);
-			System.out.println("공지사항 상세내용 안들어올래?");
 			return "notice/NoticeView.tiles";
 		}
 

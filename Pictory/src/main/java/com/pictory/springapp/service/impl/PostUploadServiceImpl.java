@@ -56,10 +56,6 @@ public class PostUploadServiceImpl implements PostUploadService<PostDTO> {
 		
 		}
 		
-		//0.1) 스토리 기존거 선택했으면 이미 있음..
-		System.out.println("서비스) 기존스토리 있지..?:"+map.get("sNo"));
-		
-		System.out.println("해시태그출력:<"+map.get("hashtags")+">");
 		
 		//1) 부모인 postInsert부터 호출
 		dao.postInsert(map);
@@ -80,7 +76,6 @@ public class PostUploadServiceImpl implements PostUploadService<PostDTO> {
 		
 		//4) photoInsert 후에 hashtag insert
 		if(map.get("hashtags")!=null && !map.get("hashtags").equals("")) {
-			System.out.println("해시태그 비어있는지 확인용(안비어있어요)");
 			dao.hashtagInsert(map);
 		}
 		else {System.out.println("해시태그 null임;;;;");}
@@ -88,8 +83,6 @@ public class PostUploadServiceImpl implements PostUploadService<PostDTO> {
 		
 		//5) 지도 있는 경우 지도 insert해야함
 		if(map.get("markerLocation")!=null && !map.get("markerLocation").equals("")) {
-			System.out.println("지도 첨부했군요?!?!?");
-			System.out.println("지도 첨부하는 postNo 뭐야???"+postNo);
 			map.put("postNo", postNo);
 			map.put("markerName", "출사정보");
 			dao.insertMarker(map);
@@ -116,15 +109,7 @@ public class PostUploadServiceImpl implements PostUploadService<PostDTO> {
 		
 		//2) photo 넣어야함 SEQ_POST.CURRVAL 갖고와서 int에 postNo로 넣고 전달하기
 		int postNo = dao.getPostNo();
-		System.out.println("ServiceImpl 내의 postNo:"+postNo);
 		map.put("postNo", postNo);
-		
-		System.out.println("===========service단 확인 출력=============");
-		System.out.println(map.get("postNo"));
-		System.out.println(map.get("photoName"));
-		System.out.println(map.get("photoSize"));
-		System.out.println(map.get("photoUrl"));
-		System.out.println("========================================");
 		
 		//photoInsert 호출
 		dao.photoInsert(map);
@@ -134,7 +119,6 @@ public class PostUploadServiceImpl implements PostUploadService<PostDTO> {
 		
 		//4) 다 했으면 hashtag 넣기
 		if(map.get("hashtags")!=null && !map.get("hashtags").equals("")) {
-			System.out.println("해시태그 null아님");
 			dao.hashtagInsert(map);
 		}
 		else {System.out.println("해시태그 null임;;;;");}
@@ -167,12 +151,6 @@ public class PostUploadServiceImpl implements PostUploadService<PostDTO> {
 	//파일 DB에 넣기
 	@Override
 	public int photoInsert(Map map) {
-		//ADD START DONGMI SHIN
-		System.out.println("postNo:"+map.get("postNo"));
-		System.out.println("photoSize:"+map.get("photoSize"));
-		System.out.println("photoName:"+map.get("photoName"));
-		System.out.println("photoUrl:"+map.get("photoUrl"));
-		System.out.println("productPrice:"+map.get("productPrice"));
 		
 		int photoNo = dao.insertPhoto(map);
 		
@@ -180,11 +158,8 @@ public class PostUploadServiceImpl implements PostUploadService<PostDTO> {
 			map.put("photoNo", String.valueOf(photoNo));
 			map.put("price", map.get("productPrice"));
 			
-			System.out.println("photoNo:"+photoNo);
-			System.out.println("price:"+map.get("productPrice"));
 			
 			int sucess = dao.productInsert(map);
-			System.out.println("productSucess:"+sucess);
 		}
 		return photoNo;
 		//ADD END DONGMI SHIN

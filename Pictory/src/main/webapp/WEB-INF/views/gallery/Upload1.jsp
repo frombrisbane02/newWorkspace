@@ -27,12 +27,12 @@ body {
 	<div class="card-deck">
 		<div class="card">
 		  	<a id="notsell" href="<c:url value="/gallery/post/Upload2.do?sellornot=notsell"/>">
-		      <img class="card-img" src="${pageContext.request.contextPath}/resources/img/upload/sell.png" alt="notsell" />
+		      <img class="card-img" src="${pageContext.request.contextPath}/resources/img/upload/notsell.png" alt="notsell" />
 		    </a>
 		</div>
 		<div class="card">
 			<a id="sell" href="<c:url value="/gallery/post/Upload2.do?sellornot=sell"/>">
-				<img class="card-img" src="${pageContext.request.contextPath}/resources/img/upload/notsell.png" alt="sell"/>
+				<img class="card-img" src="${pageContext.request.contextPath}/resources/img/upload/sell.png" alt="sell"/>
 			</a>
 		</div>
 	</div>

@@ -3,7 +3,7 @@
 
 <style>
 	#show:hover {
-    	content: url('http://192.168.0.27:4040/springapp/upload/img/chatbotHi.png');
+    	content: url('http://localhost:4040/springapp/upload/img/chatbotHi.png');
 	}
 	.background {
 	  position: fixed;
@@ -56,7 +56,7 @@
 	<!-- 쳇봇 버튼 -->
 	<div style="position:fixed; bottom:8.3rem; right:-0.6rem; z-index:99;"> 
 		<a href='#'>
-		  <img src="<c:url value="http://192.168.0.27:4040/springapp/upload/img/chatbot.png"/>" style="width:100px" id="show"> 
+		  <img src="<c:url value="http://localhost:4040/springapp/upload/img/chatbot.png"/>" style="width:100px" id="show"> 
 		</a>
 	</div>
 	

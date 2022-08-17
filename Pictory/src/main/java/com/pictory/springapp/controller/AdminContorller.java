@@ -675,14 +675,10 @@ public class AdminContorller {
 		//알람 테이블 인서트
 		//Map map = params.get(2);
 		for(HashMap<String, Object> oneParam : params) {
-			System.out.println("oneParam찍어보기@@@"+oneParam);
 			Map map = new HashMap();
 			map.put("qnaNo", oneParam.get("qnaNo"));
 			qnaService.alarmInsert(map);
 		}
-		
-		System.out.println("PARAMS@@@@@@@@@"+params);
-		System.out.println("CONTROLLER CHECK : " + result);
 		
 		
 		return result;

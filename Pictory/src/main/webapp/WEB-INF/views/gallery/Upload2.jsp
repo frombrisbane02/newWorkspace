@@ -133,6 +133,8 @@
 				<option value="figure" id="figure">인물</option>
 				<option value="object" id="object">정물</option>
 				<option value="landscape" id="landscape">풍경</option>
+				<option value="" id="">동물</option>
+				<option value="" id="">음식</option>
 				<option value="etc" id="etc">기타</option>
 			</select>
 		</div>
@@ -355,12 +357,12 @@
 		console.log('index:',index);
 		console.log('base64:',base64[index]);
 		
-		childWin=window.open('http://192.168.0.27:4040/springapp/editImage/EditImage.jsp','childpop','_blank','toolbar=no, menubar=no,scrollbars=no, width=1000, height=800').focus();
+		childWin=window.open('http://localhost:4040/springapp/editImage/EditImage.jsp','childpop','_blank','toolbar=no, menubar=no,scrollbars=no, width=1000, height=800').focus();
 	   	
 		document.frm.base64.value=base64[index];
 		document.frm.base64Index.value=index;
 	   	document.frm.target="childpop";
-	   	document.frm.action="http://192.168.0.27:4040/springapp/editImage/EditImage.jsp";
+	   	document.frm.action="http://localhost:4040/springapp/editImage/EditImage.jsp";
 	   	document.frm.submit();
 }
     var base64=[];
@@ -370,7 +372,7 @@
 	$('#openMap').click(function() {
 		
 		console.log('지도 버튼 클릭 했으');
-		window.open('http://192.168.0.27:4040/springapp/kakaomap/UploadMap.jsp', 'uploadMap','_blank','toolbar=no, menubar=no, scrollbars=no, width=1000, height=1000').focus();
+		window.open('http://localhost:4040/springapp/kakaomap/UploadMap.jsp', 'uploadMap','_blank','toolbar=no, menubar=no, scrollbars=no, width=1000, height=1000').focus();
 		
 	});
 	

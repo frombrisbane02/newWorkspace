@@ -54,7 +54,6 @@ public class FeedController {
 		//정보저장 후 페이지 이동
 		model.addAttribute("feedInfo",dto);
 		
-		System.out.println("아아"+session.getAttribute("userId"));
 	}
 
 	

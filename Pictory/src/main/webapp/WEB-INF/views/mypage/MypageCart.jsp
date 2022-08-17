@@ -132,6 +132,13 @@
 </html>
 
 <script>
+	$(document).ready(function() {
+		   $('.topBtn').hide();
+		   $('.bottomBtn').hide();
+		   $('#chatbot-div').hide();
+		});
+
+
 	IMP.init("imp58485321"); // 예: imp00000000
  	function purchase(){
  		// console.log('클릭이벤트 발생');

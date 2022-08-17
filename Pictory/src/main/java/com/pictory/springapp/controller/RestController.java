@@ -40,14 +40,14 @@ public class RestController {
 		try {
 			
 			String userId = req.getParameter("userId");	
-			System.out.println("userId:"+userId);	
+			//System.out.println("userId:"+userId);	
 			String postNo = req.getParameter("postNo");		
-			System.out.println("postNo:"+postNo);	
+			//System.out.println("postNo:"+postNo);	
 		
 			String productPrice = req.getParameter("productPrice");		
-			System.out.println("productPrice:"+productPrice);	
+			//System.out.println("productPrice:"+productPrice);	
 			List<MultipartFile> files=req.getFiles("uploadFile");
-			System.out.println("다중파일 업로드 갯수:"+files.size());
+			//System.out.println("다중파일 업로드 갯수:"+files.size());
 			
 			
 			//서버의 물리적 경로 얻기
@@ -61,7 +61,7 @@ public class RestController {
 				}
 				//File객체 생성			
 				File f = new File(file.getAbsolutePath()+File.separator+upload.getOriginalFilename());
-				System.out.println("f.getName()(파일명):"+f.getName());
+				//System.out.println("f.getName()(파일명):"+f.getName());
 				//업로드
 				upload.transferTo(f);
 				
@@ -72,7 +72,7 @@ public class RestController {
 				map.put("photoUrl",req.getParameter("userId")+"/"+f.getName());
 				map.put("productPrice",req.getParameter("productPrice"));
 				String photoNo =String.valueOf(postUploadService.photoInsert(map));
-				System.out.println("photoNo:"+photoNo);
+				//System.out.println("photoNo:"+photoNo);
 			}			
 			map.put("isSucess","Sucess");
 			

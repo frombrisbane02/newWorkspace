@@ -121,7 +121,7 @@ public class MemberServiceImpl implements MemberService<MemberDTO>{
 			sb.append("grant_type=authorization_code");
             
 			sb.append("&client_id=864c0c83f5039090b5065e41a69f1f0f"); 
-			sb.append("&redirect_uri=http://192.168.0.27:4040/springapp/member/kakaoLogin.do");
+			sb.append("&redirect_uri=http://localhost:4040/springapp/member/kakaoLogin.do");
             
 			sb.append("&code=" + authorize_code);
 			bw.write(sb.toString());
@@ -275,7 +275,6 @@ public class MemberServiceImpl implements MemberService<MemberDTO>{
 	@Override
 	public void deleteLikePost(int postNo) {
 		dao.deleteLikePost(postNo);
-		System.out.println("서비스임플"+postNo);
 	}
 
 }

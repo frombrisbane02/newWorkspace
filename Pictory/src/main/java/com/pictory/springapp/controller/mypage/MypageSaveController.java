@@ -61,14 +61,13 @@ public class MypageSaveController {
 	@ResponseBody
 	@RequestMapping(value="LikeDelete.do",method=RequestMethod.GET)
 	public String  nDeleteGet(int postNo) {
-		System.out.println("LikeDelete 컨트롤러 들어옴?? "+postNo);
+	
 		memberService.deleteLikePost(postNo);
 		return "redirect:/mypage/Like.do";
 	}
 	
 	@RequestMapping("Buy.do")
 	public String buy(HttpSession session, Model model) {
-		System.out.println("마이페이지 내가 산 사진 컨트롤러");
 		
 		String id = (String) session.getAttribute("userId");
 		MemberDTO member = memberService.readMember(id);
@@ -86,8 +85,8 @@ public class MypageSaveController {
 	public void fileDownload(HttpServletRequest request, HttpServletResponse response, @RequestParam("name") String name) throws Exception {
 		
 		String[] names=name.split("/");
-		System.out.println("파일명:"+names[names.length-1]);
-		System.out.println("다운로드 경로:"+String.format("/%s/%s/%s", names[4],names[5],names[6]));
+		//System.out.println("파일명:"+names[names.length-1]);
+		//System.out.println("다운로드 경로:"+String.format("/%s/%s/%s", names[4],names[5],names[6]));
 		
 		FileUpDownUtils.download(request, response, names[names.length-1], String.format("/%s/%s/%s", names[4],names[5],names[6]));
 		

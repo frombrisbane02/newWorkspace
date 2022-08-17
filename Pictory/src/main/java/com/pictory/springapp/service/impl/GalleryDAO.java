@@ -45,7 +45,10 @@ public class GalleryDAO {
 			rawList.setCartornot(cartornot);
 			
 			rawList.setPhotoUrl(resource+rawList.getPhotoUrl());
-			rawList.setUserProfile(resource+rawList.getUserProfile());
+			
+			if(!(rawList.getUserProfile().contains("k.kakaocdn.net"))) {
+				rawList.setUserProfile(resource+rawList.getUserProfile());
+			}
 			
 			switch(rawList.getPostCategory()) {
 				case "landscape": rawList.setPostCategory("풍경"); break;
@@ -242,13 +245,11 @@ public class GalleryDAO {
 	}
 	
 	public List<GalleryDTO> selectSell(String postSellorNot){
-		System.out.println("종근 sell dto");
 	List<GalleryDTO> seller = template.selectList("sell",postSellorNot);
 	for(GalleryDTO sell : seller) {
 		sell.setPhotoUrl(resource+sell.getPhotoUrl());
 		sell.setUserProfile(resource+sell.getUserProfile());	
 	}
-	System.out.println("종근22222 sell dto");
 	return seller;
 	}
 	

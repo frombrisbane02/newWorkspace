@@ -31,14 +31,14 @@ public class GalleryController {
 	//작품 태그 리스트
 	@CrossOrigin
 	@PostMapping("/galley/galleryList")
-	public List<GalleryDTO> galleryList(@RequestParam Map<String, String> map) {		
+	public List<GalleryDTO> galleryList(@RequestParam Map<String, String> map) {
 		return galleryService.galleryList(map);
 	}
 	
 	@CrossOrigin
 	@PostMapping("/galley/storyList")
 	public List<GalleryDTO> storyList(GalleryDTO dto) {
-		System.out.println("userNoStroy:"+dto.getUserNo());
+		//System.out.println("userNoStroy:"+dto.getUserNo());
 		return galleryService.storyList(dto);
 	}
 	
@@ -58,7 +58,7 @@ public class GalleryController {
 		
 		for(GalleryDTO photo:photos) {
 			Map<String,String> map = new HashMap<>();
-			map.put("image_url","http://192.168.0.27:4040/springapp/upload/img/"+photo.getPhotoUrl());
+			map.put("image_url","http://localhost:4040/springapp/upload/img/"+photo.getPhotoUrl());
 			map.put("image_title",photo.getPhotoName());
 			map.put("image_id",photo.getPhotoNo());
 			lists.add(map);
@@ -79,13 +79,14 @@ public class GalleryController {
 	@CrossOrigin
 	@PostMapping("/galley/createrList")
 	public List<GalleryDTO> createrList(GalleryDTO dto) {	
+		System.out.println("userNo:"+dto.getUserNo());
 		return galleryService.createrList(dto);
 	}
 	
 	@CrossOrigin
 	@PostMapping("/galley/salesGalleryList")
 	public List<GalleryDTO> salesGalleryList(GalleryDTO dto) {
-		System.out.println("userNo:"+dto.getUserNo());
+		//System.out.println("userNo:"+dto.getUserNo());
 		return galleryService.salesGalleryList(dto);
 	}
 	
@@ -185,22 +186,22 @@ public class GalleryController {
 	@CrossOrigin
 	@PostMapping("/gallery/insertPost")
 	public Map<String,String> insertPost(@RequestParam Map<String,String> map) {
-		System.out.println("userNo:"+map.get("userNo"));
+		/*System.out.println("userNo:"+map.get("userNo"));
 		System.out.println("sNo:"+map.get("sNo"));
 		System.out.println("postTitle:"+map.get("postTitle"));
 		System.out.println("postSellOrNot:"+map.get("postSellOrNot"));
 		System.out.println("postCategory:"+map.get("postCategory"));
-		System.out.println("postText:"+map.get("postText"));		
+		System.out.println("postText:"+map.get("postText"));	*/	
 		String postNo = galleryService.insertPost(map);
 		map.put("postNo", postNo);
-		System.out.println("postno:"+postNo);
+		//System.out.println("postno:"+postNo);
 		return map;
 	}
 	
 	@CrossOrigin
 	@PostMapping("/gallery/storyView")
 	public GalleryDTO storyView(GalleryDTO dto) {
-		System.out.println("sNo:"+dto.getSNo());		
+		//System.out.println("sNo:"+dto.getSNo());		
 		return galleryService.storyView(dto);
 	}
 	
@@ -213,8 +214,8 @@ public class GalleryController {
 	@CrossOrigin
 	@PostMapping("/gallery/insertFollow")
 	public void insertFollow(GalleryDTO dto) {
-		System.out.println("userNo:"+dto.getUserNo());
-		System.out.println("creatorNo:"+dto.getCreatorNo());
+		//System.out.println("userNo:"+dto.getUserNo());
+		//System.out.println("creatorNo:"+dto.getCreatorNo());
 		
 		int affected = galleryService.insertFollow(dto);
 
@@ -225,8 +226,8 @@ public class GalleryController {
 	@CrossOrigin
 	@PostMapping("/gallery/deleteFollow")
 	public void deleteFollow(GalleryDTO dto) {
-		System.out.println("userNo:"+dto.getUserNo());
-		System.out.println("creatorNo:"+dto.getCreatorNo());
+		//System.out.println("userNo:"+dto.getUserNo());
+		//System.out.println("creatorNo:"+dto.getCreatorNo());
 		
 		int affected = galleryService.deleteFollow(dto);
 	

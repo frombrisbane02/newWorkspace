@@ -208,9 +208,11 @@
 		
 		$(".hover_btn > li:nth-child(1) >a").click(function(e){  
 			
-         const postNo = $(this).attr('href');
-         const postNum = Number(postNo);
-         const userId = document.getElementById('getuserId').value;
+         var postNo = $(this).attr('href');
+         var postNum = Number(postNo);
+         var userId = document.getElementById('getuserId').value;
+         
+       
          
          var likesrc = $(this).children("img").attr("src")==='${pageContext.request.contextPath}/resources/img/gallerylist/test_icon06.png' ? "${pageContext.request.contextPath}/resources/img/gallerylist/test_icon06red.png" : "${pageContext.request.contextPath}/resources/img/gallerylist/test_icon06.png";
      	$(this).children('img').attr('src',likesrc);
@@ -219,9 +221,11 @@
                  type:"POST",
                  url:"<c:url value='post/Likes.do'/>",
                  data: "postNo="+postNo+"&userId="+userId
-                 }).done(function(data){ 
-                	 $('li:nth-last-child('+ postNum +') > a > div> p > span:nth-child(2)').text(data);
-                
+                 }).done(function(data){
+                	 
+                	  var likelike = document.getElementById('plike'+postNum).innerHTML;
+                      document.getElementById('plike'+postNum).innerHTML = data;
+     
             	
               }).fail(function(request,status,error){
                 alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
@@ -281,7 +285,7 @@
                             				
                             				result.forEach(function(item, index){
                      							
-                            					var localurl = 'http://192.168.0.27:4040';
+                            					var localurl = 'http://localhost:4040';
                      							
                      							
                      							html = $('<li class="photo_area">' +
@@ -289,7 +293,7 @@
                      		 									'<div class="img_area" style="background-image: url('+item.photoUrl+');">'+'<img src="'+localurl+'/springapp/resources/img/gallerylist/fake02.png" alt="">'+'</div>'+
                      		 									'<div class="txt_area">'+
                      		 										'<p>'+'<img src="'+item.userProfile+'" alt="" class="pro_p">'+item.userNickname+'</p>'+
-                     		 										'<p>'+'<img src="'+localurl+'/springapp/resources/img/gallerylist/test_icon06.png" alt="" class="pro_icon">'+'<span>'+item.postLikes+'</span>'+'<img src="http://192.168.0.27:4040/springapp/resources/img/gallerylist/test_icon07.png" alt="" class="pro_icon">'+'<span>'+item.commentCount+'</span>'+'</p>'+
+                     		 										'<p>'+'<img src="'+localurl+'/springapp/resources/img/gallerylist/test_icon06.png" alt="" class="pro_icon">'+'<span>'+item.postLikes+'</span>'+'<img src="http://localhost:4040/springapp/resources/img/gallerylist/test_icon07.png" alt="" class="pro_icon">'+'<span>'+item.commentCount+'</span>'+'</p>'+
                      		 									'</div>'+
                      		 								'</a>'+
                      		 								'<ul class="hover_btn">'+
@@ -406,7 +410,7 @@
                     				
              						result.forEach(function(item, index){
              							
-             							var localurl = 'http://192.168.0.27:4040';
+             							var localurl = 'http://localhost:4040';
              							
              							
              							html = $('<li class="photo_area">' +
@@ -414,7 +418,7 @@
              		 									'<div class="img_area" style="background-image: url('+item.photoUrl+');">'+'<img src="'+localurl+'/springapp/resources/img/gallerylist/fake02.png" alt="">'+'</div>'+
              		 									'<div class="txt_area">'+
              		 										'<p>'+'<img src="'+item.userProfile+'" alt="" class="pro_p">'+item.userNickname+'</p>'+
-             		 										'<p>'+'<img src="'+localurl+'/springapp/resources/img/gallerylist/test_icon06.png" alt="" class="pro_icon">'+'<span>'+item.postLikes+'</span>'+'<img src="http://192.168.0.27:4040/springapp/resources/img/gallerylist/test_icon07.png" alt="" class="pro_icon">'+'<span>'+item.commentCount+'</span>'+'</p>'+
+             		 										'<p>'+'<img src="'+localurl+'/springapp/resources/img/gallerylist/test_icon06.png" alt="" class="pro_icon">'+'<span>'+item.postLikes+'</span>'+'<img src="http://localhost:4040/springapp/resources/img/gallerylist/test_icon07.png" alt="" class="pro_icon">'+'<span>'+item.commentCount+'</span>'+'</p>'+
              		 									'</div>'+
              		 								'</a>'+
              		 								'<ul class="hover_btn">'+
