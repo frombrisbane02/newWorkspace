@@ -205,7 +205,7 @@
             <div id="map">
             <div id="clickLatlng"></div>
         </div>
-        <button id="completebtn" style="display:block; width: 500px; height:50px; background-color:black; color:white;">출사 정보 등록</button>
+        <button id="completebtn" style="display:block; width:100%; height:50px; background-color:black; color:white;">출사 정보 등록</button>
     </div>
     <form>
     	<input type="hidden" value="" name="palat" id="palat"/>

@@ -25,14 +25,18 @@ public class SearchDAO {
 	// 통합검색
 	public List<SearchDTO> searchSelect(Map map) {
 	
-		System.out.println("dao 들어왔냐"+map.get("searchName"));
+		//System.out.println("dao 들어왔냐"+map.get("searchName"));
 		List<SearchDTO> result=template.selectList("searchSelect", map);
 				for(SearchDTO oneResult : result) {
 //					System.out.println("DAO포문 입장");
 //					System.out.println("postno"+ oneResult.getPostNo());
 //					System.out.println("userNickname"+ oneResult.getUserNickname());
+					
 					oneResult.setPhotoUrl(resource+oneResult.getPhotoUrl());
-					oneResult.setUserProfile(resource+oneResult.getUserProfile());
+					if(!(oneResult.getUserProfile().contains("k.kakaocdn.net"))) {
+						oneResult.setUserProfile(resource+oneResult.getUserProfile());
+					}
+
 					
 //					  switch(oneResult.getPostCategory()) { 
 //					  case "landscape":oneResult.setPostCategory("풍경"); break; 

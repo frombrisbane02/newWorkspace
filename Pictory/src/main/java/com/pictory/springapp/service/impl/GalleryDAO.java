@@ -77,7 +77,10 @@ public class GalleryDAO {
 		//작가 정보 뿌려주기 위한 서비스 호출
 		List<GalleryDTO> userInfos = template.selectList("userInfo",postNo);
 		for(GalleryDTO userInfo : userInfos) {
-			userInfo.setUserProfile(resource+userInfo.getUserProfile());
+			
+			if(!(userInfo.getUserProfile().contains("k.kakaocdn.net"))) {
+				userInfo.setUserProfile(resource+userInfo.getUserProfile());
+			}
 		}
 		
 		return userInfos;
@@ -91,7 +94,11 @@ public class GalleryDAO {
 		List<GalleryDTO> filters = template.selectList("filter",postCategory);
 		for(GalleryDTO filter : filters) {
 			filter.setPhotoUrl(resource+filter.getPhotoUrl());
-			filter.setUserProfile(resource+filter.getUserProfile());
+			
+			if(!(filter.getUserProfile().contains("k.kakaocdn.net"))) {
+				filter.setUserProfile(resource+filter.getUserProfile());
+			}
+			
 			
 			switch(filter.getPostCategory()) {
 			case "landscape": filter.setPostCategory("풍경"); break;

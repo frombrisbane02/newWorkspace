@@ -265,7 +265,7 @@
 - 크리에이터가 올리는 모든 사진에 대한 책임은 크리에이터 본인에게 있습니다.
 - 해당 사진에 대한 저작권 침해 사실이 인정되는 경우 저작권법 등에 따라 법적 책임을 질 수 있습니다.
 - 타인을 대신해 판매하거나 권리를 양도받을 수 없습니다.
-- 판매하는 자신에는 자동으로 워터마크가 표시되며, 이를 원치 않는 경우 업로드를 중지할 수 있습니다.
+- 판매하는 사진에는 자동으로 워터마크가 표시되며, 이를 원치 않는 경우 업로드를 중지할 수 있습니다.
 - 판매 내역, 판매 금액, 정산 관련 내역은 마이페이지에서 확인 가능합니다.</textarea>
 			</div>
 			<div class="form-check">
@@ -372,7 +372,7 @@
 	$('#openMap').click(function() {
 		
 		console.log('지도 버튼 클릭 했으');
-		window.open('http://localhost:4040/springapp/kakaomap/UploadMap.jsp', 'uploadMap','_blank','toolbar=no, menubar=no, scrollbars=no, width=1000, height=1000').focus();
+		window.open('http://localhost:4040/springapp/kakaomap/UploadMap.jsp', 'uploadMap','_blank','toolbar=no, menubar=no, scrollbars=no, width=600, height=800').focus();
 		
 	});
 	

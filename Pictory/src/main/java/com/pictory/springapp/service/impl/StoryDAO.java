@@ -26,7 +26,8 @@ public class StoryDAO<T> {
 	   
 	   for(StoryDTO list: lists) {
 		   list.setStoryThumbnail(resource+list.getStoryThumbnail());
-		   list.setUserProfile(resource+list.getUserProfile());
+		   
+		  list.setUserProfile(resource+list.getUserProfile());
 	   }
 	   
 	   
