@@ -1,32 +1,45 @@
 ![image](https://github.com/frombrisbane02/newWorkspace/assets/106237178/8ae91595-824d-47be-8ad5-33beaa44a4ad)
 
 STOCK 사진 거래 플랫폼 PICTORY
+---
 
-● 기획의도
+기획의도
+---
 사진 찍고 올리니, 내 통장에 月100만원 / N잡러 연금사이트 스톡사진
+
+
 PICTORY는 기존 정적인 사진 커뮤니티의 단점을 보완하고자 설계된 웹/앱입니다.
 
-●일정
+일정
+---
+
 22.05.27 ~ 22.08.17
 
-● 특징
+특징
+---
+
 - 정적 사진을 동적으로
 - 다양한 보정 기능 제공
 - 사진의 자산화, 모두가 크리에이터로
 
-● 사용 기술 및 개발 플랫폼
+사용 기술 및 개발 플랫폼
+---
 ![image](https://github.com/frombrisbane02/newWorkspace/assets/106237178/cfc90476-ad53-4aa5-8191-da6e7c1bc5e9)
 
-● Front/Backend Service Architecture
+Front/Backend Service Architecture
+---
 ![image](https://github.com/frombrisbane02/newWorkspace/assets/106237178/b07fb901-b913-4ee9-a63b-ac0a5b00cb8d)
 
-● Database 설계
+Database 설계
+---
 ![image](https://github.com/frombrisbane02/newWorkspace/assets/106237178/e47b88a2-ae25-42cc-abf8-25d2c018f30c)
 
-● UML
+UML
+---
 ![image](https://github.com/frombrisbane02/newWorkspace/assets/106237178/e74a091c-3700-48f8-92a7-21371432971a)
 
-● 주요기능
+### 주요기능
+---
 - 가상전시관
 ![image](https://github.com/frombrisbane02/newWorkspace/assets/106237178/c13dc889-9f75-459b-a367-47d40502c3fb)
 
